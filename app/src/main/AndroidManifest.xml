@@ -37,7 +37,7 @@
 
 
         <provider android:name="com.ssessment.search.MySuggestionProvider"
-                  android:authorities="com.ssessmentsPrvaVerzija.search.MySuggestionProvider"/>
+                  android:authorities="com.ssessment.search.MySuggestionProvider"/>
 
 
     </application>
