@@ -1,0 +1,55 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="searchViewStyle">@style/MySearchViewStyle</item>
+        <item name="android:fontFamily">@font/myfontfamilyregular</item>
+    </style>
+
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Background for the search query section (e.g. EditText) -->
+        <item name="queryBackground">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/myfontfamilyregular</item>
+
+    </style>
+
+
+    <style name="myToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/myfontfamilymedium</item>
+
+    </style>
+
+    <style name="MyButtonSmall" parent="Widget.AppCompat.Button.Small">
+        <item name="android:textColor">@color/logoPurple</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="MyButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">28dp</item>
+
+
+    </style>
+
+    <style name="MyButtonPressed" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/logoPurple</item>
+        <item name="android:fontFamily">@font/pfdintextpro_regular_0</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">28dp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+
+
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_main.xml"
+            app:startDestination="@id/mainFragment">
+
+    <fragment android:id="@+id/openingFragment" android:name="com.ssessmentsPrvaVerzija.open_and_login.OpeningFragment"
+              android:label="fragment_opening" tools:layout="@layout/fragment_opening"/>
+    <fragment android:id="@+id/mainFragment" android:name="com.ssessmentsPrvaVerzija.mainFragment" android:label="Ssessments"
+    />
+    <fragment android:id="@+id/logIn_Fragment" android:name="com.ssessmentsPrvaVerzija.open_and_login.LogIn_Fragment"
+              android:label="LogIn_Fragment">
+        <action android:id="@+id/action_logIn_Fragment_to_mainFragment" app:destination="@id/mainFragment"/>
+    </fragment>
+    <fragment android:id="@+id/mySettingsFragment" android:name="com.ssessmentsPrvaVerzija.MySettingsFragment"
+              android:label="Notifications" tools:layout="@layout/fragment_my_settings"/>
+
+</navigation>
