@@ -9,7 +9,6 @@
                 app:key="notifications0"
                 app:title="South East Asia market"
                 android:textSize="10sp"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox0"
                 android:checked="true"
                 />

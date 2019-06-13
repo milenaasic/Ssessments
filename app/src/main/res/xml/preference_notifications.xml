@@ -34,28 +34,24 @@
         <CheckBoxPreference
                 app:key="notifications3"
                 app:title="PE"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox3"
                 android:checked="true"
         />
         <CheckBoxPreference
                 app:key="notifications4"
                 app:title="PP"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox4"
                 android:checked="true"
         />
         <CheckBoxPreference
                 app:key="notifications5"
                 app:title="PVC"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox5"
                 android:checked="true"
         />
         <CheckBoxPreference
                 app:key="notifications6"
                 app:title="PET"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox6"
                 android:checked="true"
         />
@@ -63,7 +59,6 @@
         <CheckBoxPreference
                 app:key="notifications7"
                 app:title="PS &amp; ABS"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox7"
                 android:checked="true"
         />
@@ -76,28 +71,24 @@
         <CheckBoxPreference
                 app:key="notifications8"
                 app:title="DailySSESSMENTS"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox8"
                 android:checked="true"
         />
         <CheckBoxPreference
                 app:key="notifications9"
                 app:title="WeeklySSESSMENTS"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox9"
                 android:checked="true"
         />
         <CheckBoxPreference
                 app:key="notifications10"
                 app:title="NewsSSESSMENTS"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox10"
                 android:checked="true"
         />
         <CheckBoxPreference
                 app:key="notifications11"
                 app:title="AlertSSESSMENTS"
-                android:fontFamily="@font/pfdintextcondpro_regular_0"
                 android:id="@+id/checkbox11"
                 android:checked="true"
         />
