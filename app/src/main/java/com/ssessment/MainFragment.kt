@@ -42,6 +42,6 @@ class mainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val activity:AppCompatActivity= activity as AppCompatActivity
-        activity.tagsLayout.visibility=View.VISIBLE
+        //activity.tagsLayout.visibility=View.VISIBLE
     }
 }

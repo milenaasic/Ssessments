@@ -14,7 +14,7 @@ class MySettingsFragment : PreferenceFragmentCompat() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         val activity: AppCompatActivity = activity as AppCompatActivity
-        activity.tagsLayout.visibility=View.GONE
+        //activity.tagsLayout.visibility=View.GONE
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

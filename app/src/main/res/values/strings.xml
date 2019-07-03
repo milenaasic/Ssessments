@@ -12,5 +12,10 @@
 
     <!-- search interface-->
     <string name="app_label">Ssessments</string>
+
+
     <string name="search_hint">Search News</string>
+    <string name="region_1">SEA</string>
+    <string name="region_2">NEA</string>
+    <string name="region_3">Indian Subcontinent</string>
 </resources>

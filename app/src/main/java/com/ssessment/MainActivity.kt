@@ -8,17 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.NestedScrollView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.navigation.NavigationView
 import com.ssessment.search.MySuggestionProvider
 
@@ -34,13 +35,27 @@ class MainActivity : AppCompatActivity() {
         val myToolbar=findViewById<Toolbar>(R.id.toolbar)
         val myDrawerLayout: DrawerLayout =findViewById<DrawerLayout>(R.id.myDrawerLayout)
         val myNavigationView: NavigationView =findViewById<NavigationView>(R.id.myNavigationView)
+        val myBottomNavBar:BottomNavigationView=findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        /*val chipGroup = findViewById<ChipGroup>(R.id.chip_regions)
+        val inflator = LayoutInflater.from(chipGroup.context)
+
+        val chip1 = inflator.inflate(R.layout.chip_single_region, chipGroup, false) as Chip
+        chip1.text = "China"
+        chip1.tag = "China"
+        chip1.setOnCheckedChangeListener { button, isChecked ->
+            //viewModel.onFilterChanged(button.tag as String, isChecked)
+        }
+
+        chipGroup.addView(chip1)*/
+
 
         setSupportActionBar(myToolbar)
 
-        tags=findViewById<ConstraintLayout>(R.id.tagsLayout)
+       // tags=findViewById<ConstraintLayout>(R.id.tagsLayout)
 
         navController=findNavController(R.id.mainNavHostFragment)
         NavigationUI.setupWithNavController(myToolbar,navController)
+        NavigationUI.setupWithNavController(myBottomNavBar,navController)
 
         //povezivanje Toolbara da bi pravilno prikazao Up odnosno drawer ikonicu
         NavigationUI.setupWithNavController(myToolbar, navController, myDrawerLayout)
@@ -54,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.settings, menu)
+        inflater.inflate(R.menu.settings2, menu)
         Log.v("milena ","on create")
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         var searchView = (menu!!.findItem(R.id.action_search).actionView as SearchView).apply {

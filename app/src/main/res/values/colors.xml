@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e0e0e0</color>
-    <color name="colorPrimaryDark">#4e005e</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#4E005E</color>
     <color name="colorAccent">#Fa8232</color>
 
     <color name="logoDeepBlue">#192882</color>
@@ -11,7 +11,7 @@
     <color name="logoPink">#E61E8C</color>
     <color name="logoPurpleMatchingSecondary">#4E005E</color>
 
-    <color name="lightGrey">#e0e0e0</color>
+    <color name="lightGrey">#E0E0E0</color>
     <color name="white">#ffffff</color>
 
 

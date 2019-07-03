@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/hor_scrool_for_chips"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_scrollFlags="scroll|enterAlways"
+    >
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_products"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+
+            android:id="@+id/chip_PE"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PE"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipBackgroundColor="@color/state_color_highlight"
+            tools:text="china" />
+
+        <com.google.android.material.chip.Chip
+
+            android:id="@+id/chip_PP"
+            android:text="PP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/state_color_highlight_products"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:checkedIconEnabled="true"
+            tools:text="china" />
+
+        <com.google.android.material.chip.Chip
+
+            android:id="@+id/chip_PVC"
+            android:text="PVC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/state_color_highlight_products"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:checkedIconEnabled="true"
+            tools:text="china" />
+
+        <com.google.android.material.chip.Chip
+
+            android:id="@+id/chip_A13333BS"
+            android:text="ABS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/state_color_highlight_products"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:checkedIconEnabled="true"
+            tools:text="china" />
+
+        <com.google.android.material.chip.Chip
+
+            android:id="@+id/chip_PVC2"
+            android:text="PV123453C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/state_color_highlight_products"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:checkedIconEnabled="true"
+            tools:text="china" />
+
+        <com.google.android.material.chip.Chip
+
+            android:id="@+id/chip_ABS2"
+            android:text="ABS123456"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/state_color_highlight_products"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:checkedIconEnabled="true"
+            tools:text="china" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+</HorizontalScrollView>
+
