@@ -1,14 +1,13 @@
-package com.ssessment
+package com.ssessments
 
 
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
-import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MySettingsFragment : PreferenceFragmentCompat() {
+class PreferenceFragment : PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

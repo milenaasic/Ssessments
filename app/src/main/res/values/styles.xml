@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
+        <item name="alertDialogTheme">@style/MyAlertDialogTheme</item>
         <item name="android:fontFamily">@font/myfontfamilyregular</item>
     </style>
 
@@ -23,6 +24,27 @@
         <item name="android:fontFamily">@font/myfontfamilymedium</item>
 
     </style>
+
+    <style name="MyAlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/logoPurpleMatchingSecondary</item>
+        <item name="android:textAppearance">@style/MyTextAppearanceDialogButton</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/logoPurpleMatchingSecondary</item>
+        <item name="android:textAppearance">@style/MyTextAppearanceDialogButton</item>
+    </style>
+
+    <style name="MyTextAppearanceDialogButton" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 
     <style name="MyButtonSmall" parent="Widget.AppCompat.Button.Small">
         <item name="android:textColor">@color/logoPurple</item>

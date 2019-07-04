@@ -1,4 +1,4 @@
-package com.ssessment
+package com.ssessments
 .open_and_login
 
 
@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.ssessment.R
+import com.ssessments.R
 
 
 class OpeningFragment : Fragment() {

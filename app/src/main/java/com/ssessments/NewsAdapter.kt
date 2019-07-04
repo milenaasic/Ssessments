@@ -1,11 +1,11 @@
-package com.ssessment
+package com.ssessments
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ssessment.data.NewsItem
+import com.ssessments.data.NewsItem
 
 class NewsAdapter(var list: List<NewsItem>):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 

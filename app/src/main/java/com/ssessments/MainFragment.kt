@@ -1,4 +1,4 @@
-package com.ssessment
+package com.ssessments
 
 
 import android.os.Bundle
@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.ssessment.data.getNewsItemArray
-import kotlinx.android.synthetic.main.activity_main.*
+import com.ssessments.data.getNewsItemArray
 
 
 class mainFragment : Fragment() {

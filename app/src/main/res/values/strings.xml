@@ -12,10 +12,56 @@
 
     <!-- search interface-->
     <string name="app_label">Ssessments</string>
-
-
     <string name="search_hint">Search News</string>
-    <string name="region_1">SEA</string>
-    <string name="region_2">NEA</string>
-    <string name="region_3">Indian Subcontinent</string>
+
+    <!-- chips-->
+    <string name="chip_1">China</string>
+    <string name="chip_2">Indian Subcontinent</string>
+    <string name="chip_3">PVC</string>
+    <string name="chip_4">PE</string>
+    <string name="chip_5">NewsSSESSMENTS</string>
+    <string name="chip_6">DailySSESSMENTS</string>
+
+    <string name="apply_filter">APPLY</string>
+    <string name="cancel_filter">CANCEL</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="search_filter">Search filter</string>
+    <string name="region">Region</string>
+    <string name="product">Product</string>
+    <string name="ssessment">Ssessment</string>
+    <string name="quick_filter">Quick search</string>
+
+    <!-- spinner regions-->
+    <string-array name="spinner_regions">
+        <item>All</item>
+        <item>North East Asia</item>
+        <item>China</item>
+        <item>South East Asia</item>
+        <item>Indonesia</item>
+        <item>Vietnam</item>
+        <item>Malaysa</item>
+        <item>Australia</item>
+        <item>India</item>
+    </string-array>
+    <!-- spinner products-->
+    <string-array name="spinner_products">
+        <item>All</item>
+        <item>PE</item>
+        <item>PP</item>
+        <item>PVC</item>
+        <item>PET</item>
+        <item>PS</item>
+    </string-array>
+    <!-- spinner ssessments-->
+    <string-array name="spinner_ssessments">
+        <item>All</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>News</item>
+        <item>Price</item>
+    </string-array>
+
+
 </resources>

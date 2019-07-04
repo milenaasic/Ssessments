@@ -14,7 +14,7 @@
     <group android:checkableBehavior="single">
 
         <item
-                android:id="@+id/mySettingsFragment"
+                android:id="@+id/preference_fragment"
                 android:title="@string/notifications"
                 android:icon="@android:drawable/ic_menu_send"
         />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ssessment">
+          package="com.ssessments">
 
     <application
             android:allowBackup="true"
@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.ssessments.MainActivity"
                   android:launchMode="singleTop">
 
             <intent-filter>
@@ -30,8 +30,8 @@
         </activity>
 
 
-        <provider android:name=".search.MySuggestionProvider"
-                  android:authorities="com.ssessment.search.MySuggestionProvider"/>
+        <provider android:name="com.ssessments.search.MySuggestionProvider"
+                  android:authorities="com.ssessments.search.MySuggestionProvider"/>
 
 
     </application>

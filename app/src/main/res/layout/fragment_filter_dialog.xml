@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/Title"
+            android:text="@string/search_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toTopOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+
+        <TextView
+                android:text="@string/region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/region_spinner_title" app:layout_constraintStart_toStartOf="@+id/Title"
+                app:layout_constraintTop_toBottomOf="@+id/Title"
+                android:layout_marginTop="32dp" tools:text="Region"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_region"
+            app:layout_constraintTop_toTopOf="@+id/region_spinner_title"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/region_spinner_title"
+            app:layout_constraintStart_toStartOf="@+id/guideline"/>
+
+        <TextView
+                android:text="@string/product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_spinner_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/region_spinner_title"
+                app:layout_constraintStart_toStartOf="@+id/region_spinner_title"/>
+        <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_products"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_region"
+                app:layout_constraintTop_toTopOf="@+id/product_spinner_title"
+                app:layout_constraintBottom_toBottomOf="@+id/product_spinner_title"
+                app:layout_constraintStart_toStartOf="@+id/guideline"/>
+
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:id="@+id/guideline"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.36"/>
+        <TextView
+                android:id="@+id/ssessments_spinner_title"
+                android:text="@string/ssessment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintTop_toBottomOf="@+id/product_spinner_title" android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/product_spinner_title"/>
+    <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_ssessments" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp" app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toTopOf="@+id/ssessments_spinner_title"
+            app:layout_constraintBottom_toBottomOf="@+id/ssessments_spinner_title"/>
+    <TextView
+            android:text="@string/quick_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/subtitle"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_ssessments"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintStart_toStartOf="@+id/ssessments_spinner_title"/>
+
+    <com.google.android.material.chip.ChipGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/subtitle"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/subtitle" android:id="@+id/chipGroup">
+
+        <com.google.android.material.chip.Chip
+
+                android:id="@+id/chip_1"
+                android:text="@string/chip_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/state_color_text_highllight"
+                app:chipBackgroundColor="@color/state_color_highlight"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="china"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/chip_2"
+                android:text="@string/chip_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/state_color_text_highllight"
+                app:chipBackgroundColor="@color/state_color_highlight"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="china"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/chip_3"
+                android:text="@string/chip_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/state_color_text_highllight"
+                app:chipBackgroundColor="@color/state_color_highlight"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="china"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/chip_4"
+                android:text="@string/chip_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/state_color_text_highllight"
+                app:chipBackgroundColor="@color/state_color_highlight"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="china"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/chip_5"
+                android:text="@string/chip_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/state_color_text_highllight"
+                app:chipBackgroundColor="@color/state_color_highlight"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="china"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/chip_6"
+                android:text="@string/chip_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/state_color_text_highllight"
+                app:chipBackgroundColor="@color/state_color_highlight"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="china"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp" app:srcCompat="@color/lightGrey"
+            android:id="@+id/razdelnik"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup" android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

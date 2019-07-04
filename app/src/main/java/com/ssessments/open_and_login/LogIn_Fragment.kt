@@ -1,4 +1,4 @@
-package com.ssessment.open_and_login
+package com.ssessments.open_and_login
 
 
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.ssessment.R
+import com.ssessments.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

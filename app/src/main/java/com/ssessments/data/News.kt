@@ -1,4 +1,4 @@
-package com.ssessment.data
+package com.ssessments.data
 
 
 

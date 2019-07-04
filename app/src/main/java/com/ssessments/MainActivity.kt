@@ -1,4 +1,4 @@
-package com.ssessment
+package com.ssessments
 
 import android.app.SearchManager
 import android.content.ComponentName
@@ -11,22 +11,19 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.navigation.NavigationView
-import com.ssessment.search.MySuggestionProvider
+import com.ssessments.filter_fragment.FilterDialogFragment
+import com.ssessments.search.MySuggestionProvider
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
-    lateinit var tags: ConstraintLayout
+    //lateinit var tags: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.settings2, menu)
+        inflater.inflate(R.menu.overflow_menu, menu)
         Log.v("milena ","on create")
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         var searchView = (menu!!.findItem(R.id.action_search).actionView as SearchView).apply {
@@ -77,8 +74,8 @@ class MainActivity : AppCompatActivity() {
             setSearchableInfo(
                 searchManager.getSearchableInfo(
                     ComponentName(
-                        "com.ssessment",
-                        "com.ssessment.MainActivity")
+                        "com.ssessments",
+                        "com.ssessments.MainActivity")
                 ))
 
 
@@ -89,9 +86,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_search -> {
+                navController.navigate(R.id.preference_fragment)
+                true
+            }
+            R.id.filter_menu_item -> {
+                //navController.navigate(R.id.filterDialogFragment)
+                FilterDialogFragment().show(supportFragmentManager,"dialog")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
-        navController.navigate(R.id.mySettingsFragment)
-        tags.visibility= View.GONE
+
+
         return true
     }
 
