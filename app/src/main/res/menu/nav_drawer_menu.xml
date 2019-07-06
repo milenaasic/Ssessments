@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
 
-    <item
+        <item
+                android:id="@+id/home"
+                android:title="@string/home"
+                android:icon="@android:drawable/btn_star_big_on"
+        />
+
+        <item
             android:id="@+id/myAccount"
             android:title="@string/my_account"
             android:icon="@android:drawable/btn_star_big_on"
-    />
+        />
 
-    </group>
-
-    <group android:checkableBehavior="single">
 
         <item
                 android:id="@+id/preference_fragment"
@@ -19,6 +22,11 @@
                 android:icon="@android:drawable/ic_menu_send"
         />
 
+        <item
+                android:id="@+id/about"
+                android:title="@string/about"
+                android:icon="@android:drawable/ic_menu_send"
+        />
     </group>
 
 </menu>

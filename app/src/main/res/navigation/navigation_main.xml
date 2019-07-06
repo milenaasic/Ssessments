@@ -4,17 +4,21 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_main.xml"
             app:startDestination="@id/mainFragment">
 
-    <fragment android:id="@+id/openingFragment" android:name="com.ssessments.open_and_login.OpeningFragment"
+    <fragment android:id="@+id/openingFragment" android:name="com.ssessments.opening.OpeningFragment"
               android:label="fragment_opening" tools:layout="@layout/fragment_opening"/>
-    <fragment android:id="@+id/mainFragment" android:name="com.ssessments.mainFragment" android:label="Ssessments"
-    />
-    <fragment android:id="@+id/logIn_Fragment" android:name="com.ssessments.open_and_login.LogIn_Fragment"
-              android:label="LogIn_Fragment">
-        <action android:id="@+id/action_logIn_Fragment_to_mainFragment" app:destination="@id/mainFragment"/>
+    <fragment android:id="@+id/mainFragment" android:name="com.ssessments.news_list_home.mainFragment" android:label="Ssessments"
+    >
+        <action android:id="@+id/action_mainFragment_to_detailNews" app:destination="@id/detailNews"/>
     </fragment>
-    <fragment android:id="@+id/preference_fragment" android:name="com.ssessments.PreferenceFragment"
-              android:label="Notifications" tools:layout="@layout/fragment_settings"/>
-    <fragment android:id="@+id/filterDialogFragment" android:name="com.ssessments.filter_fragment.FilterDialogFragment"
-              android:label="FilterDialogFragment"/>
+    <fragment android:id="@+id/sign_in_item" android:name="com.ssessments.login.LogIn_Fragment"
+              android:label="LogIn_Fragment"/>
+    <fragment android:id="@+id/preference_fragment" android:name="com.ssessments.preferences.PreferenceFragment"
+              android:label="Notifications"/>
+    <fragment android:id="@+id/sign_up_item" android:name="com.ssessments.registration.RegistrationFragment"
+              android:label="fragment_registration" tools:layout="@layout/fragment_registration"/>
+    <fragment android:id="@+id/detailNews" android:name="com.ssessments.detail_news_fragment.DetailNews"
+              android:label="detail_news_fragment" tools:layout="@layout/detail_news_fragment">
+        <action android:id="@+id/action_detailNews_to_mainFragment" app:destination="@id/mainFragment"/>
+    </fragment>
 
 </navigation>

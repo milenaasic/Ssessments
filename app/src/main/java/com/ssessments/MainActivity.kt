@@ -18,37 +18,23 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.ssessments.filter_fragment.FilterDialogFragment
-import com.ssessments.search.MySuggestionProvider
+import com.ssessments.search_provider.MySuggestionProvider
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
-    //lateinit var tags: ConstraintLayout
+    lateinit var myToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val myToolbar=findViewById<Toolbar>(R.id.toolbar)
-        val myDrawerLayout: DrawerLayout =findViewById<DrawerLayout>(R.id.myDrawerLayout)
-        val myNavigationView: NavigationView =findViewById<NavigationView>(R.id.myNavigationView)
-        val myBottomNavBar:BottomNavigationView=findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        /*val chipGroup = findViewById<ChipGroup>(R.id.chip_regions)
-        val inflator = LayoutInflater.from(chipGroup.context)
-
-        val chip1 = inflator.inflate(R.layout.chip_single_region, chipGroup, false) as Chip
-        chip1.text = "China"
-        chip1.tag = "China"
-        chip1.setOnCheckedChangeListener { button, isChecked ->
-            //viewModel.onFilterChanged(button.tag as String, isChecked)
-        }
-
-        chipGroup.addView(chip1)*/
-
+        myToolbar=findViewById(R.id.toolbar)
+        val myDrawerLayout: DrawerLayout =findViewById(R.id.myDrawerLayout)
+        val myNavigationView: NavigationView =findViewById(R.id.myNavigationView)
+        val myBottomNavBar:BottomNavigationView=findViewById(R.id.bottom_navigation)
 
         setSupportActionBar(myToolbar)
-
-       // tags=findViewById<ConstraintLayout>(R.id.tagsLayout)
 
         navController=findNavController(R.id.mainNavHostFragment)
         NavigationUI.setupWithNavController(myToolbar,navController)
@@ -88,11 +74,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.action_search -> {
-                navController.navigate(R.id.preference_fragment)
+                //navController.navigate(R.id.preference_fragment)
                 true
             }
             R.id.filter_menu_item -> {
-                //navController.navigate(R.id.filterDialogFragment)
                 FilterDialogFragment().show(supportFragmentManager,"dialog")
                 true
             }

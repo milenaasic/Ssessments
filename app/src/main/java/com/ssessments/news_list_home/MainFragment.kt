@@ -1,4 +1,4 @@
-package com.ssessments
+package com.ssessments.news_list_home
 
 
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.ssessments.R
 import com.ssessments.data.getNewsItemArray
 
 
@@ -31,7 +32,7 @@ class mainFragment : Fragment() {
         val root=inflater.inflate(R.layout.fragment_main, container, false)
 
         recyclerView=root.findViewById(R.id.mainRecView)
-        recyclerView.adapter=NewsAdapter(getNewsItemArray())
+        recyclerView.adapter= NewsAdapter(getNewsItemArray())
         recyclerView.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
 
         return root

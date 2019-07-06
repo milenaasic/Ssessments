@@ -30,8 +30,8 @@
         </activity>
 
 
-        <provider android:name="com.ssessments.search.MySuggestionProvider"
-                  android:authorities="com.ssessments.search.MySuggestionProvider"/>
+        <provider android:name="com.ssessments.search_provider.MySuggestionProvider"
+                  android:authorities="com.ssessments.search_provider.MySuggestionProvider"/>
 
 
     </application>

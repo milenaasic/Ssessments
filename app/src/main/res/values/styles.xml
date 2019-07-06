@@ -44,6 +44,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MyNavigationBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
+
+    </style>
+
 
 
     <style name="MyButtonSmall" parent="Widget.AppCompat.Button.Small">

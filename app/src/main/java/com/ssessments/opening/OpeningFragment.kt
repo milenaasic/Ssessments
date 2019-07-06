@@ -1,5 +1,4 @@
-package com.ssessments
-.open_and_login
+package com.ssessments.opening
 
 
 import android.os.Bundle
@@ -22,7 +21,7 @@ class OpeningFragment : Fragment() {
 
         // d systemski bar
         activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
+        activity?.actionBar?.hide()
         return root
     }
 

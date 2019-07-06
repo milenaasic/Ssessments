@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Sign in"
+        android:title="@string/sign_in"
         android:id="@+id/sign_in_item"
-        android:icon="@android:drawable/star_big_off"/>
+        android:icon="@drawable/icons8_enter_24"/>
 
     <item
-        android:title="Sign up"
+        android:title="@string/sign_up"
         android:id="@+id/sign_up_item"
-        android:icon="@android:drawable/star_big_off"/>
+        android:icon="@drawable/icons8_sign_up_24"/>
 </menu>

@@ -1,4 +1,4 @@
-package com.ssessments.open_and_login
+package com.ssessments.registration
 
 
 import android.os.Bundle
@@ -18,19 +18,14 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class LogIn_Fragment : Fragment() {
+class RegistrationFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val root=inflater.inflate(R.layout.fragment_log_in, container, false)
-        //  i systemski bar
-        activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
         // Inflate the layout for this fragment
-        return root
+        return inflater.inflate(R.layout.fragment_registration, container, false)
     }
 
 

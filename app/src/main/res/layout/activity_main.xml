@@ -81,21 +81,20 @@
             app:srcCompat="@color/logoPurpleMatchingSecondary" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            style="@style/Widget.MaterialComponents.BottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconSize="4dp"
-            app:itemTextAppearanceActive="@style/Base.TextAppearance.AppCompat.Medium"
-            app:itemTextAppearanceInactive="@style/Base.TextAppearance.AppCompat.Medium"
-            app:itemTextColor="@color/logoPurpleMatchingSecondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/coordinatorLayout"
-            app:layout_constraintStart_toStartOf="@+id/coordinatorLayout"
-            app:menu="@menu/bottom_menu">
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+                android:id="@+id/bottom_navigation"
+                style="@style/Widget.MaterialComponents.BottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemBackground="@color/colorPrimaryDark"
+                app:itemTextAppearanceActive="@style/Base.TextAppearance.AppCompat.Small"
+                app:itemTextAppearanceInactive="@style/Base.TextAppearance.AppCompat.Small"
+                app:itemTextColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/bottom_menu"
+                app:itemIconTint="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
