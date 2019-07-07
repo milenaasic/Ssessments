@@ -73,10 +73,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.action_search -> {
+            /*R.id.action_search -> {
                 //navController.navigate(R.id.preference_fragment)
                 true
-            }
+            }*/
             R.id.filter_menu_item -> {
                 FilterDialogFragment().show(supportFragmentManager,"dialog")
                 true
@@ -84,9 +84,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
 
-
-
-        return true
     }
 
     override fun onNewIntent(intent: Intent?) {

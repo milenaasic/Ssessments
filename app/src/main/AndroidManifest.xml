@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name="com.ssessments.MainActivity"
+        <activity android:name=".MainActivity"
                   android:launchMode="singleTop">
 
             <intent-filter>
@@ -30,7 +30,7 @@
         </activity>
 
 
-        <provider android:name="com.ssessments.search_provider.MySuggestionProvider"
+        <provider android:name=".search_provider.MySuggestionProvider"
                   android:authorities="com.ssessments.search_provider.MySuggestionProvider"/>
 
 

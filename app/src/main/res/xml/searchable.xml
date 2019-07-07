@@ -3,7 +3,7 @@
 
             android:label="@string/app_label"
             android:hint="@string/search_hint"
-            android:searchSuggestAuthority="com.ssessment.search.MySuggestionProvider"
+            android:searchSuggestAuthority="com.ssessments.search_provider.MySuggestionProvider"
             android:searchSuggestSelection=" ?"
 >
 
