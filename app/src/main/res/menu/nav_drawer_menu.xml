@@ -9,13 +9,12 @@
                 android:icon="@drawable/baseline_home_black_24dp"
         />
 
+
         <item
                 android:id="@+id/myAccount"
                 android:title="@string/my_account"
                 android:icon="@drawable/baseline_account_box_black_24dp"
         />
-
-
         <item
                 android:id="@+id/preference_fragment"
                 android:title="@string/notifications"

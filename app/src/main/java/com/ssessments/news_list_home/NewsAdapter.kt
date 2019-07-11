@@ -4,41 +4,58 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssessments.R
 import com.ssessments.data.NewsItem
+import com.ssessments.databinding.NewsItemLayoutRecviewBinding
 
-class NewsAdapter(var list: List<NewsItem>):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
+    var dataList= listOf<NewsItem>()
+    set(value) {
+        field=value
+        notifyDataSetChanged()
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.news_item_layout_recview,parent,false)
-        return MyViewHolder(view)
+        return MyViewHolder.from(parent)
     }
+
 
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-    holder.title.text=list[position].title
-    holder.date.text=list[position].dateTime
-    holder.tags.text=list[position].tags
-    holder.userType.text=list[position].userType
-
+        holder.bind(dataList[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return dataList.size
     }
 
 
-    class MyViewHolder(val view: View):RecyclerView.ViewHolder(view){
+    class MyViewHolder private constructor(val binding: NewsItemLayoutRecviewBinding):RecyclerView.ViewHolder(binding.root){
 
-        val title:TextView=view.findViewById(R.id.newsTitle)
-        val date:TextView=view.findViewById(R.id.newsdate)
-        val tags:TextView=view.findViewById(R.id.tagovi)
-        val userType:TextView=view.findViewById(R.id.userType)
+        fun bind(item:NewsItem){
+            binding.singleNewsItem=item
+            binding.executePendingBindings()
+            /*binding.newsTitle.text=item.title
+            binding.newsdate.text=item.dateTime
+            binding.tagovi.text=item.tags
+            binding.userType.text=item.userType*/
+        }
+        companion object{
+            fun from(parent: ViewGroup): MyViewHolder {
+                val inflater=LayoutInflater.from(parent.context)
+                val binding:NewsItemLayoutRecviewBinding=DataBindingUtil.inflate(inflater,R.layout.news_item_layout_recview,parent,false)
 
+                return MyViewHolder(binding)
+            }
+        }
 
     }
 }
+
+class NewsItemClickListener(view:NewsAdapter.MyViewHolder)
