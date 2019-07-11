@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -19,32 +20,35 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.ssessments.filter_fragment.FilterDialogFragment
 import com.ssessments.search_provider.MySuggestionProvider
+import com.ssessments.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: com.ssessments.databinding.ActivityMainBinding
 
     lateinit var navController: NavController
     lateinit var myToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        myToolbar=findViewById(R.id.toolbar)
-        val myDrawerLayout: DrawerLayout =findViewById(R.id.myDrawerLayout)
+
+        /*val myDrawerLayout: DrawerLayout =findViewById(R.id.myDrawerLayout)
         val myNavigationView: NavigationView =findViewById(R.id.myNavigationView)
-        val myBottomNavBar:BottomNavigationView=findViewById(R.id.bottom_navigation)
+        val myBottomNavBar:BottomNavigationView=findViewById(R.id.bottom_navigation)*/
 
-        setSupportActionBar(myToolbar)
+        setSupportActionBar(binding.toolbar)
 
         navController=findNavController(R.id.mainNavHostFragment)
-        NavigationUI.setupWithNavController(myToolbar,navController)
-        NavigationUI.setupWithNavController(myBottomNavBar,navController)
-
+        NavigationUI.setupWithNavController(binding.toolbar,navController)
+        NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
         //povezivanje Toolbara da bi pravilno prikazao Up odnosno drawer ikonicu
-        NavigationUI.setupWithNavController(myToolbar, navController, myDrawerLayout)
+        NavigationUI.setupWithNavController(binding.toolbar, navController, binding.myDrawerLayout)
 
         //povezivanje drawer-a sa NavControllerom
-        NavigationUI.setupWithNavController(myNavigationView, navController)
+        NavigationUI.setupWithNavController(binding.myNavigationView, navController)
 
         Log.v("milena ",componentName.toString())
     }
