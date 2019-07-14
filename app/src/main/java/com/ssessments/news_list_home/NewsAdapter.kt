@@ -10,7 +10,7 @@ import com.ssessments.R
 import com.ssessments.data.NewsItem
 import com.ssessments.databinding.NewsItemLayoutRecviewBinding
 
-class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+class NewsAdapter(val clickListener: NewsItemClickListener,val clickShareListener: NewsItemShareClickListener):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
     var dataList= listOf<NewsItem>()
     set(value) {
@@ -28,7 +28,7 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        holder.bind(clickListener,clickShareListener,dataList[position])
     }
 
     override fun getItemCount(): Int {
@@ -38,18 +38,18 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
     class MyViewHolder private constructor(val binding: NewsItemLayoutRecviewBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item:NewsItem){
+        fun bind(clickListener: NewsItemClickListener,clickShareListener: NewsItemShareClickListener,item:NewsItem){
             binding.singleNewsItem=item
+            binding.clickListener=clickListener
+            binding.clickShareListener=clickShareListener
             binding.executePendingBindings()
-            /*binding.newsTitle.text=item.title
-            binding.newsdate.text=item.dateTime
-            binding.tagovi.text=item.tags
-            binding.userType.text=item.userType*/
+
         }
         companion object{
             fun from(parent: ViewGroup): MyViewHolder {
                 val inflater=LayoutInflater.from(parent.context)
-                val binding:NewsItemLayoutRecviewBinding=DataBindingUtil.inflate(inflater,R.layout.news_item_layout_recview,parent,false)
+                val binding = NewsItemLayoutRecviewBinding.inflate(inflater, parent, false)
+               // val binding:NewsItemLayoutRecviewBinding=DataBindingUtil.inflate(inflater,R.layout.news_item_layout_recview,parent,false)
 
                 return MyViewHolder(binding)
             }
@@ -58,4 +58,10 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
     }
 }
 
-class NewsItemClickListener(view:NewsAdapter.MyViewHolder)
+class NewsItemClickListener(val clickListener:(newsId:Long)->Unit ){
+    fun onClick(item:NewsItem)=clickListener(item.id)
+}
+
+class NewsItemShareClickListener(val clickListener:(view:NewsItem)->Unit ){
+    fun onClick(item:NewsItem)=clickListener(item)
+}

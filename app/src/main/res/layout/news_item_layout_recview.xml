@@ -5,62 +5,79 @@
 
     <data>
         <variable name="singleNewsItem" type="com.ssessments.data.NewsItem"/>
+        <variable name="clickListener" type="com.ssessments.news_list_home.NewsItemClickListener"/>
+        <variable name="clickShareListener" type="com.ssessments.news_list_home.NewsItemShareClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="72dp"
             android:id="@+id/newsItemLayout">
 
         <TextView
                 android:text="TextView"
+                android:id="@+id/newsTitle"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" android:id="@+id/newsTitle"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" tools:text="Ovde ide naslov"
                 app:layout_constraintHorizontal_bias="0.5"
                 android:fontFamily="@font/pfdintextpro_regular_0"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="normal" app:layout_constraintBottom_toTopOf="@+id/newsdate"
-                android:layout_marginTop="4dp" android:maxLines="2"
+                android:textStyle="normal"
+                android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:ellipsize="end"
-                app:titleString="@{singleNewsItem}"/>
+                app:titleString="@{singleNewsItem}"
+                android:onClick="@{() -> clickListener.onClick(singleNewsItem)}"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/newsdate" android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/tagovi"/>
         <TextView
                 android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/newsdate"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                 tools:text="1.6.2019."
                 android:fontFamily="@font/pfdintextpro_regular_0"
-                app:layout_constraintTop_toBottomOf="@+id/newsTitle"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" android:textSize="12sp"
                 android:ellipsize="end"
-                app:dateTimeString="@{singleNewsItem}"/>
+                app:dateTimeString="@{singleNewsItem}"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tagovi" tools:text="tag" app:layout_constraintStart_toEndOf="@+id/newsdate"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@+id/newsdate"
-                app:layout_constraintBottom_toBottomOf="@+id/newsdate"
+                android:id="@+id/tagovi" tools:text="tag"
                 android:fontFamily="@font/pfdintextpro_regular_0" android:textColor="@color/logoDeepBlue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" android:textSize="12sp"
                 android:ellipsize="end"
-                app:tagsString="@{singleNewsItem}"/>
+                app:tagsString="@{singleNewsItem}"
+                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="4dp" app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
                 android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/userType"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tagovi" app:layout_constraintTop_toTopOf="@+id/tagovi"
                 tools:text="user type" android:textColor="@color/logoOrange"
                 android:fontFamily="@font/pfdintextpro_regular_0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" android:textSize="12dp"
                 android:ellipsize="end"
-                app:userTypeString="@{singleNewsItem}"/>
+                app:userTypeString="@{singleNewsItem}" android:layout_marginTop="4dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" app:srcCompat="?attr/actionModeShareDrawable"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newsTitle" app:layout_constraintEnd_toEndOf="@+id/newsTitle"
+                android:layout_marginEnd="8dp"
+                android:scaleType="center"
+                android:onClick="@{() -> clickShareListener.onClick(singleNewsItem)}"
+                android:visibility="gone"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: com.ssessments.databinding.ActivityMainBinding
 
     lateinit var navController: NavController
-    lateinit var myToolbar: Toolbar
+    //lateinit var myToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

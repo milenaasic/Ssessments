@@ -3,13 +3,16 @@ package com.ssessments.news_list_home
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.ssessments.R
 import com.ssessments.data.getNewsItemArray
 import com.ssessments.databinding.FragmentMainBinding
@@ -19,9 +22,8 @@ class mainFragment : Fragment() {
 
     private lateinit var viewModel:NewsListHome_ViewModel
     private lateinit var binding:FragmentMainBinding
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    var adapter=NewsAdapter()
+    //private lateinit var recyclerView: RecyclerView
+    //private lateinit var viewAdapter: RecyclerView.Adapter<*>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,12 @@ class mainFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(NewsListHome_ViewModel::class.java)
 
+        val adapter=NewsAdapter(NewsItemClickListener {  newsId ->
+            Toast.makeText(context, "${newsId}", Toast.LENGTH_LONG).show()
+            viewModel.fetchNewsWithID(newsId)
+        }, NewsItemShareClickListener { newsItem ->
+            Toast.makeText(context, "${newsItem}", Toast.LENGTH_LONG).show() })
+
         //val root=inflater.inflate(R.layout.fragment_main, container, false)
         //recyclerView=root.findViewById(R.id.mainRecView)
         binding.mainRecView.adapter= adapter
@@ -48,13 +56,32 @@ class mainFragment : Fragment() {
             if(newList!=null) adapter.dataList = newList
                })
 
+        viewModel.showNoAccessRightsSnackbar.observe(this, Observer { showSnackbar->
+                if(showSnackbar){
+                Snackbar.make(binding.fragmentLinLay,R.string.notifications,Snackbar.LENGTH_LONG).show()
+                }
+                viewModel.noAccessRightsSnackbarShown()
+            })
+
+
+        viewModel.newsToBeOpenedID.observe(this, Observer { id->
+            openDetailNewsFragment(id) })
+
         return binding.root
     }
 
 
+    fun openDetailNewsFragment(id:Long){
+         if(id!=-1L){
+            val action= mainFragmentDirections.actionMainFragmentToDetailNews(id)
+            findNavController().navigate(action)
+            viewModel.resetNewsID()}
+
+
+    }
     override fun onResume() {
         super.onResume()
         val activity:AppCompatActivity= activity as AppCompatActivity
-        //activity.tagsLayout.visibility=View.VISIBLE
+
     }
 }
