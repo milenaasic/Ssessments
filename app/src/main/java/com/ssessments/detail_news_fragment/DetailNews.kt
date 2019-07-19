@@ -18,11 +18,14 @@ class DetailNews : Fragment() {
 
 
     private lateinit var viewModel: DetailNewsViewModel
+    private lateinit var viewModelFactory: DetailNewsViewModelFactory
+
     private lateinit var binding:DetailNewsFragmentBinding
+    private lateinit var args:DetailNewsArgs
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val args = DetailNewsArgs.fromBundle(arguments!!)
+        args = DetailNewsArgs.fromBundle(arguments!!)
         Toast.makeText(context, "news: ${args.newsID}", Toast.LENGTH_LONG).show()
     }
 
@@ -30,6 +33,9 @@ class DetailNews : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        viewModelFactory= DetailNewsViewModelFactory(args.newsID)
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(DetailNewsViewModel::class.java)
 
         binding= DataBindingUtil.inflate(inflater,R.layout.detail_news_fragment,container,false)
         var fakeData=DetailNewsFakeData()
@@ -44,7 +50,7 @@ class DetailNews : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DetailNewsViewModel::class.java)
+
         // TODO: Use the ViewModel
     }
 

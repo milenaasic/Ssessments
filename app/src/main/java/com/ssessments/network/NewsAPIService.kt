@@ -7,7 +7,9 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Field
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 private const val BASE_URL ="https://mars.udacity.com"
@@ -30,7 +32,16 @@ interface NewsAPIService {
      * HTTP method
      */
     @GET("realestate")
-    fun getProperties( ):Deferred<List<NewsItem>>
+    fun getNewsList( ):Deferred <List<NetworkNewsItem>>
+
+    @POST("news")
+    fun getFilteredNewsList(@Field ("region") region:String,
+                            @Field ("product")product:String,
+                            @Field ("ssessment")ssessment:String,
+                            @Field("start_date") startDate:String,
+                            @Field("end_date") endDate:String,
+                            @Field("language") language:String
+                            ):Deferred<List<NetworkNewsItem>>
 }
 
 /**

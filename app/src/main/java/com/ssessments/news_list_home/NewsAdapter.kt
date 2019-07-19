@@ -7,12 +7,12 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssessments.R
-import com.ssessments.data.NewsItem
+import com.ssessments.network.NetworkNewsItem
 import com.ssessments.databinding.NewsItemLayoutRecviewBinding
 
-class NewsAdapter(val clickListener: NewsItemClickListener,val clickShareListener: NewsItemShareClickListener):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
-    var dataList= listOf<NewsItem>()
+    var dataList= listOf<NetworkNewsItem>()
     set(value) {
         field=value
         notifyDataSetChanged()
@@ -28,7 +28,7 @@ class NewsAdapter(val clickListener: NewsItemClickListener,val clickShareListene
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(clickListener,clickShareListener,dataList[position])
+        holder.bind(clickListener,dataList[position])
     }
 
     override fun getItemCount(): Int {
@@ -38,10 +38,9 @@ class NewsAdapter(val clickListener: NewsItemClickListener,val clickShareListene
 
     class MyViewHolder private constructor(val binding: NewsItemLayoutRecviewBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clickListener: NewsItemClickListener,clickShareListener: NewsItemShareClickListener,item:NewsItem){
+        fun bind(clickListener: NewsItemClickListener,item:NetworkNewsItem){
             binding.singleNewsItem=item
             binding.clickListener=clickListener
-            binding.clickShareListener=clickShareListener
             binding.executePendingBindings()
 
         }
@@ -59,9 +58,6 @@ class NewsAdapter(val clickListener: NewsItemClickListener,val clickShareListene
 }
 
 class NewsItemClickListener(val clickListener:(newsId:Long)->Unit ){
-    fun onClick(item:NewsItem)=clickListener(item.id)
+    fun onClick(item:NetworkNewsItem)=clickListener(item.newsID)
 }
 
-class NewsItemShareClickListener(val clickListener:(view:NewsItem)->Unit ){
-    fun onClick(item:NewsItem)=clickListener(item)
-}

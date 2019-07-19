@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.ssessments.R
 import com.ssessments.data.getNewsItemArray
+import com.ssessments.database.NewsDatabase
 import com.ssessments.databinding.FragmentMainBinding
 
 
@@ -22,8 +23,7 @@ class mainFragment : Fragment() {
 
     private lateinit var viewModel:NewsListHome_ViewModel
     private lateinit var binding:FragmentMainBinding
-    //private lateinit var recyclerView: RecyclerView
-    //private lateinit var viewAdapter: RecyclerView.Adapter<*>
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,16 +39,20 @@ class mainFragment : Fragment() {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
 
+        /*val application= requireNotNull(this.activity).application
+        val database=NewsDatabase.getInstance(application)
+        //val dataSource=NewsDatabase.getInstance(application).newsDatabaseDao
+
+        //viewModelFactory= NewsListHome_ViewModelFactory(repository)*/
+
         viewModel = ViewModelProviders.of(this).get(NewsListHome_ViewModel::class.java)
 
         val adapter=NewsAdapter(NewsItemClickListener {  newsId ->
             Toast.makeText(context, "${newsId}", Toast.LENGTH_LONG).show()
             viewModel.fetchNewsWithID(newsId)
-        }, NewsItemShareClickListener { newsItem ->
-            Toast.makeText(context, "${newsItem}", Toast.LENGTH_LONG).show() })
+        })
 
-        //val root=inflater.inflate(R.layout.fragment_main, container, false)
-        //recyclerView=root.findViewById(R.id.mainRecView)
+
         binding.mainRecView.adapter= adapter
         binding.mainRecView.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
 
@@ -82,6 +86,11 @@ class mainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val activity:AppCompatActivity= activity as AppCompatActivity
+
+    }
+
+    fun showSnakbar(snackbarText:String){
+
 
     }
 }
