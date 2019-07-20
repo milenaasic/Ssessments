@@ -1,6 +1,7 @@
 package com.ssessments.news_list_home
 
 import android.app.Application
+import android.app.Service
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
@@ -20,6 +21,7 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
     //private var viewModelJob= Job()
     //private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
+    val service= application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     private val _newsList = MutableLiveData<List<NetworkNewsItem>>()
     val newsList: LiveData<List<NetworkNewsItem>>
@@ -48,16 +50,21 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
     }
 
     private fun initializeNewsList() {
-        // za kasnije ako prilikom inicijalizacije nema mreze podigni iz baze listu
-        if (isOnline())
+        // mock networkNewsItemList
+        if(true){ _newsList.value= getNewsItemArray()
+                    return}
 
-        viewModelScope.launch {
-            var getPropertiesDeferred = NewsApi.retrofitService.getNewsList()
-            try {
-                var listResult = getPropertiesDeferred.await()
-                _newsList.value = listResult
-            } catch (e: Exception) {
-                _networkError.value = true
+        // za kasnije ako prilikom inicijalizacije nema mreze podigni iz baze listu
+        if (isOnline()){
+
+            viewModelScope.launch {
+                var getPropertiesDeferred = NewsApi.retrofitService.getNewsList()
+                try {
+                    var listResult = getPropertiesDeferred.await()
+                    _newsList.value = listResult
+                } catch (e: Exception) {
+                    _networkError.value = true
+                }
             }
         }
 

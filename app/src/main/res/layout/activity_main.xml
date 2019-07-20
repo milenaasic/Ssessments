@@ -47,15 +47,16 @@
                 android:elevation="4dp">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:theme="@style/myToolbarTheme"
-                    app:titleTextColor="@color/logoPurple">
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:theme="@style/myToolbarTheme"
+                        android:title=""
+                        app:titleTextColor="@color/logoPurple" app:title="&quot;'">
 
                     <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/logo_in_toolbar"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             app:srcCompat="@drawable/logo_ssessments"

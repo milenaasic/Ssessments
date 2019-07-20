@@ -71,6 +71,7 @@ class mainFragment : Fragment() {
         viewModel.newsToBeOpenedID.observe(this, Observer { id->
             openDetailNewsFragment(id) })
 
+
         return binding.root
     }
 

@@ -9,4 +9,4 @@ const val BODY="On Thursday, the German Federal Statistics Office showed that th
         "\n" +
         "Meanwhile, the EU-harmonized inflation rose by 0.3% on the month, revised from 0.1%.\n"
 
-data class DetailNewsFakeData(var title:String= TITLE, var time:String= TIME, var author:String= AUTHOR, var TAGS:String= TAGSS, var body:String= BODY)
+data class MyDetailNewsFakeData(var title:String= TITLE, var time:String= TIME, var author:String= AUTHOR, var TAGS:String= TAGSS, var body:String= BODY)

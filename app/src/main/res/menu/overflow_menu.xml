@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
-        android:icon="@android:drawable/ic_menu_search"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        android:title="@string/search"
-        app:showAsAction="always"
-        />
+            android:id="@+id/action_search"
+            android:icon="@drawable/outline_search_black_24"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"
+            android:title="@string/search"
+            app:showAsAction="always|collapseActionView"
+    />
     <item
         android:id="@+id/filter_menu_item"
         android:icon="@drawable/baseline_filter_list_black_24"
