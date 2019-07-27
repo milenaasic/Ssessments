@@ -9,19 +9,14 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.*
-import android.view.MenuItem.OnActionExpandListener
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
-import com.ssessments.filter_fragment.FilterDialogFragment
+import androidx.navigation.ui.onNavDestinationSelected
 import com.ssessments.search_provider.MySuggestionProvider
-import com.ssessments.databinding.ActivityMainBinding
 
 private const val PACKAGE_NAME="com.ssessments"
 private const val CLASS_NAME="com.ssessments.MainActivity"
@@ -44,6 +39,7 @@ class MainActivity : AppCompatActivity(){
         binding.toolbar.title=""
 
         navController=findNavController(R.id.mainNavHostFragment)
+
         NavigationUI.setupWithNavController(binding.toolbar,navController)
         NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
 
@@ -92,6 +88,7 @@ class MainActivity : AppCompatActivity(){
          })
 
         //searchView.scrollBarStyle=resources.getResourceEntryName(R.style.AppTheme)
+
         return true
 
     }
@@ -99,14 +96,7 @@ class MainActivity : AppCompatActivity(){
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-
-            R.id.filter_menu_item -> {
-                FilterDialogFragment().show(supportFragmentManager,"dialog")
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        return item!!.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
 
     }
 

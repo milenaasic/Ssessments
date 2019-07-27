@@ -17,6 +17,13 @@ interface NewsDatabaseDao{
     @Query("DELETE from last_news_list_table")
     fun clear()
 
+    @Insert
+    fun insertFilter(item: FilterItem)
 
+    @Query("SELECT * FROM saved_filters_table ORDER BY id DESC")
+    fun getAllFilters():LiveData<List<FilterItem>>
+
+    @Query("DELETE from saved_filters_table")
+    fun clearFiltersTable()
 
 }
