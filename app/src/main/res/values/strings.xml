@@ -68,5 +68,10 @@
         <item>Price</item>
     </string-array>
 
-
+    <!-- spinner language-->
+    <string-array name="spinner_language">
+        <item>English</item>
+        <item>Malesian</item>
+        <item>Indonesian</item>
+    </string-array>
 </resources>

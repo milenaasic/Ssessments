@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 
 private const val NAME="News Database"
 
-@Database(entities = [NewsItem::class],version = 1)
+@Database(entities = [NewsItem::class,FilterItem::class],version = 1)
 abstract class NewsDatabase:RoomDatabase(){
 
     abstract val newsDatabaseDao:NewsDatabaseDao

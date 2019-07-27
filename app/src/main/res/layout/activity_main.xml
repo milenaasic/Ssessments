@@ -19,7 +19,7 @@
 
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
@@ -36,7 +36,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:defaultNavHost="true"
-                        app:navGraph="@navigation/navigation_main" tools:layout="@layout/fragment_main"/>
+                        app:navGraph="@navigation/navigation_main"
+                        tools:layout="@layout/fragment_main"/>
 
             </androidx.core.widget.NestedScrollView>
 
@@ -53,7 +54,7 @@
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:theme="@style/myToolbarTheme"
                         android:title=""
-                        app:titleTextColor="@color/logoPurple" app:title="&quot;'">
+                        app:titleTextColor="@color/logoPurple">
 
                     <ImageView
                             android:id="@+id/logo_in_toolbar"
