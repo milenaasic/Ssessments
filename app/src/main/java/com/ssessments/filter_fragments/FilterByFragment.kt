@@ -1,7 +1,6 @@
 package com.ssessments.filter_fragments
 
 import android.app.DatePickerDialog
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,11 +10,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.ssessments.R
 import com.ssessments.database.FilterItem
 import kotlinx.android.synthetic.main.filter_by_fragment.*
-import java.time.LocalDate
 
 import java.util.*
 
@@ -23,7 +21,7 @@ import java.util.*
 class FilterByFragment : Fragment() {
 
     private lateinit var binding: com.ssessments.databinding.FilterByFragmentBinding
-    private lateinit var viewModel: FilterByViewModel
+    private lateinit var sharedviewModel: FilterPagerSupportSharedViewModel
 
     private var currentDateFrom:String=Calendar.getInstance().toString()
     private var currentDateTo:String=Calendar.getInstance().toString()
@@ -36,7 +34,9 @@ class FilterByFragment : Fragment() {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.filter_by_fragment,container,false)
 
-        viewModel = ViewModelProviders.of(this,ViewModelProvider.AndroidViewModelFactory(activity?.application!!)).get(FilterByViewModel::class.java)
+        sharedviewModel = parentFragment?.run {
+            ViewModelProviders.of(this)[FilterPagerSupportSharedViewModel::class.java]
+        } ?: throw Exception("Invalid Parent Fragment")
 
         binding.dateFrom.text=currentDateFrom
         binding.toDate.text=currentDateTo
@@ -134,11 +134,11 @@ class FilterByFragment : Fragment() {
         })
 
         binding.saveFilterButton.setOnClickListener {
-            viewModel.saveFilter(getCurrentFieldsValue())
+            sharedviewModel.saveFilter(getCurrentFieldsValue())
         }
 
         binding.applyFilterButton.setOnClickListener {
-            viewModel.applyFilterButton(getCurrentFieldsValue())
+            sharedviewModel.applyFilterButton(getCurrentFieldsValue())
         }
 
         return binding.root

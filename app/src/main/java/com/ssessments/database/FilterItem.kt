@@ -10,7 +10,7 @@ import java.util.*
 data class FilterItem(
 
     @PrimaryKey(autoGenerate = true)
-    val id:Long=0L,
+    val ID:Long=0L,
 
     @ColumnInfo(name="filter_name")
     val filterName:String="filter name",
@@ -24,11 +24,11 @@ data class FilterItem(
     @ColumnInfo(name = "ssessment")
     val ssessment:String="ssessment",
 
-    @ColumnInfo(name = "date_from")
-    val dateFrom:String,
+    @ColumnInfo(name = "filter_date_from")
+    val dateFrom:String="1.9.2019",
 
-    @ColumnInfo(name = "date_to")
-    val dateTo:String,
+    @ColumnInfo(name = "filter_date_to")
+    val dateTo:String="7.12.2020",
 
     @ColumnInfo(name="language")
     val language:String="language"
