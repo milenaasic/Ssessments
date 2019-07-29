@@ -16,15 +16,12 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
     set(value) {
         field=value
         notifyDataSetChanged()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         return MyViewHolder.from(parent)
     }
-
-
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -48,8 +45,6 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
             fun from(parent: ViewGroup): MyViewHolder {
                 val inflater=LayoutInflater.from(parent.context)
                 val binding = NewsItemLayoutRecviewBinding.inflate(inflater, parent, false)
-               // val binding:NewsItemLayoutRecviewBinding=DataBindingUtil.inflate(inflater,R.layout.news_item_layout_recview,parent,false)
-
                 return MyViewHolder(binding)
             }
         }

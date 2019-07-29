@@ -4,6 +4,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ssessments.network.NetworkNewsItem
 
+
 @BindingAdapter("titleString")
 fun setNewsTitle(view:TextView,item:NetworkNewsItem?){
     item?.let {
@@ -31,3 +32,4 @@ fun TextView.setUserType(item:NetworkNewsItem?){
         text=item.access
     }
 }
+

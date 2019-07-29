@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
@@ -16,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
+import com.google.android.material.appbar.AppBarLayout
 import com.ssessments.search_provider.MySuggestionProvider
 
 private const val PACKAGE_NAME="com.ssessments"
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: com.ssessments.databinding.ActivityMainBinding
     private lateinit var navController: NavController
+    lateinit var myappBar:AppBarLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity(){
 
         setSupportActionBar(binding.toolbar)
         binding.toolbar.title=""
+        myappBar=binding.appbar
 
         navController=findNavController(R.id.mainNavHostFragment)
 

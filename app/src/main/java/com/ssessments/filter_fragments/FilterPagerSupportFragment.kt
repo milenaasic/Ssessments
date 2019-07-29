@@ -1,41 +1,84 @@
 package com.ssessments.filter_fragments
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ssessments.R
-import java.util.logging.Filter
-import kotlin.reflect.jvm.internal.impl.serialization.deserialization.FlexibleTypeDeserializer
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class FilterPagerSupportFragment: Fragment() {
 
     val TAG="FilterPagerSupportFragm"
+    private lateinit var mactivity:AppCompatActivity
+    private lateinit var sharedViewModel: FilterPagerSupportSharedViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.i(TAG, "on create")
         val root=inflater.inflate(R.layout.filter_fragment_pager_support, container, false)
+        sharedViewModel = ViewModelProviders.of(this).get(FilterPagerSupportSharedViewModel::class.java)
 
         val myTabLayout:TabLayout=root.findViewById(R.id.filters_tablayout)
-       val myViewPager=root.findViewById<ViewPager>(R.id.my_view_pager)
+        val myViewPager=root.findViewById<ViewPager>(R.id.my_view_pager)
 
-        //myTabLayout.getTabAt(1)?.apply { select() }
         myTabLayout.setupWithViewPager(myViewPager)
         myViewPager.adapter=MyFilterAdapter(childFragmentManager)
 
-
+        setHasOptionsMenu(true)
 
         return root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+       mactivity=requireActivity() as AppCompatActivity
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.removeItem(R.id.filter_menu_item)
+        menu.removeItem(R.id.action_search)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mactivity.appbar.elevation=0f
+        }
+        mactivity.apply{
+            appbar.setBackgroundColor(Color.TRANSPARENT)
+            bottom_navigation.visibility=View.GONE
+            toolbar.apply {
+                logo_in_toolbar.visibility = View.GONE
+                title = ""
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mactivity.appbar.elevation=4f
+        }
+        mactivity.apply{
+            appbar.setBackgroundColor(Color.WHITE)
+            bottom_navigation.visibility=View.VISIBLE
+            toolbar.apply {
+                logo_in_toolbar.visibility = View.VISIBLE
+
+            }
+        }
+
+    }
 }
 
 

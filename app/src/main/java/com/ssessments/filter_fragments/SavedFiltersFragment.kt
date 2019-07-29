@@ -8,16 +8,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.ssessments.databinding.FragmentSavedFiltersBinding
 import com.ssessments.R
 
 
 class SavedFiltersFragment : Fragment() {
     private lateinit var binding: FragmentSavedFiltersBinding
-    private lateinit var viewModel: SavedFiltersViewModel
+    private lateinit var sharedViewModel: FilterPagerSupportSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +29,19 @@ class SavedFiltersFragment : Fragment() {
         Log.i("SavedFiltersFR","on create")
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_saved_filters,container,false)
-        viewModel = ViewModelProviders.of(this, ViewModelProvider.AndroidViewModelFactory(activity?.application!!)).get(SavedFiltersViewModel::class.java)
 
+        sharedViewModel = parentFragment?.run {
+            ViewModelProviders.of(this)[FilterPagerSupportSharedViewModel::class.java]
+        } ?: throw Exception("Invalid Parent Fragment")
+
+
+        val adapter=SavedFiltersAdapter(FilterItemClickListener {filterId ->
+            Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
+            //viewModel.fetchFilterWithID(filterId)
+        })
+
+        binding.savedFiltersRecView.adapter= adapter
+        binding.savedFiltersRecView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
 
         return binding.root
