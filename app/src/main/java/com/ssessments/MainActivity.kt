@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(){
         NavigationUI.setupWithNavController(binding.toolbar,navController)
         NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
 
-        //povezivanje Toolbara da bi pravilno prikazao Up odnosno drawer ikonicu
+        //povezivanje Toolbara da bi pravilno prikazao Up odnosno drawer ikonicbu
         NavigationUI.setupWithNavController(binding.toolbar, navController, binding.myDrawerLayout)
 
         //povezivanje drawer-a sa NavControllerom

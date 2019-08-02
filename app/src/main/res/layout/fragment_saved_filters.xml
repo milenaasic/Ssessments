@@ -4,31 +4,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                        android:layout_height="wrap_content"
-                                                       android:id="@+id/frameLayout">
+                                                       android:id="@+id/constLayout">
 
-        <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/ssessments_logo_1_right"
-                android:id="@+id/imageView3" android:alpha="0.1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/saved_filters_recView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6" android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/saved_filters_recView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
-        <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content" android:id="@+id/guideline6"
-                                                    android:orientation="vertical"
-                                                    app:layout_constraintGuide_percent="0.50121653"/>
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="1dp" app:srcCompat="@color/lightGrey"
+                android:id="@+id/imageView3" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

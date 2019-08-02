@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.TabHost
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ssessments.R
+import com.ssessments.database.NewsDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -25,7 +27,11 @@ class FilterPagerSupportFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.i(TAG, "on create")
         val root=inflater.inflate(R.layout.filter_fragment_pager_support, container, false)
-        sharedViewModel = ViewModelProviders.of(this).get(FilterPagerSupportSharedViewModel::class.java)
+
+        val application= requireNotNull(this.activity).application
+        val datasource=NewsDatabase.getInstance(application).newsDatabaseDao
+        sharedViewModel = ViewModelProviders.of(this,FilterPagerSupportSharedViewModelFactory(datasource,application))
+                        .get(FilterPagerSupportSharedViewModel::class.java)
 
         val myTabLayout:TabLayout=root.findViewById(R.id.filters_tablayout)
         val myViewPager=root.findViewById<ViewPager>(R.id.my_view_pager)
@@ -33,6 +39,20 @@ class FilterPagerSupportFragment: Fragment() {
         myTabLayout.setupWithViewPager(myViewPager)
         myViewPager.adapter=MyFilterAdapter(childFragmentManager)
 
+        myTabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+                //p0?.text="unselect"
+               // p0?.icon.
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                //p0?.text="select"
+            }
+
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
         setHasOptionsMenu(true)
 
         return root

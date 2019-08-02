@@ -13,16 +13,16 @@ data class FilterItem(
     val ID:Long=0L,
 
     @ColumnInfo(name="filter_name")
-    val filterName:String="filter name",
+    val filterName:String="My Filter",
 
     @ColumnInfo(name="market")
-    val market:String="market",
+    val market:String="India",
 
     @ColumnInfo(name = "product")
-    val product:String="product",
+    val product:String="PVC",
 
     @ColumnInfo(name = "ssessment")
-    val ssessment:String="ssessment",
+    val ssessment:String="Weekly",
 
     @ColumnInfo(name = "filter_date_from")
     val dateFrom:String="1.9.2019",
@@ -31,6 +31,6 @@ data class FilterItem(
     val dateTo:String="7.12.2020",
 
     @ColumnInfo(name="language")
-    val language:String="language"
+    val language:String="English"
 
 )

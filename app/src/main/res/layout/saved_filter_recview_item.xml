@@ -7,165 +7,55 @@
     <data>
         <variable name="singleFilterItem" type="com.ssessments.database.FilterItem"/>
         <variable name="myfilterclickListener" type="com.ssessments.filter_fragments.FilterItemClickListener"/>
+        <variable name="myDeleteClickListener" type="com.ssessments.filter_fragments.FilterItemDeleteClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:onClick="@{() -> myfilterclickListener.onClick(singleFilterItem)}"
+
             android:id="@+id/root_layout"
             android:layout_width="match_parent"
-            android:layout_height="92dp">
+            android:layout_height="64dp">
 
         <ImageView
+                android:id="@+id/close_button"
+                android:onClick="@{() -> myDeleteClickListener.onClick(singleFilterItem)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_baseline_close_24px"
-                android:id="@+id/close_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/colorPrimaryDark"/>
+                android:tint="@color/dark_grey"/>
         <TextView
                 android:id="@+id/filter_name"
-
+                android:onClick="@{() -> myfilterclickListener.onClick(singleFilterItem)}"
                 app:filter_name_string="@{singleFilterItem}"
-
                 android:text="My Filter 1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@tools:sample/lorem"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/dark_grey"
+                android:background="?attr/selectableItemBackground"/>
 
-
-        <TextView
-                android:id="@+id/date_from_title_textview"
-                android:text="Date Range"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/region_textview" android:layout_marginStart="32dp"
-                app:layout_constraintTop_toTopOf="@+id/region_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/region_textview"/>
-        <TextView
-                android:id="@+id/date_from_textview"
-                app:date_from_string="@{singleFilterItem}"
-
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/date_from_title_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/date_from_title_textview"
-                app:layout_constraintVertical_bias="0.0" app:layout_constraintStart_toStartOf="@+id/guideline4"
-        />
-
-        <TextView
-                android:id="@+id/date_to_textview"
-                app:date_to_string="@{singleFilterItem}"
-
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/date_from_textview"
-                app:layout_constraintTop_toTopOf="@+id/date_from_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/date_from_textview" android:layout_marginStart="4dp"/>
-
-        <TextView
-                android:id="@+id/language_title_textview"
-                android:text="Language"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/date_from_title_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/product_textview"
-                app:layout_constraintTop_toTopOf="@+id/product_textview"/>
-
-        <TextView
-                android:id="@+id/language_textview"
-                app:language_string="@{singleFilterItem}"
-
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/language_title_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/language_title_textview"
-                app:layout_constraintVertical_bias="1.0" app:layout_constraintStart_toStartOf="@+id/guideline4"
-        />
-
-        <TextView
-                android:text="@string/ssessment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ssessment_title_textview"
-                android:textSize="12sp"
-                app:layout_constraintTop_toTopOf="@+id/ssessment_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/ssessment_textview"
-                app:layout_constraintStart_toStartOf="@+id/product_title_textview"/>
-
-        <TextView
-                android:id="@+id/ssessment_textview"
-                app:ssessment_string="@{singleFilterItem}"
-
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@+id/product_textview"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"/>
-
-        <TextView
-                android:id="@+id/product_title_textview"
-                android:text="@string/product"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/region_title_textview"
-                app:layout_constraintTop_toTopOf="@+id/product_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/product_textview"/>
-
-        <TextView
-                android:id="@+id/product_textview"
-                app:product_string="@{singleFilterItem}"
-
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@+id/region_textview"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"/>
-
-        <TextView
-                android:id="@+id/region_title_textview"
-                android:text="@string/region"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/filter_name"
-                android:textSize="12sp"
-                app:layout_constraintTop_toTopOf="@+id/region_textview"
-                app:layout_constraintBottom_toBottomOf="@+id/region_textview"/>
 
         <TextView
                 android:id="@+id/region_textview"
                 app:region_string="@{singleFilterItem}"
-                android:text="TextView"
+                android:text="China"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/filter_name"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"/>
-        <androidx.constraintlayout.widget.Guideline
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline3" app:layout_constraintGuide_percent="0.2"/>
-        <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content" android:id="@+id/guideline4"
-                                                    android:orientation="vertical"
-                                                    app:layout_constraintGuide_percent="0.56690997"/>
+                tools:text="China"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toStartOf="@+id/filter_name" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/filter_name" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:textColor="@color/logoDeepBlue"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -35,14 +36,20 @@ class SavedFiltersFragment : Fragment() {
         } ?: throw Exception("Invalid Parent Fragment")
 
 
-        val adapter=SavedFiltersAdapter(FilterItemClickListener {filterId ->
+        val adapter=SavedFiltersAdapter(FilterItemClickListener { filterId ->
             Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
             //viewModel.fetchFilterWithID(filterId)
+        }, FilterItemDeleteClickListener { filterId->
+            Toast.makeText(context, "delete ${filterId}", Toast.LENGTH_LONG).show()
+
         })
 
         binding.savedFiltersRecView.adapter= adapter
         binding.savedFiltersRecView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
+        sharedViewModel.filters.observe(this, Observer {
+            adapter.dataList=it
+        })
 
         return binding.root
     }

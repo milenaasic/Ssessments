@@ -14,11 +14,11 @@ fun setTitle(view:TextView,item:FilterItem?){
 @BindingAdapter("region_string")
 fun setRegion(view:TextView,item:FilterItem?){
     item?.let {
-        view.text=item.market
+        view.text="#${item.market}, ${item.product}, ${ item.ssessment}, ${item.language}, ${item.dateFrom} - ${item.dateTo}"
     }
 }
 
-@BindingAdapter("product_string")
+/*@BindingAdapter("product_string")
 fun setProduct(view:TextView,item:FilterItem?){
     item?.let {
         view.text=item.product
@@ -51,4 +51,4 @@ fun setLanguage(view:TextView,item:FilterItem?){
     item?.let {
         view.text=item.language
     }
-}
+}*/

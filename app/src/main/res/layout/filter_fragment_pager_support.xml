@@ -5,15 +5,23 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/my_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="900dp">
+        android:layout_height="wrap_content">
 
     <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/filters_tablayout"
-            app:tabTextColor="@color/logoPurpleMatchingSecondary"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabMode="fixed">
+            style="@style/Widget.MaterialComponents.TabLayout"
+            app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Button"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorGravity="bottom"
+            app:tabIconTint="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"
+            app:tabInlineLabel="true"
+            app:tabGravity="fill"
+            app:tabTextColor="@android:color/darker_gray" >
 
         <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

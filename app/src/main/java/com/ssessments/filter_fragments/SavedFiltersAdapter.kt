@@ -8,15 +8,23 @@ import com.ssessments.R
 import com.ssessments.database.FilterItem
 import com.ssessments.databinding.SavedFilterRecviewItemBinding
 
-class SavedFiltersAdapter(val clickListener: FilterItemClickListener) : RecyclerView.Adapter<SavedFiltersAdapter.MyViewHolder>() {
+class SavedFiltersAdapter(val clickListener: FilterItemClickListener,val deleteClickListener: FilterItemDeleteClickListener)
+    : RecyclerView.Adapter<SavedFiltersAdapter.MyViewHolder>() {
 
-    var dataList= listOf<FilterItem>(FilterItem(),FilterItem())
+    /*var dataList= listOf<FilterItem>(FilterItem(),FilterItem(),FilterItem(),
+        FilterItem(),FilterItem(),FilterItem(),FilterItem (),FilterItem(),FilterItem(),FilterItem(),FilterItem ())
+        set(value) {
+            field=value
+            notifyDataSetChanged()
+
+        }*/
+
+    var dataList= listOf<FilterItem>()
         set(value) {
             field=value
             notifyDataSetChanged()
 
         }
-
 
     override fun getItemCount(): Int {
         return dataList.size
@@ -27,14 +35,15 @@ class SavedFiltersAdapter(val clickListener: FilterItemClickListener) : Recycler
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(clickListener,dataList[position])
+        holder.bind(clickListener,deleteClickListener,dataList[position])
     }
 
     class MyViewHolder private constructor(val binding: SavedFilterRecviewItemBinding):RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: FilterItemClickListener,item:FilterItem){
+        fun bind(clickListener: FilterItemClickListener,deleteClickListener: FilterItemDeleteClickListener,item:FilterItem){
             binding.singleFilterItem=item
             binding.myfilterclickListener=clickListener
+            binding.myDeleteClickListener=deleteClickListener
             binding.executePendingBindings()
 
         }
@@ -51,7 +60,10 @@ class SavedFiltersAdapter(val clickListener: FilterItemClickListener) : Recycler
 
 }
 
-class FilterItemClickListener(val clickListener:(newsId:Long)->Unit ){
+class FilterItemClickListener(val clickListener:(id:Long)->Unit ){
     fun onClick(item:FilterItem)=clickListener(item.ID)
 }
 
+class FilterItemDeleteClickListener(val deleteClickListener:(filterId:Long)->Unit){
+    fun onClick(item:FilterItem)=deleteClickListener(item.ID)
+}

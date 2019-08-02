@@ -26,8 +26,11 @@
             tools:layout_editor_absoluteX="35dp">
 
             <androidx.core.widget.NestedScrollView
+                    android:id="@+id/myNestedScroolView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                    android:scrollbars="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <fragment

@@ -2,24 +2,41 @@ package com.ssessments.filter_fragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ssessments.database.FilterItem
 import com.ssessments.database.NewsDatabase
 import com.ssessments.database.NewsDatabaseDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class FilterPagerSupportSharedViewModel(application: Application): AndroidViewModel(application) {
+class FilterPagerSupportSharedViewModel(
+    val databaseDao: NewsDatabaseDao,
+    application: Application):AndroidViewModel(application) {
 
-    //val dao: NewsDatabaseDao = NewsDatabase.getInstance(application).newsDatabaseDao
+    val filters=databaseDao.getAllFilters()
 
-    /*init {
-
-        dao.insertFilter(FilterItem(1,"moj Filter","SEA","PE","Daily","10.3.2009","4.12.2013","english"))
-        dao.insertFilter(FilterItem(2,"moj Filter","SEA","PE","Daily","10.3.2009","4.12.2013","english"))
-
-    }*/
-    fun saveFilter(item: FilterItem){
-        // dao.insertFilter(item)
+    init {
+       insertFilterItem()
 
     }
+
+    fun insertFilterItem(){
+
+    }
+
+
+    fun saveFilter(item: FilterItem){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                databaseDao.insertFilter(item)
+            }
+        }
+
+    }
+
+
 
     fun applyFilterButton(item: FilterItem){
 
