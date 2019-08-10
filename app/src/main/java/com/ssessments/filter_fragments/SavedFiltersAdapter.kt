@@ -64,6 +64,6 @@ class FilterItemClickListener(val clickListener:(id:Long)->Unit ){
     fun onClick(item:FilterItem)=clickListener(item.ID)
 }
 
-class FilterItemDeleteClickListener(val deleteClickListener:(filterId:Long)->Unit){
-    fun onClick(item:FilterItem)=deleteClickListener(item.ID)
+class FilterItemDeleteClickListener(val deleteClickListener:(item: FilterItem)->Unit){
+    fun onClick(item:FilterItem)=deleteClickListener(item)
 }

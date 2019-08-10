@@ -87,14 +87,14 @@ class FilterPagerSupportFragment: Fragment() {
     override fun onStop() {
         super.onStop()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mactivity.appbar.elevation=4f
-        }
-        mactivity.apply{
-            appbar.setBackgroundColor(Color.WHITE)
-            bottom_navigation.visibility=View.VISIBLE
-            toolbar.apply {
-                logo_in_toolbar.visibility = View.VISIBLE
+            mactivity.appbar.elevation = 15f
+            mactivity.apply {
+                appbar.setBackgroundColor(Color.WHITE)
+                bottom_navigation.visibility = View.VISIBLE
+                toolbar.apply {
+                    logo_in_toolbar.visibility = View.VISIBLE
 
+                }
             }
         }
 
@@ -128,7 +128,7 @@ class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESU
             0->{
                 return "Filter By"}
             1->{Log.i(TAG, "Item 2")
-                return "My Filters"}
+                return "Saved Filters"}
             else->return ""
         }
     }

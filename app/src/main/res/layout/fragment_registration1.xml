@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context=".login_and_registration.RegistrationFragment"
+                                                   android:id="@+id/constraint_layout">
+    <ImageView
+            android:src="@drawable/logo_ssessments"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/logoRegistration"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginTop="16dp"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/emaileditText" android:hint="E-mail"
+            android:layout_marginTop="64dp" app:layout_constraintTop_toBottomOf="@+id/firstNameeditText"
+            app:layout_constraintEnd_toEndOf="@+id/lastNameeditText"
+            app:layout_constraintStart_toStartOf="@+id/lastNameeditText" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/mobilePhoneeditText"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/confirmemaileditText"
+            android:hint="Confirm E-mail"
+            app:layout_constraintEnd_toEndOf="@+id/emaileditText"
+            app:layout_constraintStart_toStartOf="@+id/emaileditText" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/emaileditText"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/mobilePhoneeditText"
+            android:hint="Mobile Phone"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toBottomOf="@+id/emaileditText"
+            app:layout_constraintEnd_toEndOf="@+id/confirmemaileditText"
+            app:layout_constraintStart_toStartOf="@+id/confirmemaileditText" app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginBottom="128dp" app:layout_constraintBottom_toTopOf="@+id/razdelnik"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/firstNameeditText"
+            android:hint="First Name"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/logoRegistration"
+            android:layout_marginStart="64dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="64dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toTopOf="@+id/emaileditText"
+    />
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/lastNameeditText"
+            android:hint="Last Name"
+            app:layout_constraintEnd_toEndOf="@+id/firstNameeditText"
+            app:layout_constraintStart_toStartOf="@+id/firstNameeditText" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/firstNameeditText"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/compoanyNameeditText"
+            android:hint="Company Name"
+            app:layout_constraintEnd_toEndOf="@+id/mobilePhoneeditText"
+            app:layout_constraintStart_toStartOf="@+id/mobilePhoneeditText" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/mobilePhoneeditText"/>
+    <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/countryspinner"
+            app:layout_constraintStart_toEndOf="@+id/countryTitletextView" android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/compoanyNameeditText" android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="@+id/countryTitletextView"
+            app:layout_constraintBottom_toBottomOf="@+id/countryTitletextView"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="1.0"/>
+    <TextView
+            android:text="Country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/countryTitletextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" android:paddingStart="4dp"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/compoanyNameeditText"
+            app:layout_constraintStart_toStartOf="@+id/compoanyNameeditText"
+    />
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guideline9"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.8"/>
+    <ImageView
+            android:src="@color/lightGrey"
+            android:layout_width="0dp"
+            android:layout_height="1dp" android:id="@+id/razdelnik" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/guideline9"/>
+    <Button
+            android:text="NEXT"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" android:id="@+id/nextbutton"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/razdelnik"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/oval_shape_purple_stroke"
+            android:backgroundTint="@color/colorAccent"
+            app:layout_constraintVertical_bias="0.409"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

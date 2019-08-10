@@ -18,11 +18,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ssessments.login_and_registration.LogIn_and_Registration_Activity
 import com.ssessments.search_provider.MySuggestionProvider
 
 private const val PACKAGE_NAME="com.ssessments"
 private const val CLASS_NAME="com.ssessments.MainActivity"
-private const val TAG="MY_MAIN_ACTIVITY"
+private const val TAG_MAIN="MY_MAIN_ACTIVITY"
+
+const val START_LOG_REGISTRATION_ACTIVITY_MESSAGE="Sign_in_OR_Sign_up"
+private const val SIGN_IN_MENU_ITEM=0
+private const val SIGN_UP_MENU_ITEM=1
+
 
 class MainActivity : AppCompatActivity(){
 
@@ -34,8 +41,8 @@ class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.v(TAG,componentName.toString())
-
+        Log.v(TAG_MAIN,componentName.toString())
+        Log.v(TAG_MAIN,"on create")
         binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         setSupportActionBar(binding.toolbar)
@@ -45,7 +52,7 @@ class MainActivity : AppCompatActivity(){
         navController=findNavController(R.id.mainNavHostFragment)
 
         NavigationUI.setupWithNavController(binding.toolbar,navController)
-        NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
+        //NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
 
         //povezivanje Toolbara da bi pravilno prikazao Up odnosno drawer ikonicbu
         NavigationUI.setupWithNavController(binding.toolbar, navController, binding.myDrawerLayout)
@@ -53,11 +60,34 @@ class MainActivity : AppCompatActivity(){
         //povezivanje drawer-a sa NavControllerom
         NavigationUI.setupWithNavController(binding.myNavigationView, navController)
 
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener {menuItem->
+
+            when(menuItem.itemId){
+                R.id.sign_in_item-> {
+                                    val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
+                                    putExtra(START_LOG_REGISTRATION_ACTIVITY_MESSAGE, SIGN_IN_MENU_ITEM)}
+                                    startActivity(intent)
+                                    true}
+                R.id.sign_up_item->{val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
+                                    putExtra(START_LOG_REGISTRATION_ACTIVITY_MESSAGE, SIGN_UP_MENU_ITEM)}
+                                    startActivity(intent)
+                                    true}
+
+                else->false
+            }
+
+        })
+
+
+
     }
 
 
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        Log.v(TAG,"on create")
+        Log.v(TAG_MAIN,"on create options")
 
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.overflow_menu, menu)
@@ -79,13 +109,13 @@ class MainActivity : AppCompatActivity(){
 
          menu.findItem(R.id.action_search).setOnActionExpandListener(object:MenuItem.OnActionExpandListener{
              override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                 Log.i(TAG,"u on action expand")
+                 Log.i(TAG_MAIN,"u on action expand")
                  myFilterMenuItem.setVisible(false)
                  return true
              }
 
              override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                 Log.i(TAG,"u on action expand")
+                 Log.i(TAG_MAIN,"u on action expand")
                  myFilterMenuItem.setVisible(true)
                  return true
              }
@@ -124,7 +154,14 @@ class MainActivity : AppCompatActivity(){
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG_MAIN,"main activity on start")
+    }
 
-
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG_MAIN,"main activity on stop")
+    }
 }
 

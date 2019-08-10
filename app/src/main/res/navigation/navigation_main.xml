@@ -10,15 +10,11 @@
     >
         <action android:id="@+id/action_mainFragment_to_detailNews" app:destination="@id/detailNews"/>
     </fragment>
-    <fragment android:id="@+id/sign_in_item" android:name="com.ssessments.login.LogIn_Fragment"
-              android:label="LogIn_Fragment"/>
     <fragment android:id="@+id/preference_fragment" android:name="com.ssessments.preferences.PreferenceFragment"
               android:label="Notifications"/>
-    <fragment android:id="@+id/sign_up_item" android:name="com.ssessments.registration.RegistrationFragment"
-              android:label="fragment_registration" tools:layout="@layout/fragment_registration"/>
 
     <fragment android:id="@+id/detailNews"
-            android:name="com.ssessments.detail_news_fragment.DetailNews"
+              android:name="com.ssessments.detail_news_fragment.DetailNews"
               android:label="detail_news_fragment"
               tools:layout="@layout/detail_news_fragment">
 

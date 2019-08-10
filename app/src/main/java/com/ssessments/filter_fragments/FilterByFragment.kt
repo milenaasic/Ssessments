@@ -2,7 +2,9 @@ package com.ssessments.filter_fragments
 
 import android.app.DatePickerDialog
 import android.content.DialogInterface
+import android.content.res.Resources
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,12 +16,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.ssessments.R
 import com.ssessments.database.FilterItem
 import kotlinx.android.synthetic.main.filter_by_fragment.*
 import java.util.*
 import java.text.DateFormat
 import java.text.DateFormat.MEDIUM
+
+
+
 
 
 class FilterByFragment : Fragment() {
@@ -143,17 +149,31 @@ class FilterByFragment : Fragment() {
         })
 
         binding.saveFilterButton.setOnClickListener {
-            val alertDialog=AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme)
-            alertDialog.setView(R.layout.save_filter_alert_dialog)
-                .setPositiveButton("SAVE",DialogInterface.OnClickListener{dialog, id ->
-                    val name=requireActivity().findViewById<EditText>(R.id.filter_name_edit_text).text.toString()
-                    sharedviewModel.saveFilter(getCurrentFieldsValue(filterName = name))
-                })
-                .setCancelable(true)
-                .create()
 
+            val alertDialog=AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme)
+
+            val myinflater = this.layoutInflater
+            val dialogView = myinflater.inflate(com.ssessments.R.layout.save_filter_alert_dialog, null)
+
+            alertDialog.setView(dialogView).setCancelable(true).create()
+
+            alertDialog.setPositiveButton("SAVE",DialogInterface.OnClickListener{dialog, id ->
+
+                        val nameView:EditText?=dialogView.findViewById(R.id.filter_name_edit_text)
+                        Log.i("FilterByFragment","pre provere save Filter name nije null")
+
+                        if(nameView==null){ Log.i("FilterByFragment","name view je null")}
+                        if(nameView!=null){
+                                Log.i("FilterByFragment","save Filter name nije null")
+                                if(nameView.text.isNullOrEmpty()){
+                                Toast.makeText(requireActivity(), "Enter filter name", Toast.LENGTH_LONG)
+                                .show()}
+                        else{ sharedviewModel.saveFilter(getCurrentFieldsValue(filterName = nameView.text.toString()))}
+                        }
+            })
 
             alertDialog.show()
+
 
         }
 

@@ -27,22 +27,23 @@
 
             <androidx.core.widget.NestedScrollView
                     android:id="@+id/myNestedScroolView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
                     android:scrollbars="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                 <fragment
-                        android:id="@+id/mainNavHostFragment"
-                        android:name="androidx.navigation.fragment.NavHostFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:defaultNavHost="true"
-                        app:navGraph="@navigation/navigation_main"
-                        tools:layout="@layout/fragment_main"/>
+                    android:id="@+id/mainNavHostFragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/navigation_main"
+                    tools:layout="@layout/fragment_main"/>
 
             </androidx.core.widget.NestedScrollView>
+
 
             <com.google.android.material.appbar.AppBarLayout
                     android:id="@+id/appbar"
@@ -57,7 +58,8 @@
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:theme="@style/myToolbarTheme"
                         android:title=""
-                        app:titleTextColor="@color/logoPurple" app:titleMargin="4dp">
+                        app:titleTextColor="@color/logoPurple"
+                        app:titleMargin="4dp">
 
                     <ImageView
                             android:id="@+id/logo_in_toolbar"
@@ -65,7 +67,8 @@
                             android:layout_height="match_parent"
                             app:srcCompat="@drawable/logo_ssessments"
                             tools:srcCompat="@drawable/logo_ssessments"
-                            android:scaleType="fitCenter" android:paddingTop="4dp" android:paddingBottom="4dp"/>
+                            android:scaleType="fitCenter" android:paddingTop="4dp" android:paddingBottom="4dp"
+                            android:contentDescription="LOGO"/>
 
                 </androidx.appcompat.widget.Toolbar>
 

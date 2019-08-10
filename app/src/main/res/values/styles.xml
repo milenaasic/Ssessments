@@ -15,7 +15,13 @@
         <!-- Background for the search query section (e.g. EditText) -->
         <item name="queryBackground">@color/colorAccent</item>
         <item name="android:fontFamily">@font/myfontfamilyregular</item>
-
+    </style>
+    
+    <style name="MyLogInAndRegistrationActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 
@@ -28,55 +34,52 @@
     <style name="MyAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-    </style>
+       <item name="colorAccent">@color/logoPurpleMatchingSecondary</item>
+   </style>
 
-    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/logoPurpleMatchingSecondary</item>
-        <item name="android:textAppearance">@style/MyTextAppearanceDialogButton</item>
-    </style>
+   <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+       <item name="android:textColor">@color/colorPrimary</item>
+       <!--<item name="android:textAppearance">@style/MyTextAppearanceDialogButton</item>-->
+   </style>
 
-    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+   <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+       <item name="android:textColor">@color/colorPrimary</item>
+   </style>
 
-        <item name="android:drawable">@color/colorPrimary</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textAppearance">@style/MyTextAppearanceDialogButton</item>
-    </style>
+   <style name="MyTextAppearanceDialogButton" parent="TextAppearance.AppCompat.Button">
+       <item name="android:textStyle">bold</item>
+   </style>
 
-    <style name="MyTextAppearanceDialogButton" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textStyle">bold</item>
-    </style>
+   <style name="MyNavigationBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
 
-    <style name="MyNavigationBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-
-    </style>
+   </style>
 
 
 
-    <style name="MyButtonSmall" parent="Widget.AppCompat.Button.Small">
-        <item name="android:textColor">@color/logoPurple</item>
-        <item name="android:textStyle">bold</item>
+   <style name="MyButtonSmall" parent="Widget.AppCompat.Button.Small">
+       <item name="android:textColor">@color/logoPurple</item>
+       <item name="android:textStyle">bold</item>
 
-    </style>
+   </style>
 
-    <style name="MyButton" parent="Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:minWidth">48dp</item>
-        <item name="android:minHeight">28dp</item>
+   <style name="MyButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+       <item name="android:textColor">@color/colorPrimary</item>
+       <item name="android:textSize">10sp</item>
+       <item name="android:minWidth">48dp</item>
+       <item name="android:minHeight">28dp</item>
 
 
-    </style>
+   </style>
 
-    <style name="MyButtonPressed" parent="Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:textColor">@color/logoPurple</item>
-        <item name="android:fontFamily">@font/pfdintextpro_regular_0</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:minWidth">48dp</item>
-        <item name="android:minHeight">28dp</item>
-        <item name="android:textStyle">bold</item>
+   <style name="MyButtonPressed" parent="Widget.AppCompat.Button.Borderless.Colored">
+       <item name="android:textColor">@color/logoPurple</item>
+       <item name="android:fontFamily">@font/pfdintextpro_regular_0</item>
+       <item name="android:textSize">10sp</item>
+       <item name="android:minWidth">48dp</item>
+       <item name="android:minHeight">28dp</item>
+       <item name="android:textStyle">bold</item>
 
-    </style>
+   </style>
 
 
 
