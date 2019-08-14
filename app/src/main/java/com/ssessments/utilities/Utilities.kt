@@ -1,11 +1,9 @@
-package com.ssessments.Utilities
+package com.ssessments.utilities
 
 import android.app.Application
 import android.content.Context
 import android.net.*
 import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 
 
 fun isOnline(application:Application):Boolean{

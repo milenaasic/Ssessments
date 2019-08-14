@@ -19,7 +19,7 @@
               tools:layout="@layout/detail_news_fragment">
 
         <action android:id="@+id/action_detailNews_to_mainFragment" app:destination="@id/mainFragment"/>
-        <argument android:name="newsID" app:argType="long"/>
+        <argument android:name="newsID" app:argType="integer"/>
 
     </fragment>
     <fragment

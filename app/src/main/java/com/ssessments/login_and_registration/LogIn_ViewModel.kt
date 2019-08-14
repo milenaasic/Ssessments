@@ -4,9 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.ssessments.Utilities.isOnline
-import com.ssessments.network.NetworkNewsItem
+import com.ssessments.utilities.isOnline
 
 class LogIn_ViewModel(application: Application): AndroidViewModel(application) {
 

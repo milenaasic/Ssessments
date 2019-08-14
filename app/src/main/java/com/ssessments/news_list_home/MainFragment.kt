@@ -76,8 +76,8 @@ class mainFragment : Fragment() {
     }
 
 
-    fun openDetailNewsFragment(id:Long){
-         if(id!=-1L){
+    fun openDetailNewsFragment(id:Int){
+         if(id!=-1){
             val action= mainFragmentDirections.actionMainFragmentToDetailNews(id)
             findNavController().navigate(action)
             viewModel.resetNewsID()}

@@ -5,18 +5,18 @@ import com.squareup.moshi.Json
 data class NetworkNewsItem (
 
     @Json(name="newsID")
-    var newsID:Long=0L,
+    var newsID:Int,
 
     @Json(name="title")
-    var title:String="title",
+    var title:String,
 
     @Json(name="tags")
-    var tags:String="tags",
+    var tags:String,
 
     @Json(name="date_time")
-    var date_time:String="date",
+    var date_time:String,
 
     @Json(name="access")
-    var access:String="access"
+    var access:String
 
 )

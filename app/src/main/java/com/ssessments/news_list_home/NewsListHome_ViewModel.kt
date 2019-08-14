@@ -13,6 +13,7 @@ import com.ssessments.data.getNewsItemArray
 import com.ssessments.database.NewsDatabase
 import com.ssessments.network.NetworkNewsItem
 import com.ssessments.network.NewsApi
+import com.ssessments.utilities.isOnline
 import kotlinx.coroutines.*
 
 class NewsListHome_ViewModel(application:Application): AndroidViewModel(application) {
@@ -35,8 +36,8 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
     val showNoAccessRightsSnackbar: LiveData<Boolean>
         get() = _showNoAccessRightsSnackbar
 
-    private val _newsToBeOpenedID = MutableLiveData<Long>()
-    val newsToBeOpenedID: LiveData<Long>
+    private val _newsToBeOpenedID = MutableLiveData<Int>()
+    val newsToBeOpenedID: LiveData<Int>
         get() = _newsToBeOpenedID
 
 
@@ -46,7 +47,7 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
         initializeNewsList()
 
         _showNoAccessRightsSnackbar.value = false
-        _newsToBeOpenedID.value = -1L
+        _newsToBeOpenedID.value = -1
     }
 
     private fun initializeNewsList() {
@@ -55,7 +56,7 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
                     return}
 
         // za kasnije ako prilikom inicijalizacije nema mreze podigni iz baze listu
-        if (isOnline()){
+        if (isOnline(getApplication())){
 
             viewModelScope.launch {
                 var getPropertiesDeferred = NewsApi.retrofitService.getNewsList()
@@ -70,9 +71,6 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
 
     }
 
-    private fun isOnline(): Boolean {
-        return true
-    }
 
 
 
@@ -97,7 +95,7 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
     }*/
 
         //otvara detail news fragment
-        fun fetchNewsWithID(newsID: Long) {
+        fun fetchNewsWithID(newsID: Int) {
 
             if (isNewsAccessibleByThisUser(UserAccessRights.PREMIUM_USER)) {
                 //otvori detail news fragment
@@ -115,7 +113,7 @@ class NewsListHome_ViewModel(application:Application): AndroidViewModel(applicat
         }
 
         fun resetNewsID() {
-            _newsToBeOpenedID.value = -1L
+            _newsToBeOpenedID.value = -1
         }
 
         override fun onCleared() {

@@ -52,7 +52,7 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
     }
 }
 
-class NewsItemClickListener(val clickListener:(newsId:Long)->Unit ){
+class NewsItemClickListener(val clickListener:(newsId:Int)->Unit ){
     fun onClick(item:NetworkNewsItem)=clickListener(item.newsID)
 }
 

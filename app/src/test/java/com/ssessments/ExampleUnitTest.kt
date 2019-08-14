@@ -1,5 +1,7 @@
 package com.ssessments
 
+import com.ssessments.network.NetworkNewsFilterObject
+import com.ssessments.utilities.Markets
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +15,13 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun checkNetworkNewsObjectClass(){
+
+        var m:NetworkNewsFilterObject= NetworkNewsFilterObject(dateFrom = "21.21.2019")
+        print("${m.toString()}")
+
     }
 }
