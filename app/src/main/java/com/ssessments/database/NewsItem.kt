@@ -11,7 +11,7 @@ data class NewsItem(
     var id:Long= 0L,
 
     @ColumnInfo(name="news_ID")
-    var newsID:Long=0L,
+    var newsID:Int=0,
 
     @ColumnInfo(name="news_title")
     var title:String="title",

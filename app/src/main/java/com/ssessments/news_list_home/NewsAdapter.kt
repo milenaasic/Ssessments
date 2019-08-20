@@ -7,12 +7,13 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssessments.R
+import com.ssessments.database.NewsItem
 import com.ssessments.network.NetworkNewsItem
 import com.ssessments.databinding.NewsItemLayoutRecviewBinding
 
 class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
-    var dataList= listOf<NetworkNewsItem>()
+    var dataList= listOf<NewsItem>()
     set(value) {
         field=value
         notifyDataSetChanged()
@@ -35,7 +36,7 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
 
     class MyViewHolder private constructor(val binding: NewsItemLayoutRecviewBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clickListener: NewsItemClickListener,item:NetworkNewsItem){
+        fun bind(clickListener: NewsItemClickListener,item:NewsItem){
             binding.singleNewsItem=item
             binding.clickListener=clickListener
             binding.executePendingBindings()
@@ -53,6 +54,6 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
 }
 
 class NewsItemClickListener(val clickListener:(newsId:Int)->Unit ){
-    fun onClick(item:NetworkNewsItem)=clickListener(item.newsID)
+    fun onClick(item:NewsItem)=clickListener(item.newsID)
 }
 

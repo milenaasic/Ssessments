@@ -10,15 +10,13 @@ import com.squareup.moshi.Json
 data class UserData(
 
         @PrimaryKey
-        var id:Int= 0,
-
         @ColumnInfo(name="username")
-        var username:String="",
+        var username:String,
 
         @ColumnInfo(name="password")
-        var password:String="",
+        var password:String,
 
         @ColumnInfo(name="token")
-        var token:String=""
+        var token:String
 
     )

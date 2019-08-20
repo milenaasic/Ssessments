@@ -33,13 +33,13 @@ class FilterPagerSupportFragment: Fragment() {
         sharedViewModel = ViewModelProviders.of(this,FilterPagerSupportSharedViewModelFactory(datasource,application))
                         .get(FilterPagerSupportSharedViewModel::class.java)
 
-        val myTabLayout:TabLayout=root.findViewById(R.id.filters_tablayout)
+        val myTabLayout:TabLayout?=root.findViewById(R.id.filters_tablayout)
         val myViewPager=root.findViewById<ViewPager>(R.id.my_view_pager)
 
-        myTabLayout.setupWithViewPager(myViewPager)
+        myTabLayout?.setupWithViewPager(myViewPager)
         myViewPager.adapter=MyFilterAdapter(childFragmentManager)
 
-        myTabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+        myTabLayout?.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
             override fun onTabUnselected(p0: TabLayout.Tab?) {
                 //p0?.text="unselect"
                // p0?.icon.
@@ -71,32 +71,11 @@ class FilterPagerSupportFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mactivity.appbar.elevation=0f
-        }
-        mactivity.apply{
-            appbar.setBackgroundColor(Color.TRANSPARENT)
-            bottom_navigation.visibility=View.GONE
-            toolbar.apply {
-                logo_in_toolbar.visibility = View.GONE
-                title = ""
-            }
-        }
+
     }
 
     override fun onStop() {
         super.onStop()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mactivity.appbar.elevation = 15f
-            mactivity.apply {
-                appbar.setBackgroundColor(Color.WHITE)
-                bottom_navigation.visibility = View.VISIBLE
-                toolbar.apply {
-                    logo_in_toolbar.visibility = View.VISIBLE
-
-                }
-            }
-        }
 
     }
 }

@@ -1,23 +1,26 @@
 package com.ssessments.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import androidx.room.OnConflictStrategy
+
+
 
 @Dao
 interface NewsDatabaseDao{
 
     //NEWS TABLE
-    @Insert
-    fun insert(item: NewsItem)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNews(news:List<NewsItem>)
 
     @Query("SELECT * FROM last_news_list_table ORDER BY id" )
-     fun getAllNews():List<NewsItem>
+     fun getAllNews():LiveData<List<NewsItem>>
 
     @Query("DELETE from last_news_list_table")
-     fun clear()
+     suspend fun clearNewsTable()
+
+
 
     //FILTER TABLE
     @Insert
@@ -35,16 +38,23 @@ interface NewsDatabaseDao{
 
     //USER TABLE
     @Insert
-    fun insertUser(item: UserData)
+    suspend fun insertUser(item: UserData)
 
     @Delete
     suspend fun deleteUser(item:UserData)
 
     @Query("DELETE from user_data_table")
-    fun clearUserDataTable()
+    suspend fun clearUserDataTable()
 
-    @Query("SELECT * FROM user_data_table WHERE id=0" )
-    fun getUser():UserData
+    @Query("SELECT * FROM user_data_table" )
+    fun getUser():LiveData<UserData>
+
+    @Update
+    suspend fun updateUser(user:UserData)
+
+    @Query("SELECT COUNT (username) FROM user_data_table")
+    suspend fun getNumberOfUsers():Int
+
 
 
 }

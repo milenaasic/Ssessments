@@ -4,8 +4,6 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_main.xml"
             app:startDestination="@id/mainFragment">
 
-    <fragment android:id="@+id/openingFragment" android:name="com.ssessments.opening.OpeningFragment"
-              android:label="fragment_opening" tools:layout="@layout/fragment_opening"/>
     <fragment android:id="@+id/mainFragment" android:name="com.ssessments.news_list_home.mainFragment" android:label="Ssessments"
     >
         <action android:id="@+id/action_mainFragment_to_detailNews" app:destination="@id/detailNews"/>

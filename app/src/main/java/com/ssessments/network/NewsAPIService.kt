@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL ="https://"
+private const val BASE_URL ="https://mars.udacity.com/"
 
 private val moshi= Moshi.Builder()
                     .add(KotlinJsonAdapterFactory())
@@ -48,8 +48,8 @@ interface NewsAPIService {
     fun postPredefinedFilters(@Body user_token:String):Deferred <List<NetworkNewsFilterObject>>
 
     //User LogIn
-    //sta se vraca sa servera u slucaju uspeha?
-    @POST("url5")
+    //sta se vraca sa servera u slucaju uspeha? Token
+    @POST("ur4")
     fun postUserLogIn(@Body userData: NetworkUserData):Deferred<String>
 
     @POST("url6")
@@ -61,5 +61,7 @@ interface NewsAPIService {
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object NewsApi {
-    val retrofitService : NewsAPIService by lazy { retrofit.create(NewsAPIService::class.java) }
+    val retrofitService : NewsAPIService by lazy {
+        retrofit.create(NewsAPIService::class.java)
+    }
 }
