@@ -59,12 +59,22 @@ class mainFragment : Fragment() {
         binding.mainRecView.adapter= adapter
         binding.mainRecView.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
 
-        /*binding.mySwipeRefreshLayot.setOnRefreshListener {
+        binding.mySwipeRefreshLayout.setOnRefreshListener {
             Log.i(mytag, "onRefresh called from SwipeRefreshLayout")
             // This method performs the actual data-refresh operation.
             // The method calls setRefreshing(false) when it's finished.
             viewModel.initializeNewsList()
-        }*/
+        }
+
+        viewModel.swiperefreshfinished.observe(this,Observer{
+
+            if(it) {
+                binding.mySwipeRefreshLayout.isRefreshing=false
+                viewModel.setSwiperefreshedfinishedToFalse()}
+
+        })
+
+
 
 
         viewModel.newsList.observe(this, Observer { newList->
@@ -75,8 +85,8 @@ class mainFragment : Fragment() {
         viewModel.noInternet.observe(this, Observer { showSnackbar->
                 if(showSnackbar){
                 Snackbar.make(binding.fragmentLinLay,R.string.nointernet,Snackbar.LENGTH_LONG).show()
-                }
                 viewModel.noInternetSnackBarShown()
+                }
             })
 
 
@@ -93,7 +103,8 @@ class mainFragment : Fragment() {
          if(id!=-1){
             val action= mainFragmentDirections.actionMainFragmentToDetailNews(id)
             findNavController().navigate(action)
-            viewModel.resetNewsID()}
+            viewModel.resetNewsID()
+         }
 
 
     }
