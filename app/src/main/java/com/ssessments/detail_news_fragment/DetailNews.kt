@@ -7,13 +7,17 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 
 import com.ssessments.R
+import com.ssessments.database.NewsDatabase
 import com.ssessments.databinding.DetailNewsFragmentBinding
+import com.ssessments.utilities.EMPTY_TOKEN
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.detail_news_fragment.*
 
+private const val MYTAG="MY_DETAIL_FRAGMENT"
 class DetailNews : Fragment() {
 
 
@@ -35,30 +39,49 @@ class DetailNews : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        viewModelFactory= DetailNewsViewModelFactory(args.newsID)
+        val application= requireNotNull(this.activity).application
+        val datasource= NewsDatabase.getInstance(application).newsDatabaseDao
+        viewModelFactory= DetailNewsViewModelFactory(args.newsID,datasource,application)
         viewModel = ViewModelProviders.of(this,viewModelFactory).get(DetailNewsViewModel::class.java)
 
         binding= DataBindingUtil.inflate(inflater,R.layout.detail_news_fragment,container,false)
-        var myfakeData=MyDetailNewsFakeData()
 
-        binding.apply {
-            title.setText(myfakeData.title)
-            timeDate.setText(myfakeData.time)
-            newsBody.setText(myfakeData.body)
-        }
 
-        requireActivity().toolbar.apply {
-        logo_in_toolbar.visibility=View.GONE
-        title=""
-        //setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))
-        }
+        viewModel.user.observe(this, Observer{
+            Log.i(MYTAG,"user je ${it}")
+            val token:String=it?.token?:EMPTY_TOKEN
+            viewModel.getDetailNews(token)
+        })
 
-        requireActivity().apply {
-        bottom_navigation.visibility=View.GONE
-        }
+        viewModel.singleNewsData.observe(this,Observer{
+            binding.apply {
+                title.setText(it.title)
+                timeDate.setText(it.dateTime)
+                newsBody.setText(it.body)
+                author_textView.setText(it.author)
+                tags_textView.setText(it.tags)
+            }
+        })
+
+        viewModel.showProgressBar.observe(this,Observer{showBar->
+            showProgressBar(showBar)
+        })
 
         return binding.root
+    }
+
+    private fun showProgressBar(shouldShow:Boolean){
+    when(shouldShow){
+        true->binding.apply{
+                            detailnewsConstraintLayout.visibility=View.INVISIBLE
+                            detailnewsprogressBar.visibility=View.VISIBLE
+                            }
+        false->binding.apply{
+                            detailnewsConstraintLayout.visibility=View.VISIBLE
+                            detailnewsprogressBar.visibility=View.GONE
+        }
+    }
+
     }
 
 
@@ -86,14 +109,7 @@ class DetailNews : Fragment() {
     }
 
     override fun onDestroyView() {
-        requireActivity().toolbar.apply {
-            logo_in_toolbar.visibility = View.VISIBLE
+        super.onDestroyView()
 
-            requireActivity().apply {
-                bottom_navigation.visibility=View.VISIBLE
-            }
-
-            super.onDestroyView()
-        }
     }
 }

@@ -15,7 +15,8 @@
 
         <activity
                 android:name=".MainActivity"
-                android:launchMode="singleTop">
+                android:launchMode="singleTop"
+               >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -33,7 +34,8 @@
 
         <activity
             android:name=".login_and_registration.LogIn_and_Registration_Activity"
-            android:theme="@style/MyLogInAndRegistrationActivityTheme">
+            android:theme="@style/MyLogInAndRegistrationActivityTheme"
+            android:screenOrientation="portrait" >
 
         </activity>
 

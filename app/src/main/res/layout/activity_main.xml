@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+
 <androidx.drawerlayout.widget.DrawerLayout
 
         android:id="@+id/myDrawerLayout"
@@ -58,8 +59,7 @@
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:theme="@style/myToolbarTheme"
                         android:title=""
-                        app:titleTextColor="@color/logoPurple"
-                        app:titleMargin="4dp">
+                        app:titleMargin="4dp" app:titleTextColor="@android:color/black">
 
                     <ImageView
                             android:id="@+id/logo_in_toolbar"

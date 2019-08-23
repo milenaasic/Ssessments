@@ -70,6 +70,7 @@ class SavedFiltersFragment : Fragment() {
             }
             else {sharedViewModel.showEmptyListText(true)}
         })
+
         sharedViewModel.showEmptyList.observe(requireParentFragment(), Observer {showList->
             if(showList) binding.emptyListText.visibility=View.VISIBLE
             else binding.emptyListText.visibility=View.GONE

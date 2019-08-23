@@ -11,7 +11,7 @@ data class NetworkUserData (
     var password:String,
 
     @Json(name="token")
-    var token:String
+    var token:String?
 )
 
 

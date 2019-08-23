@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/nav_drawer_group"
+            android:checkableBehavior="single">
 
         <item
                 android:id="@+id/home"
                 android:title="@string/home"
+                android:checked="true"
                 android:icon="@drawable/baseline_home_black_24dp"
         />
 
 
-        <item
-                android:id="@+id/myAccount"
-                android:title="@string/my_account"
-                android:icon="@drawable/baseline_account_box_black_24dp"
-        />
         <item
                 android:id="@+id/preference_fragment"
                 android:title="@string/notifications"
                 android:icon="@drawable/baseline_notifications_black_24dp"
         />
 
+
     </group>
 
+    <group>
+
+        <item
+                android:id="@+id/logout_menuitem"
+                android:title="Log Out"
+                android:icon="@drawable/ic_exit"
+        />
+
+    </group>
 </menu>

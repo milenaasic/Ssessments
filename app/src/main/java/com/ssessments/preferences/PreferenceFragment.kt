@@ -23,8 +23,8 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val menuItem1:MenuItem=menu.findItem(R.id.action_search)
-        menuItem1.setVisible(false)
+        menu.findItem(R.id.filter_menu_item).setVisible(false)
+        menu.findItem(R.id.action_search).setVisible(false)
 
     }
 }
