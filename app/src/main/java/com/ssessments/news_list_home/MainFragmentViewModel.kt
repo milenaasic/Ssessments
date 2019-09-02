@@ -35,6 +35,11 @@ class MainFragmentViewModel(
     //promenljiva koja sadrzi newsListu iz baze
     val newsList=database.getAllNews()
 
+    private val _swiperefreshfinished = MutableLiveData<Boolean>()
+    val swiperefreshfinished: LiveData<Boolean>
+        get() = _swiperefreshfinished
+
+
     private val _noInternet = MutableLiveData<Boolean>()
     val noInternet: LiveData<Boolean>
         get() = _noInternet
@@ -67,9 +72,8 @@ class MainFragmentViewModel(
             Log.i(mytag,("initializeNewsLis is online"))
 
             viewModelScope.launch {
-
+                var getPropertiesDeferred = NewsApi.retrofitService.getNewsList()
                 try {
-                    var getPropertiesDeferred = NewsApi.retrofitService.getNewsList()
                     Log.i(mytag,("preproeprtydeffered"))
                     var listResult = getPropertiesDeferred.await()
                     Log.i(mytag,("posle property deffered"))
@@ -84,6 +88,7 @@ class MainFragmentViewModel(
                     // proba dok ne proradi server
                     insertNewsIntoDatabase(getNewsItemArray())
                     _showProgressBar.value=false
+                    _swiperefreshfinished.value=true
                 }
             }
         }else{
@@ -103,6 +108,11 @@ class MainFragmentViewModel(
         }
 
     }
+
+    fun setSwiperefreshedfinishedToFalse(){
+        _swiperefreshfinished.value=false
+    }
+
 
     fun noInternetSnackBarShown(){
         _noInternet.value=false

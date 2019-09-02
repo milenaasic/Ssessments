@@ -80,19 +80,16 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
-                style="@style/Widget.MaterialComponents.BottomNavigationView"
+                style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+                android:background="@color/colorPrimaryDark"
+                app:itemIconTint="@color/white"
+                app:itemTextColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:itemBackground="@color/colorPrimaryDark"
-                app:itemTextAppearanceActive="@style/Base.TextAppearance.AppCompat.Small"
-                app:itemTextAppearanceInactive="@style/Base.TextAppearance.AppCompat.Small"
-                app:itemTextColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:menu="@menu/bottom_menu"
-                app:itemIconTint="@color/colorPrimary"
-                android:background="@color/colorPrimaryDark"/>
+                app:menu="@menu/bottom_menu"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -107,11 +107,6 @@ class LogIn_Fragment : Fragment() {
     }
 
 
-    private fun isPasswordValid(password:String):Boolean{
-        Log.i(TAG_LOGIN,"${password.length}")
-        Log.i(TAG_LOGIN,"da li je duza od 5: ${password.length>5}")
-        return password.length > 5
-    }
 
     private fun isUsernameValid(username:String):Boolean{
         Log.i(TAG_LOGIN,"prazan user: ${username.isNotBlank()}")
@@ -149,3 +144,10 @@ class LogIn_Fragment : Fragment() {
 
     }
 }
+
+fun isPasswordValid(password:String):Boolean{
+    Log.i(TAG_LOGIN,"${password.length}")
+    Log.i(TAG_LOGIN,"da li je duza od 5: ${password.length>5}")
+    return password.length > 5
+}
+

@@ -11,7 +11,7 @@
     <string name="notifications">Notifications</string>
 
     <!-- toast and snackbar messages-->
-    <string name="nointernet">No Internet</string>
+    <string name="nointernet" translatable="false">No Internet</string>
 
     <!-- search interface-->
     <string name="app_label">Ssessments</string>
