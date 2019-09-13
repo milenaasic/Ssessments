@@ -2,6 +2,7 @@ package com.ssessments
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.ssessments.utilities.convertArrayListToStringWithCommas
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,5 +21,13 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.ssessments", appContext.packageName)
+    }
+
+    @Test
+    fun checkConvertArrayToString(){
+        val s= convertArrayListToStringWithCommas(arrayListOf("one","two","three","four"))
+
+        print("${s}")
+
     }
 }

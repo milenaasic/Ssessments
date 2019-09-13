@@ -16,7 +16,7 @@
         <activity
                 android:name=".MainActivity"
                 android:launchMode="singleTop"
-               >
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -30,15 +30,14 @@
                     android:name="android.app.searchable"
                     android:resource="@xml/searchable"/>
         </activity>
-
-
         <activity
-            android:name=".login_and_registration.LogIn_and_Registration_Activity"
-            android:theme="@style/MyLogInAndRegistrationActivityTheme"
-            android:screenOrientation="portrait" >
-
+                android:name=".login_and_registration.LogIn_and_Registration_Activity"
+                android:screenOrientation="portrait"
+                android:theme="@style/MyLogInAndRegistrationActivityTheme">
         </activity>
 
+        <activity android:name=".filter_activity.FilterActivity">
+        </activity>
 
         <provider
                 android:name=".search_provider.MySuggestionProvider"

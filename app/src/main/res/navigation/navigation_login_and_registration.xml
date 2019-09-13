@@ -13,12 +13,13 @@
               android:name="com.ssessments.login_and_registration.RegistrationFragment1"
               android:label="fragment_registration1">
         <action android:id="@+id/action_registrationFragment1_to_registrationFragment2"
-                app:destination="@id/registrationFragment2"/>
+                app:destination="@id/registrationFragment2" app:launchSingleTop="false"/>
     </fragment>
     <fragment android:id="@+id/registrationFragment2"
               android:name="com.ssessments.login_and_registration.RegistrationFragment2"
               android:label="RegistrationFragment2">
         <action android:id="@+id/action_registrationFragment2_to_registrationFragment1"
-                app:destination="@id/registrationFragment1"/>
+                app:destination="@id/registrationFragment1" app:launchSingleTop="true"
+                app:popUpTo="@+id/registrationFragment2" app:popUpToInclusive="false"/>
     </fragment>
 </navigation>

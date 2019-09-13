@@ -33,10 +33,8 @@ interface NewsAPIService {
     fun getNewsList( ):Deferred <List<NetworkNewsItem>>
 
     //VESTI- ucitaj listu vesti prema datom filteru
-    @FormUrlEncoded
     @POST("url2")
-    fun postFilteredNewsList(@Field("token") usertoken:String,
-                             @Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>
+    fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>
 
     //VESTI - ucitaj pojedinacnu vest, salje se id kao path i token u body
     @POST("url3/{singleNewsID}")

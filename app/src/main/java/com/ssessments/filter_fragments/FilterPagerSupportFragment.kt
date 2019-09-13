@@ -82,7 +82,7 @@ class FilterPagerSupportFragment: Fragment() {
 
 
 const val TAG="MyFILTERADAPTER"
-const val NUMBER_OF_ITEM_FRAGMENTS=2
+const val NUMBER_OF_ITEM_FRAGMENTS=3
 class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
 
     override fun getItem(position: Int): Fragment {
@@ -92,6 +92,7 @@ class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESU
                 return FilterByFragment()}
             1->{Log.i(TAG, "Item 2")
                 return SavedFiltersFragment()}
+            2-> return PredefinedFiltersFragment()
             else->return FilterByFragment()
         }
     }
@@ -104,10 +105,9 @@ class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESU
 
     override fun getPageTitle(position: Int): CharSequence? {
         when(position){
-            0->{
-                return "Filter By"}
-            1->{Log.i(TAG, "Item 2")
-                return "Saved Filters"}
+            0->{ return "Custom"}
+            1->{ return "Saved"}
+            2->{ return "Predefined"}
             else->return ""
         }
     }

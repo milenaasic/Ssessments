@@ -14,9 +14,6 @@ private const val MY_TAG="MY_MainActivViewModel"
 class MainActivityViewModel(val database:NewsDatabaseDao,
                             application: Application): AndroidViewModel(application){
 
-    /*private val _loggedInUser=MutableLiveData<UserData?>()
-    val loggedInUser:LiveData<UserData?>
-        get()=_loggedInUser*/
 
     var loggedInUser=database.getUser()
 
@@ -32,25 +29,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
     }
 
-
-
-    /*fun getUserFromDatabase() {
-
-        var n: Int = -1
-        var myuser: List<UserData>? = null
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                n = database.getNumberOfUsers()
-                Log.i(MY_TAG, "broj korisnika je ${n}")
-                if(n==1) myuser = database.getUser()
-                Log.i(MY_TAG," getfromdatabase ${myuser}")
-                _loggedInUser.value=myuser?.get(0)
-            }
-        }
-
-
-    }*/
 
 
 

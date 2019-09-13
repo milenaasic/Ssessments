@@ -3,7 +3,7 @@ package com.ssessments.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy
-
+import kotlinx.coroutines.Deferred
 
 
 @Dao
@@ -22,12 +22,15 @@ interface NewsDatabaseDao{
 
 
 
-    //FILTER TABLE
+    //SAVED FILTERS TABLE
     @Insert
      suspend fun insertFilter(item: FilterItem)
 
     @Query("SELECT * FROM saved_filters_table ORDER BY id DESC")
      fun getAllFilters():LiveData<List<FilterItem>>
+
+    @Query("SELECT * FROM saved_filters_table WHERE ID=:filterid")
+    fun getChosenFilter(filterid:Long):Deferred<FilterItem>
 
      @Delete
      suspend fun deleteFilterItem(item:FilterItem)
@@ -56,5 +59,13 @@ interface NewsDatabaseDao{
     suspend fun getNumberOfUsers():Int
 
 
+    //CURRENT FILTER TABLE
+    @Insert
+    fun insertCurrentFilter(item: CurrentFilter)
 
+    @Query("DELETE from current_filter_table")
+    fun clearCurrentFilterTable()
+
+    @Query("SELECT * FROM current_filter_table")
+    fun getCurrentFilter():LiveData<CurrentFilter>
 }

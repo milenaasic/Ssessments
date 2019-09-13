@@ -1,6 +1,7 @@
 package com.ssessments.login_and_registration
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -42,6 +45,24 @@ class LogIn_Fragment : Fragment() {
             .get(LogIn_ViewModel::class.java)
 
         val navController=this.findNavController()
+
+        //da se ne otvoti prvi edittext sam od sebe
+        binding.rootConstLayout.requestFocus()
+
+        binding.passwordEditText.setOnEditorActionListener { v, actionId, event ->
+            when (actionId){
+                EditorInfo.IME_ACTION_DONE-> {
+
+                    val inputMethodManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(binding.passwordEditText.windowToken, 0)
+                    binding.passwordEditText.clearFocus()
+                    true
+                }
+
+                else->false
+            }
+        }
+
 
         //SIGN IN
         binding.signInButton.setOnClickListener{
@@ -93,11 +114,12 @@ class LogIn_Fragment : Fragment() {
 
         viewModel.sendUserToHomeFragment.observe(this,Observer{
             if(it){
-                val intent= Intent(requireActivity(),MainActivity::class.java).apply {
-                    putExtra( LOGGED_IN_USER_GOTO_MAIN_ACTIVITY,true)}
-                    startActivity(intent)
 
+                /*val intent= Intent(requireActivity(),MainActivity::class.java).apply {
+                    putExtra( LOGGED_IN_USER_GOTO_MAIN_ACTIVITY,true)}
+                    startActivity(intent)*/
                 viewModel.userSentToHomeFragment()
+                activity?.finish()
             }
         })
 

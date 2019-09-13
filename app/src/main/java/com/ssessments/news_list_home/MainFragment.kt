@@ -61,8 +61,6 @@ class mainFragment : Fragment() {
 
         binding.mySwipeRefreshLayout.setOnRefreshListener {
             Log.i(mytag, "onRefresh called from SwipeRefreshLayout")
-            // This method performs the actual data-refresh operation.
-            // The method calls setRefreshing(false) when it's finished.
             viewModel.initializeNewsList()
         }
 
@@ -118,4 +116,7 @@ class mainFragment : Fragment() {
 
 
     }
+
+
+
 }

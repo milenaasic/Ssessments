@@ -76,7 +76,7 @@ class RegistrationFragment1 : Fragment() {
         sharedViewModel.navigateToRegistration2.observe(this, Observer{ shouldNavigate->
             if(shouldNavigate) {
                 navController.navigate(RegistrationFragment1Directions.actionRegistrationFragment1ToRegistrationFragment2())
-                sharedViewModel.navigationDone()
+                sharedViewModel.navigationToregistration2Done()
             }
         })
 

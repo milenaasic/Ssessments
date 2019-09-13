@@ -18,6 +18,8 @@ import com.ssessments.network.NewsApi
 import com.ssessments.utilities.convertNetworkToDatabaseNewsItem
 import com.ssessments.utilities.isOnline
 import kotlinx.coroutines.*
+
+
 private const val mytag="MY_MAINFRAGM_ViewModel"
 class MainFragmentViewModel(
                             val database:NewsDatabaseDao,

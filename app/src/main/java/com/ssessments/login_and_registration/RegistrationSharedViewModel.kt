@@ -22,17 +22,27 @@ class RegistrationSharedViewModel(
         val navigateToRegistration2: LiveData<Boolean>
                 get() =_navigateToRegistration2
 
-
+        private val _navigateBackToRegistration1= MutableLiveData<Boolean>()
+        val navigateBackToRegistration1: LiveData<Boolean>
+                get() =_navigateBackToRegistration1
 
         fun nextButtonClicked(){
                 _navigateToRegistration2.value=true
         }
 
+        fun backButtonClicked(){
+                 _navigateBackToRegistration1.value=true
+        }
+
         //naviigacija iz fragmenta reg1 u reg2
-        fun navigationDone(){
+        fun navigationToregistration2Done(){
                  _navigateToRegistration2.value=false
         }
 
+        //naviigacija nazad u fragment1
+        fun navigationBackToRegistration1Done(){
+                _navigateBackToRegistration1.value=false
+        }
 
         fun setMyUserRegistration1Fields(list:ArrayList<String?>){
                 userRegistration1Fields=list

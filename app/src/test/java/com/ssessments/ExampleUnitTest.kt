@@ -2,6 +2,7 @@ package com.ssessments
 
 import com.ssessments.network.NetworkNewsFilterObject
 import com.ssessments.utilities.Markets
+import com.ssessments.utilities.convertArrayListToStringWithCommas
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -24,4 +25,6 @@ class ExampleUnitTest {
         print("${m.toString()}")
 
     }
+
+
 }

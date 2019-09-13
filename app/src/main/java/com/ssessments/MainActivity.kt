@@ -4,7 +4,9 @@ import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
@@ -25,6 +27,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ssessments.database.NewsDatabase
 import com.ssessments.databinding.ActivityMainBinding
+import com.ssessments.filter_activity.FilterActivity
 import com.ssessments.filter_fragments.FilterPagerSupportSharedViewModel
 import com.ssessments.filter_fragments.FilterPagerSupportSharedViewModelFactory
 import com.ssessments.login_and_registration.LOGGED_IN_USER_GOTO_MAIN_ACTIVITY
@@ -64,6 +67,7 @@ class MainActivity : AppCompatActivity(){
 
 
        setSupportActionBar(binding.toolbar)
+
         binding.toolbar.title=""
         myappBar=binding.appbar
 
@@ -116,6 +120,12 @@ class MainActivity : AppCompatActivity(){
                     binding.myDrawerLayout.closeDrawers()
                     true
                 }
+                R.id.settings_fragment->{
+                    menuItem.setChecked(true)
+                    navController.navigate(R.id.settings_fragment)
+                    binding.myDrawerLayout.closeDrawers()
+
+                    true}
                 R.id.logout_menuitem->{
                     menuItem.setChecked(true)
                     viewModel.clearUser()
@@ -138,7 +148,9 @@ class MainActivity : AppCompatActivity(){
                         appbar.setBackgroundColor(Color.WHITE)
                         myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED)
 
-                        //proveri da li je user ulogovan
+                        var pm=toolbar.layoutParams as AppBarLayout.LayoutParams
+                        pm.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL+AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)
+
                         if(viewModel.loggedInUser.value==null) bottom_navigation.visibility = View.VISIBLE
                         else bottom_navigation.visibility = View.GONE
 
@@ -150,6 +162,9 @@ class MainActivity : AppCompatActivity(){
                     binding.apply {
                         toolbar.logo_in_toolbar.visibility = View.GONE
                         toolbar.title = ""
+                        val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+                        lp.scrollFlags=0
+
                         appbar.elevation = 2f
                         appbar.setBackgroundColor(Color.TRANSPARENT)
                         bottom_navigation.visibility = View.GONE
@@ -160,9 +175,22 @@ class MainActivity : AppCompatActivity(){
                 R.id.filter_menu_item->{
                     binding.apply {
                         toolbar.logo_in_toolbar.visibility = View.GONE
-                        toolbar.title = ""
+                        toolbar.navigationIcon=resources.getDrawable(R.drawable.ic_close_24px
+                        ,null)
+
+                        val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+                        lp.scrollFlags=0
                         appbar.elevation = 0f
-                        appbar.setBackgroundColor(Color.TRANSPARENT)
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary,null))
+                            toolbar.setTitleTextColor(resources.getColor(R.color.colorAccent,null))
+                        }else{
+                            appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))
+                            toolbar.setTitleTextColor(resources.getColor(R.color.colorAccent))
+                        }
+                        toolbar.setTitleTextAppearance(this@MainActivity,android.R.style.TextAppearance_Material_Button)
+
                         bottom_navigation.visibility = View.GONE
                         myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     }
@@ -172,12 +200,40 @@ class MainActivity : AppCompatActivity(){
                 R.id.preference_fragment->{
                     binding.apply {
                         toolbar.logo_in_toolbar.visibility = View.GONE
-                        appbar.elevation = 2f
-                        appbar.setBackgroundColor(Color.TRANSPARENT)
+                        appbar.elevation = 12f
+                       val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+                       lp.scrollFlags=0
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary,null))
+                        }else{
+                            appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))}
+
+                        toolbar.setTitleTextColor(Color.WHITE)
+                        //toolbar.scrollBarStyle
+                       // toolbar.navigationIcon=resources.getDrawable(R.drawable.icons8_sign_up_24,null)
                         bottom_navigation.visibility = View.GONE
                         myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     }
                 }
+
+                R.id.settings_fragment->{
+                    binding.apply {
+                        toolbar.logo_in_toolbar.visibility = View.GONE
+                       val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+                        lp.scrollFlags=0
+                        appbar.elevation = 12f
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary,null))
+                        }else{
+                            appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))}
+
+                        toolbar.setTitleTextColor(Color.WHITE)
+                        bottom_navigation.visibility = View.GONE
+                        myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    }
+                }
+
+
             }
         }
 
@@ -189,10 +245,7 @@ class MainActivity : AppCompatActivity(){
 
         })
 
-
-
     }
-
 
 
 
@@ -236,10 +289,8 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return item!!.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-
     }
 
 

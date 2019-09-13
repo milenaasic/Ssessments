@@ -9,22 +9,25 @@ import com.ssessments.utilities.Ssessments
 
 data class NetworkNewsFilterObject (
 
+    @Json(name="token")
+    var token:String,
+
     @Json(name="markets")
-    var markets:Array<String>?= arrayOf(Markets.ALL.value),
+    var markets:Array<String>,
 
     @Json(name="products")
-    var products:Array<String>?= arrayOf(Products.ALL.value),
+    var products:Array<String>,
 
     @Json(name="ssessments")
-    var ssessments: Array<String>?= arrayOf(Ssessments.ALL.value),
+    var ssessments: Array<String>,
 
     @Json(name="language")
-    var language:String=Language.ENGLISH.value,
+    var language:String,
 
     @Json(name="dateFrom")
-    var dateFrom:String?=null,
+    var dateFrom:String,
 
     @Json(name="dateTo")
-    var dateTo:String?=null
+    var dateTo:String
 
 )

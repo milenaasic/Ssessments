@@ -1,19 +1,20 @@
 package com.ssessments.utilities
 
 enum class Markets(val value:String){
-    ALL("all"),CHINA("china"),JAPAN("japan"),SEA("sea"),NEA("nea")
+    ALL_MARKETS("All Markets"),SEA("SEA"),CHINA("China"),INDONESIA("Indonesia"),MALAYSIA("Malaysia"),VIETNAM("Vietnam"),INDIA("India")
 }
 
 enum class Products(val value: String){
-    ALL("all"),PE("pe"),PP("pp"),PVC("pvc"),PET("pet")
+    ALL_PRODUCTS("All Products"),PE("PE"),PP("PP"),PVC("PVC"),PET("PET"),STYRENICS("Styrenics")
 }
 
 enum class Ssessments(val value: String){
-    ALL("all"),DAILY("daily"),WEEKLY("weekly"),MONTHLY("monthly"),ALERT("alert"),NEWS("news")
+    ALL_SERVICES("All Services"),DAILY("Daily"),WEEKLY("Weekly"),MONTHLY("Monthly"),QUARTERLY("Quarterly"),NEWS("News"),
+    PRICE("Price"),STATS("Stats"),PLANT("Plant")
 }
 
 enum class Language(val value:String){
-    ENGLISH("english"),MALAYSIA("malaysia")
+    ENGLISH("English")
 }
 
 enum class RegistrationFields(val value: String){

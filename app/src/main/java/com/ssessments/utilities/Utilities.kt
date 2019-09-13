@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.*
 import android.os.Build
 
-const val EMPTY_TOKEN="empty_token"
+
 
 fun isOnline(application:Application):Boolean{
 

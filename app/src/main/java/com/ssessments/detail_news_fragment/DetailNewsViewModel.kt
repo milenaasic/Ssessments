@@ -30,6 +30,9 @@ class DetailNewsViewModel(val newsID:Int,
     val showProgressBar: LiveData<Boolean>
         get() = _showProgressBar
 
+    private val _shareNews = MutableLiveData<Boolean>()
+    val shareNews: LiveData<Boolean>
+        get() = _shareNews
 
     init {
         _showProgressBar.value=true
@@ -52,7 +55,7 @@ class DetailNewsViewModel(val newsID:Int,
                 //TODO prikazi toast something went wrong
                 val fakeData=MyDetailNewsFakeData()
                 _singleNewsData.value=NetworkSingleNewsItem(15,fakeData.title,fakeData.body,fakeData.TAGS,fakeData.time,
-                    fakeData.author,"neki url")
+                    fakeData.author,"neki url", "imageurl")
                 _showProgressBar.value=false
 
 
@@ -61,6 +64,14 @@ class DetailNewsViewModel(val newsID:Int,
         }
     }
 
+
+    fun shareItemMenuClicked(){
+        _shareNews.value=true
+    }
+
+    fun shareActionComplete(){
+        _shareNews.value=false
+    }
 
     fun stopShowingProgressBar(){
         _showProgressBar.value=false

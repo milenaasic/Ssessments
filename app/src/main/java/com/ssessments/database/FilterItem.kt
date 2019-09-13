@@ -10,7 +10,6 @@ import java.util.*
 @Entity(tableName = "saved_filters_table")
 data class FilterItem(
 
-
     @PrimaryKey(autoGenerate = true)
     val ID:Long=0L,
 
@@ -18,21 +17,22 @@ data class FilterItem(
     val filterName:String="My Filter",
 
     @ColumnInfo(name="market")
-    val market:String="India",
+    val market:String="",
 
     @ColumnInfo(name = "product")
-    val product:String="PVC",
+    val product:String="",
 
     @ColumnInfo(name = "ssessment")
-    val ssessment:String="Weekly",
-
-    @ColumnInfo(name = "filter_date_from")
-    val dateFrom:String="1.9.2019",
-
-    @ColumnInfo(name = "filter_date_to")
-    val dateTo:String="7.12.2020",
+    val ssessment:String="",
 
     @ColumnInfo(name="language")
-    val language:String="English"
+    val language:String="",
+
+    @ColumnInfo(name = "filter_date_from")
+    val dateFrom:String="",
+
+    @ColumnInfo(name = "filter_date_to")
+    val dateTo:String=""
+
 
 )

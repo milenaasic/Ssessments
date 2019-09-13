@@ -22,15 +22,37 @@
     <string name="invalid_password">Password must be >5 characters</string>
 
     <!-- chips-->
-    <string name="chip_1">China</string>
-    <string name="chip_2">Indian Subcontinent</string>
+    <string name="chip_allmarkets">All Markets</string>
+    <string name="chip_allproducts">All Products</string>
+    <string name="chip_allservices">All Services</string>
+
+    <string name="chip_31">SEA</string>
+    <string name="chip_32">China</string>
+    <string name="chip_33">Indonesia</string>
+    <string name="chip_34">Malaysia</string>
+    <string name="chip_35">Vietnam</string>
+    <string name="chip_36">India</string>
+
+    <string name="chip_1">PE</string>
+    <string name="chip_2">PP</string>
     <string name="chip_3">PVC</string>
-    <string name="chip_4">PE</string>
-    <string name="chip_5">NewsSSESSMENTS</string>
-    <string name="chip_6">DailySSESSMENTS</string>
+    <string name="chip_4">PET</string>
+    <string name="chip_5">Styrenics</string>
+
+    <string name="chip_11">Daily</string>
+    <string name="chip_12">Weekly</string>
+    <string name="chip_13">Monthly</string>
+    <string name="chip_14">Quarterly</string>
+    <string name="chip_15">News</string>
+    <string name="chip_16">Price</string>
+    <string name="chip_17">Stats</string>
+    <string name="chip_18">Plant</string>
 
     <string name="apply_filter">APPLY</string>
+    <string name="reset_filter">RESET</string>
     <string name="cancel_filter">CANCEL</string>
+    <string name="save_filter">SAVE</string>
+
     <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="search_filter">Search filter</string>
@@ -43,6 +65,16 @@
     <string name="home">Home</string>
     <string name="about">About</string>
     <string name="share">Share</string>
+    <string name="refresh">Refresh</string>
+    <string name="Settings">Settings</string>
+    <string name="log_out">Log Out</string>
+    <string name="markets_title">Markets</string>
+    <string name="select_from_to_datepicker_title">SELECT</string>
+    <string name="from_date_picker_title">From</string>
+    <string name="date_range_date_picker_title">Date Range</string>
+    <string name="to_date_picker_title">To</string>
+    <string name="network_error">Something went wrong!</string>
+
 
     <!-- spinner regions-->
     <string-array name="spinner_regions">

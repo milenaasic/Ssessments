@@ -13,15 +13,12 @@
             android:id="@+id/filters_tablayout"
             style="@style/Widget.MaterialComponents.TabLayout"
             app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:tabIndicatorColor="@color/colorPrimaryDark"
-            app:tabBackground="@android:color/transparent"
+            app:tabBackground="@color/colorPrimaryDark"
             app:tabIndicatorGravity="bottom"
-            app:tabIconTint="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorPrimaryDark"
             android:background="@android:color/transparent"
-            app:tabInlineLabel="true"
             app:tabGravity="fill"
-            app:tabTextColor="@android:color/darker_gray" >
+            app:tabTextColor="@android:color/darker_gray" app:tabInlineLabel="true"
+            app:tabSelectedTextColor="@color/colorAccent">
 
         <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -35,5 +32,12 @@
                 android:text="Saved Filters"
                 android:id="@+id/tab2_myfilters"/>
 
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Predefined Filters"
+                android:id="@+id/tab3_myfilters"/>
+
     </com.google.android.material.tabs.TabLayout>
+
 </androidx.viewpager.widget.ViewPager>

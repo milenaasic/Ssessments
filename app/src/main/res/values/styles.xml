@@ -6,25 +6,38 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="searchViewStyle">@style/MySearchViewStyle</item>
-        <item name="alertDialogTheme">@style/MyAlertDialogTheme</item>
         <item name="android:fontFamily">@font/myfontfamilyregular</item>
-    </style>
-
-    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <!-- Background for the search query section (e.g. EditText) -->
-        <item name="queryBackground">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/myfontfamilyregular</item>
-    </style>
-    
-    <style name="MyLogInAndRegistrationActivityTheme" parent="AppTheme">
-        <item name="android:windowFullscreen">true</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
-    </style>
+        <!--  <item name="android:activatedBackgroundIndicator">@drawable/drawer_list_selector</item>-->
+         <!--  <item name="textAppearanceHeadline1">@style/TextAppearance.AppTheme.Headline1</item> -->
 
 
-    <style name="myToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <!-- Customize your theme here. -->
+     </style>
+
+
+     <style name="TextAppearance.AppTheme.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+         <item name="android:textStyle">normal</item>
+         <item name="android:textAllCaps">false</item>
+         <item name="android:textSize">24sp</item>
+         <item name="android:letterSpacing">0</item>
+     </style>
+
+     <style name="TextAppearance.AppTheme.Medium" parent="TextAppearance.AppCompat.Medium">
+         <item name="android:textSize">18sp</item>
+     </style>
+
+     <style name="TextAppearance.AppTheme.Large" parent="TextAppearance.AppCompat.Medium">
+         <item name="android:textSize">20sp</item>
+     </style>
+
+
+     <style name="MyLogInAndRegistrationActivityTheme" parent="AppTheme">
+         <item name="android:windowFullscreen">true</item>
+         <item name="colorAccent">@color/colorPrimaryDark</item>
+     </style>
+
+
+     <style name="myToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/myfontfamilymedium</item>
 
     </style>
@@ -32,16 +45,18 @@
     <style name="MyAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-       <item name="colorAccent">@color/logoPurpleMatchingSecondary</item>
+       <item name="colorAccent">@color/transparent</item>
    </style>
 
    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-       <item name="android:textColor">@color/colorPrimary</item>
+       <item name="android:textColor">@color/colorPrimaryDark</item>
+       <item name="android:layout_marginEnd">8dp</item>
        <!--<item name="android:textAppearance">@style/MyTextAppearanceDialogButton</item>-->
    </style>
 
    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-       <item name="android:textColor">@color/colorPrimary</item>
+       <item name="android:textColor">@color/colorPrimaryDark</item>
+       <item name="android:layout_marginEnd">8dp</item>
    </style>
 
    <style name="MyTextAppearanceDialogButton" parent="TextAppearance.AppCompat.Button">
@@ -84,6 +99,15 @@
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:textColor">@android:color/primary_text_light</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Chip.Filter.MyChip">
+        <item name="android:textColor">@color/my_chip_text_color</item>
+        <item name="chipStrokeColor">@color/my_chip_stroke_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipBackgroundColor">@color/my_chip_background_color</item>
+
+
     </style>
 
 

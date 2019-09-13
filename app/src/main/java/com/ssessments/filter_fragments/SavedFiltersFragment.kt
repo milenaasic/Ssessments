@@ -40,22 +40,18 @@ class SavedFiltersFragment : Fragment() {
 
         val adapter=SavedFiltersAdapter(FilterItemClickListener { filterId ->
             Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
-            //viewModel.fetchFilterWithID(filterId)
+            sharedViewModel.fetchFilterWithID(filterId)
         }, FilterItemDeleteClickListener { item->
-            sharedViewModel.deleteFilter(item)
-
-
-            /*val alertDialog=AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme)
-
-            alertDialog.setTitle("Delete this item?")
-                        .setPositiveButton("YES",DialogInterface.OnClickListener{dialog: DialogInterface?, which: Int ->
-                            sharedViewModel.deleteFilter(item)
-                            Toast.makeText(context, "delete $item}", Toast.LENGTH_LONG).show()
+           // sharedViewModel.deleteFilter(item)
+            val alertDialog=AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme)
+                            .setTitle("Delete this item?")
+                            .setPositiveButton("YES",DialogInterface.OnClickListener{dialog: DialogInterface?, which: Int ->
+                                        sharedViewModel.deleteFilter(item)
+                                        Toast.makeText(context, "delete $item}", Toast.LENGTH_LONG).show()
                         })
-                        .setNegativeButton("NO",DialogInterface.OnClickListener { dialog, which ->
+                        .setNegativeButton("CANCEL",DialogInterface.OnClickListener { dialog, which ->
                             dialog.dismiss()})
-
-            alertDialog.create().show()*/
+            alertDialog.create().show()
 
         })
 

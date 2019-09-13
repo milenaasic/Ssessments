@@ -92,7 +92,7 @@
 
         <com.google.android.material.chip.Chip
                 android:id="@+id/chip_6"
-                android:text="@string/chip_6"
+                android:text="@string/chip_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/state_color_text_highllight"
@@ -206,7 +206,7 @@
 
         <com.google.android.material.chip.Chip
                 android:id="@+id/chip_26"
-                android:text="@string/chip_6"
+                android:text="@string/chip_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/state_color_text_highllight"

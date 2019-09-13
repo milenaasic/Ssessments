@@ -22,7 +22,12 @@ data class NetworkSingleNewsItem (
     @Json(name="author")
     var author:String,
 
+    @Json(name="newsurl")
+    var newsurl:String,
+
     @Json(name="imagesrc")
     var imagesrc:String?
+
+
 
 )
