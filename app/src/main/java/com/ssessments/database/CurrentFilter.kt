@@ -6,7 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "current_filter_table")
 data class CurrentFilter (
-        @PrimaryKey
+
+        @PrimaryKey(autoGenerate = true)
+        val ID:Long=0L,
+
         @ColumnInfo(name="market")
         val market:String="",
 

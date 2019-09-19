@@ -3,7 +3,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
-        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                        android:layout_height="match_parent"
@@ -14,557 +17,552 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/filterByProgressBar" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent" android:visibility="visible"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="176dp"
+                app:layout_constraintTop_toTopOf="parent" android:visibility="visible" android:layout_marginEnd="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/filterbyrootConstraintLayout">
-
-
-        <View
-                android:id="@+id/divider8"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/marketslayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="0dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/divider8">
+                android:layout_height="match_parent"
+                android:id="@+id/filterbyrootConstraintLayout">
 
-            <TextView
-                    android:id="@+id/marketstextView"
-                    android:text="@string/markets_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" tools:text="Markets"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
-
-
-            <HorizontalScrollView
-                    android:id="@+id/marketshorizScroolView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/marketstextView"
-                    android:scrollbarSize="2dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp">
-
-                <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/marketsChips"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@+id/marketstextView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:singleLine="true"
-                        android:scrollbars="horizontal"
-                        android:layout_marginBottom="4dp"
-                        app:layout_constraintTop_toBottomOf="@+id/marketstextView" app:singleSelection="false">
-
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip30"
-                            android:text="@string/chip_allmarkets"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_31"
-                            android:text="@string/chip_31"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_32"
-                            android:text="@string/chip_32"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_33"
-                            android:text="@string/chip_33"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_34"
-                            android:text="@string/chip_34"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_35"
-                            android:text="@string/chip_35"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_36"
-                            android:text="@string/chip_36"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                </com.google.android.material.chip.ChipGroup>
-
-            </HorizontalScrollView>
 
             <View
-                    android:id="@+id/divider"
+                    android:id="@+id/divider8"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:background="?android:attr/listDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/marketshorizScroolView"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp" android:layout_marginEnd="8dp"
-                    app:layout_constraintHorizontal_bias="0.0"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/productsConstrLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/marketslayout">
-
-            <TextView
-                    android:text="Products"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/ProductstextView" tools:text="Products"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="16dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-            <HorizontalScrollView
-                    android:id="@+id/productshorizScroolView"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/marketslayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/ProductstextView"
-                    android:scrollbarSize="2dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp">
+                    tools:layout_editor_absoluteX="0dp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/divider8">
 
-                <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/productChips"
-                        android:layout_width="0dp"
+                <TextView
+                        android:id="@+id/marketstextView"
+                        android:text="@string/markets_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="Markets"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
+
+
+                <HorizontalScrollView
+                        android:id="@+id/marketshorizScroolView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@+id/ProductstextView"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/marketstextView"
+                        android:scrollbarSize="2dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp">
+
+                    <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/marketsChips"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="@+id/marketstextView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:singleLine="true"
+                            android:scrollbars="horizontal"
+                            android:layout_marginBottom="4dp"
+                            app:layout_constraintTop_toBottomOf="@+id/marketstextView" app:singleSelection="false">
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip30"
+                                android:text="@string/chip_allmarkets"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_31"
+                                android:text="@string/chip_31"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_32"
+                                android:text="@string/chip_32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_33"
+                                android:text="@string/chip_33"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_34"
+                                android:text="@string/chip_34"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_35"
+                                android:text="@string/chip_35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_36"
+                                android:text="@string/chip_36"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+
+                <View
+                        android:id="@+id/divider"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toBottomOf="@+id/marketshorizScroolView"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp" android:layout_marginTop="16dp" android:layout_marginEnd="8dp"
+                        app:layout_constraintHorizontal_bias="0.0"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/productsConstrLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/marketslayout" android:layout_marginTop="8dp">
+
+                <TextView
+                        android:text="Products"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/ProductstextView" tools:text="Products"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <HorizontalScrollView
+                        android:id="@+id/productshorizScroolView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         app:layout_constraintTop_toBottomOf="@+id/ProductstextView"
+                        android:scrollbarSize="2dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp">
+
+                    <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/productChips"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="@+id/ProductstextView"
+                            app:layout_constraintTop_toBottomOf="@+id/ProductstextView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="1.0"
+                            app:singleLine="true"
+                            android:layout_marginBottom="4dp">
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip0"
+                                android:text="@string/chip_allproducts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip1"
+                                android:text="@string/chip_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_2"
+                                android:text="@string/chip_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_3"
+                                android:text="@string/chip_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_4"
+                                android:text="@string/chip_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_5"
+                                android:text="@string/chip_5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+                <View
+                        android:id="@+id/divider2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginEnd="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="1.0"
-                        app:singleLine="true"
-                        android:layout_marginBottom="4dp">
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/productshorizScroolView"/>
 
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip0"
-                            android:text="@string/chip_allproducts"
-                            android:layout_width="wrap_content"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ssessmentsconstrlayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintTop_toBottomOf="@+id/productsConstrLayout" android:layout_marginTop="8dp">
+
+                <TextView
+                        android:id="@+id/ssessmentstextView"
+                        android:text="Service Type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="Service Type"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <HorizontalScrollView
+                        android:id="@+id/horViewForSsessmentChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/ssessmentstextView"
+                        android:scrollbarSize="2dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp">
+
+                    <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/ssessmentChips"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="0dp"
+                            app:layout_constraintTop_toBottomOf="@+id/ssessmentstextView"
+                            app:layout_constraintStart_toStartOf="@+id/ssessmentstextView"
+                            app:singleLine="true"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            android:scrollbars="horizontal"
+                            android:layout_marginBottom="4dp"
+                            android:paddingBottom="0dp">
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip10"
+                                android:text="@string/chip_allservices"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip11"
+                                android:text="@string/chip_11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                                app:chipStrokeColor="@color/my_chip_stroke_color"
+                                app:chipBackgroundColor="@color/my_chip_background_color"
+                                app:chipStrokeWidth="1dp"
+
+                        />
+
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_12"
+                                android:text="@string/chip_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_13"
+                                android:text="@string/chip_13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_14"
+                                android:text="@string/chip_14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_15"
+                                android:text="@string/chip_15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+
+                        />
+                        <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_16"
+                                android:text="@string/chip_16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_17"
+                                android:text="@string/chip_17"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                        <com.google.android.material.chip.Chip
+
+                                android:id="@+id/chip_18"
+                                android:text="@string/chip_18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+
+                <View
+                        android:id="@+id/divider3"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp" android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/horViewForSsessmentChips"/>
 
 
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip1"
-                            android:text="@string/chip_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.google.android.material.chip.Chip
 
-                            android:id="@+id/chip_2"
-                            android:text="@string/chip_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/languagelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/ssessmentsconstrlayout" android:layout_marginTop="8dp">
 
-                    <com.google.android.material.chip.Chip
+                <TextView
+                        android:id="@+id/languagetextView"
+                        android:text="Language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="Language"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
+                <TextView
+                        android:id="@+id/languagesubtitle"
+                        android:text="English (no other options)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        app:layout_constraintStart_toStartOf="@+id/languagetextView"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/languagetextView"/>
+                <View
+                        android:id="@+id/divider4"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toBottomOf="@+id/languagesubtitle"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp" android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            android:id="@+id/chip_3"
-                            android:text="@string/chip_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_4"
-                            android:text="@string/chip_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_5"
-                            android:text="@string/chip_5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                </com.google.android.material.chip.ChipGroup>
-
-            </HorizontalScrollView>
-            <View
-                    android:id="@+id/divider2"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider"
-                    android:layout_marginEnd="8dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/daterangelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/productshorizScroolView"/>
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintTop_toBottomOf="@+id/languagelayout" android:layout_marginTop="8dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ssessmentsconstrlayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintTop_toBottomOf="@+id/productsConstrLayout">
-
-            <TextView
-                    android:id="@+id/ssessmentstextView"
-                    android:text="Service Type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" tools:text="Service Type"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="16dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-            <HorizontalScrollView
-                    android:id="@+id/horViewForSsessmentChips"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/ssessmentstextView"
-                    android:scrollbarSize="2dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp">
-
-                <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/ssessmentChips"
-                        android:layout_width="0dp"
+                <TextView
+                        android:id="@+id/daterangeView"
+                        android:text="@string/date_range_date_picker_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="Date Range"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
+                <TextView
+                        android:id="@+id/datefrom"
+                        android:text="@string/from_date_picker_title"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="0dp"
-                        app:layout_constraintTop_toBottomOf="@+id/ssessmentstextView"
-                        app:layout_constraintStart_toStartOf="@+id/ssessmentstextView"
-                        app:singleLine="true"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        android:scrollbars="horizontal"
-                        android:layout_marginBottom="4dp"
-                        android:paddingBottom="0dp">
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        app:layout_constraintStart_toStartOf="@+id/daterangeView"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/daterangeView" android:textAllCaps="true"/>
 
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip10"
-                            android:text="@string/chip_allservices"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
+                <TextView
+                        android:id="@+id/fromDatePicker"
+                        android:text="@string/select_from_to_datepicker_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        app:layout_constraintStart_toStartOf="@+id/datefrom"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/datefrom"
+                        android:textColor="@color/colorPrimaryDark"/>
+                <View
+                        android:id="@+id/divider5"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toTopOf="@+id/datefrom"
+                        app:layout_constraintBottom_toBottomOf="@+id/fromDatePicker"
+                        app:layout_constraintStart_toEndOf="@+id/fromDatePicker" android:layout_marginStart="16dp"/>
 
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip11"
-                            android:text="@string/chip_11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                            app:chipStrokeColor="@color/my_chip_stroke_color"
-                            app:chipBackgroundColor="@color/my_chip_background_color"
-                            app:chipStrokeWidth="1dp"
+                <TextView
+                        android:id="@+id/dateto"
+                        android:text="@string/to_date_picker_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        app:layout_constraintStart_toEndOf="@+id/divider5"
+                        android:layout_marginStart="24dp"
+                        app:layout_constraintTop_toTopOf="@+id/datefrom"
+                        app:layout_constraintBottom_toBottomOf="@+id/datefrom" android:textAllCaps="true"/>
 
-                    />
+                <TextView
+                        android:id="@+id/toDatePicker"
+                        android:text="SELECT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintStart_toStartOf="@+id/dateto" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/dateto"/>
 
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_12"
-                            android:text="@string/chip_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                <View
+                        android:id="@+id/divider6"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toBottomOf="@+id/toDatePicker"
+                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"/>
 
-                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.google.android.material.chip.Chip
 
-                            android:id="@+id/chip_13"
-                            android:text="@string/chip_13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resetButton"
+                    android:text="@string/reset_filter"
+                    android:layout_width="126dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintTop_toBottomOf="@+id/daterangelayout" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_14"
-                            android:text="@string/chip_14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_15"
-                            android:text="@string/chip_15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-
-                    />
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_16"
-                            android:text="@string/chip_16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_17"
-                            android:text="@string/chip_17"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                    <com.google.android.material.chip.Chip
-
-                            android:id="@+id/chip_18"
-                            android:text="@string/chip_18"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    />
-
-                </com.google.android.material.chip.ChipGroup>
-
-            </HorizontalScrollView>
-
-            <View
-                    android:id="@+id/divider3"
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/saveButton"
+                    android:text="@string/save_filter"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/horViewForSsessmentChips"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/languagelayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/ssessmentsconstrlayout">
-
-            <TextView
-                    android:id="@+id/languagetextView"
-                    android:text="Language"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" tools:text="Language"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
-            <TextView
-                    android:id="@+id/languagesubtitle"
-                    android:text="English (no other options)"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    app:layout_constraintStart_toStartOf="@+id/languagetextView"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/languagetextView"/>
-            <View
-                    android:id="@+id/divider4"
+                    android:backgroundTint="@color/apply_button_disable_color_state"
+                    app:layout_constraintStart_toEndOf="@+id/resetButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/applyButton"
+                    app:layout_constraintTop_toTopOf="@+id/resetButton"
+                    app:layout_constraintBottom_toBottomOf="@+id/resetButton" app:layout_constraintVertical_bias="1.0"
+                    android:layout_marginStart="8dp"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/applyButton"
+                    android:text="@string/apply_filter"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/languagesubtitle"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp" android:layout_marginEnd="8dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/daterangelayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/languagelayout">
-
-
-            <TextView
-                    android:id="@+id/daterangeView"
-                    android:text="@string/date_range_date_picker_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" tools:text="Date Range"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
-            <TextView
-                    android:id="@+id/datefrom"
-                    android:text="@string/from_date_picker_title"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    app:layout_constraintStart_toStartOf="@+id/daterangeView"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/daterangeView" android:textAllCaps="true"/>
-
-            <TextView
-                    android:id="@+id/fromDatePicker"
-                    android:text="@string/select_from_to_datepicker_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    app:layout_constraintStart_toStartOf="@+id/datefrom"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/datefrom"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <View
-                    android:id="@+id/divider5"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintTop_toTopOf="@+id/datefrom"
-                    app:layout_constraintBottom_toBottomOf="@+id/fromDatePicker"
-                    app:layout_constraintStart_toEndOf="@+id/fromDatePicker" android:layout_marginStart="16dp"/>
-
-            <TextView
-                    android:id="@+id/dateto"
-                    android:text="@string/to_date_picker_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    app:layout_constraintStart_toEndOf="@+id/divider5"
-                    android:layout_marginStart="24dp"
-                    app:layout_constraintTop_toTopOf="@+id/datefrom"
-                    app:layout_constraintBottom_toBottomOf="@+id/datefrom" android:textAllCaps="true"/>
-
-            <TextView
-                    android:id="@+id/toDatePicker"
-                    android:text="SELECT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/colorPrimaryDark"
-                    app:layout_constraintStart_toStartOf="@+id/dateto" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/dateto"/>
-
-            <View
-                    android:id="@+id/divider6"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/toDatePicker"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@+id/saveButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/saveButton"
+                    app:layout_constraintBottom_toBottomOf="@+id/saveButton" android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+</FrameLayout>
+</androidx.core.widget.NestedScrollView>
 
-        <androidx.constraintlayout.widget.Guideline
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline3"
-                app:layout_constraintGuide_percent="0.8"/>
-
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/resetButton"
-                android:text="@string/reset_filter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/saveButton"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"/>
-
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/saveButton"
-                android:text="@string/save_filter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/apply_button_disable_color_state"
-                app:layout_constraintStart_toEndOf="@+id/resetButton"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/applyButton"
-                app:layout_constraintTop_toTopOf="@+id/resetButton"
-                app:layout_constraintBottom_toBottomOf="@+id/resetButton"/>
-
-
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/applyButton"
-                android:text="@string/apply_filter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/saveButton"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/saveButton"
-                app:layout_constraintBottom_toBottomOf="@+id/saveButton" android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
 </layout>

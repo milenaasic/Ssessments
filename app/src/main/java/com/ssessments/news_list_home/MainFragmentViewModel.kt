@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.*
 import com.ssessments.database.NewsItem
-import com.ssessments.data.UserAccessRights
 import com.ssessments.data.getNewsItemArray
 import com.ssessments.database.NewsDatabase
 import com.ssessments.database.NewsDatabaseDao

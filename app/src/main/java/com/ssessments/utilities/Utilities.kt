@@ -32,29 +32,5 @@ fun isOnline(application:Application):Boolean{
 
 }
 
-        /* connMgr.getNetworkInfo(network).apply {
-             if (type == ConnectivityManager.TYPE_WIFI) {
-                 isWifiConn = isWifiConn or isConnected
-             }
-             if (type == ConnectivityManager.TYPE_MOBILE) {
-                 isMobileConn = isMobileConn or isConnected
-             }*/
-
-
-
-    /*val networkRequest:NetworkRequest=NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
-
-   connMgr.registerNetworkCallback(networkRequest,object:
-       ConnectivityManager.NetworkCallback() {
-       override fun onUnavailable() {
-           super.onUnavailable()
-           online=false
-       }
-
-       override fun onAvailable(network: Network?) {
-           super.onAvailable(network)
-           online=true
-       }
-   })*/
 
 

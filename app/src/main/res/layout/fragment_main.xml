@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout
-        android:id="@+id/fragmentLinLay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/mySwipeRefreshLayout"
+    <LinearLayout
+            android:id="@+id/fragmentLinLay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/mySwipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mainRecView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    android:scrollbars="vertical">
 
             </androidx.recyclerview.widget.RecyclerView>
 
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</LinearLayout>
+    </LinearLayout>
 </layout>

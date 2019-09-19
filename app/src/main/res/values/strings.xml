@@ -74,6 +74,12 @@
     <string name="date_range_date_picker_title">Date Range</string>
     <string name="to_date_picker_title">To</string>
     <string name="network_error">Something went wrong!</string>
+    <string name="turnOffNotification">Stop Receiving Notifications For This Item?</string>
+    <string name="choose_font_size">Choose Font Size</string>
+    <string name="font_size_small">Small</string>
+    <string name="font_size_medium">Medium</string>
+    <string name="font_size_large">Large</string>
+    <string name="font_size_extra_large">Extra Large</string>
 
 
     <!-- spinner regions-->
@@ -88,6 +94,19 @@
         <item>Australia</item>
         <item>India</item>
     </string-array>
+
+    <string-array name="font_size">
+        <item>All</item>
+        <item>North East Asia</item>
+        <item>China</item>
+        <item>South East Asia</item>
+        <item>Indonesia</item>
+        <item>Vietnam</item>
+        <item>Malaysa</item>
+        <item>Australia</item>
+        <item>India</item>
+    </string-array>
+
     <!-- spinner products-->
     <string-array name="spinner_products">
         <item>All</item>

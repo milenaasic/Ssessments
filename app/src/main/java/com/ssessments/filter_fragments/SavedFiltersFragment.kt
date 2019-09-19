@@ -15,14 +15,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
+import com.ssessments.MainActivityViewModel
 import com.ssessments.databinding.FragmentSavedFiltersBinding
 import com.ssessments.R
+import com.ssessments.database.UserData
+import com.ssessments.utilities.EMPTY_TOKEN
+import com.ssessments.utilities.convertCurrentFilterToNetworkNewsFilterObject
+import com.ssessments.utilities.convertFilterItemFromDatabaseToNetworkNewsFilterObject
 
 
 class SavedFiltersFragment : Fragment() {
     private lateinit var binding: FragmentSavedFiltersBinding
     private lateinit var sharedViewModel: FilterPagerSupportSharedViewModel
+    private lateinit var mainActivityViewModel:MainActivityViewModel
+    private  var myuserData: UserData?=null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +47,18 @@ class SavedFiltersFragment : Fragment() {
             ViewModelProviders.of(this)[FilterPagerSupportSharedViewModel::class.java]
         } ?: throw Exception("Invalid Parent Fragment")
 
+        mainActivityViewModel=requireActivity().run {
+            ViewModelProviders.of(this)[MainActivityViewModel::class.java]
+        }
+
+        mainActivityViewModel.loggedInUser.observe(this,Observer{user->
+            myuserData=user
+        })
+
 
         val adapter=SavedFiltersAdapter(FilterItemClickListener { filterId ->
             Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
-            sharedViewModel.fetchFilterWithID(filterId)
+            sharedViewModel.fetchSavedFilterWithId(filterId)
         }, FilterItemDeleteClickListener { item->
            // sharedViewModel.deleteFilter(item)
             val alertDialog=AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme)
@@ -60,20 +78,42 @@ class SavedFiltersFragment : Fragment() {
 
         sharedViewModel.filters.observe(requireParentFragment(), Observer {list->
             adapter.dataList=list
-            if (!list.isNullOrEmpty()){
-            //Toast.makeText(context,list.size,Toast.LENGTH_LONG).show()
-                sharedViewModel.showEmptyListText(false)
-            }
-            else {sharedViewModel.showEmptyListText(true)}
+            if (list.isNullOrEmpty()){
+                sharedViewModel.showEmptyListText(true)
+            }else{sharedViewModel.showEmptyListText(false)}
         })
 
         sharedViewModel.showEmptyList.observe(requireParentFragment(), Observer {showList->
-            if(showList) binding.emptyListText.visibility=View.VISIBLE
-            else binding.emptyListText.visibility=View.GONE
+            if(showList) binding.savedEmptyListText.visibility=View.VISIBLE
+            else binding.savedEmptyListText.visibility=View.GONE
          })
+
+        sharedViewModel.chosenFilter.observe(requireParentFragment(),Observer{chosenFilter->
+            if(myuserData==null)sharedViewModel.applySavedFilter(EMPTY_TOKEN,chosenFilter)
+            else sharedViewModel.applySavedFilter((myuserData!!.token),chosenFilter)
+        })
+
+        sharedViewModel.navigateToMainFragmentFromSaved.observe(this, Observer{ shouldnavigate->
+            if(shouldnavigate){
+                findNavController().navigateUp()
+                sharedViewModel.navigationToMainFragmentFromSavedFinished()
+            }
+        })
+
+        sharedViewModel.networkErrorSavedFragment.observe(this, Observer { shouldShow ->
+            if (shouldShow) {
+                showSnackBar(resources.getString(R.string.network_error))
+                sharedViewModel.networkErrorMessageShown()
+            }
+        })
+
 
         return binding.root
     }
 
+
+    private fun showSnackBar(s:String){
+        Snackbar.make(binding.constLayout,s, Snackbar.LENGTH_LONG).show()
+    }
 
 }

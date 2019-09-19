@@ -3,6 +3,7 @@ package com.ssessments
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.ssessments.database.CurrentFilter
 import com.ssessments.database.NewsDatabaseDao
 import com.ssessments.database.UserData
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +30,17 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
     }
 
+    fun setCurrentFilterAccordingToNotifications(currentFilter:CurrentFilter){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database.clearCurrentFilterTable()
+                database.insertCurrentFilterToDatabase(currentFilter)
+                Log.i(MY_TAG, "claer filter table}")
 
+            }
+        }
+
+    }
 
 
 }

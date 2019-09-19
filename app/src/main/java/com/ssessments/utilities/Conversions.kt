@@ -5,6 +5,8 @@ import com.ssessments.database.NewsItem
 import com.ssessments.network.NetworkNewsItem
 import android.text.TextUtils.SimpleStringSplitter
 import com.ssessments.database.CurrentFilter
+import com.ssessments.database.FilterItem
+import com.ssessments.database.PredefinedFilter
 import com.ssessments.network.NetworkNewsFilterObject
 
 
@@ -26,6 +28,50 @@ return NetworkNewsFilterObject( token,
                                 item.language,
                                 item.dateFrom,
                                 item.dateTo)
+}
+
+fun convertFilterItemFromDatabaseToNetworkNewsFilterObject(token:String,item:FilterItem):NetworkNewsFilterObject{
+    return NetworkNewsFilterObject( token,
+        convertStringWithCommasToRealArray(item.market),
+        convertStringWithCommasToRealArray(item.product),
+        convertStringWithCommasToRealArray(item.ssessment),
+        item.language,
+        item.dateFrom,
+        item.dateTo)
+}
+
+fun convertFilterItemFromDatabaseToCurrentFilter(item:FilterItem):CurrentFilter{
+    return CurrentFilter(
+        market = item.market,
+        product = item.product,
+        ssessment = item.ssessment,
+       language =  item.language,
+        dateFrom = item.dateFrom,
+        dateTo = item.dateTo
+    )
+}
+
+fun convertPredefinedFilterToCurrentFilter(item:PredefinedFilter):CurrentFilter{
+    return CurrentFilter(
+        market = item.market,
+        product = item.product,
+        ssessment = item.ssessment,
+        language = item.language,
+        dateTo = item.dateFrom,
+        dateFrom = item.dateTo)
+
+}
+
+fun convertPredefinedFilterToNetworkNewsFilterObject(token:String,item:PredefinedFilter):NetworkNewsFilterObject{
+
+    return NetworkNewsFilterObject( token,
+        convertStringWithCommasToRealArray(item.market),
+        convertStringWithCommasToRealArray(item.product),
+        convertStringWithCommasToRealArray(item.ssessment),
+        item.language,
+        item.dateFrom,
+        item.dateTo)
+
 }
 
 fun convertStringWithCommasToArray(s: String):ArrayList<String>{

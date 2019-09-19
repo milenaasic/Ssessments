@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -58,6 +59,9 @@ class mainFragment : Fragment() {
 
         binding.mainRecView.adapter= adapter
         binding.mainRecView.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
+        ViewCompat.setNestedScrollingEnabled(binding.mainRecView,false)
+
+        ViewCompat.setNestedScrollingEnabled(binding.mainRecView, true)
 
         binding.mySwipeRefreshLayout.setOnRefreshListener {
             Log.i(mytag, "onRefresh called from SwipeRefreshLayout")

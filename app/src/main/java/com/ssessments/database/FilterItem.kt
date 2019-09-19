@@ -14,7 +14,7 @@ data class FilterItem(
     val ID:Long=0L,
 
     @ColumnInfo(name="filter_name")
-    val filterName:String="My Filter",
+    val filterName:String="",
 
     @ColumnInfo(name="market")
     val market:String="",

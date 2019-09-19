@@ -30,7 +30,7 @@ interface NewsDatabaseDao{
      fun getAllFilters():LiveData<List<FilterItem>>
 
     @Query("SELECT * FROM saved_filters_table WHERE ID=:filterid")
-    fun getChosenFilter(filterid:Long):Deferred<FilterItem>
+    fun getChosenFilterFromSavesFilters(filterid:Long):FilterItem
 
      @Delete
      suspend fun deleteFilterItem(item:FilterItem)
@@ -61,11 +61,27 @@ interface NewsDatabaseDao{
 
     //CURRENT FILTER TABLE
     @Insert
-    fun insertCurrentFilter(item: CurrentFilter)
+    fun insertCurrentFilterToDatabase(item: CurrentFilter)
 
     @Query("DELETE from current_filter_table")
     fun clearCurrentFilterTable()
 
     @Query("SELECT * FROM current_filter_table")
     fun getCurrentFilter():LiveData<CurrentFilter>
+
+
+    //PREDEFINED FILTERS TABLE
+    @Query("SELECT * FROM predefined_filters_table ORDER BY id DESC")
+    fun getAllPredefinedFilters():LiveData<List<PredefinedFilter>>
+
+    @Query("DELETE FROM predefined_filters_table")
+    fun clearPredefinedFiltersTable()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPredefinedFilters(list:List<PredefinedFilter>)
+
+    @Query("SELECT * FROM predefined_filters_table WHERE ID=:filterid")
+    fun getChosenFilterFromPredefinedFilters(filterid:Long):PredefinedFilter
+
+
 }

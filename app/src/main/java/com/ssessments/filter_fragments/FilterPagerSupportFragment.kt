@@ -39,7 +39,7 @@ class FilterPagerSupportFragment: Fragment() {
         myTabLayout?.setupWithViewPager(myViewPager)
         myViewPager.adapter=MyFilterAdapter(childFragmentManager)
 
-        myTabLayout?.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+        /*myTabLayout?.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
             override fun onTabUnselected(p0: TabLayout.Tab?) {
                 //p0?.text="unselect"
                // p0?.icon.
@@ -50,9 +50,9 @@ class FilterPagerSupportFragment: Fragment() {
             }
 
             override fun onTabReselected(p0: TabLayout.Tab?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
-        })
+        })*/
         setHasOptionsMenu(true)
 
         return root
@@ -105,9 +105,9 @@ class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESU
 
     override fun getPageTitle(position: Int): CharSequence? {
         when(position){
-            0->{ return "Custom"}
-            1->{ return "Saved"}
-            2->{ return "Predefined"}
+            0->{ return "Custom Filter"}
+            1->{ return "Saved Filter"}
+            2->{ return "Predefined Filter"}
             else->return ""
         }
     }

@@ -27,7 +27,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ssessments.database.NewsDatabase
 import com.ssessments.databinding.ActivityMainBinding
-import com.ssessments.filter_activity.FilterActivity
 import com.ssessments.filter_fragments.FilterPagerSupportSharedViewModel
 import com.ssessments.filter_fragments.FilterPagerSupportSharedViewModelFactory
 import com.ssessments.login_and_registration.LOGGED_IN_USER_GOTO_MAIN_ACTIVITY
@@ -164,7 +163,6 @@ class MainActivity : AppCompatActivity(){
                         toolbar.title = ""
                         val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
                         lp.scrollFlags=0
-
                         appbar.elevation = 2f
                         appbar.setBackgroundColor(Color.TRANSPARENT)
                         bottom_navigation.visibility = View.GONE
@@ -175,11 +173,10 @@ class MainActivity : AppCompatActivity(){
                 R.id.filter_menu_item->{
                     binding.apply {
                         toolbar.logo_in_toolbar.visibility = View.GONE
-                        toolbar.navigationIcon=resources.getDrawable(R.drawable.ic_close_24px
-                        ,null)
-
+                        toolbar.title=""
+                        toolbar.navigationIcon=resources.getDrawable(R.drawable.ic_close,null)
                         val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
-                        lp.scrollFlags=0
+                       lp.scrollFlags=0
                         appbar.elevation = 0f
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -189,7 +186,6 @@ class MainActivity : AppCompatActivity(){
                             appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))
                             toolbar.setTitleTextColor(resources.getColor(R.color.colorAccent))
                         }
-                        toolbar.setTitleTextAppearance(this@MainActivity,android.R.style.TextAppearance_Material_Button)
 
                         bottom_navigation.visibility = View.GONE
                         myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -199,18 +195,23 @@ class MainActivity : AppCompatActivity(){
 
                 R.id.preference_fragment->{
                     binding.apply {
-                        toolbar.logo_in_toolbar.visibility = View.GONE
+
+                        toolbar.apply{
+                            logo_in_toolbar.visibility = View.GONE
+                            setTitleTextColor(Color.WHITE)
+                            navigationIcon=resources.getDrawable(R.drawable.ic_arrow_back_white,null)
+                            overflowIcon=resources.getDrawable(R.drawable.ic_overlow_white, null)
+                        }
+
                         appbar.elevation = 12f
-                       val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
-                       lp.scrollFlags=0
+                        val lp:AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+                        lp.scrollFlags=0
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary,null))
                         }else{
                             appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))}
 
-                        toolbar.setTitleTextColor(Color.WHITE)
-                        //toolbar.scrollBarStyle
-                       // toolbar.navigationIcon=resources.getDrawable(R.drawable.icons8_sign_up_24,null)
                         bottom_navigation.visibility = View.GONE
                         myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     }

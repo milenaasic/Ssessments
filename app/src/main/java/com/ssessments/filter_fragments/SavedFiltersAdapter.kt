@@ -11,13 +11,6 @@ import com.ssessments.databinding.SavedFilterRecviewItemBinding
 class SavedFiltersAdapter(val clickListener: FilterItemClickListener,val deleteClickListener: FilterItemDeleteClickListener)
     : RecyclerView.Adapter<SavedFiltersAdapter.MyViewHolder>() {
 
-    /*var dataList= listOf<FilterItem>(FilterItem(),FilterItem(),FilterItem(),
-        FilterItem(),FilterItem(),FilterItem(),FilterItem (),FilterItem(),FilterItem(),FilterItem(),FilterItem ())
-        set(value) {
-            field=value
-            notifyDataSetChanged()
-
-        }*/
 
     var dataList= listOf<FilterItem>()
         set(value) {

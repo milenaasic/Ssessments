@@ -3,95 +3,140 @@
                   xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-
-    android:title="Receive Notifications For Regions">
+    app:key="markets"
+    android:title="Receive Notifications For Markets">
 
     <CheckBoxPreference
-            app:key="notifications0"
-            app:title="South East Asia"
-            android:id="@+id/checkbox0"
-            android:checked="true"
+            app:key="notifications31"
+            app:title="@string/chip_31"
+            android:id="@+id/checkbox31"
+            android:defaultValue="true"
     />
         <CheckBoxPreference
+                app:key="notifications32"
+                app:title="@string/chip_32"
+                android:id="@+id/checkbox32"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications33"
+                app:title="@string/chip_33"
+                android:id="@+id/checkbox33"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications34"
+                app:title="@string/chip_34"
+                android:id="@+id/checkbox34"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications35"
+                app:title="@string/chip_35"
+                android:id="@+id/checkbox35"
+                android:defaultValue="true"
+        />
+
+        <CheckBoxPreference
+                app:key="notifications36"
+                app:title="@string/chip_36"
+                android:id="@+id/checkbox36"
+                android:defaultValue="true"
+        />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:key="products"
+            android:title="Receive Notifications For Products">
+
+        <CheckBoxPreference
                 app:key="notifications1"
-                app:title="North East Asia"
+                app:title="@string/chip_1"
                 android:id="@+id/checkbox1"
-                android:checked="true"
+                android:defaultValue="true"
         />
         <CheckBoxPreference
                 app:key="notifications2"
-                app:title="Indian Subcontinent"
+                app:title="@string/chip_2"
                 android:id="@+id/checkbox2"
-                android:checked="true"
+                android:defaultValue="true"
         />
-
-</PreferenceCategory>
-
-    <PreferenceCategory
-
-            android:title="Receive Notifications For Product">
-
         <CheckBoxPreference
                 app:key="notifications3"
-                app:title="PE"
+                app:title="@string/chip_3"
                 android:id="@+id/checkbox3"
-                android:checked="true"
+                android:defaultValue="true"
         />
         <CheckBoxPreference
                 app:key="notifications4"
-                app:title="PP"
+                app:title="@string/chip_4"
                 android:id="@+id/checkbox4"
-                android:checked="true"
-        />
-        <CheckBoxPreference
-                app:key="notifications5"
-                app:title="PVC"
-                android:id="@+id/checkbox5"
-                android:checked="true"
-        />
-        <CheckBoxPreference
-                app:key="notifications6"
-                app:title="PET"
-                android:id="@+id/checkbox6"
-                android:checked="true"
+                android:defaultValue="true"
         />
 
         <CheckBoxPreference
-                app:key="notifications7"
-                app:title="PS &amp; ABS"
-                android:id="@+id/checkbox7"
-                android:checked="true"
+                app:key="notifications5"
+                app:title="@string/chip_5"
+                android:id="@+id/checkbox5"
+                android:defaultValue="true"
         />
     </PreferenceCategory>
 
     <PreferenceCategory
+            app:key="ssessments"
+            android:title="Receive Notifications For Services">
 
-            android:title="Receive Notifications For Assessments">
-
-        <CheckBoxPreference
-                app:key="notifications8"
-                app:title="DailySSESSMENTS"
-                android:id="@+id/checkbox8"
-                android:checked="true"
-        />
-        <CheckBoxPreference
-                app:key="notifications9"
-                app:title="WeeklySSESSMENTS"
-                android:id="@+id/checkbox9"
-                android:checked="true"
-        />
-        <CheckBoxPreference
-                app:key="notifications10"
-                app:title="NewsSSESSMENTS"
-                android:id="@+id/checkbox10"
-                android:checked="true"
-        />
         <CheckBoxPreference
                 app:key="notifications11"
-                app:title="AlertSSESSMENTS"
+                app:title="@string/chip_11"
                 android:id="@+id/checkbox11"
-                android:checked="true"
+                android:defaultValue="true"
         />
+        <CheckBoxPreference
+                app:key="notifications12"
+                app:title="@string/chip_12"
+                android:id="@+id/checkbox12"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications13"
+                app:title="@string/chip_13"
+                android:id="@+id/checkbox13"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications14"
+                app:title="@string/chip_14"
+                android:id="@+id/checkbox14"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications15"
+                app:title="@string/chip_15"
+                android:id="@+id/checkbox15"
+                android:defaultValue="true"
+        />
+
+        <CheckBoxPreference
+                app:key="notifications16"
+                app:title="@string/chip_16"
+                android:id="@+id/checkbox16"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications17"
+                app:title="@string/chip_17"
+                android:id="@+id/checkbox17"
+                android:defaultValue="true"
+        />
+        <CheckBoxPreference
+                app:key="notifications18"
+                app:title="@string/chip_18"
+                android:id="@+id/checkbox18"
+                android:defaultValue="true"
+        />
+
 
     </PreferenceCategory>
 

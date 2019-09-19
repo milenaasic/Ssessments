@@ -32,6 +32,7 @@ import com.ssessments.database.UserData
 
 private const val DEFAULT_FILTER_NAME="My Filter"
 private const val DEFAULT_DATE_TEXT="Select"
+private const val MYTAG="MYFILTERBYFRAGMENT"
 
 class FilterByFragment : Fragment() {
 
@@ -54,7 +55,7 @@ class FilterByFragment : Fragment() {
 
         sharedviewModel = parentFragment?.run {
             ViewModelProviders.of(this)[FilterPagerSupportSharedViewModel::class.java]
-        } ?: throw Exception("Invalid Parent Fragment")
+        } ?: throw Throwable("Invalid Parent Fragment")
 
         mainActivityViewModel=requireActivity().run {
             ViewModelProviders.of(this)[MainActivityViewModel::class.java]
@@ -62,13 +63,10 @@ class FilterByFragment : Fragment() {
 
         mainActivityViewModel.loggedInUser.observe(this,Observer{ user->
             myuserData=user
-            if(user==null){
-                binding.saveButton.isEnabled=false
-            } else {
-                binding.saveButton.isEnabled=true
-            }
-        })
+            if(user==null)binding.saveButton.isEnabled=false
+            else binding.saveButton.isEnabled=true
 
+        })
 
 
         // ako bi default text bio danasnji datum
@@ -174,7 +172,7 @@ class FilterByFragment : Fragment() {
 
         binding.saveButton.setOnClickListener {
 
-            val alertDialog= AlertDialog.Builder(requireActivity(),android.R.style.Theme_Material_Light_Dialog_Alert)
+            val alertDialog= AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme)
 
             val myinflater = this.layoutInflater
             val dialogView = myinflater.inflate(com.ssessments.R.layout.save_filter_alert_dialog, null)
@@ -300,13 +298,23 @@ class FilterByFragment : Fragment() {
 
 
     private fun setChipsInChipGroupToList(chipgroup: ChipGroup, list: ArrayList<String>) {
+        // prvo uradim uncheck svih cipova u grupi
+        chipgroup.apply {
+            for (index in 0..this.childCount) {
+                if(getChildAt(index)!=null) {
+                    val chip = getChildAt(index) as Chip
+                    chip.isChecked=false
+                }
+            }
+        }
+
         for (item in list){
+        Log.i(MYTAG,"pretvorena arraz lista je $list, a item je $item")
             chipgroup.apply {
                 for (index in 0..this.childCount) {
                     if(getChildAt(index)!=null) {
                         val chip = getChildAt(index) as Chip
-                        if (chip.tag.equals(item)) {chip.isChecked=true
-                        }else chip.isChecked=false
+                        if (chip.tag.equals(item)) {chip.isChecked=true }
                     }
 
                 }
@@ -336,12 +344,12 @@ class FilterByFragment : Fragment() {
     private fun getCurrentFilterValues():CurrentFilter{
 
         return CurrentFilter(
-            convertArrayListToStringWithCommas(getCheckedChips(binding.marketsChips)),
-            convertArrayListToStringWithCommas(getCheckedChips(binding.productChips)),
-            convertArrayListToStringWithCommas(getCheckedChips(binding.ssessmentChips)),
-            getCheckedLanguage(),
-            binding.fromDatePicker.text.toString(),
-            binding.toDatePicker.text.toString()
+            market=convertArrayListToStringWithCommas(getCheckedChips(binding.marketsChips)),
+            product=convertArrayListToStringWithCommas(getCheckedChips(binding.productChips)),
+            ssessment = convertArrayListToStringWithCommas(getCheckedChips(binding.ssessmentChips)),
+            language = getCheckedLanguage(),
+            dateFrom = binding.fromDatePicker.text.toString(),
+            dateTo = binding.toDatePicker.text.toString()
 
         )
     }

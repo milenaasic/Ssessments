@@ -2,9 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/share_item"
-        android:title="@string/share"
-        android:icon="?attr/actionModeShareDrawable"
-        app:showAsAction="ifRoom"/>
+            android:id="@+id/font_size_item"
+            android:title="Font Size"
+            android:icon="@drawable/ic_font_size"
+            app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/share_item"
+            android:title="@string/share"
+            android:icon="?attr/actionModeShareDrawable"
+            app:showAsAction="always"/>
+
 
 </menu>

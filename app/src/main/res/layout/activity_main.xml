@@ -35,13 +35,13 @@
                     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                 <fragment
-                    android:id="@+id/mainNavHostFragment"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:defaultNavHost="true"
-                    app:navGraph="@navigation/navigation_main"
-                    tools:layout="@layout/fragment_main"/>
+                        android:id="@+id/mainNavHostFragment"
+                        android:name="androidx.navigation.fragment.NavHostFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:defaultNavHost="true"
+                        app:navGraph="@navigation/navigation_main"
+                        tools:layout="@layout/fragment_main"/>
 
             </androidx.core.widget.NestedScrollView>
 
@@ -69,6 +69,7 @@
                             tools:srcCompat="@drawable/logo_ssessments"
                             android:scaleType="fitCenter" android:paddingTop="4dp" android:paddingBottom="4dp"
                             android:contentDescription="LOGO"/>
+
 
                 </androidx.appcompat.widget.Toolbar>
 

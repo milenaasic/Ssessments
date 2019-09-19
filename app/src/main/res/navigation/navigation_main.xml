@@ -22,7 +22,7 @@
     </fragment>
     <fragment
             android:name="com.ssessments.filter_fragments.FilterPagerSupportFragment"
-            android:label="Filters" android:id="@+id/filter_menu_item"/>
+            android:label="FILTER" android:id="@+id/filter_menu_item"/>
     <fragment android:name="com.ssessments.settings.SettingsFragment"
               android:label="Settings" android:id="@+id/settings_fragment"/>
 
