@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "518635360119",
+    "firebase_url": "https://ssessmentsappproject.firebaseio.com",
+    "project_id": "ssessmentsappproject",
+    "storage_bucket": "ssessmentsappproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518635360119:android:19c70e2ab4a3224a0e1b72",
+        "android_client_info": {
+          "package_name": "com.ssessments.newsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518635360119-cdqaufbsut0in5pnsje7bgphi1rkbqp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc2oPfSnswmwwIlS4N1gAkElpJ9AUka6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518635360119-cdqaufbsut0in5pnsje7bgphi1rkbqp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

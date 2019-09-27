@@ -13,7 +13,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.ssessments"
+        applicationId "com.ssessments.newsapp"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -31,6 +31,7 @@ android {
     dataBinding {
         enabled = true
     }
+
 }
 
 dependencies {
@@ -84,6 +85,11 @@ dependencies {
     kapt "androidx.room:room-compiler:2.1.0"
     androidTestImplementation "androidx.room:room-testing:2.1.0"
 
-    //swipe refresh
-    //implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha01'
+    //firebase
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+
 }
+
+apply plugin: 'com.google.gms.google-services'

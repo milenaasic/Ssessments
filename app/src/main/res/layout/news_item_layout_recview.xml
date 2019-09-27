@@ -3,8 +3,8 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="singleNewsItem" type="com.ssessments.database.NewsItem"/>
-        <variable name="clickListener" type="com.ssessments.news_list_home.NewsItemClickListener"/>
+        <variable name="singleNewsItem" type="com.ssessments.newsapp.database.NewsItem"/>
+        <variable name="clickListener" type="com.ssessments.newsapp.news_list_home.NewsItemClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

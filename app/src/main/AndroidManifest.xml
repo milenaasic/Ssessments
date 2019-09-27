@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ssessments">
+          package="com.ssessments.newsapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -12,6 +12,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/logo_ssessments"/>
+
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_color"
+                android:resource="@color/colorPrimaryDark"/>
 
         <activity
                 android:name=".MainActivity"
@@ -36,12 +44,18 @@
                 android:theme="@style/MyLogInAndRegistrationActivityTheme">
         </activity>
 
-        <activity android:name=".filter_activity.FilterActivity">
-        </activity>
-
         <provider
                 android:name=".search_provider.MySuggestionProvider"
-                android:authorities="com.ssessments.search_provider.MySuggestionProvider"/>
+                android:authorities="com.ssessments.newsapp.search_provider.MySuggestionProvider"/>
+
+        <service
+                android:name=".myfirebase.MyFirebaseMessagingService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

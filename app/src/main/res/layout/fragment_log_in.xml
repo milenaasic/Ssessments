@@ -32,7 +32,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".login_and_registration.LogIn_Fragment"
+                tools:context=".newsapp.login_and_registration.LogIn_Fragment"
                 android:id="@+id/root_const_layout" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" android:focusableInTouchMode="true">
 

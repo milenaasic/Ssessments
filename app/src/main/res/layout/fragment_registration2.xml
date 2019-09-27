@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".login_and_registration.RegistrationFragment"
+            tools:context=".newsapp.login_and_registration.RegistrationFragment"
             android:id="@+id/constraint_layoutusername" android:focusableInTouchMode="true">
         <ImageView
                 android:src="@drawable/logo_ssessments"
