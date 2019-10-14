@@ -27,6 +27,8 @@ import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.detail_news_fragment.*
 
+import android.net.Uri
+
 
 private const val MYTAG="MY_DETAIL_FRAGMENT"
 class DetailNews() : Fragment() {
@@ -97,16 +99,20 @@ class DetailNews() : Fragment() {
 
         viewModel.shareNews.observe(this,Observer{
             if(it){
-                    val sendIntent= Intent().apply{
+                   val sendIntent= Intent().apply{
                          action=Intent.ACTION_SEND
-                         putExtra(Intent.EXTRA_TEXT,"news url")
-                         putExtra(Intent.EXTRA_TITLE,"NASLOV")
+                         putExtra(Intent.EXTRA_TEXT,"https://www.ssessments.com/alwaysfree-opec-oil-production-dips-to-8-year-low-after-saudi-attacks/")
+                         putExtra(Intent.EXTRA_TITLE,"AlwaysFree: OPEC Oil Production Dips To 8-Year Low After Saudi Attacks")
                          type="text/plain"
                      }
                      val shareIntent=Intent.createChooser(sendIntent,null)
                      startActivity(shareIntent)
+                /*val urlToShare="https://www.ssessments.com/alwaysfree-south-korea-posted-deflation-exports-shrank-bok-seen-to-cut-rates/"
+                val sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=$urlToShare"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl))
+                startActivity(intent)*/
 
-                    viewModel.shareActionComplete()
+                viewModel.shareActionComplete()
             }
         })
 
@@ -187,6 +193,7 @@ class DetailNews() : Fragment() {
         changeFontSizeAllViews(PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM))
         Log.i(MYTAG," u preferences je sacuvano (on start call) ${PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM)}")
     }
+
 
     private fun openChooseFontSizeDialog(){
 

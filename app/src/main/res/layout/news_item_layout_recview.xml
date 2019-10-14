@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/newsItemLayout">
+            android:id="@+id/newsItemLayout" android:minHeight="@dimen/min_height_for_news_item_in_recview">
 
         <TextView
                 android:text="TextView"
@@ -26,15 +26,15 @@
                 android:ellipsize="end"
                 app:titleString="@{singleNewsItem}"
                 android:onClick="@{() -> clickListener.onClick(singleNewsItem)}"
-                android:layout_marginTop="4dp"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/newsdate"
-                android:textColor="@android:color/primary_text_light"/>
+                android:textColor="@android:color/primary_text_light" android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/userType"
+                app:layout_constraintStart_toStartOf="@+id/userType"/>
         <TextView
                 android:text="TextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/newsdate"
                 tools:text="1.6.2019."
                 android:fontFamily="@font/pfdintextpro_regular_0"
@@ -43,21 +43,22 @@
                 app:dateTimeString="@{singleNewsItem}"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/newsTitle"
                 app:layout_constraintStart_toStartOf="@+id/newsTitle" android:layout_marginBottom="4dp"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/tagovi"
-                android:singleLine="true"/>
+                android:singleLine="true" android:paddingEnd="4dp" android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline4"/>
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/tagovi" tools:text="tag"
+                android:id="@+id/tagovi"
+                tools:text="tag"
                 android:fontFamily="@font/pfdintextpro_regular_0" android:textColor="@color/logoDeepBlue"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 android:ellipsize="end"
                 app:tagsString="@{singleNewsItem}"
                 app:layout_constraintTop_toTopOf="@+id/newsdate"
                 app:layout_constraintBottom_toBottomOf="@+id/newsdate"
-                app:layout_constraintStart_toEndOf="@+id/newsdate" android:layout_marginStart="12dp"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/userType"
-                android:singleLine="true"/>
+                android:singleLine="true" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                android:paddingStart="8dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@+id/guideline4" android:textAlignment="viewEnd"/>
         <TextView
                 android:text="TextView"
                 android:layout_width="0dp"
@@ -68,10 +69,16 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 android:ellipsize="end"
                 app:userTypeString="@{singleNewsItem}"
-                app:layout_constraintTop_toTopOf="@+id/tagovi" app:layout_constraintBottom_toBottomOf="@+id/tagovi"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tagovi" android:layout_marginStart="12dp"
-                android:textAlignment="viewEnd" android:singleLine="true" app:layout_constraintHorizontal_bias="0.5"/>
+                android:textAlignment="viewStart" android:singleLine="true"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="4dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline4" app:layout_constraintGuide_percent="0.5"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

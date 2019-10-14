@@ -13,5 +13,5 @@
             android:ems="10"
             android:id="@+id/filter_name_edit_text" android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/lightGrey" android:hint="Enter Filter Name"/>
+            android:backgroundTint="@color/lightGrey" android:hint="Enter Filter Name" android:singleLine="true"/>
 </LinearLayout>

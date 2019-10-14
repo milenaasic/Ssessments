@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -27,11 +28,8 @@ interface NewsAPIService {
 
      */
 
-    //VESTI - ucitaj kompletnu listu vesti
-    @GET("url1")
-    fun getNewsList( ):Deferred <List<NetworkNewsItem>>
 
-    //VESTI- ucitaj listu vesti prema datom filteru
+    //VESTI- ucitaj listu vesti prema datom filteru, podrazumeva i kompletnu listu vesti
     @POST("url2")
     fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>
 
@@ -40,17 +38,29 @@ interface NewsAPIService {
     fun postSingleNews(@Path("singleNewsID") newsID:Int,
                        @Body user_token:String):Deferred<NetworkSingleNewsItem>
 
-    //FILTERI-ucitaj sve filtere zapamcene na serveru, token je u body
-    @POST("url4")
-    fun postPredefinedFilters(@Body user_token:String):Deferred <List<NetworkNewsFilterObject>>
+    //Vesti - ucitaj listu prema custom search-u
+    @POST("url3")
+    fun postCustomSearchNewsList(@Body customSearch:NetworkCustomSearchFilterObject):Deferred<List<NetworkNewsItem>>
+
+
+
+    //FILTERI-ucitaj sve predefinisane filtere, za sve korisnike je isto, token ostaje za kasnije
+    @GET("url4")
+    fun getPredefinedFilters(@Body user_token:String):Deferred <List<NetworkNewsFilterObject>>
+
 
     //User LogIn
     //sta se vraca sa servera u slucaju uspeha? Token
     @POST("ur4")
     fun postUserLogIn(@Body userData: NetworkUserData):Deferred<String>
 
+    @POST("url5")
+    fun postForgotPassword(@Body user_email:String):Deferred<String>
+
     @POST("url6")
-    fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<NetworkUserData>
+    fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<String>
+
+
 
 }
 

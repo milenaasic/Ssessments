@@ -5,7 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ssessments.newsapp.database.NewsDatabaseDao
+import com.ssessments.newsapp.network.NetworkUserRegistrationData
+import com.ssessments.newsapp.network.NewsApi
+import kotlinx.coroutines.launch
 
 private const val MYTAG="MY_RegistraSharedViewMo"
 
@@ -24,12 +28,60 @@ class RegistrationSharedViewModel(
         val navigateBackToRegistration1: LiveData<Boolean>
                 get() =_navigateBackToRegistration1
 
+        private val _showProgressBarRegistration= MutableLiveData<Boolean>()
+        val showProgressBarRegistration: LiveData<Boolean>
+                get() =_showProgressBarRegistration
+
+        private val _showToastRegistrationSent= MutableLiveData<Boolean>()
+        val showToastRegistrationSent: LiveData<Boolean>
+                get() =_showToastRegistrationSent
+
+        private val _showToastSomethingWentWrongWithRegistration= MutableLiveData<Boolean>()
+        val showToastSomethingWentWrongWithRegistration: LiveData<Boolean>
+                get() =_showToastSomethingWentWrongWithRegistration
+
+
+
         fun nextButtonClicked(){
                 _navigateToRegistration2.value=true
         }
 
         fun backButtonClicked(){
                  _navigateBackToRegistration1.value=true
+        }
+
+
+        fun registerButtonClicked(username:String,password:String){
+
+                _showProgressBarRegistration.value=true
+
+                val userRegData:NetworkUserRegistrationData= NetworkUserRegistrationData(
+                        userRegistration1Fields[0],
+                        userRegistration1Fields[1],
+                        userRegistration1Fields[2],
+                        userRegistration1Fields[3],
+                        userRegistration1Fields[4],
+                        userRegistration1Fields[5],
+                        username,
+                        password)
+
+                //posalji user reegistration na server
+                viewModelScope.launch {
+                        var getResultDeferred = NewsApi.retrofitService.postUserRegistration(userRegData)
+                        try {
+                                var result = getResultDeferred.await()
+                                _showProgressBarRegistration.value=false
+                                _showToastRegistrationSent.value=true
+
+                        } catch (e: Exception) {
+                                Log.i(MYTAG,"Failure is: ${e.message}")
+                                _showProgressBarRegistration.value=false
+                                _showToastSomethingWentWrongWithRegistration.value=true
+
+                        }
+
+                }
+
         }
 
         //naviigacija iz fragmenta reg1 u reg2
@@ -40,6 +92,16 @@ class RegistrationSharedViewModel(
         //naviigacija nazad u fragment1
         fun navigationBackToRegistration1Done(){
                 _navigateBackToRegistration1.value=false
+        }
+
+        //pokazan toast registartion sent
+        fun toastRegistrationSentIsShown(){
+                _showToastRegistrationSent.value=false
+        }
+
+        //pokazan toast somethingwentwrong
+        fun toastSomethingWentWrongWithRegistrationIsShown(){
+                _showToastSomethingWentWrongWithRegistration.value=false
         }
 
         fun setMyUserRegistration1Fields(list:ArrayList<String?>){

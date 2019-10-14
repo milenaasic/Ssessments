@@ -91,7 +91,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/forgotpaswordtextView"
                         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-                        app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorAccent"/>
+                        app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorAccent"
+                        android:background="?attr/selectableItemBackground"/>
 
 
                 <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"

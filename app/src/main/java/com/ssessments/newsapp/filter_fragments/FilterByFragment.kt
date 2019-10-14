@@ -62,8 +62,9 @@ class FilterByFragment : Fragment() {
 
         mainActivityViewModel.loggedInUser.observe(this,Observer{ user->
             myuserData=user
-            if(user==null)binding.saveButton.isEnabled=false
-            else binding.saveButton.isEnabled=true
+            // UKLJUCI KASNIJE
+            //if(user==null)binding.saveButton.isEnabled=false
+           // else binding.saveButton.isEnabled=true
 
         })
 

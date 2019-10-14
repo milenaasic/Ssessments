@@ -1,6 +1,7 @@
 package com.ssessments.newsapp.login_and_registration
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -33,9 +34,17 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
     val showToastUserLoggedIN:LiveData<Boolean>
         get() = _showToastUserLoggedIN
 
+    private val _showToastSomethingWentWrong=MutableLiveData<Boolean>()
+    val showToastSomethingWentWrong:LiveData<Boolean>
+        get() = _showToastSomethingWentWrong
+
     private val _sendUserToHomeFragment=MutableLiveData<Boolean>()
     val sendUserToHomeFragment:LiveData<Boolean>
         get() = _sendUserToHomeFragment
+
+    private val _showToastForgotPasswordHandeled=MutableLiveData<Boolean>()
+    val showToastForgotPasswordHandeled:LiveData<Boolean>
+        get() = _showToastForgotPasswordHandeled
 
 
     init {
@@ -48,7 +57,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
              _showProgressBar.value=true
             signInThisUser(username,password)
         } else {
-            _showProgressBar.value=false
+           // _showProgressBar.value=false
             _showToastNOInternet.value=true
 
         }
@@ -58,7 +67,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
     fun signInThisUser(username:String,password:String){
 
         viewModelScope.launch {
-            var loginuserdeferred=NewsApi.retrofitService.postUserLogIn(NetworkUserData(username,password,null))
+            var loginuserdeferred=NewsApi.retrofitService.postUserLogIn(NetworkUserData(username,password))
             try {
                 //uspesan login vraca mi se token kao String
                 var resulttoken=loginuserdeferred.await()
@@ -77,11 +86,12 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 _sendUserToHomeFragment.value=true
 
             }catch (t:Throwable){
-                Toast.makeText(getApplication(),"LOGIN FAILED",Toast.LENGTH_LONG).show()
-
+                Log.i(MY_TAG,"poruka network greska ${t.message}")
+                _showProgressBar.value=false
+                _showToastSomethingWentWrong.value=true
 
                 //proba dok ne proradi server-obrisi posle
-                withContext(Dispatchers.IO){
+               /* withContext(Dispatchers.IO){
                     database.clearUserDataTable()
                     database.insertUser(UserData(username,password,"12345token"))
                     //Log.i(MY_TAG,"upisan user je ${database.getUser().toString()}")
@@ -89,13 +99,34 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 }
                 _showProgressBar.value=false
                 _showToastUserLoggedIN.value=true
-                _sendUserToHomeFragment.value=true
+                _sendUserToHomeFragment.value=true*/
             }
         }
 
     }
 
+        //Forgot password
+        fun sendForgotPasswordEmail(usermail:String){
 
+            _showProgressBar.value=true
+
+            viewModelScope.launch {
+
+                var getResultDeferred = NewsApi.retrofitService.postForgotPassword(usermail)
+                try {
+                    var result = getResultDeferred.await()
+                    _showProgressBar.value=false
+                    _showToastForgotPasswordHandeled.value=true
+
+                } catch (e: Exception) {
+                    Log.i(MY_TAG,"Failure is: ${e.message}")
+                    _showProgressBar.value=false
+                    _showToastSomethingWentWrong.value=true
+
+                }
+             }
+
+        }
 
     fun toastNoInternetIsShown(){
         _showToastNOInternet.value=false
@@ -105,7 +136,15 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
         _showToastUserLoggedIN.value=false
     }
 
+    fun toastSomethingWentWrongIsShown(){
+        _showToastSomethingWentWrong.value=false
+    }
+
     fun userSentToHomeFragment(){
         _sendUserToHomeFragment.value=false
+    }
+
+    fun toastForgotPaswordHandledIsShown(){
+        _showToastForgotPasswordHandeled.value=false
     }
 }

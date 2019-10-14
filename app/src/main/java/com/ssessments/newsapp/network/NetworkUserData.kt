@@ -8,10 +8,11 @@ data class NetworkUserData (
     var username:String,
 
     @Json(name="password")
-    var password:String,
+    var password:String
 
-    @Json(name="token")
-    var token:String?
+    //izbacili smo token
+    //@Json(name="token")
+    //var token:String?
 )
 
 

@@ -30,7 +30,10 @@ import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.databinding.ActivityMainBinding
 import com.ssessments.newsapp.login_and_registration.LogIn_and_Registration_Activity
 import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
+import com.ssessments.newsapp.network.NetworkCustomSearchFilterObject
+import com.ssessments.newsapp.network.NetworkNewsItem
 import com.ssessments.newsapp.search_provider.MySuggestionProvider
+import com.ssessments.newsapp.utilities.convertNetworkToDatabaseNewsItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlin.math.floor
@@ -186,7 +189,6 @@ class MainActivity : AppCompatActivity(){
                 // Log and toast
                 //val msg = getString("token je", token)
                 Log.d(TAG_MAIN, "token je $token")
-                Toast.makeText(this, "token je $token", Toast.LENGTH_SHORT).show()
             })
 
         //activity je orvorena iz Firebase service
@@ -200,7 +202,6 @@ class MainActivity : AppCompatActivity(){
             navController.popBackStack(R.id.mainFragment, false)
             navController.navigate(R.id.detailNews, bundle)
         }
-
 
     }
 
@@ -280,6 +281,7 @@ class MainActivity : AppCompatActivity(){
         //ovde saljem preko zahtev serveru
         Log.i("Searcheble activity","pokrenut doMySearch")
         //prikazi progres dialog i informaciju dok ne implementiraim search
+        viewModel.doCustomNewsSearch(query)
     }
 
 
@@ -340,9 +342,9 @@ class MainActivity : AppCompatActivity(){
             lp.scrollFlags=0
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary,null))
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark,null))
             }else{
-                appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))}
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))}
 
             bottom_navigation.visibility = View.GONE
             myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -360,10 +362,10 @@ class MainActivity : AppCompatActivity(){
             appbar.elevation =0F
             toolbar.elevation=0F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary,null))
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark,null))
                 toolbar.setTitleTextColor(resources.getColor(R.color.colorAccent,null))
             }else{
-                appbar.setBackgroundColor(resources.getColor(R.color.logoPurpleMatchingSecondary))
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
                 toolbar.setTitleTextColor(resources.getColor(R.color.colorAccent))
             }
 

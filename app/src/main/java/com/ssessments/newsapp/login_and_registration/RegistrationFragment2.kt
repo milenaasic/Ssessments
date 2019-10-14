@@ -13,10 +13,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.databinding.FragmentRegistration2Binding
-
+import kotlinx.android.synthetic.main.fragment_registration2.*
 
 
 class RegistrationFragment2 : Fragment() {
@@ -40,6 +41,7 @@ class RegistrationFragment2 : Fragment() {
         //da se ne otvori prvi edittext sam od sebe
         binding.constraintLayoutusername.requestFocus()
 
+    //zatvori softkeyboard ako je user rekao DONE
         binding.confirmPasswordeditText.setOnEditorActionListener { v, actionId, event ->
             when (actionId){
                 EditorInfo.IME_ACTION_DONE-> {
@@ -61,8 +63,12 @@ class RegistrationFragment2 : Fragment() {
 
         }
 
-        sharedViewModel.navigateBackToRegistration1.observe(this,Observer{shouldNavigate->
+        //REGISTER BUTTON
+        binding.registerbutton.setOnClickListener{
+            if(checkIfRequiredFieldsAreEmpty()) sharedViewModel.registerButtonClicked(binding.chooseUsernameeditText.toString(),binding.passwordeditText.toString())
+        }
 
+        sharedViewModel.navigateBackToRegistration1.observe(this,Observer{shouldNavigate->
                     if(shouldNavigate) {
                         navController.navigateUp()
                         sharedViewModel.navigationBackToRegistration1Done()
@@ -70,6 +76,25 @@ class RegistrationFragment2 : Fragment() {
                 }
         )
 
+        sharedViewModel.showProgressBarRegistration.observe(this,Observer{
+                when(it){
+                    true-> progressBarVisible(true)
+                    false->progressBarVisible(false)}
+        })
+
+        sharedViewModel.showToastRegistrationSent.observe(this,Observer{
+            if(it){
+                Snackbar.make(binding.constraintLayoutusername,R.string.registration_sent,Snackbar.LENGTH_LONG).show()
+                sharedViewModel.toastRegistrationSentIsShown()
+            }
+        })
+
+        sharedViewModel.showToastSomethingWentWrongWithRegistration.observe(this,Observer{
+            if(it){
+                Snackbar.make(binding.constraintLayoutusername,R.string.network_error,Snackbar.LENGTH_LONG).show()
+                sharedViewModel.toastSomethingWentWrongWithRegistrationIsShown()
+            }
+        })
 
         return binding.root
     }
@@ -88,7 +113,7 @@ class RegistrationFragment2 : Fragment() {
             }
 
             passwordeditText.apply {
-                if (text!!.isBlank()) {
+                if (text!!.isBlank() || text!!.isEmpty()) {
                     setError("reqired field")
                     registerUser = false
                 }
@@ -116,7 +141,22 @@ class RegistrationFragment2 : Fragment() {
         return registerUser
     }
 
+    private fun progressBarVisible(show: Boolean){
+        if(show) {
+            binding.apply {
+                constraintLayoutusername.alpha = 0.3F
+                progressBarRegistration.visibility = View.VISIBLE
+            }
+        }
 
+        if(!show){
+            binding.apply {
+                constraintLayoutusername.alpha = 1F
+                progressBarRegistration.visibility = View.GONE
+            }
+        }
+
+    }
 
 
 }

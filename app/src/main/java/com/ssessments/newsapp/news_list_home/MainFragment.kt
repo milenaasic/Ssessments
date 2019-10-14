@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.databinding.FragmentMainBinding
+import com.ssessments.newsapp.utilities.INITIALIZED_FROM_SWIPE_REFRESH
 
 private const val mytag="MY_MAIN_FRAGMENT"
 class mainFragment : Fragment() {
@@ -54,41 +55,50 @@ class mainFragment : Fragment() {
 
         binding.mySwipeRefreshLayout.setOnRefreshListener {
             Log.i(mytag, "onRefresh called from SwipeRefreshLayout")
-            viewModel.initializeNewsList()
+            viewModel.initializeNewsList(INITIALIZED_FROM_SWIPE_REFRESH)
         }
 
         viewModel.swiperefreshfinished.observe(this,Observer{
-
             if(it) {
                 binding.mySwipeRefreshLayout.isRefreshing=false
                 viewModel.setSwiperefreshedfinishedToFalse()}
-
         })
-
-
 
 
         viewModel.newsList.observe(this, Observer { newList->
             Log.i(mytag,"main fragment observe news list")
-            if(newList!=null) adapter.dataList = newList
-               })
+                    if(newList.isEmpty())showNoResultTextView(true)
+                    else showNoResultTextView(false)
+                    adapter.dataList = newList
+        })
 
-        viewModel.noInternet.observe(this, Observer { showSnackbar->
+        viewModel.showToastnoInternet.observe(this, Observer { showSnackbar->
                 if(showSnackbar){
                 Snackbar.make(binding.fragmentLinLay,R.string.nointernet,Snackbar.LENGTH_LONG).show()
                 viewModel.noInternetSnackBarShown()
                 }
-            })
-
+        })
 
         viewModel.newsToBeOpenedID.observe(this, Observer { id->
-            Log.i(mytag,"main fragment news to be opened")
             openDetailNewsFragment(id) })
 
+        viewModel.showProgressBar.observe(this,Observer{
+            when(it){
+                true-> progressBarVisible(true)
+                false->progressBarVisible(false)}
+
+        })
 
         return binding.root
     }
 
+    private fun showNoResultTextView(shouldShow: Boolean) {
+        binding.noResultTextMainFragment.apply{
+            if(shouldShow) visibility=View.VISIBLE
+            else visibility=View.GONE
+        }
+
+    }
 
     fun openDetailNewsFragment(id:Int){
          if(id!=-1){
@@ -96,9 +106,8 @@ class mainFragment : Fragment() {
             findNavController().navigate(action)
             viewModel.resetNewsID()
          }
-
-
     }
+
     override fun onResume() {
         super.onResume()
         //val activity:AppCompatActivity= activity as AppCompatActivity
@@ -110,6 +119,20 @@ class mainFragment : Fragment() {
 
     }
 
+    private fun progressBarVisible(show: Boolean) {
+        if(show) {
+            binding.apply {
+                fragmentLinLay.alpha = 0.3F
+                mainProgressbar.visibility = View.VISIBLE
+            }
+        }
 
+        if(!show){
+            binding.apply {
+                fragmentLinLay.alpha = 1F
+                mainProgressbar.visibility = View.GONE
+            }
+        }
+    }
 
 }

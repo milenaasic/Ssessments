@@ -11,12 +11,15 @@
 
     <!-- toast and snackbar messages-->
     <string name="nointernet" translatable="false">No Internet</string>
+    <string name="loggedin" translatable="false">You Are Logged In!</string>
+    <string name="network_error">Something went wrong!</string>
+    <string name="enter_email_text">Enter your e-mail address</string>
 
     <!-- search interface-->
     <string name="app_label">Ssessments</string>
     <string name="search_hint">Search News</string>
 
-    <!-- log in and registrtion messages-->
+    <!-- log in and registrtion messages in text fields-->
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
 
@@ -72,7 +75,7 @@
     <string name="from_date_picker_title">From</string>
     <string name="date_range_date_picker_title">Date Range</string>
     <string name="to_date_picker_title">To</string>
-    <string name="network_error">Something went wrong!</string>
+
     <string name="turnOffNotification">Stop Receiving Notifications For This Item?</string>
     <string name="choose_font_size">Choose Font Size</string>
     <string name="font_size_small">Small</string>
@@ -81,6 +84,9 @@
     <string name="font_size_extra_large">Extra Large</string>
     <string name="channel_name">News Notifications</string>
     <string name="channel_description">Receive Notifications For News Updates</string>
+
+    <string name="forgot_password_handled">Info will be sent to your e-mail address</string>
+    <string name="registration_sent">Thank you for registering. Confirmation will be sent to your e-mail !</string>
 
 
     <!-- spinner regions-->

@@ -57,7 +57,7 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:theme="@style/myToolbarTheme"
+                        android:theme="@style/myToolbarTheme"
                         android:title="  "
                         app:layout_scrollFlags="scroll|enterAlways">
 

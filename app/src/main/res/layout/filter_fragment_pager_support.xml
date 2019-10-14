@@ -17,7 +17,7 @@
             android:background="@android:color/transparent"
             app:tabGravity="fill"
             app:tabTextColor="@android:color/darker_gray" app:tabInlineLabel="true"
-            app:tabSelectedTextColor="@color/colorAccent">
+            app:tabSelectedTextColor="@android:color/primary_text_dark">
 
         <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

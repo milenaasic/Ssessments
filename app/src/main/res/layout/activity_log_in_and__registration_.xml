@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".newsapp.login_and_registration.LogIn_and_Registration_Activity">
+        tools:context=".login_and_registration.LogIn_and_Registration_Activity"
+        android:id="@+id/login_activity_root_layout">
 
     <fragment
             android:id="@+id/login_navhost_fragment"

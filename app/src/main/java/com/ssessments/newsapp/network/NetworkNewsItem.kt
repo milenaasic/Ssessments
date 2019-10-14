@@ -11,7 +11,7 @@ data class NetworkNewsItem (
     var title:String,
 
     @Json(name="tags")
-    var tags:String,
+    var tags:Array<String>,
 
     @Json(name="date_time")
     var date_time:String,

@@ -2,6 +2,8 @@ package com.ssessments.newsapp.filter_fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.ssessments.newsapp.database.FilterItem
 import com.ssessments.newsapp.databinding.SavedFilterRecviewItemBinding

@@ -1,6 +1,7 @@
 package com.ssessments.newsapp.login_and_registration
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,11 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.ssessments.newsapp.R
 
 import com.ssessments.newsapp.database.NewsDatabase
@@ -73,6 +79,34 @@ class LogIn_Fragment : Fragment() {
             }
         }
 
+        //FORGOT PASSWORD
+        binding.forgotpaswordtextView.setOnClickListener {
+
+        //otvori dijalog da korisnik upise e-mail
+            val alertDialog= AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogThemeForLogIn)
+
+            val myinflater = this.layoutInflater
+            val dialogView = myinflater.inflate(R.layout.forgot_password_dialog_layout, null)
+
+            alertDialog.setView(dialogView).setCancelable(true).create()
+
+            alertDialog.setPositiveButton("SEND", DialogInterface.OnClickListener{ dialog, id ->
+
+                val emailView: EditText?=dialogView.findViewById(R.id.enterEmaileditText)
+                val layout:ConstraintLayout=requireActivity().findViewById(R.id.login_activity_root_layout)
+
+                if(emailView!=null && layout!=null){
+                    if(emailView.text.isNullOrEmpty()|| !emailView.text.contains("@")){
+                        Snackbar.make(layout, R.string.enter_email_text, Snackbar.LENGTH_LONG).show()}
+                    else{
+                        viewModel.sendForgotPasswordEmail(emailView.text.toString())
+                        }
+                }
+            })
+
+            alertDialog.show()
+
+         }
 
         viewModel.showProgressBar.observe(this, Observer {
                 when(it){
@@ -83,29 +117,39 @@ class LogIn_Fragment : Fragment() {
 
         viewModel.showToastNOInternet.observe(this,Observer{
             if(it){
-            Toast.makeText(requireActivity(),"No Internet Connection",Toast.LENGTH_LONG).show()
+            Snackbar.make(binding.rootConstLayout,R.string.nointernet,Snackbar.LENGTH_LONG).show()
             viewModel.toastNoInternetIsShown()
             }
         })
 
         viewModel.showToastUserLoggedIN.observe(this,Observer{
             if(it){
-                Toast.makeText(requireActivity(),"You are logged in",Toast.LENGTH_LONG).show()
+                Snackbar.make(binding.rootConstLayout,R.string.loggedin,Snackbar.LENGTH_SHORT).show()
                 viewModel.toastLoggedInUserIsShown()
+            }
+        })
+
+        viewModel.showToastSomethingWentWrong.observe(this,Observer{
+            if(it){
+                Snackbar.make(binding.rootConstLayout,R.string.network_error,Snackbar.LENGTH_LONG).show()
+                viewModel.toastSomethingWentWrongIsShown()
+            }
+
+        })
+
+        viewModel.showToastForgotPasswordHandeled.observe(this,Observer{
+            if(it){
+                Snackbar.make(binding.rootConstLayout,R.string.forgot_password_handled,Snackbar.LENGTH_LONG).show()
+                viewModel.toastForgotPaswordHandledIsShown()
             }
         })
 
         viewModel.sendUserToHomeFragment.observe(this,Observer{
             if(it){
-
-                /*val intent= Intent(requireActivity(),MainActivity::class.java).apply {
-                    putExtra( LOGGED_IN_USER_GOTO_MAIN_ACTIVITY,true)}
-                    startActivity(intent)*/
                 viewModel.userSentToHomeFragment()
                 activity?.finish()
             }
         })
-
 
         return binding.root
 
@@ -150,9 +194,9 @@ class LogIn_Fragment : Fragment() {
     }
 }
 
-fun isPasswordValid(password:String):Boolean{
-    Log.i(TAG_LOGIN,"${password.length}")
-    Log.i(TAG_LOGIN,"da li je duza od 5: ${password.length>5}")
-    return password.length > 5
-}
+    fun isPasswordValid(password:String):Boolean{
+        Log.i(TAG_LOGIN,"${password.length}")
+        Log.i(TAG_LOGIN,"da li je duza od 5: ${password.length>5}")
+        return password.length > 5 && password.isNotBlank() && password.isNotEmpty()
+    }
 

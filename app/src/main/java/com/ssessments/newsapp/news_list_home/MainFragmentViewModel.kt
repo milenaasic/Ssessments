@@ -3,8 +3,10 @@ package com.ssessments.newsapp.news_list_home
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.ssessments.newsapp.data.fakeNetworkNewFilterOBject
 import com.ssessments.newsapp.data.getNewsItemArray
 import com.ssessments.newsapp.database.NewsDatabaseDao
+import com.ssessments.newsapp.network.NetworkNewsFilterObject
 import com.ssessments.newsapp.network.NetworkNewsItem
 import com.ssessments.newsapp.network.NewsApi
 import com.ssessments.newsapp.utilities.convertNetworkToDatabaseNewsItem
@@ -17,14 +19,6 @@ class MainFragmentViewModel(
                             val database:NewsDatabaseDao,
                             application:Application): AndroidViewModel(application) {
 
-    //val repository = NewsListHomeRepository(NewsDatabase.getInstance(application))
-    //private var viewModelJob= Job()
-    //private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
-
-    /*private val _newsList = MutableLiveData<List<NetworkNewsItem>>()
-    val newsList: LiveData<List<NetworkNewsItem>>
-        get() = _newsList*/
-
 
     //promenljiva koja sadrzi newsListu iz baze
     val newsList=database.getAllNews()
@@ -33,11 +27,9 @@ class MainFragmentViewModel(
     val swiperefreshfinished: LiveData<Boolean>
         get() = _swiperefreshfinished
 
-
-    private val _noInternet = MutableLiveData<Boolean>()
-    val noInternet: LiveData<Boolean>
-        get() = _noInternet
-
+    private val _showToastnoInternet = MutableLiveData<Boolean>()
+    val showToastnoInternet: LiveData<Boolean>
+        get() = _showToastnoInternet
 
     private val _networkError = MutableLiveData<Boolean>()
     val networkError: LiveData<Boolean>
@@ -51,53 +43,60 @@ class MainFragmentViewModel(
     val newsToBeOpenedID: LiveData<Int>
         get() = _newsToBeOpenedID
 
-
     init {
-        Log.i(mytag,("init"))
-        _showProgressBar.value=false
-        _noInternet.value=false
-        initializeNewsList()
+
+        initializeNewsList(false)
         _newsToBeOpenedID.value = -1
     }
 
-    fun initializeNewsList() {
-        Log.i(mytag,("initializeNewsLis"))
-        if (isOnline(getApplication())){
-            Log.i(mytag,("initializeNewsLis is online"))
+    fun initializeNewsList(initializedFromSwipeRefresh:Boolean) {
+        if(!initializedFromSwipeRefresh)_showProgressBar.value=true
 
-            viewModelScope.launch {
-                var getPropertiesDeferred = NewsApi.retrofitService.getNewsList()
-                try {
-                    Log.i(mytag,("preproeprtydeffered"))
-                    var listResult = getPropertiesDeferred.await()
-                    Log.i(mytag,("posle property deffered"))
-                    insertNewsIntoDatabase(listResult)
-                    _showProgressBar.value=false
-
-                } catch (e: Exception) {
-                    Log.i(mytag,("greska"))
-                    val responseError="Failure"+e.message
-                    Log.i(mytag,("$responseError"))
-                    _networkError.value = true
-                    // proba dok ne proradi server
-                    insertNewsIntoDatabase(getNewsItemArray())
-                    _showProgressBar.value=false
-                    _swiperefreshfinished.value=true
-                }
-            }
+        if(isOnline(getApplication())){
+            getFilteredNewsListFromServer(fakeNetworkNewFilterOBject,initializedFromSwipeRefresh)
         }else{
             Log.i(mytag,("no internet"))
-           // _noInternet.value=true
+            if(!initializedFromSwipeRefresh) _showProgressBar.value=false
+            _showToastnoInternet.value=true
+        }
 
+    }
+
+   fun getFilteredNewsListFromServer(filter: NetworkNewsFilterObject,initializedFromSwipeRefresh:Boolean){
+
+        Log.i(mytag,("initializeNewsLis is online"))
+
+        viewModelScope.launch {
+            var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(fakeNetworkNewFilterOBject)
+            try {
+                var listResult = getPropertiesDeferred.await()
+                Log.i(mytag,("result je :$listResult"))
+                insertNewsIntoDatabase(listResult)
+                if(!initializedFromSwipeRefresh) _showProgressBar.value=false
+                else _swiperefreshfinished.value=true
+
+            } catch (e: Exception) {
+                val responseError="Failure"+e.message
+                Log.i(mytag,("$responseError"))
+                _networkError.value = true
+                // proba dok ne proradi server
+                insertNewsIntoDatabase(getNewsItemArray())
+                // ubaci praznu listu
+                //insertNewsIntoDatabase(mutableListOf())
+                if(!initializedFromSwipeRefresh) _showProgressBar.value=false
+                else _swiperefreshfinished.value=true
+            }
         }
 
     }
 
     private fun insertNewsIntoDatabase(list:List<NetworkNewsItem>){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                database.clearNewsTable()
-                database.insertNews(convertNetworkToDatabaseNewsItem(list))
+        if(list!=null) {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    database.clearNewsTable()
+                    database.insertNews(convertNetworkToDatabaseNewsItem(list))
+                }
             }
         }
 
@@ -109,7 +108,7 @@ class MainFragmentViewModel(
 
 
     fun noInternetSnackBarShown(){
-        _noInternet.value=false
+        _showToastnoInternet.value=false
     }
 
 
@@ -122,9 +121,6 @@ class MainFragmentViewModel(
             _newsToBeOpenedID.value = -1
         }
 
-    override fun onCleared() {
-            super.onCleared()
-            //viewModelJob.cancel()
-    }
+
 
 }
