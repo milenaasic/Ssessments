@@ -127,6 +127,14 @@ class MainActivity : AppCompatActivity(){
                     binding.myDrawerLayout.closeDrawers()
                     true
                 }
+
+                R.id.settings_fragment->{
+                    menuItem.setChecked(true)
+                    navController.navigate(R.id.settings_fragment)
+                    binding.myDrawerLayout.closeDrawers()
+                    true
+                }
+
                 R.id.logout_menuitem ->{
                     menuItem.setChecked(true)
                     viewModel.clearUser()
@@ -161,6 +169,11 @@ class MainActivity : AppCompatActivity(){
                 R.id.preference_fragment ->{
                     Log.i(TAG_MAIN,"on destination changed listener prefer fragm ")
                     setPreferenceFragmentUI()
+                }
+
+                R.id.settings_fragment ->{
+                    setSettingsFragmentUI()
+
                 }
 
             }
@@ -204,6 +217,7 @@ class MainActivity : AppCompatActivity(){
         }
 
     }
+
 
 
 
@@ -373,6 +387,29 @@ class MainActivity : AppCompatActivity(){
             myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
     }
+
+    private fun setSettingsFragmentUI() {
+        binding.apply {
+            toolbar.apply{
+                logo_in_toolbar.visibility = View.GONE
+                setTitleTextColor(Color.WHITE)
+                navigationIcon=resources.getDrawable(R.drawable.ic_arrow_back_white,null)
+            }
+
+            appbar.elevation=(4 * resources.displayMetrics.density)
+            val lp:AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+            lp.scrollFlags=0
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark,null))
+            }else{
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))}
+
+            bottom_navigation.visibility = View.GONE
+            myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        }
+    }
+
 
     private fun setDetailNewsUI() {
         Log.i(TAG_MAIN,"detail news ui method ")

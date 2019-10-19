@@ -50,7 +50,8 @@ class DetailNews() : Fragment() {
     private val defaultTextSizeTitle =24f
     private val defaultTextSizeTimeDateAuthorTags=14f
     private val defaultTextSizeBody=16f
-    private val FONT_SIZE_KEY="FONT_SIZE"
+    private val FONT_SIZE_KEY="font_size_preference"
+    private val DEFAULT_FONT_SIZE="1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,10 +108,6 @@ class DetailNews() : Fragment() {
                      }
                      val shareIntent=Intent.createChooser(sendIntent,null)
                      startActivity(shareIntent)
-                /*val urlToShare="https://www.ssessments.com/alwaysfree-south-korea-posted-deflation-exports-shrank-bok-seen-to-cut-rates/"
-                val sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=$urlToShare"
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl))
-                startActivity(intent)*/
 
                 viewModel.shareActionComplete()
             }
@@ -174,11 +171,6 @@ class DetailNews() : Fragment() {
                                     viewModel.shareItemMenuClicked()
                                     Log.v("Detail","share pressed")
                                     return true}
-            R.id.font_size_item->{  openChooseFontSizeDialog()
-
-                                    return true}
-
-
 
             else-> return false
         }
@@ -190,12 +182,15 @@ class DetailNews() : Fragment() {
         //pokupi sistemski seting u vezi velicine slova
         systemFontScale= resources.configuration.fontScale
         Log.i(MYTAG,"sistem font scale je $systemFontScale")
-        changeFontSizeAllViews(PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM))
-        Log.i(MYTAG," u preferences je sacuvano (on start call) ${PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM)}")
+        val s: String? = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+            ?.getString(FONT_SIZE_KEY, DEFAULT_FONT_SIZE)
+        if (s != null) changeFontSizeAllViews( s.toFloat())
+
+        //Log.i(MYTAG," u preferences je sacuvano (on start call) ${PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM)}")
     }
 
 
-    private fun openChooseFontSizeDialog(){
+   /* private fun openChooseFontSizeDialog(){
 
         val alertDialog= AlertDialog.Builder(requireActivity(), R.style.MyAlertDialogTheme)
         val dialogView = this.layoutInflater.inflate(R.layout.font_size_chooser_layout, null)
@@ -231,7 +226,7 @@ class DetailNews() : Fragment() {
 
         alertDialog.setView(dialogView).setPositiveButton("OK",DialogInterface.OnClickListener { dialog, which -> dialog.cancel() }).setCancelable(true).create().show()
 
-    }
+    }*/
 
     private fun changeFontSizeAllViews(fontSize: Float) {
         changeFontSize(binding.title,defaultTextSizeTitle,fontSize)

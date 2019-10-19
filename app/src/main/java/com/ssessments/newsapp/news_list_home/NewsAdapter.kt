@@ -14,14 +14,22 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    //TEXT SCALING
+    var textSizeMultiplier=1f
 
+
+    fun setTextSizeParameter(textMultiplier:Float){
+        textSizeMultiplier=textMultiplier
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder.from(parent)
     }
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(clickListener,dataList[position])
+        holder.bind(clickListener,dataList[position],textSizeMultiplier)
     }
 
     override fun getItemCount(): Int {
@@ -31,9 +39,16 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
 
     class MyViewHolder private constructor(val binding: NewsItemLayoutRecviewBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clickListener: NewsItemClickListener,item:NewsItem){
+        private val defaultTextSizeTitle =16f
+        private val defaultTextSizeAccessDateTags=12f
+
+        fun bind(clickListener: NewsItemClickListener,item:NewsItem,textSizeMultiplier:Float){
             binding.singleNewsItem=item
             binding.clickListener=clickListener
+            binding.newsTitle.textSize=defaultTextSizeTitle.times(textSizeMultiplier)
+            binding.tagovi.textSize=defaultTextSizeAccessDateTags.times(textSizeMultiplier)
+            binding.newsdate.textSize=defaultTextSizeAccessDateTags.times(textSizeMultiplier)
+            binding.userType.textSize=defaultTextSizeAccessDateTags.times(textSizeMultiplier)
             binding.executePendingBindings()
 
         }
@@ -41,6 +56,7 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
             fun from(parent: ViewGroup): MyViewHolder {
                 val inflater=LayoutInflater.from(parent.context)
                 val binding = NewsItemLayoutRecviewBinding.inflate(inflater, parent, false)
+                //textView.textSize=defaultFontSize.times(systemFontScale).times(chosenFontSize)
                 return MyViewHolder(binding)
             }
         }

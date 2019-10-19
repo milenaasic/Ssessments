@@ -11,6 +11,12 @@
                 android:icon="@drawable/baseline_notifications_black_24dp"
         />
 
+        <item
+                android:id="@+id/settings_fragment"
+                android:title="@string/Settings"
+                android:icon="@drawable/icon_settings"
+        />
+
     </group>
 
     <group>
@@ -18,7 +24,7 @@
         <item
                 android:id="@+id/logout_menuitem"
                 android:title="@string/log_out"
-                android:icon="@drawable/ic_exit"
+                android:icon="@drawable/icon_log_out"
         />
 
     </group>

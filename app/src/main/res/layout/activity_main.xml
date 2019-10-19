@@ -99,7 +99,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:itemIconTint="@color/logoPurpleMatchingSecondary"
             app:menu="@menu/nav_drawer_menu"
             android:fitsSystemWindows="true" app:elevation="16dp"/>
 

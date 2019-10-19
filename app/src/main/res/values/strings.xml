@@ -103,15 +103,17 @@
     </string-array>
 
     <string-array name="font_size">
-        <item>All</item>
-        <item>North East Asia</item>
-        <item>China</item>
-        <item>South East Asia</item>
-        <item>Indonesia</item>
-        <item>Vietnam</item>
-        <item>Malaysa</item>
-        <item>Australia</item>
-        <item>India</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Extra Large</item>
+    </string-array>
+
+    <string-array name="font_size_value">
+        <item>0.85</item>
+        <item>1</item>
+        <item>1.15</item>
+        <item>1.3</item>
     </string-array>
 
     <!-- spinner products-->
@@ -139,4 +141,7 @@
         <item>Malesian</item>
         <item>Indonesian</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

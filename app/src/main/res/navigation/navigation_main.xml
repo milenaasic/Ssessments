@@ -23,5 +23,7 @@
     <fragment
             android:name="com.ssessments.newsapp.filter_fragments.FilterPagerSupportFragment"
             android:label="FILTER" android:id="@+id/filter_menu_item"/>
+    <fragment android:id="@+id/settings_fragment" android:name="com.ssessments.newsapp.settings.SettingsFragment"
+              android:label="Settings"/>
 
 </navigation>

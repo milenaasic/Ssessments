@@ -4,6 +4,7 @@ package com.ssessments.newsapp.news_list_home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.core.view.ViewCompat
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.ssessments.newsapp.R
@@ -23,6 +25,16 @@ class mainFragment : Fragment() {
 
     private lateinit var viewModel:MainFragmentViewModel
     private lateinit var binding:FragmentMainBinding
+
+    private lateinit var adapter:NewsAdapter
+
+    //SCALE TEXT
+    private var systemFontScale=1f
+    private val defaultTextSizeTitle =16f
+    private val defaultTextSizeUserTypeTimeDateTags=12f
+    private val FONT_SIZE_KEY="font_size_preference"
+    private val DEFAULT_FONT_SIZE="1"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +53,7 @@ class mainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, MainFragmentViewModelFactory(datasource,application))
             .get(MainFragmentViewModel::class.java)
 
-        val adapter=NewsAdapter(NewsItemClickListener {  newsId ->
+        adapter=NewsAdapter(NewsItemClickListener {  newsId ->
             Toast.makeText(context, "${newsId}", Toast.LENGTH_LONG).show()
             viewModel.fetchNewsWithID(newsId)
         })
@@ -108,11 +120,17 @@ class mainFragment : Fragment() {
          }
     }
 
-    override fun onResume() {
-        super.onResume()
-        //val activity:AppCompatActivity= activity as AppCompatActivity
-
+    override fun onStart() {
+        super.onStart()
+        //pokupi sistemski seting u vezi velicine slova
+        systemFontScale= resources.configuration.fontScale
+        Log.i(mytag,"sistem font scale je $systemFontScale")
+        val s: String? = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+            ?.getString(FONT_SIZE_KEY, DEFAULT_FONT_SIZE)
+        if (s != null) adapter.setTextSizeParameter(s.toFloat())
     }
+
+
 
     fun showSnakbar(snackbarText:String){
 
@@ -134,5 +152,10 @@ class mainFragment : Fragment() {
             }
         }
     }
+
+
+
+
+
 
 }
