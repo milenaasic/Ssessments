@@ -30,7 +30,6 @@ import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.FilterByFragmentBinding
 
 private const val DEFAULT_FILTER_NAME="My Filter"
-private const val DEFAULT_DATE_TEXT="Select"
 private const val MYTAG="MYFILTERBYFRAGMENT"
 
 class FilterByFragment : Fragment() {
@@ -42,7 +41,7 @@ class FilterByFragment : Fragment() {
 
     private var selectedFromDate:Calendar=Calendar.getInstance()
     private var selectedToDate:Calendar=Calendar.getInstance()
-    var dateFormat: DateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,18 +67,14 @@ class FilterByFragment : Fragment() {
 
         })
 
-
-        // ako bi default text bio danasnji datum
-       /* binding.fromDatePicker.text=dateFormat.format(selectedFromDate.time)
-        binding.toDatePicker.text=dateFormat.format(selectedToDate.time)*/
-
-        //default vrednosti teksta za date pickere
-        binding.fromDatePicker.text= DEFAULT_DATE_TEXT
-        binding.toDatePicker.text= DEFAULT_DATE_TEXT
+        //default vrednosti datuma i teksta za date pickere
+        selectedFromDate.timeInMillis=System.currentTimeMillis()
+        selectedToDate.timeInMillis=System.currentTimeMillis()
+        binding.fromDatePicker.text= DATE_SELECT_TEXT
+        binding.toDatePicker.text= DATE_SELECT_TEXT
 
         // Date Picker FROM
         binding.fromDatePicker.setOnClickListener {
-
             val c = Calendar.getInstance()
             val cyear = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
@@ -92,12 +87,14 @@ class FilterByFragment : Fragment() {
                     selectedFromDate.set(year,monthOfYear,dayOfMonth)
                     Toast.makeText(requireActivity(), """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG)
                         .show()
-                    binding.fromDatePicker.text=dateFormat.format(selectedFromDate.time)
+                    binding.fromDatePicker.text= dateFormatNoHours.format(selectedFromDate.time)
+
                 },
                 cyear,
                 month,
                 day
             )
+
             dpd.datePicker.updateDate(selectedFromDate.get(Calendar.YEAR),selectedFromDate.get(Calendar.MONTH),selectedFromDate.get(Calendar.DAY_OF_MONTH))
             dpd.datePicker.maxDate=selectedToDate.timeInMillis
             dpd.show()
@@ -115,7 +112,7 @@ class FilterByFragment : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     // Display Selected date in Toast
                     selectedToDate.set(year,monthOfYear,dayOfMonth)
-                    binding.toDatePicker.text=dateFormat.format(selectedToDate.time)
+                    binding.toDatePicker.text= dateFormatNoHours.format(selectedToDate.time)
                     Toast.makeText(requireActivity(), """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG)
                         .show()
 
@@ -247,8 +244,25 @@ class FilterByFragment : Fragment() {
                 setChipsInChipGroupToList(binding.marketsChips,convertStringWithCommasToArray(currentFilter.market))
                 setChipsInChipGroupToList(binding.productChips, convertStringWithCommasToArray(currentFilter.product))
                 setChipsInChipGroupToList(binding.ssessmentChips, convertStringWithCommasToArray(currentFilter.ssessment))
-                binding.fromDatePicker.setText(currentFilter.dateFrom)
-                binding.toDatePicker.setText(currentFilter.dateTo)
+
+
+                if(currentFilter.dateFrom==NO_DATE_SELECTED_VALUE) {
+                    selectedFromDate.timeInMillis=System.currentTimeMillis()
+                    binding.fromDatePicker.text= DATE_SELECT_TEXT
+                } else {
+                    selectedFromDate.time= dateFormatMySQL.parse(currentFilter.dateFrom)
+                    binding.fromDatePicker.text= dateFormatNoHours.format(selectedFromDate.time)
+                }
+
+                if(currentFilter.dateTo==NO_DATE_SELECTED_VALUE) {
+                    selectedToDate.timeInMillis=System.currentTimeMillis()
+                    binding.toDatePicker.text= DATE_SELECT_TEXT
+                } else {
+                    selectedToDate.time= dateFormatMySQL.parse(currentFilter.dateTo)
+                    binding.toDatePicker.text= dateFormatNoHours.format(selectedToDate.time)
+                }
+
+
             //}
         })
 
@@ -283,6 +297,10 @@ class FilterByFragment : Fragment() {
 
     // ZA SAVED FILTERS TABELU
     private fun getFilterFieldsValue(filterName: String): FilterItem {
+        Log.i(MYTAG,"formatiran from datum za saved filetrs tabelu je ${dateFormatMySQL.format(selectedFromDate.time)}")
+        Log.i(MYTAG,"formatiran to datum za saved filetrs tabelu je ${dateFormatMySQL.format(selectedToDate.time)}")
+        Log.i(MYTAG,"selected text ${binding.fromDatePicker.text}")
+        Log.i(MYTAG, "jednako je ${binding.fromDatePicker.text==DATE_SELECT_TEXT}")
         return FilterItem(
             0L,
             filterName,
@@ -290,13 +308,11 @@ class FilterByFragment : Fragment() {
             convertArrayListToStringWithCommas(getCheckedChips(binding.productChips)),
             convertArrayListToStringWithCommas(getCheckedChips(binding.ssessmentChips)),
             getCheckedLanguage(),
-            binding.fromDatePicker.text.toString(),
-            binding.toDatePicker.text.toString()
+            if(binding.fromDatePicker.text==DATE_SELECT_TEXT) NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedFromDate.time) ,
+            if(binding.toDatePicker.text==DATE_SELECT_TEXT)  NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedToDate.time)
 
         )
     }
-
-
 
 
     private fun setChipsInChipGroupToList(chipgroup: ChipGroup, list: ArrayList<String>) {
@@ -326,8 +342,10 @@ class FilterByFragment : Fragment() {
             resetChipGroup(marketsChips)
             resetChipGroup(productChips)
             resetChipGroup(ssessmentChips)
-            fromDatePicker.setText(DEFAULT_DATE_TEXT)
-            toDatePicker.setText(DEFAULT_DATE_TEXT)
+            selectedFromDate.timeInMillis=System.currentTimeMillis()
+            selectedToDate.timeInMillis=System.currentTimeMillis()
+            fromDatePicker.setText(DATE_SELECT_TEXT)
+            toDatePicker.setText(DATE_SELECT_TEXT)
         }
     }
 
@@ -342,15 +360,15 @@ class FilterByFragment : Fragment() {
 
     //ide u tabelu current_filter
     private fun getCurrentFilterValues():CurrentFilter{
-
+        Log.i(MYTAG,"formatiran from datum je ${dateFormatMySQL.format(selectedFromDate.time)}")
+        Log.i(MYTAG,"formatiran to datum je ${dateFormatMySQL.format(selectedToDate.time)}")
         return CurrentFilter(
             market=convertArrayListToStringWithCommas(getCheckedChips(binding.marketsChips)),
             product=convertArrayListToStringWithCommas(getCheckedChips(binding.productChips)),
             ssessment = convertArrayListToStringWithCommas(getCheckedChips(binding.ssessmentChips)),
             language = getCheckedLanguage(),
-            dateFrom = binding.fromDatePicker.text.toString(),
-            dateTo = binding.toDatePicker.text.toString()
-
+            dateFrom =if(binding.fromDatePicker.text==DATE_SELECT_TEXT) NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedFromDate.time) ,
+            dateTo =if(binding.toDatePicker.text==DATE_SELECT_TEXT)  NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedToDate.time)
         )
     }
 
@@ -363,9 +381,7 @@ class FilterByFragment : Fragment() {
                     val chip = getChildAt(index) as Chip
                     if (chip.isChecked) list.add(chip.text.toString())
                 }
-
             }
-
         }
         return list
 

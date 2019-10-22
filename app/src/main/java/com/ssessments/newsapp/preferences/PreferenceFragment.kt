@@ -123,9 +123,8 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         market = convertArrayListToStringWithCommas(getCheckedMarkets()),
         product = convertArrayListToStringWithCommas(getCheckedProducts()),
         ssessment = convertArrayListToStringWithCommas(getCheckedSsessments()),
-        language = Language.ENGLISH.value,
-        dateFrom = DATE_SELECT_TEXT,
-        dateTo = DATE_SELECT_TEXT)
+        language = Language.ENGLISH.value
+        )
 
     }
 

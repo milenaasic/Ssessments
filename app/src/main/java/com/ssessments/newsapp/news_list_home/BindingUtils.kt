@@ -3,6 +3,7 @@ package com.ssessments.newsapp.news_list_home
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ssessments.newsapp.database.NewsItem
+import com.ssessments.newsapp.utilities.dateStringFormatSQlToReadableWithHours
 
 
 @BindingAdapter("titleString")
@@ -15,7 +16,7 @@ fun setNewsTitle(view:TextView,item: NewsItem?){
 @BindingAdapter("dateTimeString")
 fun TextView.setNewsDate(item:NewsItem?){
     item?.let {
-        text=item.date_time
+        text= dateStringFormatSQlToReadableWithHours(item.date_time)
     }
 }
 

@@ -11,6 +11,13 @@
                 android:icon="@drawable/baseline_notifications_black_24dp"
         />
 
+
+        <item
+                android:id="@+id/goto_ssessments_linkedIn"
+                android:title="@string/ssessments_linkedin"
+                android:icon="@drawable/icons8_linkedin"
+        />
+
         <item
                 android:id="@+id/settings_fragment"
                 android:title="@string/Settings"

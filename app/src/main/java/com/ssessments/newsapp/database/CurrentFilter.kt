@@ -3,6 +3,8 @@ package com.ssessments.newsapp.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ssessments.newsapp.utilities.Language
+import com.ssessments.newsapp.utilities.NO_DATE_SELECTED_VALUE
 
 @Entity(tableName = "current_filter_table")
 data class CurrentFilter (
@@ -20,13 +22,13 @@ data class CurrentFilter (
         val ssessment:String="",
 
         @ColumnInfo(name="language")
-        val language:String="",
+        val language:String=Language.ENGLISH.value,
 
         @ColumnInfo(name = "filter_date_from")
-        val dateFrom:String="",
+        val dateFrom:String= NO_DATE_SELECTED_VALUE,
 
         @ColumnInfo(name = "filter_date_to")
-        val dateTo:String=""
+        val dateTo:String= NO_DATE_SELECTED_VALUE
 
         )
 

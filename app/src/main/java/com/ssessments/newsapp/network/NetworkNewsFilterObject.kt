@@ -29,10 +29,10 @@ data class NetworkNewsFilterObject (
     @Json(name="language")
     var language:String,
 
-    @Json(name="dateFrom")
+    @Json(name="date_from")
     var dateFrom:String,
 
-    @Json(name="dateTo")
+    @Json(name="date_to")
     var dateTo:String
 
 )

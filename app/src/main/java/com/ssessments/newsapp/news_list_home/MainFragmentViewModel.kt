@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.ssessments.newsapp.data.fakeNetworkNewFilterOBject
 import com.ssessments.newsapp.data.getNewsItemArray
+import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
 import com.ssessments.newsapp.network.NetworkNewsItem
@@ -22,6 +23,9 @@ class MainFragmentViewModel(
 
     //promenljiva koja sadrzi newsListu iz baze
     val newsList=database.getAllNews()
+
+    //current filter za swip to refresh i za init
+    val currentFilter=database.getCurrentFilter()
 
     private val _swiperefreshfinished = MutableLiveData<Boolean>()
     val swiperefreshfinished: LiveData<Boolean>
@@ -67,7 +71,7 @@ class MainFragmentViewModel(
         Log.i(mytag,("initializeNewsLis is online"))
 
         viewModelScope.launch {
-            var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(fakeNetworkNewFilterOBject)
+            var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(fakeNetworkNewFilterOBject )
             try {
                 var listResult = getPropertiesDeferred.await()
                 Log.i(mytag,("result je :$listResult"))

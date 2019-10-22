@@ -8,6 +8,30 @@ import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.FilterItem
 import com.ssessments.newsapp.database.PredefinedFilter
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
+//parse i format Date u MySQL
+val dateFormatMySQL: SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+val dateFormatNoHours: SimpleDateFormat = SimpleDateFormat("dd MMM yyyy")
+val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
+
+fun dateStringFormatSQlToReadableWithHours(stringDate:String):String{
+
+    val calendar: Calendar = Calendar.getInstance()
+    Log.i("ConversionDateExc ulaz ",stringDate )
+    try {
+        val date: Date = dateFormatMySQL.parse(stringDate)
+            calendar.time = date
+        Log.i("ConversionDate cal.tim","${calendar.time}" )
+    } catch (e: Exception) {
+        Log.w("ConversionDateException", e.message)
+    }
+    Log.i("ConversionDate frm tim","${dateFormatWithHours.format(calendar.time)}")
+    return dateFormatWithHours.format(calendar.time)
+}
 
 
 fun convertNetworkToDatabaseNewsItem(networkNewsList:List<NetworkNewsItem>):List<NewsItem>{

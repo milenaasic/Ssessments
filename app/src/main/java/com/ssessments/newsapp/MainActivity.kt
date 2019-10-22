@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,6 +34,7 @@ import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
 import com.ssessments.newsapp.network.NetworkCustomSearchFilterObject
 import com.ssessments.newsapp.network.NetworkNewsItem
 import com.ssessments.newsapp.search_provider.MySuggestionProvider
+import com.ssessments.newsapp.utilities.URL_SSESSMENTS_LINKEDIN_PAGE
 import com.ssessments.newsapp.utilities.convertNetworkToDatabaseNewsItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -131,6 +133,17 @@ class MainActivity : AppCompatActivity(){
                 R.id.settings_fragment->{
                     menuItem.setChecked(true)
                     navController.navigate(R.id.settings_fragment)
+                    binding.myDrawerLayout.closeDrawers()
+                    true
+                }
+
+                R.id.goto_ssessments_linkedIn->{
+                    menuItem.setChecked(true)
+                    val webpage: Uri = Uri.parse(URL_SSESSMENTS_LINKEDIN_PAGE)
+                    val intent = Intent(Intent.ACTION_VIEW, webpage)
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intent)
+                    }
                     binding.myDrawerLayout.closeDrawers()
                     true
                 }
@@ -448,6 +461,10 @@ class MainActivity : AppCompatActivity(){
                 }
             }
         }
+
+    }
+
+    fun openWebPage(url: String) {
 
     }
 
