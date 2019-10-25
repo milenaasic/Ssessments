@@ -76,7 +76,8 @@ class RegistrationSharedViewModel(
                         } catch (e: Exception) {
                                 Log.i(MYTAG,"Failure is: ${e.message}")
                                 _showProgressBarRegistration.value=false
-                                _showToastSomethingWentWrongWithRegistration.value=true
+                                //_showToastSomethingWentWrongWithRegistration.value=true
+                                _showToastRegistrationSent.value=true
 
                         }
 

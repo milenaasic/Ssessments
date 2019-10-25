@@ -91,15 +91,15 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 _showToastSomethingWentWrong.value=true
 
                 //proba dok ne proradi server-obrisi posle
-               /* withContext(Dispatchers.IO){
+               withContext(Dispatchers.IO){
                     database.clearUserDataTable()
                     database.insertUser(UserData(username,password,"12345token"))
-                    //Log.i(MY_TAG,"upisan user je ${database.getUser().toString()}")
+                    Log.i(MY_TAG,"upisan user je ${database.getUser().toString()}")
 
                 }
                 _showProgressBar.value=false
                 _showToastUserLoggedIN.value=true
-                _sendUserToHomeFragment.value=true*/
+                _sendUserToHomeFragment.value=true
             }
         }
 

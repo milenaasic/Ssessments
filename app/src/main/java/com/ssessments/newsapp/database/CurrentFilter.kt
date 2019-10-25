@@ -10,7 +10,7 @@ import com.ssessments.newsapp.utilities.NO_DATE_SELECTED_VALUE
 data class CurrentFilter (
 
         @PrimaryKey(autoGenerate = true)
-        val ID:Long=0L,
+        val ID:Long=1L,
 
         @ColumnInfo(name="market")
         val market:String="",

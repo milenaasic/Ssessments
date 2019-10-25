@@ -5,15 +5,25 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
+import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ssessments.newsapp.MainActivity
 import com.ssessments.newsapp.R
+import com.ssessments.newsapp.network.NetworkNotificatiosObject
+import com.ssessments.newsapp.utilities.Markets
+import com.ssessments.newsapp.utilities.Products
+import com.ssessments.newsapp.utilities.Ssessments
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 const val EXTRA_NEWSID="extra_news_id"
 
@@ -23,10 +33,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
-        //json nazivi iz notifikacije
+        //tip poruke
+        private const val MESSAGE_TYPE_KEY="type"
+        private const val MESSAGE_TYPE_VALUE_NOTIFICATIONS="notifications"
+        private const val MESSAGE_TYPE_VALUE_NEWS="news"
+        //json nazivi iz notifikacije za novu vest
         private const val NEWS_TITLE="title"
         private const val NEWS_BODY="body"
         private const val NEWS_ID="news_id"
+        //json za notifikacije
+
     }
     /**
      * Called when message is received.
@@ -52,23 +68,35 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a data payload.
         remoteMessage.data.isNotEmpty().let {
             Log.d(TAG, "Message data payload: " + remoteMessage.data)
-
             // Handle message within 10 seconds
-            val receivedTitle=remoteMessage.data.get(NEWS_TITLE)
-            val receivedBody=remoteMessage.data.get(NEWS_BODY)
-            val receivedNewsId=remoteMessage.data.get(NEWS_ID)
-            if(receivedTitle!=null&&receivedBody!=null&&receivedNewsId!=null)handleNow(receivedTitle,receivedBody,receivedNewsId)
+
+            if (remoteMessage.data.get(MESSAGE_TYPE_KEY).equals(MESSAGE_TYPE_VALUE_NOTIFICATIONS)) {
+                Log.d(TAG, "Message type: " + remoteMessage.data.get(MESSAGE_TYPE_KEY))
+                setNotifications(remoteMessage)
+            }
+
+            if (remoteMessage.data.get(MESSAGE_TYPE_KEY).equals(MESSAGE_TYPE_VALUE_NEWS)) {
+                Log.d(TAG, "Message type: " + remoteMessage.data.get(MESSAGE_TYPE_KEY))
+                val receivedTitle = remoteMessage.data.get(NEWS_TITLE)
+                val receivedBody = remoteMessage.data.get(NEWS_BODY)
+                val receivedNewsId = remoteMessage.data.get(NEWS_ID)
+                if (receivedTitle != null && receivedBody != null && receivedNewsId != null) sendNotification(
+                    receivedTitle,
+                    receivedBody,
+                    receivedNewsId
+                )
+
+            }
 
 
+            // Check if message contains a notification payload.
+            remoteMessage.notification?.let {
+                Log.d(TAG, "Message Notification Body: ${it.body}")
+            }
+
+            // Also if you intend on generating your own notifications as a result of a received FCM
+            // message, here is where that should be initiated. See sendNotification method below.
         }
-
-        // Check if message contains a notification payload.
-        remoteMessage.notification?.let {
-            Log.d(TAG, "Message Notification Body: ${it.body}")
-        }
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
 
@@ -88,15 +116,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
     // [END on_new_token]
 
-
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private fun handleNow(title:String,body:String, id:String) {
-        Log.d(TAG, "Short lived task is done.")
-        sendNotification(title,body,id)
-    }
-
     /**
      * Persist token to third-party servers.
      *
@@ -109,13 +128,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // TODO: Implement this method to send token to your app server.
     }
 
-    /**
-     * Create and show a simple notification containing the received FCM message.
-     *
-     * @param messageBody FCM message body received.
-     */
-    private fun sendNotification(messageTitle:String,messageBody: String,messageNewsId:String) {
 
+    private fun sendNotification(messageTitle:String,messageBody: String,messageNewsId:String) {
+        Log.d(TAG, "usao u send notifications: ${messageTitle}")
        // val taskStackBuilder: TaskStackBuilder = TaskStackBuilder.create(this)
         //taskStackBuilder.addParentStack(NotificationNewsActivity::class.java)
        // val intent = Intent(this, NotificationNewsActivity::class.java)
@@ -152,6 +167,43 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         notificationManager.notify(10, notificationBuilder.build())
     }
+
+
+    fun setNotifications(remoteMessage: RemoteMessage) {
+        Log.d(TAG, "set notifications metod: " + remoteMessage.data)
+        MainScope().launch {
+            with(Dispatchers.IO) {
+
+                val defSharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication())
+                val editor: SharedPreferences.Editor = defSharedPref.edit()
+
+                for (index in 0..Markets.values().size - 2) {
+                    val s: String = Markets.values()[index + 1].toString().toLowerCase()
+                    if (remoteMessage.data.containsKey(s)) {
+                        editor.putBoolean(s, remoteMessage.data[s]!!.toBoolean())
+                    }
+                }
+
+                for (index in 0..Products.values().size - 2) {
+                    val s: String = Products.values()[index + 1].toString().toLowerCase()
+                    if (remoteMessage.data.containsKey(s)) {
+                        editor.putBoolean(s, remoteMessage.data[s]!!.toBoolean())
+                    }
+                }
+
+                for (index in 0..Ssessments.values().size - 2) {
+                    val s: String = Ssessments.values()[index + 1].toString().toLowerCase()
+                    if (remoteMessage.data.containsKey(s)) {
+                        editor.putBoolean(s, remoteMessage.data[s]!!.toBoolean())
+                    }
+                }
+
+                editor.commit()
+            }
+        }
+    }
+
+
 
 
 }

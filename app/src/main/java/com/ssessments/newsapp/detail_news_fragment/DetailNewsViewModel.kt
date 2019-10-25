@@ -6,7 +6,9 @@ import androidx.lifecycle.*
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.network.NetworkSingleNewsItem
 import com.ssessments.newsapp.network.NewsApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 private const val MYTAG="MY DETAIL NEWS MODEL"
@@ -15,9 +17,7 @@ class DetailNewsViewModel(val newsID:Int,
                           application: Application) : AndroidViewModel(application) {
 
 
-    //TODO napravi progress bar da se vidi dok se ucitava
     var user=database.getUser()
-
 
     private val _singleNewsData = MutableLiveData<NetworkSingleNewsItem>()
     val singleNewsData: LiveData<NetworkSingleNewsItem>
@@ -30,6 +30,19 @@ class DetailNewsViewModel(val newsID:Int,
     private val _shareNews = MutableLiveData<Boolean>()
     val shareNews: LiveData<Boolean>
         get() = _shareNews
+
+    private val _showNetworkErrorMessage = MutableLiveData<Boolean>()
+    val showNetworkErrorMessage: LiveData<Boolean>
+        get() = _showNetworkErrorMessage
+
+    private val _showAuthenFailedMessage = MutableLiveData<Boolean>()
+    val showAuthenFailedMessage: LiveData<Boolean>
+        get() = _showAuthenFailedMessage
+
+    private val _goToLogInPage = MutableLiveData<Boolean>()
+    val goToLogInPage: LiveData<Boolean>
+        get() = _goToLogInPage
+
 
     init {
         _showProgressBar.value=true
@@ -49,15 +62,14 @@ class DetailNewsViewModel(val newsID:Int,
                 _showProgressBar.value=false
 
             }catch (e:Exception){
-                //TODO prikazi toast something went wrong
+                val responseError = "Failure " + e.message
+                _showProgressBar.value=false
+                _showNetworkErrorMessage.value = true
+                //dok ne proradi server
                 val fakeData=MyDetailNewsFakeData()
                 _singleNewsData.value=NetworkSingleNewsItem(15,fakeData.title,fakeData.body,fakeData.TAGS,fakeData.time,
                     fakeData.author,"neki url", "imageurl")
-                _showProgressBar.value=false
-
-
             }
-
         }
     }
 

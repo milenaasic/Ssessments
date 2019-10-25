@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.preference.*
 import com.ssessments.newsapp.MainActivityViewModel
 import com.ssessments.newsapp.R
@@ -44,18 +46,22 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
        if(prefMarkets!=null){
             for(index in 0..prefMarkets.preferenceCount-1){
                 prefMarkets.getPreference(index).title=Markets.values()[index+1].value
+                //prefMarkets.getPreference(index).key=Markets.values()[index+1].value
+                Log.i(MYTAG,"key za pref market je ${prefMarkets.getPreference(index).key}")
             }
         }
 
         if(prefproducts!=null){
             for(index in 0..prefproducts.preferenceCount-1){
                 prefproducts.getPreference(index).title= Products.values()[index+1].value
+                //prefproducts.getPreference(index).key=Products.values()[index+1].value
             }
         }
 
         if(prefSsessments!=null){
             for(index in 0..prefSsessments.preferenceCount-1){
                 prefSsessments.getPreference(index).title= Ssessments.values()[index+1].value
+                //prefSsessments.getPreference(index).key= Ssessments.values()[index+1].value
             }
         }
 
@@ -67,6 +73,14 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
 
         }
 
+       /* mainActivityViewModel.navigateUpToMainFragment.observe(this, Observer{shouldNavigate->
+
+            if(shouldNavigate){
+                findNavController().navigateUp()
+                mainActivityViewModel.navigationToMainFragmentFinished()
+            }
+
+        })*/
     }
 
 

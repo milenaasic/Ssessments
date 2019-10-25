@@ -42,8 +42,8 @@ abstract class NewsDatabase:RoomDatabase(){
                                     put("product",Products.ALL_PRODUCTS.value)
                                     put("ssessment",Ssessments.ALL_SERVICES.value)
                                     put("language",Language.ENGLISH.value)
-                                    put("filter_date_from", DATE_SELECT_TEXT)
-                                    put("filter_date_to", DATE_SELECT_TEXT)
+                                    put("filter_date_from", NO_DATE_SELECTED_VALUE)
+                                    put("filter_date_to", NO_DATE_SELECTED_VALUE)
                                 }
                                 try{db. insert("current_filter_table",CONFLICT_IGNORE,myvalues)
                                     Log.d("my DBOPENED","try block.")

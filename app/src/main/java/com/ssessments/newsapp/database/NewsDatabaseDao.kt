@@ -60,13 +60,26 @@ interface NewsDatabaseDao{
 
     //CURRENT FILTER TABLE
     @Insert
-    fun insertCurrentFilterToDatabase(item: CurrentFilter)
+    suspend fun insertCurrentFilterToDatabase(item: CurrentFilter)
 
     @Query("DELETE from current_filter_table")
-    fun clearCurrentFilterTable()
+    suspend fun clearCurrentFilterTable()
 
-    @Query("SELECT * FROM current_filter_table")
-    fun getCurrentFilter():LiveData<CurrentFilter>
+    @Query("SELECT * FROM current_filter_table WHERE ID=1")
+    fun getCurrentFilterLiveData():LiveData<CurrentFilter>
+
+    @Query("SELECT COUNT (id) FROM current_filter_table")
+    suspend fun getNumberOfCurrentFilters():Int
+
+    @Query("SELECT * FROM current_filter_table WHERE ID=1")
+    suspend fun getCurrentFilterWithId():CurrentFilter
+
+    @Query("SELECT * FROM current_filter_table WHERE language='English'")
+    suspend fun getCurrentFilterWithLanguage():CurrentFilter
+
+    //@Query("UPDATE * FROM current_filter_table WHERE ID=1")
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateCurrentFilter(filter:CurrentFilter)
 
 
     //PREDEFINED FILTERS TABLE

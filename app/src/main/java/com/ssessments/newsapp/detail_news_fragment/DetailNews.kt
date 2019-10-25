@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.detail_news_fragment.*
 
 import android.net.Uri
+import android.os.Build
+import android.text.Html
 
 
 private const val MYTAG="MY_DETAIL_FRAGMENT"
@@ -84,13 +86,20 @@ class DetailNews() : Fragment() {
         viewModel.singleNewsData.observe(this,Observer{
             mydetailNews=it
             binding.apply {
-                title.setText(it.title)
-                timeDate.setText(it.dateTime)
-                newsBody.setText(it.body)
-                author_textView.setText(it.author)
-                tags_textView.setText(it.tags)
-                newsUrl=it.newsurl
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    title.setText(Html.fromHtml(it.title, Html.FROM_HTML_MODE_COMPACT))
+                    timeDate.setText(Html.fromHtml(it.dateTime, Html.FROM_HTML_MODE_COMPACT))
+                    newsBody.setText(Html.fromHtml(it.body, Html.FROM_HTML_MODE_COMPACT))
+                    author_textView.setText(Html.fromHtml(it.author, Html.FROM_HTML_MODE_COMPACT))
+                    tags_textView.setText(Html.fromHtml(it.tags, Html.FROM_HTML_MODE_COMPACT))
+                } else {
+                    title.setText(Html.fromHtml(it.title))
+                    timeDate.setText(Html.fromHtml(it.dateTime))
+                    newsBody.setText(Html.fromHtml(it.body))
+                    author_textView.setText(Html.fromHtml(it.author))
+                    tags_textView.setText(Html.fromHtml(it.tags))
+                }
             }
         })
 
@@ -102,8 +111,8 @@ class DetailNews() : Fragment() {
             if(it){
                    val sendIntent= Intent().apply{
                          action=Intent.ACTION_SEND
-                         putExtra(Intent.EXTRA_TEXT,"https://www.ssessments.com/alwaysfree-opec-oil-production-dips-to-8-year-low-after-saudi-attacks/")
-                         putExtra(Intent.EXTRA_TITLE,"AlwaysFree: OPEC Oil Production Dips To 8-Year Low After Saudi Attacks")
+                         putExtra(Intent.EXTRA_TEXT,mydetailNews.newsurl)
+                         putExtra(Intent.EXTRA_TITLE,mydetailNews.title)
                          type="text/plain"
                      }
                      val shareIntent=Intent.createChooser(sendIntent,null)
@@ -123,22 +132,6 @@ class DetailNews() : Fragment() {
         if(savedInstanceState!=null){
         Log.i(MYTAG,"u on activity created detailnews fragment bundle nije null")
 
-
-            /*requireActivity().apply {
-                bottom_navigation.visibility=View.GONE
-                appbar.apply {
-                    elevation = 2f
-                    setBackgroundColor(Color.BLUE)
-                }
-                toolbar.apply {
-                    toolbar.logo_in_toolbar.visibility = View.GONE
-                    toolbar.title = ""
-                 }
-
-                val lp:com.google.android.material.appbar.AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
-                lp.scrollFlags=0
-                myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }*/
         }
     }
 
@@ -189,44 +182,6 @@ class DetailNews() : Fragment() {
         //Log.i(MYTAG," u preferences je sacuvano (on start call) ${PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM)}")
     }
 
-
-   /* private fun openChooseFontSizeDialog(){
-
-        val alertDialog= AlertDialog.Builder(requireActivity(), R.style.MyAlertDialogTheme)
-        val dialogView = this.layoutInflater.inflate(R.layout.font_size_chooser_layout, null)
-        val group=dialogView.findViewById<RadioGroup>(R.id.fontsizeRadioGroup)
-
-        val sharedPref=PreferenceManager.getDefaultSharedPreferences(requireActivity())
-        when(sharedPref.getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM)){
-                    FONT_SIZE_SMALL->group.check(R.id.radioButtonSmall)
-                    FONT_SIZE_MEDIUM->group.check(R.id.radioButtonMedium)
-                    FONT_SIZE_LARGE->group.check(R.id.radioButtonLarge)
-                    FONT_SIZE_EXTRA_LARGE->group.check(R.id.radioButtonExtra)
-
-        }
-
-        group.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                    Log.i(MYTAG,"oncheched change ${checkedId}")
-
-                    var currentValue= FONT_SIZE_MEDIUM
-                    when(checkedId){
-                        R.id.radioButtonSmall-> {changeFontSizeAllViews(FONT_SIZE_SMALL)
-                                                currentValue= FONT_SIZE_SMALL }
-                        R.id.radioButtonMedium-> {changeFontSizeAllViews(FONT_SIZE_MEDIUM)
-                                                currentValue= FONT_SIZE_MEDIUM }
-                        R.id.radioButtonLarge-> {changeFontSizeAllViews(FONT_SIZE_LARGE)
-                                                currentValue= FONT_SIZE_LARGE}
-                        R.id.radioButtonExtra-> {changeFontSizeAllViews(FONT_SIZE_EXTRA_LARGE)
-                                                currentValue= FONT_SIZE_EXTRA_LARGE}
-                    }
-
-                    sharedPref.edit().putFloat(FONT_SIZE_KEY,currentValue).apply()
-
-        })
-
-        alertDialog.setView(dialogView).setPositiveButton("OK",DialogInterface.OnClickListener { dialog, which -> dialog.cancel() }).setCancelable(true).create().show()
-
-    }*/
 
     private fun changeFontSizeAllViews(fontSize: Float) {
         changeFontSize(binding.title,defaultTextSizeTitle,fontSize)

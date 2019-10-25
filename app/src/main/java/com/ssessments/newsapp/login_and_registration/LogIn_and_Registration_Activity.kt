@@ -6,8 +6,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.ssessments.newsapp.R
-import com.ssessments.newsapp.START_LOG_REGISTRATION_ACTIVITY_MESSAGE
 import com.ssessments.newsapp.database.NewsDatabase
+import com.ssessments.newsapp.utilities.START_LOG_REGISTRATION_ACTIVITY_MESSAGE
 
 private const val TAG="MY_LogInRegisActivity"
 class LogIn_and_Registration_Activity : AppCompatActivity() {

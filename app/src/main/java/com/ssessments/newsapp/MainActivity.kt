@@ -25,17 +25,18 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.iid.FirebaseInstanceId
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
+import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.ActivityMainBinding
 import com.ssessments.newsapp.login_and_registration.LogIn_and_Registration_Activity
 import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
 import com.ssessments.newsapp.network.NetworkCustomSearchFilterObject
 import com.ssessments.newsapp.network.NetworkNewsItem
 import com.ssessments.newsapp.search_provider.MySuggestionProvider
-import com.ssessments.newsapp.utilities.URL_SSESSMENTS_LINKEDIN_PAGE
-import com.ssessments.newsapp.utilities.convertNetworkToDatabaseNewsItem
+import com.ssessments.newsapp.utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlin.math.floor
@@ -44,9 +45,7 @@ private const val PACKAGE_NAME="com.ssessments.newsapp"
 private const val CLASS_NAME="com.ssessments.newsapp.MainActivity"
 private const val TAG_MAIN="MY_MAIN_ACTIVITY"
 
-const val START_LOG_REGISTRATION_ACTIVITY_MESSAGE="Sign_in_OR_Sign_up"
-private const val SIGN_IN_MENU_ITEM=0
-private const val SIGN_UP_MENU_ITEM=1
+
 
 
 class MainActivity : AppCompatActivity(){
@@ -56,6 +55,9 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var navController: NavController
     lateinit var myappBar:AppBarLayout
+    private lateinit var mySearchViewWidget:SearchView
+    private lateinit var mySearchViewMenuItem:MenuItem
+    private var myUser:UserData?=null
 
     private var mySavedInstanceState: Bundle?=null
 
@@ -98,20 +100,9 @@ class MainActivity : AppCompatActivity(){
         binding.bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener {menuItem->
 
             when(menuItem.itemId){
-                R.id.sign_in_item -> {
-                                    val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
-                                    putExtra(
-                                        START_LOG_REGISTRATION_ACTIVITY_MESSAGE,
-                                        SIGN_IN_MENU_ITEM
-                                    )}
-                                    startActivity(intent)
-                                    true}
-                R.id.sign_up_item ->{val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
-                                    putExtra(
-                                        START_LOG_REGISTRATION_ACTIVITY_MESSAGE,
-                                        SIGN_UP_MENU_ITEM
-                                    )}
-                                    startActivity(intent)
+                R.id.sign_in_item -> { signIn()
+                                        true}
+                R.id.sign_up_item ->{signUp()
                                     true}
 
                 else->false
@@ -195,10 +186,40 @@ class MainActivity : AppCompatActivity(){
 
         viewModel.loggedInUser.observe(this, Observer {user->
             Log.i(TAG_MAIN,"loggedInUser koga posmatram ${user}")
-            if(user==null){setloggedInUserUI(false)}
-                else setloggedInUserUI(true)
+            if(user==null){ setloggedInUserUI(false)}
+            else { myUser=user
+                    setloggedInUserUI(true)}
 
         })
+
+        viewModel.showAuthentificationFailedMessage.observe(this,Observer{showSnackbar->
+            if(showSnackbar){
+                Toast.makeText(this,R.string.authfailed,Toast.LENGTH_LONG).show()
+                viewModel.authentificationFailedMessaheShown()
+            }
+        })
+
+        viewModel.goToLogInPage.observe(this, Observer {shouldGo->
+                if(shouldGo){
+                    signIn()
+                    viewModel.goToLogInPageFinished()
+                }
+         })
+
+        viewModel.closeSearchWidget.observe(this,Observer{shouldClose->
+                if(shouldClose){
+                Log.i(TAG_MAIN,"in close search widget")
+                mySearchViewMenuItem.collapseActionView()
+                viewModel.searchWidgetClosed()
+                }
+        })
+
+        viewModel.networkErrorMainActivity.observe(this, Observer { showSnackbar->
+            if(showSnackbar){
+                Snackbar.make(binding.constraintlayout,R.string.network_error,Snackbar.LENGTH_LONG).show()
+                viewModel.networkErrorSnackbarShown()
+            }
+         })
 
 
         //Firebase registration token
@@ -231,7 +252,23 @@ class MainActivity : AppCompatActivity(){
 
     }
 
+    private fun signUp() {
+        val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
+            putExtra(
+                START_LOG_REGISTRATION_ACTIVITY_MESSAGE,
+                SIGN_UP_MENU_ITEM
+            )}
+        startActivity(intent)
+    }
 
+    private fun signIn() {
+        val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
+            putExtra(
+                START_LOG_REGISTRATION_ACTIVITY_MESSAGE,
+                SIGN_IN_MENU_ITEM
+            )}
+        startActivity(intent)
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -241,7 +278,8 @@ class MainActivity : AppCompatActivity(){
         inflater.inflate(R.menu.overflow_menu, menu)
         val myFilterMenuItem=menu!!.findItem(R.id.filter_menu_item)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView=(menu.findItem(R.id.action_search).actionView as SearchView).apply {
+        mySearchViewMenuItem=menu.findItem(R.id.action_search)
+        mySearchViewWidget=(mySearchViewMenuItem.actionView as SearchView).apply {
 
             // Assumes current activity is the searchable activity
             setSearchableInfo(
@@ -253,18 +291,18 @@ class MainActivity : AppCompatActivity(){
                 ))
         }
 
-
-
          menu.findItem(R.id.action_search).setOnActionExpandListener(object:MenuItem.OnActionExpandListener{
              override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                  Log.i(TAG_MAIN,"u on action expand")
                  myFilterMenuItem.setVisible(false)
+                 viewModel.setSwipeRefreshEnabled(false)
                  return true
              }
 
              override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                  Log.i(TAG_MAIN,"u on action expand")
                  myFilterMenuItem.setVisible(true)
+                 viewModel.setSwipeRefreshEnabled(true)
                  return true
              }
          })
@@ -284,6 +322,7 @@ class MainActivity : AppCompatActivity(){
         Log.i(TAG_MAIN,"on neew intent")
         if (Intent.ACTION_SEARCH == intent!!.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                mySearchViewWidget.setQuery(query,false)
                 doMySearch(query)
                 SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                     .saveRecentQuery(query, null)
@@ -315,8 +354,10 @@ class MainActivity : AppCompatActivity(){
     override fun onStart() {
         super.onStart()
         Log.i(TAG_MAIN,"main activity on start")
-
-
+        Log.i(TAG_MAIN,"log in user iz view modela je ${viewModel.loggedInUser.value}")
+        Log.i(TAG_MAIN,"log in user iy myUser je $myUser")
+        //val user=viewModel.loggedInUser.value
+        //if(user!=null) viewModel.setNotificationsFromServer(user.token)
 
     }
 

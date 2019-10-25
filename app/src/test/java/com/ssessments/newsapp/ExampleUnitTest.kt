@@ -2,7 +2,15 @@ package com.ssessments.newsapp
 
 import android.text.TextUtils
 import android.util.Log
+import com.ssessments.newsapp.data.getNewsItemArray
+import com.ssessments.newsapp.database.NewsDatabase
+import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
+import com.ssessments.newsapp.utilities.EMPTY_TOKEN
+import com.ssessments.newsapp.utilities.Markets
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -40,5 +48,23 @@ class ExampleUnitTest {
         print(TextUtils.join(",",b))
 
     }
+
+    @Test
+    fun checknull(){
+        val m:UserData=UserData("milena","pass","token1")
+        print (" sve ima u userdata ${m?.token?: EMPTY_TOKEN}")
+
+        val m2:UserData?=null
+        print (" null userdata ${m2?.token ?: EMPTY_TOKEN}")
+    }
+
+    @Test
+    fun countofNewsItem() {
+
+        val list= getNewsItemArray()
+            print("size je ${list.size}")
+
+    }
+
 
 }

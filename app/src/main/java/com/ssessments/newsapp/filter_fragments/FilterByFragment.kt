@@ -196,8 +196,9 @@ class FilterByFragment : Fragment() {
         }
 
         binding.applyButton.setOnClickListener {
-            if(myuserData==null)sharedviewModel.applyFilter(EMPTY_TOKEN,getCurrentFilterValues())
-            else sharedviewModel.applyFilter(myuserData!!.token,getCurrentFilterValues())
+            /*if(myuserData==null)sharedviewModel.applyFilter(EMPTY_TOKEN,getCurrentFilterValues())
+            else sharedviewModel.applyFilter(myuserData!!.token,getCurrentFilterValues())*/
+            sharedviewModel.applyFilter(getCurrentFilterValues())
         }
 
         //All chip ako je chekiran ostalo treba da se resetuje
@@ -239,7 +240,7 @@ class FilterByFragment : Fragment() {
 
         //SHARED VIEW MODEL OBSERVERS
         sharedviewModel.currentFilter.observe(this,Observer {currentFilter->
-           //if(currentFilter!=null){
+           if(currentFilter!=null){
                 Log.i(MYTAG,"current filter koga gledam je $currentFilter")
                 setChipsInChipGroupToList(binding.marketsChips,convertStringWithCommasToArray(currentFilter.market))
                 setChipsInChipGroupToList(binding.productChips, convertStringWithCommasToArray(currentFilter.product))
@@ -263,7 +264,7 @@ class FilterByFragment : Fragment() {
                 }
 
 
-            //}
+            }
         })
 
         sharedviewModel.navigateToMainFragment.observe(this, Observer{ shouldnavigate->
@@ -274,7 +275,7 @@ class FilterByFragment : Fragment() {
         })
 
 
-        sharedviewModel.showProgressBar.observe(this, Observer { shouldShow ->
+        /*sharedviewModel.showProgressBar.observe(this, Observer { shouldShow ->
             if (shouldShow) {
                 binding.progressbarlayout.visibility = View.VISIBLE
                 binding.filterbyrootConstraintLayout.alpha = 0.2f
@@ -283,14 +284,14 @@ class FilterByFragment : Fragment() {
                 binding.filterbyrootConstraintLayout.alpha = 1f
 
             }
-        })
+        })*/
 
-        sharedviewModel.networkError.observe(this, Observer { shouldShow ->
+       /* sharedviewModel.networkError.observe(this, Observer { shouldShow ->
             if (shouldShow) {
                 showSnackBar(resources.getString(R.string.network_error))
                 sharedviewModel.networkErrorMessageShown()
             }
-         })
+         })*/
 
         return binding.root
     }

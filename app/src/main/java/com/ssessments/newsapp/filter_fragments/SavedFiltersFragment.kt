@@ -84,8 +84,7 @@ class SavedFiltersFragment : Fragment() {
          })
 
         sharedViewModel.chosenFilter.observe(requireParentFragment(),Observer{chosenFilter->
-            if(myuserData==null)sharedViewModel.applySavedFilter(EMPTY_TOKEN,chosenFilter)
-            else sharedViewModel.applySavedFilter((myuserData!!.token),chosenFilter)
+            sharedViewModel.applySavedFilter(chosenFilter)
         })
 
         sharedViewModel.navigateToMainFragmentFromSaved.observe(this, Observer{ shouldnavigate->
@@ -95,12 +94,12 @@ class SavedFiltersFragment : Fragment() {
             }
         })
 
-        sharedViewModel.networkErrorSavedFragment.observe(this, Observer { shouldShow ->
+       /* sharedViewModel.networkErrorSavedFragment.observe(this, Observer { shouldShow ->
             if (shouldShow) {
                 showSnackBar(resources.getString(R.string.network_error))
                 sharedViewModel.networkErrorMessageShown()
             }
-        })
+        })*/
 
 
         return binding.root

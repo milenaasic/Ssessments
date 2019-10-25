@@ -60,8 +60,9 @@ interface NewsAPIService {
     @POST("url6")
     fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<String>
 
-
-
+    //POKUPI NOTIFIKACIJE SA SERVER
+    @POST("url6")
+    fun getNotificationsFromServer(@Body token:String):Deferred<NetworkNotificatiosObject>
 }
 
 /**

@@ -1,6 +1,7 @@
 package com.ssessments.newsapp.news_list_home
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -15,18 +16,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import com.ssessments.newsapp.MainActivityViewModel
 import com.ssessments.newsapp.R
+import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabase
+import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.FragmentMainBinding
-import com.ssessments.newsapp.utilities.INITIALIZED_FROM_SWIPE_REFRESH
+import com.ssessments.newsapp.login_and_registration.LogIn_and_Registration_Activity
+import com.ssessments.newsapp.network.NetworkNewsFilterObject
+import com.ssessments.newsapp.utilities.*
 
 private const val mytag="MY_MAIN_FRAGMENT"
 class mainFragment : Fragment() {
 
+    private lateinit var mainActivityViewModel: MainActivityViewModel
     private lateinit var viewModel:MainFragmentViewModel
     private lateinit var binding:FragmentMainBinding
 
     private lateinit var adapter:NewsAdapter
+
+    var myCurrentFilter:CurrentFilter?=null
+    var myUserData:UserData?=null
+
 
     //SCALE TEXT
     private var systemFontScale=1f
@@ -48,6 +59,10 @@ class mainFragment : Fragment() {
         Log.i(mytag,"main fragment on createview")
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
 
+        mainActivityViewModel=requireActivity().run {
+            ViewModelProviders.of(this)[MainActivityViewModel::class.java]
+        }
+
         val application= requireActivity().application
         val datasource= NewsDatabase.getInstance(application).newsDatabaseDao
         viewModel = ViewModelProviders.of(this, MainFragmentViewModelFactory(datasource,application))
@@ -65,9 +80,89 @@ class mainFragment : Fragment() {
 
         ViewCompat.setNestedScrollingEnabled(binding.mainRecView, true)
 
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.currentFilter.observe(this,Observer{ newFilter->
+
+            Log.i(mytag,"main fragment observe mycurrent filter , $myCurrentFilter")
+            Log.i(mytag,"main fragment observe new filter , $newFilter")
+            Log.i(mytag,"main fragment observe lastFilterUsed , ${viewModel.getLastFilterUsedByMainFragment()}")
+
+            /*if(newFilter==null){
+                viewModel.getFilteredNewsListFromServer(
+                    NetworkNewsFilterObject(
+                        token = myUserData?.token ?: EMPTY_TOKEN,
+                        markets = arrayOf(Markets.ALL_MARKETS.value),
+                        products = arrayOf(Products.ALL_PRODUCTS.value),
+                        ssessments = arrayOf(Ssessments.ALL_SERVICES.value)
+                    ),
+                    initializedFromSwipeRefresh = false)
+
+                return@Observer
+            }**/
+
+            when{
+                newFilter.equals(viewModel.getLastFilterUsedByMainFragment())->return@Observer
+                newFilter.equals(myCurrentFilter)->return@Observer
+                else->{
+                        myCurrentFilter = newFilter
+                        Log.i(mytag,"main fragment current filter = lastfilterUSedByMain , ${viewModel.getLastFilterUsedByMainFragment().equals(newFilter)}")
+                        viewModel.getFilteredNewsListFromServer(convertCurrentFilterToNetworkNewsFilterObject(
+                                                                myUserData?.token ?: EMPTY_TOKEN, myCurrentFilter!!),
+                                                                    initializedFromSwipeRefresh = false)
+
+                }
+
+            }
+        })
+
+
+        viewModel.newsList.observe(this, Observer { newList->
+            Log.i(mytag,"main fragment observe news list")
+            Log.i(mytag,"main fragment new list je $newList")
+
+            when{
+                newList==null-> { adapter.dataList = EMPTY_LIST
+                                showNoResultTextView(true)}
+                newList.isEmpty()->{}
+                newList[0].title== NO_RESULT->{ adapter.dataList = EMPTY_LIST
+                                                showNoResultTextView(true)
+                                                }
+                else-> {adapter.dataList = newList
+                        showNoResultTextView(false)
+                        }
+            }
+
+            viewModel.hideProgressBar()
+
+        })
+
+        viewModel.myUser.observe(this, Observer {user->
+            Log.i(mytag,"main fragment observe user , $user")
+            myUserData=user
+        })
+
         binding.mySwipeRefreshLayout.setOnRefreshListener {
             Log.i(mytag, "onRefresh called from SwipeRefreshLayout")
-            viewModel.initializeNewsList(INITIALIZED_FROM_SWIPE_REFRESH)
+
+            val filterToApply=myCurrentFilter
+            if(filterToApply==null){
+                viewModel.getFilteredNewsListFromServer(NetworkNewsFilterObject(token=myUserData?.token?:EMPTY_TOKEN,
+                    markets =arrayOf(Markets.ALL_MARKETS.value),
+                    products=arrayOf(Products.ALL_PRODUCTS.value),
+                    ssessments = arrayOf(Ssessments.ALL_SERVICES.value)),
+                    initializedFromSwipeRefresh = true)
+            }
+
+            if(filterToApply!=null)
+                viewModel.getFilteredNewsListFromServer(convertCurrentFilterToNetworkNewsFilterObject(myUserData?.token?:EMPTY_TOKEN,filterToApply),
+                    initializedFromSwipeRefresh = true)
+
         }
 
         viewModel.swiperefreshfinished.observe(this,Observer{
@@ -77,18 +172,12 @@ class mainFragment : Fragment() {
         })
 
 
-        viewModel.newsList.observe(this, Observer { newList->
-            Log.i(mytag,"main fragment observe news list")
-                    if(newList.isEmpty())showNoResultTextView(true)
-                    else showNoResultTextView(false)
-                    adapter.dataList = newList
-        })
-
         viewModel.showToastnoInternet.observe(this, Observer { showSnackbar->
-                if(showSnackbar){
-                Snackbar.make(binding.fragmentLinLay,R.string.nointernet,Snackbar.LENGTH_LONG).show()
+            if(showSnackbar){
+                Toast.makeText(activity,R.string.nointernet,Toast.LENGTH_LONG).show()
+                //Snackbar.make(binding.fragmentLinLay,R.string.nointernet,Snackbar.LENGTH_LONG).show()
                 viewModel.noInternetSnackBarShown()
-                }
+            }
         })
 
         viewModel.newsToBeOpenedID.observe(this, Observer { id->
@@ -101,7 +190,45 @@ class mainFragment : Fragment() {
 
         })
 
-        return binding.root
+        viewModel.showToastNetworkError.observe(this,Observer{
+            if(it){
+                Toast.makeText(activity,R.string.network_error,Toast.LENGTH_LONG).show()
+                //Snackbar.make(binding.fragmentLinLay,R.string.network_error,Snackbar.LENGTH_LONG).show()
+                viewModel.networkErrorSnackBarShown()
+
+            }
+        })
+
+        viewModel.showToastAuthentificationFailed.observe(this, Observer{
+            if(it){
+                Toast.makeText(activity,R.string.authfailed,Toast.LENGTH_LONG).show()
+                viewModel.authFailedSnackBarShown()}
+        })
+
+        viewModel.goToLogInPage.observe(this, Observer{
+
+            if(it){
+                val intent= Intent(requireActivity(), LogIn_and_Registration_Activity::class.java).apply {
+                    putExtra(
+                        START_LOG_REGISTRATION_ACTIVITY_MESSAGE,
+                        SIGN_IN_MENU_ITEM
+                    )}
+                startActivity(intent)
+                viewModel.goToLogInFinished()
+
+            }
+        })
+
+        mainActivityViewModel.swipeRefreshEnabled.observe(this,Observer{shouldEnable->
+
+            binding.mySwipeRefreshLayout.setEnabled(shouldEnable)
+        })
+
+
+
+
+
+
     }
 
     private fun showNoResultTextView(shouldShow: Boolean) {
@@ -151,6 +278,22 @@ class mainFragment : Fragment() {
                 mainProgressbar.visibility = View.GONE
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val filter=myCurrentFilter
+        if (filter!=null) {viewModel.setLastFilterUsedByMainFragment(filter)}
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i(mytag,"on destroy view")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(mytag,"on destroy")
     }
 
 
