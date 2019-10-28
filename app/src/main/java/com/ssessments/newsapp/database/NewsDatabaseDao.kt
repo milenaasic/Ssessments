@@ -19,6 +19,10 @@ interface NewsDatabaseDao{
     @Query("DELETE from last_news_list_table")
      suspend fun clearNewsTable()
 
+    @Query("SELECT COUNT (id) FROM last_news_list_table")
+    suspend fun getNumberOfRowsInNewsListTable():Int
+
+
 
 
     //SAVED FILTERS TABLE
@@ -42,6 +46,12 @@ interface NewsDatabaseDao{
     @Insert
     suspend fun insertUser(item: UserData)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateUser(user:UserData)
+
+    @Query("SELECT * FROM user_data_table" )
+    suspend fun getUserNoLiveData():UserData
+
     @Delete
     suspend fun deleteUser(item:UserData)
 
@@ -50,9 +60,6 @@ interface NewsDatabaseDao{
 
     @Query("SELECT * FROM user_data_table" )
     fun getUser():LiveData<UserData>
-
-    @Update
-    suspend fun updateUser(user:UserData)
 
     @Query("SELECT COUNT (username) FROM user_data_table")
     suspend fun getNumberOfUsers():Int

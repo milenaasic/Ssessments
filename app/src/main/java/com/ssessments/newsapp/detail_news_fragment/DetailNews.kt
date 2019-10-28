@@ -77,11 +77,11 @@ class DetailNews() : Fragment() {
         binding= DataBindingUtil.inflate(inflater,R.layout.detail_news_fragment,container,false)
 
 
-        viewModel.user.observe(this, Observer{
+        /*viewModel.user.observe(this, Observer{
             Log.i(MYTAG,"user je ${it}")
             val token:String=it?.token?:EMPTY_TOKEN
             viewModel.getDetailNews(token)
-        })
+        })*/
 
         viewModel.singleNewsData.observe(this,Observer{
             mydetailNews=it

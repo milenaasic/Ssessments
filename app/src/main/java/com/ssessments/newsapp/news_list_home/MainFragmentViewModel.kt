@@ -30,7 +30,7 @@ class MainFragmentViewModel(
     val myUser=database.getUser()
 
     //poseldnji filter koji je main fragment koristio pre destroy
-    private var lastFilterUsedByMainFragment:CurrentFilter= CurrentFilter(market= Markets.ALL_MARKETS.value,product = Products.ALL_PRODUCTS.value,ssessment = Ssessments.ALL_SERVICES.value)
+    private var lastFilterUsedByMainFragment:CurrentFilter?= null
 
     private val _swiperefreshfinished = MutableLiveData<Boolean>()
     val swiperefreshfinished: LiveData<Boolean>
@@ -80,13 +80,13 @@ class MainFragmentViewModel(
         viewModelScope.launch {
             var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
             try {
-                var listResult = getPropertiesDeferred.await()
+                var resultList = getPropertiesDeferred.await()
                 when{
-                    listResult.isEmpty()->insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-                    else->insertNewsIntoDatabase(listResult)
+                    resultList.isEmpty()->insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
+                    else->insertNewsIntoDatabase(resultList)
                 }
 
-                Log.i(mytag,("result je :$listResult"))
+                Log.i(mytag,("result je :$resultList"))
                 if(!initializedFromSwipeRefresh) _showProgressBar.value=false
                 else _swiperefreshfinished.value=true
 
@@ -95,7 +95,7 @@ class MainFragmentViewModel(
                 Log.i(mytag,("$responseError"))
 
                 when {
-                    responseError.contains("404") -> {
+                    responseError.contains(HTTP_AUTH_FAILED) -> {
                         clearUser()
                         _showToastAuthentificationFailed.value = true
                         _goToLogInPage.value=true
@@ -103,9 +103,9 @@ class MainFragmentViewModel(
                     else-> {
                         _showToastNetworkError.value = true
                         //dok ne proradi server
-                        clearUser()
-                        _showToastAuthentificationFailed.value = true
-                        _goToLogInPage.value=true
+                        //clearUser()
+                        //_showToastAuthentificationFailed.value = true
+                        //_goToLogInPage.value=true
                     }
 
 
@@ -144,7 +144,7 @@ class MainFragmentViewModel(
 
     }
 
-    fun getLastFilterUsedByMainFragment():CurrentFilter{
+    fun getLastFilterUsedByMainFragment():CurrentFilter?{
         return lastFilterUsedByMainFragment
 
     }

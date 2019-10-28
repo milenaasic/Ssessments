@@ -22,129 +22,133 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                       application: Application): AndroidViewModel(application) {
 
 
-    private val _showProgressBar= MutableLiveData<Boolean>()
-    val showProgressBar:LiveData<Boolean>
-        get() =_showProgressBar
+    private val _showProgressBar = MutableLiveData<Boolean>()
+    val showProgressBar: LiveData<Boolean>
+        get() = _showProgressBar
 
-    private val _showToastNOInternet=MutableLiveData<Boolean>()
-    val showToastNOInternet:LiveData<Boolean>
+    private val _showToastNOInternet = MutableLiveData<Boolean>()
+    val showToastNOInternet: LiveData<Boolean>
         get() = _showToastNOInternet
 
-    private val _showToastUserLoggedIN=MutableLiveData<Boolean>()
-    val showToastUserLoggedIN:LiveData<Boolean>
+    private val _showToastUserLoggedIN = MutableLiveData<Boolean>()
+    val showToastUserLoggedIN: LiveData<Boolean>
         get() = _showToastUserLoggedIN
 
-    private val _showToastSomethingWentWrong=MutableLiveData<Boolean>()
-    val showToastSomethingWentWrong:LiveData<Boolean>
+    private val _showToastSomethingWentWrong = MutableLiveData<Boolean>()
+    val showToastSomethingWentWrong: LiveData<Boolean>
         get() = _showToastSomethingWentWrong
 
-    private val _sendUserToHomeFragment=MutableLiveData<Boolean>()
-    val sendUserToHomeFragment:LiveData<Boolean>
+    private val _sendUserToHomeFragment = MutableLiveData<Boolean>()
+    val sendUserToHomeFragment: LiveData<Boolean>
         get() = _sendUserToHomeFragment
 
-    private val _showToastForgotPasswordHandeled=MutableLiveData<Boolean>()
-    val showToastForgotPasswordHandeled:LiveData<Boolean>
+    private val _showToastForgotPasswordHandeled = MutableLiveData<Boolean>()
+    val showToastForgotPasswordHandeled: LiveData<Boolean>
         get() = _showToastForgotPasswordHandeled
 
 
     init {
-            //_showProgressBar.value=false
+        //_showProgressBar.value=false
     }
 
     //SIGN IN
-    fun signInButtonPressed(username:String,password:String){
+    fun signInButtonPressed(username: String, password: String) {
         if (isOnline(getApplication())) {
-             _showProgressBar.value=true
-            signInThisUser(username,password)
+            _showProgressBar.value = true
+            signInThisUser(username, password)
         } else {
-           // _showProgressBar.value=false
-            _showToastNOInternet.value=true
+            // _showProgressBar.value=false
+            _showToastNOInternet.value = true
 
         }
     }
 
 
-    fun signInThisUser(username:String,password:String){
+    fun signInThisUser(username: String, password: String) {
 
-        viewModelScope.launch {
-            var loginuserdeferred=NewsApi.retrofitService.postUserLogIn(NetworkUserData(username,password))
-            try {
-                //uspesan login vraca mi se token kao String
-                var resulttoken=loginuserdeferred.await()
-                //vratio se token upisi korisnika u bazu i vrati ga na mainactivity
-                withContext(Dispatchers.IO){
-                    database.apply{
-                        clearUserDataTable()
-                        insertUser(UserData(username,password,resulttoken))
-                        //kako da proverim da je izvrsen upis u bazu?
+
+            viewModelScope.launch {
+                with(Dispatchers.IO){
+                val userFirebaseID = database.getUserNoLiveData().firebaseID
+                var loginuserdeferred = NewsApi.retrofitService.postUserLogIn(NetworkUserData(username, password))
+
+                try {
+                    //uspesan login vraca mi se token kao String
+                    var resulttoken = loginuserdeferred.await()
+
+                    //vratio se token upisi korisnika u bazu i vrati ga na mainactivity
+                    withContext(Dispatchers.IO) {
+                        database.updateUser(UserData(username = username, password = password, token = resulttoken,firebaseID = userFirebaseID))
+
                     }
+                    _showProgressBar.value = false
+                    _showToastUserLoggedIN.value = true
+
+                    //posalji usera u main fragment
+                    _sendUserToHomeFragment.value = true
+
+                } catch (t: Throwable) {
+                    Log.i(MY_TAG, "poruka network greska ${t.message}")
+                    _showProgressBar.value = false
+                    _showToastSomethingWentWrong.value = true
+
+                    //proba dok ne proradi server-obrisi posle
+                    withContext(Dispatchers.IO) {
+
+                        database.updateUser(UserData(username = username, password = password, token = "12345token"))
+                        Log.i(MY_TAG, "upisan user je ${database.getUserNoLiveData()}")
+
+                    }
+                    _showProgressBar.value = false
+                    _showToastUserLoggedIN.value = true
+                    _sendUserToHomeFragment.value = true
                 }
-                _showProgressBar.value=false
-                _showToastUserLoggedIN.value=true
-
-                //posalji usera u main fragment
-                _sendUserToHomeFragment.value=true
-
-            }catch (t:Throwable){
-                Log.i(MY_TAG,"poruka network greska ${t.message}")
-                _showProgressBar.value=false
-                _showToastSomethingWentWrong.value=true
-
-                //proba dok ne proradi server-obrisi posle
-               withContext(Dispatchers.IO){
-                    database.clearUserDataTable()
-                    database.insertUser(UserData(username,password,"12345token"))
-                    Log.i(MY_TAG,"upisan user je ${database.getUser().toString()}")
-
-                }
-                _showProgressBar.value=false
-                _showToastUserLoggedIN.value=true
-                _sendUserToHomeFragment.value=true
             }
-        }
 
+        }
     }
 
         //Forgot password
-        fun sendForgotPasswordEmail(usermail:String){
+        fun sendForgotPasswordEmail(usermail: String) {
 
-            _showProgressBar.value=true
+            _showProgressBar.value = true
 
             viewModelScope.launch {
 
                 var getResultDeferred = NewsApi.retrofitService.postForgotPassword(usermail)
                 try {
                     var result = getResultDeferred.await()
-                    _showProgressBar.value=false
-                    _showToastForgotPasswordHandeled.value=true
+                    _showProgressBar.value = false
+                    _showToastForgotPasswordHandeled.value = true
 
                 } catch (e: Exception) {
-                    Log.i(MY_TAG,"Failure is: ${e.message}")
-                    _showProgressBar.value=false
-                    _showToastSomethingWentWrong.value=true
+                    Log.i(MY_TAG, "Failure is: ${e.message}")
+                    _showProgressBar.value = false
+                    _showToastSomethingWentWrong.value = true
 
                 }
-             }
+            }
 
         }
 
-    fun toastNoInternetIsShown(){
-        _showToastNOInternet.value=false
-    }
+        fun toastNoInternetIsShown() {
+            _showToastNOInternet.value = false
+        }
 
-    fun toastLoggedInUserIsShown(){
-        _showToastUserLoggedIN.value=false
-    }
+        fun toastLoggedInUserIsShown() {
+            _showToastUserLoggedIN.value = false
+        }
 
-    fun toastSomethingWentWrongIsShown(){
-        _showToastSomethingWentWrong.value=false
-    }
+        fun toastSomethingWentWrongIsShown() {
+            _showToastSomethingWentWrong.value = false
+        }
 
-    fun userSentToHomeFragment(){
-        _sendUserToHomeFragment.value=false
-    }
+        fun userSentToHomeFragment() {
+            _sendUserToHomeFragment.value = false
+        }
 
-    fun toastForgotPaswordHandledIsShown(){
-        _showToastForgotPasswordHandeled.value=false
-    }
+        fun toastForgotPaswordHandledIsShown() {
+            _showToastForgotPasswordHandeled.value = false
+        }
+
 }

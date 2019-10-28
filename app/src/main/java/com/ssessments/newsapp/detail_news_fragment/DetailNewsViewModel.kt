@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.network.NetworkSingleNewsItem
+import com.ssessments.newsapp.network.NetworkSingleNewsRequest
 import com.ssessments.newsapp.network.NewsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ class DetailNewsViewModel(val newsID:Int,
                           application: Application) : AndroidViewModel(application) {
 
 
-    var user=database.getUser()
+    //var user=database.getUser()
 
     private val _singleNewsData = MutableLiveData<NetworkSingleNewsItem>()
     val singleNewsData: LiveData<NetworkSingleNewsItem>
@@ -46,17 +47,18 @@ class DetailNewsViewModel(val newsID:Int,
 
     init {
         _showProgressBar.value=true
+        getDetailNews()
     }
 
-    fun getDetailNews(token:String){
+    fun getDetailNews(){
 
         viewModelScope.launch {
+            val user=database.getUserNoLiveData()
+            val token=user.token
+            Log.i(MYTAG," token detail news je ${token}")
 
-            Log.i(MYTAG," token je ${token}")
-
-            var defferedSingleNewsItem=NewsApi.retrofitService.postSingleNews(newsID,token)
+            var defferedSingleNewsItem=NewsApi.retrofitService.postSingleNews(NetworkSingleNewsRequest(token,newsID))
             try {
-                //result moze da bude u bodiju da nema pristupa datoj vesti ostalo prikazem i title i author i...
                 var result:NetworkSingleNewsItem=defferedSingleNewsItem.await()
                 _singleNewsData.value=result
                 _showProgressBar.value=false

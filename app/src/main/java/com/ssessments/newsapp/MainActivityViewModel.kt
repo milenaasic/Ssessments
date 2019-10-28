@@ -63,8 +63,38 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     }*/
 
     init {
+        initializeUser()
         initializeCurrentFilterTable()
+        initializeNewsListWithNoResultRow()
         _swipeRefreshEnabled.value=true
+    }
+
+    private fun initializeNewsListWithNoResultRow() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                Log.i(MY_TAG, "initialize new list table")
+                Log.i(MY_TAG,"broj zapisa u news listi je ${database.getNumberOfRowsInNewsListTable()}")
+                when (database.getNumberOfRowsInNewsListTable()){
+                    0-> database.insertNews(convertNetworkToDatabaseNewsItem(NO_RESULT_NETWORK_NEWS_LIST))
+                    else->return@withContext}
+
+            }
+        }
+    }
+
+    private fun initializeUser() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                Log.i(MY_TAG, "initialize user")
+                when (database.getNumberOfUsers()){
+                    0-> database.insertUser(UserData())
+                    1->return@withContext}
+
+                Log.i(MY_TAG,"user u tabeli u init Viewmodel je ${database.getUserNoLiveData()}")
+
+            }
+        }
+
     }
 
 
@@ -84,9 +114,10 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     fun clearUser(){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                database.clearUserDataTable()
+                val myFirebaseid=database.getUserNoLiveData().firebaseID
+                database.updateUser(UserData(username= EMPTY_USERNAME,password = EMPTY_PASSWORD,token= EMPTY_TOKEN,firebaseID = myFirebaseid))
                 Log.i(MY_TAG, "claer user table}")
-                val a=database.getUser()
+                val a=database.getUserNoLiveData()
                 Log.i(MY_TAG,"posle clear getUser daje $a.value")
             }
         }
@@ -129,7 +160,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 Log.i(MY_TAG, ("iz custom search: $responseError"))
 
                 when {
-                    responseError.contains("404") -> {
+                    responseError.contains(HTTP_AUTH_FAILED) -> {
                                                                         clearUser()
                                                                         _showAuthentificationFailedMessage.value = true
                                                                         _closeSearchWidget.value=true
@@ -137,10 +168,10 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                                                                     }
                     else-> { _networkErrorMainActivity.value = true
                         //dok ne proradi server
-                        clearUser()
-                        _closeSearchWidget.value=true
-                         _showAuthentificationFailedMessage.value = true
-                        _goToLogInPage.value=true
+                        //clearUser()
+                        //_closeSearchWidget.value=true
+                         //_showAuthentificationFailedMessage.value = true
+                        //_goToLogInPage.value=true
                     }
 
 
@@ -161,6 +192,35 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 withContext(Dispatchers.IO) {
                     database.clearNewsTable()
                     database.insertNews(convertNetworkToDatabaseNewsItem(list))
+                }
+            }
+        }
+
+    }
+
+
+    fun sendNotificationPreferencesToServer(token:String,entries:MutableMap<String,*>){
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val networkPrefObject = convertMutableListToNetworkNotificationsObject(token, entries)
+                Log.i(MY_TAG, "network pref object je $networkPrefObject")
+
+                var getValuesDeferred = NewsApi.retrofitService.sendNotificationPreferencesToServer(networkPrefObject)
+
+                try {
+                    var result = getValuesDeferred.await()
+
+                } catch (e: Exception) {
+                    val responseError = "Failure " + e.message
+                    when {
+                        responseError.contains(HTTP_AUTH_FAILED) -> {
+                            Log.i(MY_TAG, "network pref object je $responseError")
+                        }
+                        else -> {
+                            Log.i(MY_TAG, "network pref object je $responseError")
+                        }
+                    }
                 }
             }
         }

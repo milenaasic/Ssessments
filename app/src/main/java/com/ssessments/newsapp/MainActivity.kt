@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(){
     lateinit var myappBar:AppBarLayout
     private lateinit var mySearchViewWidget:SearchView
     private lateinit var mySearchViewMenuItem:MenuItem
-    private var myUser:UserData?=null
+    private  var myUser:UserData?=null
 
     private var mySavedInstanceState: Bundle?=null
 
@@ -186,9 +186,13 @@ class MainActivity : AppCompatActivity(){
 
         viewModel.loggedInUser.observe(this, Observer {user->
             Log.i(TAG_MAIN,"loggedInUser koga posmatram ${user}")
-            if(user==null){ setloggedInUserUI(false)}
-            else { myUser=user
-                    setloggedInUserUI(true)}
+            when{
+                user==null->setloggedInUserUI(false)
+                user.username.equals(EMPTY_USERNAME)-> {setloggedInUserUI(false)
+                                                        myUser=user}
+                else->{myUser=user
+                        setloggedInUserUI(true)}
+            }
 
         })
 
@@ -346,8 +350,9 @@ class MainActivity : AppCompatActivity(){
     private fun doMySearch(query: String) {
         //ovde saljem preko zahtev serveru
         Log.i("Searcheble activity","pokrenut doMySearch")
-        //prikazi progres dialog i informaciju dok ne implementiraim search
-        viewModel.doCustomNewsSearch(query)
+
+        if(!query.isNullOrBlank()){
+                    viewModel.doCustomNewsSearch(query)}
     }
 
 
@@ -386,10 +391,14 @@ class MainActivity : AppCompatActivity(){
 
             var pm=toolbar.layoutParams as AppBarLayout.LayoutParams
             pm.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL+AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)
-
-            if(viewModel.loggedInUser.value==null) bottom_navigation.visibility = View.VISIBLE
-            else bottom_navigation.visibility = View.GONE
-
+            Log.i(TAG_MAIN,"viewmodel.loggedinuser.value je ${viewModel.loggedInUser.value?.username}")
+            when{
+                viewModel.loggedInUser.value==null->setloggedInUserUI(false)
+                viewModel.loggedInUser.value?.username.equals(EMPTY_USERNAME)->setloggedInUserUI(false)
+                else-> {setloggedInUserUI(loggedIn = true)
+                    Log.i(TAG_MAIN,"when kroz else je prosao")}
+            }
+            
         }
 
     }
@@ -496,8 +505,11 @@ class MainActivity : AppCompatActivity(){
             }
             false->{
                 binding.apply{
+                    Log.i(TAG_MAIN,"main activity bottom nav se pojavi")
                     if(navController.currentDestination?.id==R.id.mainFragment){
-                        bottomNavigation.visibility=View.VISIBLE}
+                        Log.i(TAG_MAIN,"u setLoggedInUser bottomnavigation visibility")
+                        bottomNavigation.visibility=View.VISIBLE
+                        }
                     myNavigationView.menu.findItem(R.id.logout_menuitem).setVisible(false)
                 }
             }
@@ -505,9 +517,7 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-    fun openWebPage(url: String) {
 
-    }
 
     override fun onStop() {
         super.onStop()

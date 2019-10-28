@@ -17,19 +17,24 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ssessments.newsapp.MainActivity
 import com.ssessments.newsapp.R
+import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.network.NetworkNotificatiosObject
+import com.ssessments.newsapp.network.NetworkUserData
+import com.ssessments.newsapp.network.NewsApi
+import com.ssessments.newsapp.utilities.EMPTY_TOKEN
 import com.ssessments.newsapp.utilities.Markets
 import com.ssessments.newsapp.utilities.Products
 import com.ssessments.newsapp.utilities.Ssessments
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 const val EXTRA_NEWSID="extra_news_id"
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private val CHANNEL_ID="My_News_Notifications_Channel"
+
+    var serviceJob = Job()
+    val serviceScope = CoroutineScope(serviceJob + Dispatchers.Main )
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
@@ -124,10 +129,30 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      *
      * @param token The new token.
      */
-    private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
-    }
+    private fun sendRegistrationToServer(token: String) {
 
+        serviceScope.launch {
+
+            val datasource= NewsDatabase.getInstance(application).newsDatabaseDao
+            val user=datasource.getUserNoLiveData()
+            Log.i(TAG,"user je $user")
+            if(user!=null){
+                if(user.token!= EMPTY_TOKEN){
+                    var sendIdDeferred=NewsApi.retrofitService.postUserLogIn(NetworkUserData(user.username,user.password))
+
+                    try {
+                        val result=sendIdDeferred.await()
+
+                    }catch (e:Exception){
+
+                        Log.i(TAG,"greska prilikom slanja ${e.message}")
+                    }
+                }
+            }
+
+         }
+
+    }
 
     private fun sendNotification(messageTitle:String,messageBody: String,messageNewsId:String) {
         Log.d(TAG, "usao u send notifications: ${messageTitle}")
@@ -171,8 +196,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     fun setNotifications(remoteMessage: RemoteMessage) {
         Log.d(TAG, "set notifications metod: " + remoteMessage.data)
-        MainScope().launch {
-            with(Dispatchers.IO) {
 
                 val defSharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication())
                 val editor: SharedPreferences.Editor = defSharedPref.edit()
@@ -198,12 +221,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     }
                 }
 
-                editor.commit()
-            }
-        }
+                editor.apply()
+
     }
 
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceJob.cancel()
+    }
 
 }

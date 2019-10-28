@@ -22,36 +22,25 @@ private val retrofit=Retrofit.Builder()
                         .build()
 
 interface NewsAPIService {
-    /**
-     * Returns a Coroutine [Deferred] [List] of [MarsProperty] which can be fetched with await() if
-     * in a Coroutine scope.
-
-     */
-
 
     //VESTI- ucitaj listu vesti prema datom filteru, podrazumeva i kompletnu listu vesti
-    @POST("url2")
+    @POST("api/v1/posts/get-filtered-list")
     fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>
 
     //VESTI - ucitaj pojedinacnu vest, salje se id kao path i token u body
-    @POST("url3/{singleNewsID}")
-    fun postSingleNews(@Path("singleNewsID") newsID:Int,
-                       @Body user_token:String):Deferred<NetworkSingleNewsItem>
+    @POST("api/v1/posts/get-by-id")
+    fun postSingleNews(@Body news_request:NetworkSingleNewsRequest):Deferred<NetworkSingleNewsItem>
 
     //Vesti - ucitaj listu prema custom search-u
-    @POST("url3")
+    @POST(" api/v1/posts/get-custom-list")
     fun postCustomSearchNewsList(@Body customSearch:NetworkCustomSearchFilterObject):Deferred<List<NetworkNewsItem>>
 
-
-
     //FILTERI-ucitaj sve predefinisane filtere, za sve korisnike je isto, token ostaje za kasnije
-    @GET("url4")
-    fun getPredefinedFilters(@Body user_token:String):Deferred <List<NetworkNewsFilterObject>>
-
+    //@GET("url4")
+    //fun getPredefinedFilters(@Body user_token:String):Deferred <List<NetworkNewsFilterObject>>
 
     //User LogIn
-    //sta se vraca sa servera u slucaju uspeha? Token
-    @POST("ur4")
+    @POST("api/v1/users/login")
     fun postUserLogIn(@Body userData: NetworkUserData):Deferred<String>
 
     @POST("url5")
@@ -60,9 +49,11 @@ interface NewsAPIService {
     @POST("url6")
     fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<String>
 
-    //POKUPI NOTIFIKACIJE SA SERVER
+    //send notification preferences to server
     @POST("url6")
-    fun getNotificationsFromServer(@Body token:String):Deferred<NetworkNotificatiosObject>
+    fun sendNotificationPreferencesToServer(@Body notifications:NetworkNotificatiosObject):Deferred<String>
+
+
 }
 
 /**

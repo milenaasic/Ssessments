@@ -8,6 +8,7 @@ import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.FilterItem
 import com.ssessments.newsapp.database.PredefinedFilter
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
+import com.ssessments.newsapp.network.NetworkNotificatiosObject
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,6 +18,35 @@ import kotlin.collections.ArrayList
 val dateFormatMySQL: SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 val dateFormatNoHours: SimpleDateFormat = SimpleDateFormat("dd MMM yyyy")
 val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
+
+
+fun convertMutableListToNetworkNotificationsObject(token:String,entries:MutableMap<String,*>):NetworkNotificatiosObject{
+
+    return NetworkNotificatiosObject(token=token,
+                                    sea = entries.get("sea") as Boolean,
+                                    china=entries.get("china") as Boolean,
+                                    indonesia = entries.get("indonesia") as Boolean,
+                                    malaysia = entries.get("malaysia") as Boolean,
+                                    vietnam = entries.get("vietnam") as Boolean,
+                                    india = entries.get("india") as Boolean,
+                                    pe = entries.get("pe") as Boolean,
+                                    pp=entries.get("pp") as Boolean,
+                                    pvc = entries.get("pvc") as Boolean,
+                                    pet = entries.get("pet") as Boolean,
+                                    styrenics = entries.get("styrenics") as Boolean,
+                                    daily = entries.get("daily") as Boolean,
+                                    weekly = entries.get("weekly") as Boolean,
+                                    monthly = entries.get("monthly") as Boolean,
+                                    quarterly = entries.get("quarterly") as Boolean,
+                                    news = entries.get("news") as Boolean,
+                                    price = entries.get("price") as Boolean,
+                                    stats = entries.get("stats") as Boolean,
+                                    plant=entries.get("plant") as Boolean
+                                    )
+
+
+}
+
 
 fun dateStringFormatSQlToReadableWithHours(stringDate:String):String{
 

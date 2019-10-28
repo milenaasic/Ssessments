@@ -22,6 +22,7 @@ private const val MYTAG="PREFERENCE FRAGMRNT"
 class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var lastSavedValues:MutableMap<String,*>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,8 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         mainActivityViewModel=requireActivity().run {
             ViewModelProviders.of(this)[MainActivityViewModel::class.java]
         }
+
+        lastSavedValues =PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
 
     }
 
@@ -46,7 +49,6 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
        if(prefMarkets!=null){
             for(index in 0..prefMarkets.preferenceCount-1){
                 prefMarkets.getPreference(index).title=Markets.values()[index+1].value
-                //prefMarkets.getPreference(index).key=Markets.values()[index+1].value
                 Log.i(MYTAG,"key za pref market je ${prefMarkets.getPreference(index).key}")
             }
         }
@@ -54,14 +56,14 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         if(prefproducts!=null){
             for(index in 0..prefproducts.preferenceCount-1){
                 prefproducts.getPreference(index).title= Products.values()[index+1].value
-                //prefproducts.getPreference(index).key=Products.values()[index+1].value
+
             }
         }
 
         if(prefSsessments!=null){
             for(index in 0..prefSsessments.preferenceCount-1){
                 prefSsessments.getPreference(index).title= Ssessments.values()[index+1].value
-                //prefSsessments.getPreference(index).key= Ssessments.values()[index+1].value
+
             }
         }
 
@@ -70,17 +72,8 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
                 for(index in 0..pref.preferenceCount-1){
                     pref.getPreference(index).setOnPreferenceChangeListener(this)
                 }
-
         }
 
-       /* mainActivityViewModel.navigateUpToMainFragment.observe(this, Observer{shouldNavigate->
-
-            if(shouldNavigate){
-                findNavController().navigateUp()
-                mainActivityViewModel.navigationToMainFragmentFinished()
-            }
-
-        })*/
     }
 
 
@@ -215,13 +208,32 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
     }
 
 
+    override fun onStop() {
+        super.onStop()
+        val user=mainActivityViewModel.loggedInUser.value
+        Log.i(MYTAG,"user iz main viewmodela je $user")
+        if(user!=null){
+            if(user.token!= EMPTY_TOKEN) {
+                sendNotificationsToServer(user.token)
+            }
+            //privremeno
+            sendNotificationsToServer(user.token)
+        }
 
+
+
+    }
+
+    private fun sendNotificationsToServer(token: String) {
+
+        val newValues=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
+        mainActivityViewModel.sendNotificationPreferencesToServer(token,newValues)
+
+    }
 
     override fun onDestroyView() {
         Log.i(MYTAG,"on DESTROY VIEW")
         super.onDestroyView()
-
-
     }
 
     override fun onDestroy() {

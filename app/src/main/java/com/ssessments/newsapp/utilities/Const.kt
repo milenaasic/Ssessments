@@ -10,7 +10,11 @@ const val START_LOG_REGISTRATION_ACTIVITY_MESSAGE="Sign_in_OR_Sign_up"
 const val SIGN_IN_MENU_ITEM=0
 const val SIGN_UP_MENU_ITEM=1
 
+//user data values
 const val EMPTY_TOKEN="empty_token"
+const val EMPTY_USERNAME="empty_username"
+const val EMPTY_PASSWORD="empty_password"
+const val EMPTY_FIREBASEID="empty_firebase_id"
 
 
 //FONT SIZE SCALE FACTOR
@@ -33,3 +37,6 @@ const val DATE_SELECT_TEXT="Select"
 const val NO_RESULT="no_result"
 val NO_RESULT_NETWORK_NEWS_LIST= listOf<NetworkNewsItem>(NetworkNewsItem(-1, NO_RESULT, arrayOf(NO_RESULT), NO_RESULT, NO_RESULT))
 val EMPTY_LIST= listOf<NewsItem>()
+
+//ERROR FAILED AUTHENTIFICATIO
+const val HTTP_AUTH_FAILED="401"

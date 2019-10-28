@@ -93,32 +93,22 @@ class mainFragment : Fragment() {
             Log.i(mytag,"main fragment observe new filter , $newFilter")
             Log.i(mytag,"main fragment observe lastFilterUsed , ${viewModel.getLastFilterUsedByMainFragment()}")
 
-            /*if(newFilter==null){
-                viewModel.getFilteredNewsListFromServer(
-                    NetworkNewsFilterObject(
-                        token = myUserData?.token ?: EMPTY_TOKEN,
-                        markets = arrayOf(Markets.ALL_MARKETS.value),
-                        products = arrayOf(Products.ALL_PRODUCTS.value),
-                        ssessments = arrayOf(Ssessments.ALL_SERVICES.value)
-                    ),
-                    initializedFromSwipeRefresh = false)
+        if(newFilter==null) return@Observer
 
-                return@Observer
-            }**/
+            if(viewModel.getLastFilterUsedByMainFragment()!=null) {
+                if( newFilter.equals(viewModel.getLastFilterUsedByMainFragment())) return@Observer
+            }
 
-            when{
-                newFilter.equals(viewModel.getLastFilterUsedByMainFragment())->return@Observer
-                newFilter.equals(myCurrentFilter)->return@Observer
-                else->{
-                        myCurrentFilter = newFilter
-                        Log.i(mytag,"main fragment current filter = lastfilterUSedByMain , ${viewModel.getLastFilterUsedByMainFragment().equals(newFilter)}")
-                        viewModel.getFilteredNewsListFromServer(convertCurrentFilterToNetworkNewsFilterObject(
+            if(myCurrentFilter!=null){
+                if(newFilter.equals(myCurrentFilter))return@Observer
+            }
+
+            myCurrentFilter = newFilter
+            //Log.i(mytag,"main fragment current filter = lastfilterUSedByMain , ${viewModel.getLastFilterUsedByMainFragment().equals(newFilter)}")
+            viewModel.getFilteredNewsListFromServer(convertCurrentFilterToNetworkNewsFilterObject(
                                                                 myUserData?.token ?: EMPTY_TOKEN, myCurrentFilter!!),
                                                                     initializedFromSwipeRefresh = false)
 
-                }
-
-            }
         })
 
 
@@ -127,8 +117,9 @@ class mainFragment : Fragment() {
             Log.i(mytag,"main fragment new list je $newList")
 
             when{
-                newList==null-> { adapter.dataList = EMPTY_LIST
-                                showNoResultTextView(true)}
+                newList==null-> { //adapter.dataList = EMPTY_LIST
+                                //showNoResultTextView(true)
+                                }
                 newList.isEmpty()->{}
                 newList[0].title== NO_RESULT->{ adapter.dataList = EMPTY_LIST
                                                 showNoResultTextView(true)

@@ -45,7 +45,26 @@ abstract class NewsDatabase:RoomDatabase(){
                                     put("filter_date_from", NO_DATE_SELECTED_VALUE)
                                     put("filter_date_to", NO_DATE_SELECTED_VALUE)
                                 }
-                                try{db. insert("current_filter_table",CONFLICT_IGNORE,myvalues)
+
+                                val myvalues2=ContentValues().apply {
+                                    put("username", EMPTY_USERNAME)
+                                    put("password", EMPTY_PASSWORD)
+                                    put("token", EMPTY_TOKEN)
+                                    put("firebase_id", EMPTY_FIREBASEID)
+
+                                 }
+                                val myvalues3=ContentValues().apply {
+                                    put("news_ID", -1)
+                                    put("news_title", NO_RESULT)
+                                    put("tags", NO_RESULT)
+                                    put("date_time", NO_RESULT)
+                                    put("access_type", NO_RESULT)
+                                }
+
+                                try{
+                                    db.insert("current_filter_table",CONFLICT_IGNORE,myvalues)
+                                    db.insert("user_data_table", CONFLICT_IGNORE,myvalues2)
+                                    db.insert("last_news_list_table", CONFLICT_IGNORE,myvalues3)
                                     Log.d("my DBOPENED","try block.")
                                 }catch (e:Exception){
                                     Log.w("my database error",e)}
