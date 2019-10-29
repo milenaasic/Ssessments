@@ -4,27 +4,27 @@ import com.squareup.moshi.Json
 
 data class NetworkUserRegistrationData(
 
-    @Json(name="firstname")
-    var firstName:String?,
+    @Json(name="first_name")
+    var firstName:String,
 
-    @Json(name="lastname")
-    var lastName:String?,
+    @Json(name="last_name")
+    var lastName:String,
 
-    @Json(name="e_mail")
-    var e_mail:String?,
+    @Json(name="email")
+    var e_mail:String,
 
-    @Json(name="mobilephone")
-    var mobilephone:String?,
+    @Json(name="mobile_phone")
+    var mobilephone:String,
 
     @Json(name="company")
-    var company:String?,
+    var company:String,
 
     @Json(name="country")
-    var country:String?,
+    var country:String="",
 
     @Json(name="username")
-    var username:String?,
+    var username:String,
 
     @Json(name="password")
-    var password:String?
+    var password:String
 )

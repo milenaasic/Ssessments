@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL ="https://mars.udacity.com/"
+private const val BASE_URL ="http://192.168.1.6:3000/"
 
 private val moshi= Moshi.Builder()
                     .add(KotlinJsonAdapterFactory())
@@ -22,18 +22,22 @@ private val retrofit=Retrofit.Builder()
                         .build()
 
 interface NewsAPIService {
+    //
+    @GET("rows")
+    fun getTestValuesFromLocalServer():Deferred<Response<List<NetworkNewsItem>>>
+
 
     //VESTI- ucitaj listu vesti prema datom filteru, podrazumeva i kompletnu listu vesti
     @POST("api/v1/posts/get-filtered-list")
-    fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>
+    fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<Response<NetworkNewsListResponseWrapper>>
 
-    //VESTI - ucitaj pojedinacnu vest, salje se id kao path i token u body
+    //VESTI - ucitaj pojedinacnu vest
     @POST("api/v1/posts/get-by-id")
-    fun postSingleNews(@Body news_request:NetworkSingleNewsRequest):Deferred<NetworkSingleNewsItem>
+    fun postSingleNews(@Body news_request:NetworkSingleNewsRequest):Deferred<Response<NetworkSingleNewsItem>>
 
     //Vesti - ucitaj listu prema custom search-u
     @POST(" api/v1/posts/get-custom-list")
-    fun postCustomSearchNewsList(@Body customSearch:NetworkCustomSearchFilterObject):Deferred<List<NetworkNewsItem>>
+    fun postCustomSearchNewsList(@Body customSearch:NetworkCustomSearchFilterObject):Deferred<Response<NetworkNewsListResponseWrapper>>
 
     //FILTERI-ucitaj sve predefinisane filtere, za sve korisnike je isto, token ostaje za kasnije
     //@GET("url4")
@@ -41,13 +45,13 @@ interface NewsAPIService {
 
     //User LogIn
     @POST("api/v1/users/login")
-    fun postUserLogIn(@Body userData: NetworkUserData):Deferred<String>
+    fun postUserLogIn(@Body userData: NetworkUserData):Deferred<Response<NetworkUserDataResponse>>
 
-    @POST("url5")
-    fun postForgotPassword(@Body user_email:String):Deferred<String>
+    @POST("api/v1/user/forgot-password")
+    fun postForgotPassword(@Body user_email:NetworkForgotPasswordRequest):Deferred<Response<NetworkForgotPasswordResponse>>
 
-    @POST("url6")
-    fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<String>
+    @POST(" api/v1/users/register")
+    fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<Response<NetworkUserRegistrationResponse>>
 
     //send notification preferences to server
     @POST("url6")

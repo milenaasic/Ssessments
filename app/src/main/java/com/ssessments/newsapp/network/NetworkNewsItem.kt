@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class NetworkNewsItem (
 
-    @Json(name="newsID")
+    @Json(name="news_id")
     var newsID:Int,
 
     @Json(name="title")

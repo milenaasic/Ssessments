@@ -4,6 +4,7 @@ package com.ssessments.newsapp.login_and_registration
 import android.app.Activity
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +41,7 @@ class RegistrationFragment1 : Fragment() {
         //ukoliko se podize vec postojeci fragment koji je bio unisten, i view model je takodje bio unisten
          if(savedInstanceState!=null){
                 if(checkIfRequiredFieldsAreEmpty())sharedViewModel.setMyUserRegistration1Fields(getEnteredfieldValues())
+                Log.i("RegFragment1","entered values ${getEnteredfieldValues()}")
          }
 
         binding.nextbutton.setOnClickListener {
@@ -154,9 +156,9 @@ class RegistrationFragment1 : Fragment() {
 
     }
 
-    private fun getEnteredfieldValues():ArrayList<String?>{
+    private fun getEnteredfieldValues():ArrayList<String>{
 
-        var list= ArrayList<String?>(6)
+        var list= ArrayList<String>(6)
 
          binding.apply {
 
@@ -166,7 +168,7 @@ class RegistrationFragment1 : Fragment() {
                 add(lastNameeditText.text.toString())
                 add(confirmemaileditText.text.toString())
                 add(mobilePhoneeditText.text.toString())
-                add(compoanyNameeditText.text.toString())
+                if(compoanyNameeditText.text.isNullOrBlank()) add("") else add(compoanyNameeditText.text.toString())
                 add(countryedittext.text.toString())
                 }
 

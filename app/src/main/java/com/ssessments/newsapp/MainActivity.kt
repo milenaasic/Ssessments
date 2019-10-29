@@ -111,6 +111,8 @@ class MainActivity : AppCompatActivity(){
         })
 
 
+
+
         binding.myNavigationView.setNavigationItemSelectedListener {menuItem->
 
             when(menuItem.itemId){
@@ -129,13 +131,14 @@ class MainActivity : AppCompatActivity(){
                 }
 
                 R.id.goto_ssessments_linkedIn->{
-                    menuItem.setChecked(true)
+                    //menuItem.setChecked(true)
                     val webpage: Uri = Uri.parse(URL_SSESSMENTS_LINKEDIN_PAGE)
                     val intent = Intent(Intent.ACTION_VIEW, webpage)
+                    menuItem.setChecked(false)
+                    binding.myDrawerLayout.closeDrawers()
                     if (intent.resolveActivity(packageManager) != null) {
                         startActivity(intent)
                     }
-                    binding.myDrawerLayout.closeDrawers()
                     true
                 }
 
@@ -352,7 +355,8 @@ class MainActivity : AppCompatActivity(){
         Log.i("Searcheble activity","pokrenut doMySearch")
 
         if(!query.isNullOrBlank()){
-                    viewModel.doCustomNewsSearch(query)}
+                    viewModel.doCustomNewsSearch(query)
+                    mySearchViewMenuItem.collapseActionView()}
     }
 
 

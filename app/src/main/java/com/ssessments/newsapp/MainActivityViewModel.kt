@@ -63,10 +63,31 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     }*/
 
     init {
+        trylocalHost()
         initializeUser()
         initializeCurrentFilterTable()
         initializeNewsListWithNoResultRow()
         _swipeRefreshEnabled.value=true
+    }
+
+    private fun trylocalHost() {
+
+        viewModelScope.launch {
+
+            var getPropertiesDeferred = NewsApi.retrofitService.getTestValuesFromLocalServer()
+
+            try {
+                var listResult = getPropertiesDeferred.await()
+               val niz=listResult.body()
+                Log.i(MY_TAG, ("response je :$listResult"))
+                // Log.i(MY_TAG, ("result je :${listResult.body()}"))
+
+            } catch (e: Exception) {
+                val responseError = "Failure " + e.message
+                Log.i(MY_TAG, ("iz try local hostY: $responseError"))
+
+            }
+        }
     }
 
     private fun initializeNewsListWithNoResultRow() {
@@ -77,7 +98,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 when (database.getNumberOfRowsInNewsListTable()){
                     0-> database.insertNews(convertNetworkToDatabaseNewsItem(NO_RESULT_NETWORK_NEWS_LIST))
                     else->return@withContext}
-
             }
         }
     }
@@ -105,7 +125,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 when (database.getNumberOfCurrentFilters()){
                 0-> database.insertCurrentFilterToDatabase(CurrentFilter(market = Markets.ALL_MARKETS.value,product = Products.ALL_PRODUCTS.value,ssessment = Ssessments.ALL_SERVICES.value))
                 1->return@withContext}
-
             }
         }
 
@@ -121,7 +140,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 Log.i(MY_TAG,"posle clear getUser daje $a.value")
             }
         }
-
     }
 
     fun setCurrentFilterAccordingToNotifications(currentFilter:CurrentFilter){
@@ -135,7 +153,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 database.updateCurrentFilter(filter)}
             Log.i(MY_TAG, "filter iz notifikacija je $filter")
         }
-
     }
 
     fun doCustomNewsSearch(searchString:String){
@@ -145,14 +162,19 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
         val mytoken=loggedInUser.value?.token ?: EMPTY_TOKEN
 
         viewModelScope.launch {
-            var getPropertiesDeferred = NewsApi.retrofitService.postCustomSearchNewsList(NetworkCustomSearchFilterObject(token=mytoken,searchBy = searchString))
+            var getDeferred = NewsApi.retrofitService.postCustomSearchNewsList(NetworkCustomSearchFilterObject(token=mytoken,searchBy = searchString))
             try {
-                var listResult = getPropertiesDeferred.await()
-                Log.i(MY_TAG, ("result je :$listResult"))
-                when{
-                    listResult.isEmpty()->insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-                    else->insertNewsIntoDatabase(listResult)
+                var result = getDeferred.await()
+                Log.i(MY_TAG, ("result je :${result.body()}"))
+
+                if (result.body()?.count == 0) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
+                else {
+                    val array: Array<NetworkNewsItem>? = result.body()?.rows
+                    val mylist = array?.toList()
+                    Log.i(MY_TAG, "ucitana i konvertovana lista je $mylist")
+                    insertNewsIntoDatabase(mylist ?: NO_RESULT_NETWORK_NEWS_LIST)
                 }
+
                  _showProgressBarMainActivity.value = false
 
             } catch (e: Exception) {

@@ -18,7 +18,7 @@ class RegistrationSharedViewModel(
         application: Application) : AndroidViewModel(application){
 
         //lista unesenih vrednosti sa prve stranice registracije-ime, telefon...
-        lateinit var userRegistration1Fields:ArrayList<String?>
+        lateinit var userRegistration1Fields:ArrayList<String>
 
         private val _navigateToRegistration2= MutableLiveData<Boolean>()
         val navigateToRegistration2: LiveData<Boolean>
@@ -39,6 +39,10 @@ class RegistrationSharedViewModel(
         private val _showToastSomethingWentWrongWithRegistration= MutableLiveData<Boolean>()
         val showToastSomethingWentWrongWithRegistration: LiveData<Boolean>
                 get() =_showToastSomethingWentWrongWithRegistration
+
+        private val _sendUserBackToMainActicvity= MutableLiveData<Boolean>()
+        val sendUserBackToMainActicvity: LiveData<Boolean>
+                get() =_sendUserBackToMainActicvity
 
 
 
@@ -72,12 +76,14 @@ class RegistrationSharedViewModel(
                                 var result = getResultDeferred.await()
                                 _showProgressBarRegistration.value=false
                                 _showToastRegistrationSent.value=true
+                                _sendUserBackToMainActicvity.value=true
 
                         } catch (e: Exception) {
                                 Log.i(MYTAG,"Failure is: ${e.message}")
                                 _showProgressBarRegistration.value=false
                                 //_showToastSomethingWentWrongWithRegistration.value=true
                                 _showToastRegistrationSent.value=true
+                                _sendUserBackToMainActicvity.value=true
 
                         }
 
@@ -105,9 +111,13 @@ class RegistrationSharedViewModel(
                 _showToastSomethingWentWrongWithRegistration.value=false
         }
 
-        fun setMyUserRegistration1Fields(list:ArrayList<String?>){
+        fun setMyUserRegistration1Fields(list:ArrayList<String>){
                 userRegistration1Fields=list
                 Log.i(MYTAG,"lista je {$userRegistration1Fields")
+        }
+
+        fun userSentToMainActivity(){
+                _sendUserBackToMainActicvity.value=false
         }
 
 }

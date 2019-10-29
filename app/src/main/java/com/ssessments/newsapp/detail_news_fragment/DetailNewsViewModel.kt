@@ -18,7 +18,6 @@ class DetailNewsViewModel(val newsID:Int,
                           application: Application) : AndroidViewModel(application) {
 
 
-    //var user=database.getUser()
 
     private val _singleNewsData = MutableLiveData<NetworkSingleNewsItem>()
     val singleNewsData: LiveData<NetworkSingleNewsItem>
@@ -59,8 +58,8 @@ class DetailNewsViewModel(val newsID:Int,
 
             var defferedSingleNewsItem=NewsApi.retrofitService.postSingleNews(NetworkSingleNewsRequest(token,newsID))
             try {
-                var result:NetworkSingleNewsItem=defferedSingleNewsItem.await()
-                _singleNewsData.value=result
+                var result=defferedSingleNewsItem.await()
+                _singleNewsData.value=result.body()
                 _showProgressBar.value=false
 
             }catch (e:Exception){
@@ -68,9 +67,8 @@ class DetailNewsViewModel(val newsID:Int,
                 _showProgressBar.value=false
                 _showNetworkErrorMessage.value = true
                 //dok ne proradi server
-                val fakeData=MyDetailNewsFakeData()
-                _singleNewsData.value=NetworkSingleNewsItem(15,fakeData.title,fakeData.body,fakeData.TAGS,fakeData.time,
-                    fakeData.author,"neki url", "imageurl")
+                _singleNewsData.value=NetworkSingleNewsItem(15,"Naslov","<h2>Title</h2><br><p>Description here</p>", arrayOf("PE","China","Daily"),
+                  dateTime = TIME, author = AUTHOR,newsurl = "neki_url" ,imagesrc = "neki image_src")
             }
         }
     }

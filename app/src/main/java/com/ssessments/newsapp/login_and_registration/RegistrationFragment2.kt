@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -84,8 +85,15 @@ class RegistrationFragment2 : Fragment() {
 
         sharedViewModel.showToastRegistrationSent.observe(this,Observer{
             if(it){
-                Snackbar.make(binding.constraintLayoutusername,R.string.registration_sent,Snackbar.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(),R.string.registration_sent,Toast.LENGTH_LONG).show()
                 sharedViewModel.toastRegistrationSentIsShown()
+            }
+        })
+
+        sharedViewModel.sendUserBackToMainActicvity.observe(this,Observer{
+            if(it){
+                activity?.finish()
+                sharedViewModel.userSentToMainActivity()
             }
         })
 

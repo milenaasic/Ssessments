@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class NetworkSingleNewsItem (
 
-    @Json(name="newsID")
+    @Json(name="news_id")
     var newsID:Int,
 
     @Json(name="title")
@@ -14,18 +14,18 @@ data class NetworkSingleNewsItem (
     var body:String,
 
     @Json(name="tags")
-    var tags:String,
+    var tags:Array<String>,
 
-    @Json(name="datetime")
+    @Json(name="date_time")
     var dateTime:String,
 
     @Json(name="author")
     var author:String,
 
-    @Json(name="newsurl")
+    @Json(name="news_url")
     var newsurl:String,
 
-    @Json(name="imagesrc")
+    @Json(name="image_src")
     var imagesrc:String?
 
 

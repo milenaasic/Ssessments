@@ -72,54 +72,61 @@ class MainFragmentViewModel(
         }
     }
 
-   fun getFilteredNewsListFromServer(filter: NetworkNewsFilterObject,initializedFromSwipeRefresh:Boolean){
+   fun getFilteredNewsListFromServer(filter: NetworkNewsFilterObject,initializedFromSwipeRefresh:Boolean) {
 
-        if(!initializedFromSwipeRefresh)_showProgressBar.value=true
-        Log.i(mytag,("getFiltered news from server"))
+       if (!initializedFromSwipeRefresh) _showProgressBar.value = true
+       Log.i(mytag, ("getFiltered news from server"))
 
-        viewModelScope.launch {
-            var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
-            try {
-                var resultList = getPropertiesDeferred.await()
-                when{
-                    resultList.isEmpty()->insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-                    else->insertNewsIntoDatabase(resultList)
-                }
+       viewModelScope.launch {
+           var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
+           try {
+               var result = getPropertiesDeferred.await()
 
-                Log.i(mytag,("result je :$resultList"))
-                if(!initializedFromSwipeRefresh) _showProgressBar.value=false
-                else _swiperefreshfinished.value=true
+               if (result.body()?.count == 0) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
+               else {
+                   val array: Array<NetworkNewsItem>? = result.body()?.rows
+                   val mylist = array?.toList()
+                   Log.i(mytag, "ucitana i konvertovana lista je $mylist")
+                   insertNewsIntoDatabase(mylist ?: NO_RESULT_NETWORK_NEWS_LIST)
+               }
 
-            } catch (e: Exception) {
-                val responseError="Failure"+e.message
-                Log.i(mytag,("$responseError"))
+               Log.i(mytag, ("result je :${result.body()}"))
+               if (!initializedFromSwipeRefresh) _showProgressBar.value = false
+               else _swiperefreshfinished.value = true
 
-                when {
-                    responseError.contains(HTTP_AUTH_FAILED) -> {
-                        clearUser()
-                        _showToastAuthentificationFailed.value = true
-                        _goToLogInPage.value=true
-                    }
-                    else-> {
-                        _showToastNetworkError.value = true
-                        //dok ne proradi server
-                        //clearUser()
-                        //_showToastAuthentificationFailed.value = true
-                        //_goToLogInPage.value=true
-                    }
+           } catch (e: Exception) {
+
+               val responseError = e.message
+
+               Log.i(mytag, ("$responseError"))
+
+               if (!initializedFromSwipeRefresh) _showProgressBar.value = false
+               else _swiperefreshfinished.value = true
+
+               if (responseError.equals("")) {
+                   clearUser()
+                   _showToastAuthentificationFailed.value = true
+                   _goToLogInPage.value = true
+               } else {
+                   _showToastNetworkError.value = true
+                   //dok ne proradi server
+                   //clearUser()
+                   //_showToastAuthentificationFailed.value = true
+                   //_goToLogInPage.value=true*/
+               }
 
 
-                }
+           }
 
-                // proba dok ne proradi server
-                insertNewsIntoDatabase(getNewsItemArray())
-                //insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-                // ubaci praznu listu
-                if(!initializedFromSwipeRefresh) _showProgressBar.value=false
-                else _swiperefreshfinished.value=true
-            }
-        }
-    }
+           // proba dok ne proradi server
+           insertNewsIntoDatabase(getNewsItemArray())
+           //insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
+           // ubaci praznu listu
+           if (!initializedFromSwipeRefresh) _showProgressBar.value = false
+           else _swiperefreshfinished.value = true
+       }
+   }
+
 
     private fun insertNewsIntoDatabase(list:List<NetworkNewsItem>){
         if(list!=null) {

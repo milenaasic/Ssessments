@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.detail_news_fragment.*
 import android.net.Uri
 import android.os.Build
 import android.text.Html
+import android.text.TextUtils
 
 
 private const val MYTAG="MY_DETAIL_FRAGMENT"
@@ -44,7 +45,7 @@ class DetailNews() : Fragment() {
     private lateinit var args:DetailNewsArgs
     private lateinit var mydetailNews:NetworkSingleNewsItem
 
-    private lateinit var newsUrl:String
+    //private lateinit var newsUrl:String
 
 
     //SCALE TEXT
@@ -77,28 +78,19 @@ class DetailNews() : Fragment() {
         binding= DataBindingUtil.inflate(inflater,R.layout.detail_news_fragment,container,false)
 
 
-        /*viewModel.user.observe(this, Observer{
-            Log.i(MYTAG,"user je ${it}")
-            val token:String=it?.token?:EMPTY_TOKEN
-            viewModel.getDetailNews(token)
-        })*/
-
         viewModel.singleNewsData.observe(this,Observer{
             mydetailNews=it
             binding.apply {
 
+                title.setText(it.title)
+                timeDate.setText(it.dateTime)
+                author_textView.setText(it.author)
+                tags_textView.setText(TextUtils.join(",",it.tags))
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    title.setText(Html.fromHtml(it.title, Html.FROM_HTML_MODE_COMPACT))
-                    timeDate.setText(Html.fromHtml(it.dateTime, Html.FROM_HTML_MODE_COMPACT))
                     newsBody.setText(Html.fromHtml(it.body, Html.FROM_HTML_MODE_COMPACT))
-                    author_textView.setText(Html.fromHtml(it.author, Html.FROM_HTML_MODE_COMPACT))
-                    tags_textView.setText(Html.fromHtml(it.tags, Html.FROM_HTML_MODE_COMPACT))
                 } else {
-                    title.setText(Html.fromHtml(it.title))
-                    timeDate.setText(Html.fromHtml(it.dateTime))
                     newsBody.setText(Html.fromHtml(it.body))
-                    author_textView.setText(Html.fromHtml(it.author))
-                    tags_textView.setText(Html.fromHtml(it.tags))
                 }
             }
         })

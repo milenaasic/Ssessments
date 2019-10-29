@@ -70,7 +70,7 @@ fun convertNetworkToDatabaseNewsItem(networkNewsList:List<NetworkNewsItem>):List
     for(item in networkNewsList){
 
         resultList.add(NewsItem(0L,item.newsID,item.title,TextUtils.join(",",item.tags),item.date_time,item.access))
-        Log.i("konverzije","iz string array u string ${TextUtils.join(",",item.tags)}")
+        //Log.i("konverzije","iz string array u string ${TextUtils.join(",",item.tags)}")
 
     }
     return resultList

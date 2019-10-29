@@ -9,8 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.database.UserData
+import com.ssessments.newsapp.network.NetworkForgotPasswordRequest
 import com.ssessments.newsapp.network.NetworkUserData
+import com.ssessments.newsapp.network.NetworkUserDataResponse
 import com.ssessments.newsapp.network.NewsApi
+import com.ssessments.newsapp.utilities.EMPTY_TOKEN
 import com.ssessments.newsapp.utilities.isOnline
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -69,16 +72,18 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
             viewModelScope.launch {
                 with(Dispatchers.IO){
+
                 val userFirebaseID = database.getUserNoLiveData().firebaseID
                 var loginuserdeferred = NewsApi.retrofitService.postUserLogIn(NetworkUserData(username, password))
 
                 try {
                     //uspesan login vraca mi se token kao String
-                    var resulttoken = loginuserdeferred.await()
+                    var result = loginuserdeferred.await()
+                    val receivedToken=result.body()?.token?: EMPTY_TOKEN
 
                     //vratio se token upisi korisnika u bazu i vrati ga na mainactivity
                     withContext(Dispatchers.IO) {
-                        database.updateUser(UserData(username = username, password = password, token = resulttoken,firebaseID = userFirebaseID))
+                        database.updateUser(UserData(username = username, password = password, token = receivedToken,firebaseID = userFirebaseID))
 
                     }
                     _showProgressBar.value = false
@@ -87,8 +92,8 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                     //posalji usera u main fragment
                     _sendUserToHomeFragment.value = true
 
-                } catch (t: Throwable) {
-                    Log.i(MY_TAG, "poruka network greska ${t.message}")
+                } catch (e: Exception) {
+                    Log.i(MY_TAG, "poruka network greska ${e.message}")
                     _showProgressBar.value = false
                     _showToastSomethingWentWrong.value = true
 
@@ -115,7 +120,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
             viewModelScope.launch {
 
-                var getResultDeferred = NewsApi.retrofitService.postForgotPassword(usermail)
+                var getResultDeferred = NewsApi.retrofitService.postForgotPassword(NetworkForgotPasswordRequest(usermail))
                 try {
                     var result = getResultDeferred.await()
                     _showProgressBar.value = false
