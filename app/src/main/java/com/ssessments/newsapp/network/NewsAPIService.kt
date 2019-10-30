@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL ="http://192.168.1.6:3000/"
+private const val BASE_URL ="http://dev-ssapi.upconfig.com/"
 
 private val moshi= Moshi.Builder()
                     .add(KotlinJsonAdapterFactory())
