@@ -73,7 +73,9 @@ class RegistrationSharedViewModel(
                 viewModelScope.launch {
                         var getResultDeferred = NewsApi.retrofitService.postUserRegistration(userRegData)
                         try {
+
                                 var result = getResultDeferred.await()
+                                Log.i(MYTAG,"result je: ${result}")
                                 _showProgressBarRegistration.value=false
                                 _showToastRegistrationSent.value=true
                                 _sendUserBackToMainActicvity.value=true
@@ -81,12 +83,9 @@ class RegistrationSharedViewModel(
                         } catch (e: Exception) {
                                 Log.i(MYTAG,"Failure is: ${e.message}")
                                 _showProgressBarRegistration.value=false
-                                //_showToastSomethingWentWrongWithRegistration.value=true
-                                _showToastRegistrationSent.value=true
-                                _sendUserBackToMainActicvity.value=true
+                                _showToastSomethingWentWrongWithRegistration.value=true
 
                         }
-
                 }
 
         }

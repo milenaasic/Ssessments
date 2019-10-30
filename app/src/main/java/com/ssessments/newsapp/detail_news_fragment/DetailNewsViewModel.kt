@@ -57,18 +57,18 @@ class DetailNewsViewModel(val newsID:Int,
             Log.i(MYTAG," token detail news je ${token}")
 
             var defferedSingleNewsItem=NewsApi.retrofitService.postSingleNews(NetworkSingleNewsRequest(token,newsID))
+
             try {
                 var result=defferedSingleNewsItem.await()
-                _singleNewsData.value=result.body()
+                _singleNewsData.value=result
                 _showProgressBar.value=false
 
             }catch (e:Exception){
-                val responseError = "Failure " + e.message
+                val responseMessage:String?=e.message
+                Log.i(MYTAG,"response greska $responseMessage")
                 _showProgressBar.value=false
                 _showNetworkErrorMessage.value = true
-                //dok ne proradi server
-                _singleNewsData.value=NetworkSingleNewsItem(15,"Naslov","<h2>Title</h2><br><p>Description here</p>", arrayOf("PE","China","Daily"),
-                  dateTime = TIME, author = AUTHOR,newsurl = "neki_url" ,imagesrc = "neki image_src")
+
             }
         }
     }

@@ -13,6 +13,7 @@ import com.ssessments.newsapp.network.NetworkForgotPasswordRequest
 import com.ssessments.newsapp.network.NetworkUserData
 import com.ssessments.newsapp.network.NetworkUserDataResponse
 import com.ssessments.newsapp.network.NewsApi
+import com.ssessments.newsapp.utilities.EMPTY_FIREBASEID
 import com.ssessments.newsapp.utilities.EMPTY_TOKEN
 import com.ssessments.newsapp.utilities.isOnline
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +50,10 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
     val showToastForgotPasswordHandeled: LiveData<Boolean>
         get() = _showToastForgotPasswordHandeled
 
+    private val _showToastWrongPasswordOrUsername = MutableLiveData<Boolean>()
+    val showToastWrongPasswordOrUsername: LiveData<Boolean>
+        get() = _showToastWrongPasswordOrUsername
+
 
     init {
         //_showProgressBar.value=false
@@ -69,7 +74,6 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
     fun signInThisUser(username: String, password: String) {
 
-
             viewModelScope.launch {
                 with(Dispatchers.IO){
 
@@ -77,9 +81,10 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 var loginuserdeferred = NewsApi.retrofitService.postUserLogIn(NetworkUserData(username, password))
 
                 try {
-                    //uspesan login vraca mi se token kao String
+
                     var result = loginuserdeferred.await()
-                    val receivedToken=result.body()?.token?: EMPTY_TOKEN
+                    Log.i(MY_TAG, "result je ${result}")
+                    val receivedToken=result.token
 
                     //vratio se token upisi korisnika u bazu i vrati ga na mainactivity
                     withContext(Dispatchers.IO) {
@@ -88,30 +93,28 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                     }
                     _showProgressBar.value = false
                     _showToastUserLoggedIN.value = true
-
-                    //posalji usera u main fragment
                     _sendUserToHomeFragment.value = true
 
                 } catch (e: Exception) {
                     Log.i(MY_TAG, "poruka network greska ${e.message}")
                     _showProgressBar.value = false
-                    _showToastSomethingWentWrong.value = true
 
-                    //proba dok ne proradi server-obrisi posle
-                    withContext(Dispatchers.IO) {
+                    val responseMessage:String?=e.message
 
-                        database.updateUser(UserData(username = username, password = password, token = "12345token"))
-                        Log.i(MY_TAG, "upisan user je ${database.getUserNoLiveData()}")
+                    if(responseMessage!=null){
 
-                    }
-                    _showProgressBar.value = false
-                    _showToastUserLoggedIN.value = true
-                    _sendUserToHomeFragment.value = true
+                           if(responseMessage.contains("401")) _showToastWrongPasswordOrUsername.value=true
+                           else _showToastSomethingWentWrong.value=true
+
+                    }else _showToastSomethingWentWrong.value = true
+
+                }
+
                 }
             }
 
         }
-    }
+
 
         //Forgot password
         fun sendForgotPasswordEmail(usermail: String) {
@@ -123,12 +126,15 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 var getResultDeferred = NewsApi.retrofitService.postForgotPassword(NetworkForgotPasswordRequest(usermail))
                 try {
                     var result = getResultDeferred.await()
+                    Log.i(MY_TAG, "forgot password result: ${result}")
                     _showProgressBar.value = false
                     _showToastForgotPasswordHandeled.value = true
 
                 } catch (e: Exception) {
-                    Log.i(MY_TAG, "Failure is: ${e.message}")
+                    Log.i(MY_TAG, "forgot password Failure is: ${e.message}")
+
                     _showProgressBar.value = false
+
                     _showToastSomethingWentWrong.value = true
 
                 }
@@ -155,5 +161,10 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
         fun toastForgotPaswordHandledIsShown() {
             _showToastForgotPasswordHandeled.value = false
         }
+
+        fun toastWrongPasswordOrUsernameIsShown(){
+            _showToastWrongPasswordOrUsername.value=false
+        }
+
 
 }

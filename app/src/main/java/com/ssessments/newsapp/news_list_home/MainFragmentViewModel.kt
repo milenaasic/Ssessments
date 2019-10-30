@@ -78,52 +78,43 @@ class MainFragmentViewModel(
        Log.i(mytag, ("getFiltered news from server"))
 
        viewModelScope.launch {
-           var getPropertiesDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
+           var getDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
+
            try {
-               var result = getPropertiesDeferred.await()
 
-               if (result.body()?.count == 0) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-               else {
-                   val array: Array<NetworkNewsItem>? = result.body()?.rows
-                   val mylist = array?.toList()
-                   Log.i(mytag, "ucitana i konvertovana lista je $mylist")
-                   insertNewsIntoDatabase(mylist ?: NO_RESULT_NETWORK_NEWS_LIST)
-               }
+               var resultList = getDeferred.await()
 
-               Log.i(mytag, ("result je :${result.body()}"))
+               Log.i(mytag, "result get fileters list body je $resultList")
+
+               if (resultList.isEmpty()) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
+                else insertNewsIntoDatabase(resultList)
+
                if (!initializedFromSwipeRefresh) _showProgressBar.value = false
                else _swiperefreshfinished.value = true
 
            } catch (e: Exception) {
 
-               val responseError = e.message
+               val responseMessage:String?=e.message
 
-               Log.i(mytag, ("$responseError"))
+               Log.i(mytag, ("$responseMessage"))
 
                if (!initializedFromSwipeRefresh) _showProgressBar.value = false
                else _swiperefreshfinished.value = true
 
-               if (responseError.equals("")) {
-                   clearUser()
-                   _showToastAuthentificationFailed.value = true
-                   _goToLogInPage.value = true
-               } else {
-                   _showToastNetworkError.value = true
-                   //dok ne proradi server
-                   //clearUser()
-                   //_showToastAuthentificationFailed.value = true
-                   //_goToLogInPage.value=true*/
-               }
+               if(responseMessage!=null) {
 
+                   if (responseMessage.contains("401")) {
+                       clearUser()
+                       _showToastAuthentificationFailed.value = true
+                       _goToLogInPage.value = true
+                   } else {
+                       _showToastNetworkError.value = true
+
+                   }
+               }
 
            }
 
-           // proba dok ne proradi server
-           insertNewsIntoDatabase(getNewsItemArray())
-           //insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-           // ubaci praznu listu
-           if (!initializedFromSwipeRefresh) _showProgressBar.value = false
-           else _swiperefreshfinished.value = true
        }
    }
 

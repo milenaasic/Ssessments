@@ -363,10 +363,7 @@ class MainActivity : AppCompatActivity(){
     override fun onStart() {
         super.onStart()
         Log.i(TAG_MAIN,"main activity on start")
-        Log.i(TAG_MAIN,"log in user iz view modela je ${viewModel.loggedInUser.value}")
-        Log.i(TAG_MAIN,"log in user iy myUser je $myUser")
-        //val user=viewModel.loggedInUser.value
-        //if(user!=null) viewModel.setNotificationsFromServer(user.token)
+        binding.myNavigationView.menu.findItem (R.id.goto_ssessments_linkedIn).setChecked(false)
 
     }
 

@@ -124,8 +124,15 @@ class LogIn_Fragment : Fragment() {
 
         viewModel.showToastUserLoggedIN.observe(this,Observer{
             if(it){
-                Snackbar.make(binding.rootConstLayout,R.string.loggedin,Snackbar.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(),R.string.loggedin,Toast.LENGTH_LONG).show()
                 viewModel.toastLoggedInUserIsShown()
+            }
+        })
+
+        viewModel.showToastWrongPasswordOrUsername.observe(this,Observer{
+            if(it){
+                Snackbar.make(binding.rootConstLayout,R.string.WrongPasswordorUsername,Snackbar.LENGTH_LONG).show()
+                viewModel.toastWrongPasswordOrUsernameIsShown()
             }
         })
 

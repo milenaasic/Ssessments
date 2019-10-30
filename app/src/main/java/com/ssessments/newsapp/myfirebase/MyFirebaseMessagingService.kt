@@ -132,25 +132,27 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun sendRegistrationToServer(token: String) {
 
         serviceScope.launch {
+            withContext(Dispatchers.IO) {
+                val datasource = NewsDatabase.getInstance(application).newsDatabaseDao
+                val user = datasource.getUserNoLiveData()
+                Log.i(TAG, "user je $user")
+                if (user != null) {
+                    if (user.token != EMPTY_TOKEN) {
+                        var sendIdDeferred =
+                            NewsApi.retrofitService.postUserLogIn(NetworkUserData(user.username, user.password))
 
-            val datasource= NewsDatabase.getInstance(application).newsDatabaseDao
-            val user=datasource.getUserNoLiveData()
-            Log.i(TAG,"user je $user")
-            if(user!=null){
-                if(user.token!= EMPTY_TOKEN){
-                    var sendIdDeferred=NewsApi.retrofitService.postUserLogIn(NetworkUserData(user.username,user.password))
+                        try {
+                            val result = sendIdDeferred.await()
 
-                    try {
-                        val result=sendIdDeferred.await()
+                        } catch (e: Exception) {
 
-                    }catch (e:Exception){
-
-                        Log.i(TAG,"greska prilikom slanja ${e.message}")
+                            Log.i(TAG, "greska prilikom slanja ${e.message}")
+                        }
                     }
                 }
-            }
 
-         }
+            }
+        }
 
     }
 

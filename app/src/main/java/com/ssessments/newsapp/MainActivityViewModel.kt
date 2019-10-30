@@ -54,41 +54,14 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     val swipeRefreshEnabled: LiveData<Boolean>
         get() = _swipeRefreshEnabled
 
-    /*private val _navigateUpToMainFragment = MutableLiveData<Boolean>()
-    val navigateUpToMainFragment: LiveData<Boolean>
-        get() = _navigateUpToMainFragment*/
-
-    /*fun navigationToMainFragmentFinished(){
-        _navigateUpToMainFragment.value=false
-    }*/
 
     init {
-        trylocalHost()
         initializeUser()
         initializeCurrentFilterTable()
         initializeNewsListWithNoResultRow()
         _swipeRefreshEnabled.value=true
     }
 
-    private fun trylocalHost() {
-
-        viewModelScope.launch {
-
-            var getPropertiesDeferred = NewsApi.retrofitService.getTestValuesFromLocalServer()
-
-            try {
-                var listResult = getPropertiesDeferred.await()
-               val niz=listResult.body()
-                Log.i(MY_TAG, ("response je :$listResult"))
-                // Log.i(MY_TAG, ("result je :${listResult.body()}"))
-
-            } catch (e: Exception) {
-                val responseError = "Failure " + e.message
-                Log.i(MY_TAG, ("iz try local hostY: $responseError"))
-
-            }
-        }
-    }
 
     private fun initializeNewsListWithNoResultRow() {
         viewModelScope.launch {
@@ -149,7 +122,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
     private fun updateCurrentFilterInDatabase(filter:CurrentFilter){
         viewModelScope.launch {
-            with(Dispatchers.IO){
+            withContext(Dispatchers.IO){
                 database.updateCurrentFilter(filter)}
             Log.i(MY_TAG, "filter iz notifikacija je $filter")
         }
@@ -162,48 +135,39 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
         val mytoken=loggedInUser.value?.token ?: EMPTY_TOKEN
 
         viewModelScope.launch {
+
             var getDeferred = NewsApi.retrofitService.postCustomSearchNewsList(NetworkCustomSearchFilterObject(token=mytoken,searchBy = searchString))
+
             try {
-                var result = getDeferred.await()
-                Log.i(MY_TAG, ("result je :${result.body()}"))
+                var resultList = getDeferred.await()
+                Log.i(MY_TAG, ("result je :${resultList}"))
 
-                if (result.body()?.count == 0) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
-                else {
-                    val array: Array<NetworkNewsItem>? = result.body()?.rows
-                    val mylist = array?.toList()
-                    Log.i(MY_TAG, "ucitana i konvertovana lista je $mylist")
-                    insertNewsIntoDatabase(mylist ?: NO_RESULT_NETWORK_NEWS_LIST)
-                }
+                if(resultList.isEmpty()) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
+                else insertNewsIntoDatabase(resultList)
 
-                 _showProgressBarMainActivity.value = false
+                _closeSearchWidget.value=true
+                _showProgressBarMainActivity.value = false
 
             } catch (e: Exception) {
-                val responseError = "Failure " + e.message
-                Log.i(MY_TAG, ("iz custom search: $responseError"))
 
-                when {
-                    responseError.contains(HTTP_AUTH_FAILED) -> {
-                                                                        clearUser()
-                                                                        _showAuthentificationFailedMessage.value = true
-                                                                        _closeSearchWidget.value=true
-                                                                        _goToLogInPage.value=true
-                                                                    }
-                    else-> { _networkErrorMainActivity.value = true
-                        //dok ne proradi server
-                        //clearUser()
-                        //_closeSearchWidget.value=true
-                         //_showAuthentificationFailedMessage.value = true
-                        //_goToLogInPage.value=true
-                    }
-
-
-                }
-
-                // proba dok ne proradi server
-                //insertNewsIntoDatabase(getNewsItemArray())
-                // ubaci praznu listu
-                insertNewsIntoDatabase(mutableListOf())
                 _showProgressBarMainActivity.value = false
+
+                val responseMessage:String?=e.message
+                Log.i(MY_TAG, ("iz custom search: $responseMessage"))
+
+                if(responseMessage!=null){
+
+                    if(responseMessage.contains("401")) {
+
+                        clearUser()
+                        _showAuthentificationFailedMessage.value = true
+                        _closeSearchWidget.value=true
+                        _goToLogInPage.value=true
+
+                    }else  _networkErrorMainActivity.value = true
+
+                }else  _networkErrorMainActivity.value = true
+
             }
         }
     }
@@ -235,19 +199,18 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
                 } catch (e: Exception) {
                     val responseError = "Failure " + e.message
-                    when {
-                        responseError.contains(HTTP_AUTH_FAILED) -> {
+                   if (responseError.contains(HTTP_AUTH_FAILED)){
                             Log.i(MY_TAG, "network pref object je $responseError")
                         }
-                        else -> {
+                        else{
                             Log.i(MY_TAG, "network pref object je $responseError")
                         }
-                    }
                 }
             }
         }
-
     }
+
+
 
     fun setSwipeRefreshEnabled(bool:Boolean){
         _swipeRefreshEnabled.value=bool
