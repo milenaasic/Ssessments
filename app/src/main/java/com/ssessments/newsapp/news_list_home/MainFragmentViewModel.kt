@@ -7,6 +7,7 @@ import com.ssessments.newsapp.data.fakeNetworkNewFilterOBject
 import com.ssessments.newsapp.data.getNewsItemArray
 import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabaseDao
+import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
 import com.ssessments.newsapp.network.NetworkNewsItem
 import com.ssessments.newsapp.network.NewsApi
@@ -104,7 +105,7 @@ class MainFragmentViewModel(
                if(responseMessage!=null) {
 
                    if (responseMessage.contains("401")) {
-                       clearUser()
+                       clearUsernameAndPassword()
                        _showToastAuthentificationFailed.value = true
                        _goToLogInPage.value = true
                    } else {
@@ -123,6 +124,7 @@ class MainFragmentViewModel(
         if(list!=null) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
+
                     database.clearNewsTable()
                     database.insertNews(convertNetworkToDatabaseNewsItem(list))
                 }
@@ -130,13 +132,14 @@ class MainFragmentViewModel(
         }
     }
 
-    fun clearUser(){
+    fun clearUsernameAndPassword(){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                database.clearUserDataTable()
-                Log.i(mytag, "claer user table}")
+                val user=database.getUserNoLiveData()
+                database.updateUser(UserData(firebaseID =user.firebaseID ))
+                Log.i(mytag, "claer username and password user table}")
                 val a=database.getUser()
-                Log.i(mytag,"posle clear getUser daje $a.value")
+                Log.i(mytag,"posle username and password getUser daje $a.value")
             }
         }
 

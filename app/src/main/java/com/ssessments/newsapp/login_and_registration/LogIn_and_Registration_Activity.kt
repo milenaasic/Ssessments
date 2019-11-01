@@ -40,4 +40,9 @@ class LogIn_and_Registration_Activity : AppCompatActivity() {
 
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
 }

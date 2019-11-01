@@ -32,6 +32,7 @@ class LogIn_Fragment : Fragment() {
 
     private lateinit var binding:FragmentLogInBinding
     private lateinit var viewModel:LogIn_ViewModel
+    var myalertDialog:AlertDialog?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +89,7 @@ class LogIn_Fragment : Fragment() {
             val myinflater = this.layoutInflater
             val dialogView = myinflater.inflate(R.layout.forgot_password_dialog_layout, null)
 
-            alertDialog.setView(dialogView).setCancelable(true).create()
+             myalertDialog=alertDialog.setView(dialogView).setCancelable(true).setTitle("Enter your contact e-mail address.").create()
 
             alertDialog.setPositiveButton("SEND", DialogInterface.OnClickListener{ dialog, id ->
 
@@ -199,6 +200,14 @@ class LogIn_Fragment : Fragment() {
         super.onStop()
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+            if(myalertDialog!=null) {
+            myalertDialog?.dismiss()}
+
+    }
+
 }
 
     fun isPasswordValid(password:String):Boolean{

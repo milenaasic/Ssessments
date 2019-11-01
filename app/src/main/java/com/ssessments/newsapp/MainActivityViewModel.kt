@@ -103,7 +103,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
     }
 
-    fun clearUser(){
+    fun clearUsernameAndPassword(){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val myFirebaseid=database.getUserNoLiveData().firebaseID
@@ -159,7 +159,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
                     if(responseMessage.contains("401")) {
 
-                        clearUser()
+                        clearUsernameAndPassword()
                         _showAuthentificationFailedMessage.value = true
                         _closeSearchWidget.value=true
                         _goToLogInPage.value=true
@@ -188,7 +188,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     fun sendNotificationPreferencesToServer(token:String,entries:MutableMap<String,*>){
 
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
+            with(Dispatchers.IO) {
                 val networkPrefObject = convertMutableListToNetworkNotificationsObject(token, entries)
                 Log.i(MY_TAG, "network pref object je $networkPrefObject")
 

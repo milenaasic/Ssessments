@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity(){
 
                 R.id.logout_menuitem ->{
                     menuItem.setChecked(true)
-                    viewModel.clearUser()
+                    viewModel.clearUsernameAndPassword()
                     binding.myDrawerLayout.closeDrawers()
                     menuItem.setVisible(false)
                     true}
