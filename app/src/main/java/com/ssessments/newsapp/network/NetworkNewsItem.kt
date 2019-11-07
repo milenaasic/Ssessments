@@ -17,6 +17,6 @@ data class NetworkNewsItem (
     var date_time:String,
 
     @Json(name="access")
-    var access:String
+    var access:String="access"
 
 )

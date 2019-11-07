@@ -77,7 +77,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
             viewModelScope.launch {
 
                 val userFirebaseID = database.getUserNoLiveData()?.firebaseID?: EMPTY_FIREBASEID
-                var loginuserdeferred = NewsApi.retrofitService.postUserLogIn(NetworkUserData(username, password))
+                var loginuserdeferred = NewsApi.retrofitService.postUserLogIn(NetworkUserData(username, password,userFirebaseID))
 
                 try {
 

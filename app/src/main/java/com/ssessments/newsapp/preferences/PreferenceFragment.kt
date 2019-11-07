@@ -22,7 +22,7 @@ private const val MYTAG="PREFERENCE FRAGMRNT"
 class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
-    private lateinit var lastSavedValues:MutableMap<String,*>
+    private lateinit var lastSavedValues:Map<String,Boolean>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
             ViewModelProviders.of(this)[MainActivityViewModel::class.java]
         }
 
-        lastSavedValues =PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
+        lastSavedValues =PreferenceManager.getDefaultSharedPreferences(requireActivity()).all as Map<String, Boolean>
 
     }
 
@@ -210,24 +210,17 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
 
     override fun onStop() {
         super.onStop()
-        val user=mainActivityViewModel.loggedInUser.value
-        Log.i(MYTAG,"user iz main viewmodela je $user")
-        if(user!=null){
-            if(user.token!= EMPTY_TOKEN) {
-                sendNotificationsToServer(user.token)
-            }
-            //privremeno
-            sendNotificationsToServer(user.token)
-        }
-
-
+        sendNotificationsToServer()
 
     }
 
-    private fun sendNotificationsToServer(token: String) {
+    private fun sendNotificationsToServer() {
 
         val newValues=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
-        mainActivityViewModel.sendNotificationPreferencesToServer(token,newValues)
+        Log.i(MYTAG,"newValues jednako old ${newValues.equals(lastSavedValues)}")
+        if(!newValues.equals(lastSavedValues)){
+            mainActivityViewModel.sendNotificationPreferencesToServer(newValues)
+         }
 
     }
 

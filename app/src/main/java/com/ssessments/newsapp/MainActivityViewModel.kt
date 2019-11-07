@@ -10,10 +10,7 @@ import com.ssessments.newsapp.data.getNewsItemArray
 import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.database.UserData
-import com.ssessments.newsapp.network.NetworkCustomSearchFilterObject
-import com.ssessments.newsapp.network.NetworkNewsItem
-import com.ssessments.newsapp.network.NetworkNotificatiosObject
-import com.ssessments.newsapp.network.NewsApi
+import com.ssessments.newsapp.network.*
 import com.ssessments.newsapp.utilities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,7 +56,74 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
         initializeUser()
         initializeCurrentFilterTable()
         initializeNewsListWithNoResultRow()
+        getNotificationPreferencesFromServer()
         _swipeRefreshEnabled.value=true
+    }
+
+    private fun getNotificationPreferencesFromServer() {
+
+        viewModelScope.launch {
+
+            val myuser=database.getUserNoLiveData()
+
+            if(!(myuser==null || myuser.token== EMPTY_TOKEN)){
+
+                var getDeferred = NewsApi.retrofitService.getNotificationPreferencesFromServer(
+                    NetworkRequestGetNotifPref(myuser.token)
+                )
+
+                try {
+                    var resultList = getDeferred.await()
+                    Log.i(MY_TAG, ("result je :${resultList}"))
+                    if(!(resultList.isNullOrEmpty())) setUserNotificationPreferences(resultList)
+
+                } catch (e: Exception) {
+                    val responseMessage:String?=e.message
+                    Log.i(MY_TAG, ("get notification pref from server: $responseMessage"))
+
+                }
+            }
+
+        }
+    }
+
+    private fun setUserNotificationPreferences(resultList: List<NetworkSinglePreference>) {
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+
+                val defSharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication())
+                val editor: SharedPreferences.Editor = defSharedPref.edit()
+
+                loop@
+                for(value in resultList) {
+
+                    for (index in 0..Markets.values().size - 2) {
+                        val s: String = Markets.values()[index + 1].toString().toLowerCase()
+                        if (value.preferenceKey.equals(s)) {
+                            editor.putBoolean(s, value.preferenceValue)
+
+                        }
+                    }
+
+                    for (index in 0..Products.values().size - 2) {
+                        val s: String = Products.values()[index + 1].toString().toLowerCase()
+                        if (value.preferenceKey.equals(s)) {
+                            editor.putBoolean(s, value.preferenceValue)
+                        }
+                    }
+
+                    for (index in 0..Ssessments.values().size - 2) {
+                        val s: String = Ssessments.values()[index + 1].toString().toLowerCase()
+                        if (value.preferenceKey.equals(s)) {
+                            editor.putBoolean(s, value.preferenceValue)
+                        }
+                    }
+                }
+
+                editor.apply()
+            }
+        }
     }
 
 
@@ -80,7 +144,8 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
             withContext(Dispatchers.IO) {
                 Log.i(MY_TAG, "initialize user")
                 when (database.getNumberOfUsers()){
-                    0-> database.insertUser(UserData())
+                    0->{database.insertUser(UserData())
+                        Log.i(MY_TAG,"user u tabeli u init Viewmodel je ${database.getUserNoLiveData()}")}
                     1->return@withContext}
 
                 Log.i(MY_TAG,"user u tabeli u init Viewmodel je ${database.getUserNoLiveData()}")
@@ -185,27 +250,41 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     }
 
 
-    fun sendNotificationPreferencesToServer(token:String,entries:MutableMap<String,*>){
+    fun sendNotificationPreferencesToServer(entries:MutableMap<String,*>){
 
-        viewModelScope.launch {
-            with(Dispatchers.IO) {
-                val networkPrefObject = convertMutableListToNetworkNotificationsObject(token, entries)
-                Log.i(MY_TAG, "network pref object je $networkPrefObject")
+        /*val singlePreferencesArray2 = convertMutableListToSinglePreferencesArray(entries)
+        Log.i(MY_TAG, "send Notif notif object array ${singlePreferencesArray2.size}")
+        Log.i(MY_TAG, "send Notif notif object array niz ${singlePreferencesArray2.get(0).toString()}")
+        Log.i(MY_TAG, "send Notif notif object array niz ${singlePreferencesArray2.get(8).toString()}")*/
 
-                var getValuesDeferred = NewsApi.retrofitService.sendNotificationPreferencesToServer(networkPrefObject)
+        val mytoken=loggedInUser.value?.token ?: EMPTY_TOKEN
+        Log.i(MY_TAG, "sendNotif $mytoken")
+
+        if(mytoken!=null && mytoken!= EMPTY_TOKEN) {
+
+            Log.i(MY_TAG, "sendNotif $mytoken")
+
+            viewModelScope.launch {
+
+                val singlePreferencesArray = convertMutableListToSinglePreferencesArray(entries)
+                Log.i(MY_TAG, "network pref object je $singlePreferencesArray")
+
+                var getValuesDeferred = NewsApi.retrofitService.sendNotificationPreferencesToServer(
+                    NetworkPreferencesObject(mytoken, arrayOf(NetworkSinglePreference("key", true)))
+                )
 
                 try {
                     var result = getValuesDeferred.await()
 
                 } catch (e: Exception) {
                     val responseError = "Failure " + e.message
-                   if (responseError.contains(HTTP_AUTH_FAILED)){
-                            Log.i(MY_TAG, "network pref object je $responseError")
-                        }
-                        else{
-                            Log.i(MY_TAG, "network pref object je $responseError")
-                        }
+                    if (responseError.contains(HTTP_AUTH_FAILED)) {
+                        Log.i(MY_TAG, "network pref object je $responseError")
+                    } else {
+                        Log.i(MY_TAG, "network pref object je $responseError")
+                    }
                 }
+
             }
         }
     }

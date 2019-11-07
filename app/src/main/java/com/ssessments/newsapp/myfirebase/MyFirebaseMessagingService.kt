@@ -18,7 +18,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.ssessments.newsapp.MainActivity
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
-import com.ssessments.newsapp.network.NetworkNotificatiosObject
+import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.network.NetworkUserData
 import com.ssessments.newsapp.network.NewsApi
 import com.ssessments.newsapp.utilities.EMPTY_TOKEN
@@ -40,7 +40,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         private const val TAG = "MyFirebaseMsgService"
         //tip poruke
         private const val MESSAGE_TYPE_KEY="type"
-        private const val MESSAGE_TYPE_VALUE_NOTIFICATIONS="notifications"
+        //private const val MESSAGE_TYPE_VALUE_NOTIFICATIONS="notifications"
         private const val MESSAGE_TYPE_VALUE_NEWS="news"
         //json nazivi iz notifikacije za novu vest
         private const val NEWS_TITLE="title"
@@ -75,10 +75,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Log.d(TAG, "Message data payload: " + remoteMessage.data)
             // Handle message within 10 seconds
 
-            if (remoteMessage.data.get(MESSAGE_TYPE_KEY).equals(MESSAGE_TYPE_VALUE_NOTIFICATIONS)) {
+           /* if (remoteMessage.data.get(MESSAGE_TYPE_KEY).equals(MESSAGE_TYPE_VALUE_NOTIFICATIONS)) {
                 Log.d(TAG, "Message type: " + remoteMessage.data.get(MESSAGE_TYPE_KEY))
                 setNotifications(remoteMessage)
-            }
+            }*/
 
             if (remoteMessage.data.get(MESSAGE_TYPE_KEY).equals(MESSAGE_TYPE_VALUE_NEWS)) {
                 Log.d(TAG, "Message type: " + remoteMessage.data.get(MESSAGE_TYPE_KEY))
@@ -113,7 +113,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
-
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
@@ -129,26 +128,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      *
      * @param token The new token.
      */
-    private fun sendRegistrationToServer(token: String) {
+    private fun sendRegistrationToServer(firebasetoken: String) {
 
         serviceScope.launch {
             withContext(Dispatchers.IO) {
                 val datasource = NewsDatabase.getInstance(application).newsDatabaseDao
                 val user = datasource.getUserNoLiveData()
                 Log.i(TAG, "user je $user")
+
                 if (user != null) {
-                    if (user.token != EMPTY_TOKEN) {
-                        var sendIdDeferred =
-                            NewsApi.retrofitService.postUserLogIn(NetworkUserData(user.username, user.password))
+                    datasource.updateUser(UserData(username=user.username,password = user.password,token=user.token,firebaseID =firebasetoken))
 
-                        try {
-                            val result = sendIdDeferred.await()
-
-                        } catch (e: Exception) {
-
-                            Log.i(TAG, "greska prilikom slanja ${e.message}")
-                        }
-                    }
                 }
 
             }
@@ -196,7 +186,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
 
-    fun setNotifications(remoteMessage: RemoteMessage) {
+    /*fun setNotifications(remoteMessage: RemoteMessage) {
         Log.d(TAG, "set notifications metod: " + remoteMessage.data)
 
                 val defSharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication())
@@ -225,12 +215,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
                 editor.apply()
 
-    }
+    }*/
 
 
     override fun onDestroy() {
         super.onDestroy()
         serviceJob.cancel()
+        Log.d(TAG, "onDestroy")
     }
 
 }

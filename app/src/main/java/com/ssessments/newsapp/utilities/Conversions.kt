@@ -8,7 +8,7 @@ import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.FilterItem
 import com.ssessments.newsapp.database.PredefinedFilter
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
-import com.ssessments.newsapp.network.NetworkNotificatiosObject
+import com.ssessments.newsapp.network.NetworkSinglePreference
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,10 +20,37 @@ val dateFormatNoHours: SimpleDateFormat = SimpleDateFormat("dd MMM yyyy")
 val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
 
 
-fun convertMutableListToNetworkNotificationsObject(token:String,entries:MutableMap<String,*>):NetworkNotificatiosObject{
+fun convertMutableListToSinglePreferencesArray(entries:MutableMap<String,*>):Array<NetworkSinglePreference>{
 
-    return NetworkNotificatiosObject(token=token,
-                                    sea = entries.get("sea") as Boolean,
+    var list= mutableListOf<NetworkSinglePreference>()
+
+
+    for (index in 0..Markets.values().size - 2) {
+        val s: String = Markets.values()[index + 1].toString().toLowerCase()
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for (index in 0..Products.values().size - 2) {
+        val s: String = Products.values()[index + 1].toString().toLowerCase()
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for (index in 0..Ssessments.values().size - 2) {
+        val s: String = Ssessments.values()[index + 1].toString().toLowerCase()
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    Log.i("CONVERSIONS"," lista je $list")
+
+    return list.toTypedArray()
+
+                    /*                sea = entries.get("sea") as Boolean,
                                     china=entries.get("china") as Boolean,
                                     indonesia = entries.get("indonesia") as Boolean,
                                     malaysia = entries.get("malaysia") as Boolean,
@@ -42,7 +69,7 @@ fun convertMutableListToNetworkNotificationsObject(token:String,entries:MutableM
                                     price = entries.get("price") as Boolean,
                                     stats = entries.get("stats") as Boolean,
                                     plant=entries.get("plant") as Boolean
-                                    )
+                                    )*/
 
 
 }

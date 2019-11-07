@@ -109,7 +109,7 @@ class RegistrationFragment1 : Fragment() {
                 if (text!!.isBlank()) {
                     setError("reqired field")
                     navigateToSecondPage=false}
-                if(!text!!.contains("@")) {
+                if(!(text!!.contains("@")&& text!!.contains("."))) {
                     setError("not a valid e-mail address")
                     navigateToSecondPage=false}
 

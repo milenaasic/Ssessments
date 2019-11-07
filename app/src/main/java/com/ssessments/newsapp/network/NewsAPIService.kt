@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL ="http://dev-ssapi.upconfig.com/"
+private const val BASE_URL ="https://dev-ssapi.upconfig.com/"
 
 private val moshi= Moshi.Builder()
                     .add(KotlinJsonAdapterFactory())
@@ -47,12 +47,15 @@ interface NewsAPIService {
     @POST("api/v1/users/forgot-password")
     fun postForgotPassword(@Body user_email:NetworkForgotPasswordRequest):Deferred<NetworkForgotPasswordResponse>
 
-    @POST(" api/v1/users/register")
+    @POST("api/v1/users/register")
     fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<NetworkUserRegistrationResponse>
 
     //send notification preferences to server
     @POST("url6")
-    fun sendNotificationPreferencesToServer(@Body notifications:NetworkNotificatiosObject):Deferred<String>
+    fun sendNotificationPreferencesToServer(@Body notifications:NetworkPreferencesObject):Deferred<String>
+
+    @POST("url7")
+    fun getNotificationPreferencesFromServer(@Body token:NetworkRequestGetNotifPref):Deferred<List<NetworkSinglePreference>>
 
 
 }

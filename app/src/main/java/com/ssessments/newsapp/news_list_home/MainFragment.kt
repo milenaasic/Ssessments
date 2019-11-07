@@ -104,10 +104,13 @@ class mainFragment : Fragment() {
             }
 
             myCurrentFilter = newFilter
+            Log.i(mytag,"userdata pre pokretanja getFilteredNewsList , ${myUserData?.token?:"my USerje NULL"}")
             //Log.i(mytag,"main fragment current filter = lastfilterUSedByMain , ${viewModel.getLastFilterUsedByMainFragment().equals(newFilter)}")
+            if(myUserData!=null){
             viewModel.getFilteredNewsListFromServer(convertCurrentFilterToNetworkNewsFilterObject(
                                                                 myUserData?.token ?: EMPTY_TOKEN, myCurrentFilter!!),
                                                                     initializedFromSwipeRefresh = false)
+            }
 
         })
 

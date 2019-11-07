@@ -8,7 +8,10 @@ data class NetworkUserData (
     var username:String,
 
     @Json(name="password")
-    var password:String
+    var password:String,
+
+    @Json(name="firebase_id")
+    var firebaseId:String
 
 )
 

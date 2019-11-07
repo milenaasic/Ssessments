@@ -139,7 +139,7 @@ class MainFragmentViewModel(
                 database.updateUser(UserData(firebaseID =user.firebaseID ))
                 Log.i(mytag, "claer username and password user table}")
                 val a=database.getUser()
-                Log.i(mytag,"posle username and password getUser daje $a.value")
+                Log.i(mytag,"posle username and password getUser daje ${a.value?.username}")
             }
         }
 

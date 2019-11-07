@@ -2,7 +2,6 @@ package com.ssessments.newsapp.utilities
 
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
 import com.ssessments.newsapp.network.NetworkNewsItem
-import com.ssessments.newsapp.network.NetworkNotificatiosObject
 import com.ssessments.newsapp.database.NewsItem
 
 //intent za sign in or sign up
