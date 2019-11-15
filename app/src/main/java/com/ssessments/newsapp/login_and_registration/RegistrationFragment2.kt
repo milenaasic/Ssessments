@@ -66,7 +66,7 @@ class RegistrationFragment2 : Fragment() {
 
         //REGISTER BUTTON
         binding.registerbutton.setOnClickListener{
-            if(checkIfRequiredFieldsAreEmpty()) sharedViewModel.registerButtonClicked(binding.chooseUsernameeditText.toString(),binding.passwordeditText.toString())
+            if(checkIfRequiredFieldsAreEmpty()) sharedViewModel.registerButtonClicked(binding.chooseUsernameeditText.text.toString(),binding.passwordeditText.text.toString())
         }
 
         sharedViewModel.navigateBackToRegistration1.observe(this,Observer{shouldNavigate->

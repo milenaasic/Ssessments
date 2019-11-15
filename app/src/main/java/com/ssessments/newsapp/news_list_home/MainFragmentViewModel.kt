@@ -76,7 +76,7 @@ class MainFragmentViewModel(
    fun getFilteredNewsListFromServer(filter: NetworkNewsFilterObject,initializedFromSwipeRefresh:Boolean) {
 
        if (!initializedFromSwipeRefresh) _showProgressBar.value = true
-       Log.i(mytag, ("getFiltered news from server"))
+       Log.i(mytag, ("getFiltered news from server $filter"))
 
        viewModelScope.launch {
            var getDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
@@ -97,7 +97,7 @@ class MainFragmentViewModel(
 
                val responseMessage:String?=e.message
 
-               Log.i(mytag, ("$responseMessage"))
+               Log.i(mytag, ("odgovor od servera je $responseMessage"))
 
                if (!initializedFromSwipeRefresh) _showProgressBar.value = false
                else _swiperefreshfinished.value = true

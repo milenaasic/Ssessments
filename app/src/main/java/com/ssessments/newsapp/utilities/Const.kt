@@ -27,6 +27,7 @@ const val INITIALIZED_FROM_SWIPE_REFRESH=true
 
 //Seessments LinkedIn Url
 const val URL_SSESSMENTS_LINKEDIN_PAGE="https://www.linkedin.com/company/13417069/admin/"
+const val URL_SSESSMENTS_HOME="www.ssessments.com"
 
 //filteri default vrednosti za datum
 const val NO_DATE_SELECTED_VALUE="1900-01-01 00:00:00"

@@ -18,6 +18,7 @@ import kotlin.collections.ArrayList
 val dateFormatMySQL: SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 val dateFormatNoHours: SimpleDateFormat = SimpleDateFormat("dd MMM yyyy")
 val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
+val ssessmentsDateFormat:SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 
 
 fun convertMutableListToSinglePreferencesArray(entries:MutableMap<String,*>):Array<NetworkSinglePreference>{
@@ -91,26 +92,47 @@ fun dateStringFormatSQlToReadableWithHours(stringDate:String):String{
 }
 
 
+fun dateStringFormatISO8601oReadableWithHours(stringDate:String):String{
+
+    val calendar: Calendar = Calendar.getInstance()
+    Log.i("ConversionDateExc ulaz ",stringDate )
+    try {
+        val date: Date? = ssessmentsDateFormat.parse(stringDate)
+        calendar.time = date
+        Log.i("ConversionDate cal.tim","${calendar.time}" )
+    } catch (e: Exception) {
+        Log.w("ConversionDateException", e.message)
+    }
+    Log.i("ConversionDate frm tim","${dateFormatWithHours.format(calendar.time)}")
+    return dateFormatWithHours.format(calendar.time)
+}
+
+
 fun convertNetworkToDatabaseNewsItem(networkNewsList:List<NetworkNewsItem>):List<NewsItem>{
     var resultList= ArrayList<NewsItem>()
 
     for(item in networkNewsList){
-
         resultList.add(NewsItem(0L,item.newsID,item.title,TextUtils.join(",",item.tags),item.date_time,item.access))
-        //Log.i("konverzije","iz string array u string ${TextUtils.join(",",item.tags)}")
 
     }
     return resultList
 }
 
 fun convertCurrentFilterToNetworkNewsFilterObject(token:String,item:CurrentFilter):NetworkNewsFilterObject{
+
+var dateToValue=item.dateTo
+if(dateToValue.equals(NO_DATE_SELECTED_VALUE)) dateToValue=getCurentDateTime()
 return NetworkNewsFilterObject( token=token,
                                 markets = convertStringWithCommasToRealArray(item.market),
                                 products = convertStringWithCommasToRealArray(item.product),
                                 ssessments = convertStringWithCommasToRealArray(item.ssessment),
-                                language = item.language,
                                 dateFrom = item.dateFrom,
-                                dateTo = item.dateTo)
+                                dateTo = dateToValue)
+}
+
+fun getCurentDateTime(): String {
+    val cal=Calendar.getInstance().time
+    return dateFormatMySQL.format(cal)
 }
 
 fun convertFilterItemFromDatabaseToNetworkNewsFilterObject(token:String,item:FilterItem):NetworkNewsFilterObject{

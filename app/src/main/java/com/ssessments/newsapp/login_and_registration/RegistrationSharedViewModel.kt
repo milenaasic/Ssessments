@@ -69,6 +69,7 @@ class RegistrationSharedViewModel(
                         username,
                         password)
 
+                        Log.i(MYTAG," userreg data koje saljem $userRegData")
                 //posalji user reegistration na server
                 viewModelScope.launch {
                         var getResultDeferred = NewsApi.retrofitService.postUserRegistration(userRegData)

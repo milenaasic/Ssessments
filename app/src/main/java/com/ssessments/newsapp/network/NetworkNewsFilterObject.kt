@@ -29,7 +29,7 @@ data class NetworkNewsFilterObject (
     var ssessments: Array<String>,
 
  @Json(name="language")
-    var language:String=Language.ENGLISH.value,
+    var language:String="eng",
 
  @Json(name="date_from")
     var dateFrom:String=NO_DATE_SELECTED_VALUE,

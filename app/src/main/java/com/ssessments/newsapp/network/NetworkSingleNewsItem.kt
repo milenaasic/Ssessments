@@ -23,7 +23,7 @@ data class NetworkSingleNewsItem (
     var author:String,
 
     @Json(name="news_url")
-    var newsurl:String,
+    var newsurl:String?="www.ssessments.com",
 
     @Json(name="image_src")
     var imagesrc:String?

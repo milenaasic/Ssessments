@@ -87,7 +87,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
         }
     }
 
-    private fun setUserNotificationPreferences(resultList: List<NetworkSinglePreference>) {
+    fun setUserNotificationPreferences(resultList: List<NetworkSinglePreference>) {
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -102,7 +102,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                         val s: String = Markets.values()[index + 1].toString().toLowerCase()
                         if (value.preferenceKey.equals(s)) {
                             editor.putBoolean(s, value.preferenceValue)
-
+                            continue@loop
                         }
                     }
 
@@ -110,6 +110,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                         val s: String = Products.values()[index + 1].toString().toLowerCase()
                         if (value.preferenceKey.equals(s)) {
                             editor.putBoolean(s, value.preferenceValue)
+                            continue@loop
                         }
                     }
 
@@ -117,6 +118,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                         val s: String = Ssessments.values()[index + 1].toString().toLowerCase()
                         if (value.preferenceKey.equals(s)) {
                             editor.putBoolean(s, value.preferenceValue)
+                            continue@loop
                         }
                     }
                 }
@@ -314,6 +316,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
         _closeSearchWidget.value=false
 
     }
+
 
 }
 

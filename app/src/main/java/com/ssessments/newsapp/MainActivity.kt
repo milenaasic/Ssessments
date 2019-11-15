@@ -39,6 +39,7 @@ import com.ssessments.newsapp.search_provider.MySuggestionProvider
 import com.ssessments.newsapp.utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.sql.Date
 import kotlin.math.floor
 
 private const val PACKAGE_NAME="com.ssessments.newsapp"
@@ -115,27 +116,13 @@ class MainActivity : AppCompatActivity(){
 
         binding.myNavigationView.setNavigationItemSelectedListener {menuItem->
 
-            when(menuItem.itemId){
-                R.id.preference_fragment ->{
-                    menuItem.setChecked(true)
-                    navController.navigate(R.id.preference_fragment)
-                    binding.myDrawerLayout.closeDrawers()
-                    true
-                }
-
-                R.id.settings_fragment->{
-                    menuItem.setChecked(true)
-                    navController.navigate(R.id.settings_fragment)
-                    binding.myDrawerLayout.closeDrawers()
-                    true
-                }
-
-                R.id.goto_ssessments_linkedIn->{
+            when(menuItem.itemId) {
+                R.id.goto_ssessments_linkedIn -> {
                     //menuItem.setChecked(true)
                     val webpage: Uri = Uri.parse(URL_SSESSMENTS_LINKEDIN_PAGE)
                     val intent = Intent(Intent.ACTION_VIEW, webpage)
-                    menuItem.setChecked(false)
                     binding.myDrawerLayout.closeDrawers()
+                    menuItem.setChecked(false)
                     if (intent.resolveActivity(packageManager) != null) {
                         startActivity(intent)
                     }
@@ -146,10 +133,12 @@ class MainActivity : AppCompatActivity(){
                     menuItem.setChecked(true)
                     viewModel.clearUsernameAndPassword()
                     binding.myDrawerLayout.closeDrawers()
+                    menuItem.setChecked(false)
                     menuItem.setVisible(false)
                     true}
 
-                else->false
+
+                else -> menuItem.onNavDestinationSelected(navController)
             }
         }
 
@@ -228,22 +217,11 @@ class MainActivity : AppCompatActivity(){
             }
          })
 
+         viewModel.showProgressBarMainActivity.observe(this,Observer{
+             showMainActivivtyProgressBar(it)
+         })
 
-        //Firebase registration token
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w(TAG_MAIN, "getInstanceId failed", task.exception)
-                    return@OnCompleteListener
-                }
 
-                // Get new Instance ID token
-                val token = task.result?.token
-
-                // Log and toast
-                //val msg = getString("token je", token)
-                Log.d(TAG_MAIN, "token je $token")
-            })
 
         //activity je orvorena iz Firebase service
         val newsIdFromIntent=intent?.getStringExtra(EXTRA_NEWSID)
@@ -256,6 +234,14 @@ class MainActivity : AppCompatActivity(){
             navController.popBackStack(R.id.mainFragment, false)
             navController.navigate(R.id.detailNews, bundle)
         }
+
+        val s="2019-11-01T18:58:29.000Z"
+        //val s2 = ssessmentsDateFormat.parseObject(s)
+        //val s3= dateFormatWithHours.format(s2)
+       // Log.i(TAG_MAIN,"fromatiran date je $s2")
+
+        val s4= dateStringFormatISO8601oReadableWithHours(s)
+        Log.i(TAG_MAIN,"format je $s4 ")
 
     }
 
@@ -525,5 +511,13 @@ class MainActivity : AppCompatActivity(){
         Log.i(TAG_MAIN,"main activity on stop")
     }
 
-
+    fun showMainActivivtyProgressBar(shouldShow: Boolean){
+        if(shouldShow){
+            binding.myNestedScroolView.alpha=0.3f
+            binding.mainActivityprogressBar.visibility=View.VISIBLE
+        }else{
+            binding.myNestedScroolView.alpha=1f
+            binding.mainActivityprogressBar.visibility=View.GONE
+        }
+    }
 }

@@ -57,12 +57,11 @@ class DetailNewsViewModel(val newsID:Int,
             Log.i(MYTAG," token detail news je ${token}")
 
             var defferedSingleNewsItem=NewsApi.retrofitService.postSingleNews(NetworkSingleNewsRequest(token,newsID))
-
             try {
                 var result=defferedSingleNewsItem.await()
                 _singleNewsData.value=result
                 _showProgressBar.value=false
-
+                Log.i(MYTAG,"rRESULT $result")
             }catch (e:Exception){
                 val responseMessage:String?=e.message
                 Log.i(MYTAG,"response greska $responseMessage")

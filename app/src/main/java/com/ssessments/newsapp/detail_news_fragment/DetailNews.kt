@@ -45,8 +45,6 @@ class DetailNews() : Fragment() {
     private lateinit var args:DetailNewsArgs
     private lateinit var mydetailNews:NetworkSingleNewsItem
 
-    //private lateinit var newsUrl:String
-
 
     //SCALE TEXT
     private var systemFontScale=1f
@@ -80,17 +78,20 @@ class DetailNews() : Fragment() {
 
         viewModel.singleNewsData.observe(this,Observer{
             mydetailNews=it
+            Log.i(MYTAG,"nadgledani detail je $it")
             binding.apply {
 
-                title.setText(it.title)
-                timeDate.setText(it.dateTime)
+
+                timeDate.setText(dateStringFormatISO8601oReadableWithHours(it.dateTime))
                 author_textView.setText(it.author)
                 tags_textView.setText(TextUtils.join(",",it.tags))
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     newsBody.setText(Html.fromHtml(it.body, Html.FROM_HTML_MODE_COMPACT))
+                    title.setText(Html.fromHtml(it.title, Html.FROM_HTML_MODE_COMPACT))
                 } else {
                     newsBody.setText(Html.fromHtml(it.body))
+                    title.setText(Html.fromHtml(it.title))
                 }
             }
         })
@@ -103,7 +104,7 @@ class DetailNews() : Fragment() {
             if(it){
                    val sendIntent= Intent().apply{
                          action=Intent.ACTION_SEND
-                         putExtra(Intent.EXTRA_TEXT,mydetailNews.newsurl)
+                         putExtra(Intent.EXTRA_TEXT,mydetailNews.newsurl?: URL_SSESSMENTS_HOME)
                          putExtra(Intent.EXTRA_TITLE,mydetailNews.title)
                          type="text/plain"
                      }
