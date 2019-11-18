@@ -18,7 +18,7 @@ import kotlin.collections.ArrayList
 val dateFormatMySQL: SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 val dateFormatNoHours: SimpleDateFormat = SimpleDateFormat("dd MMM yyyy")
 val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
-val ssessmentsDateFormat:SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+val ssessmentsDateFormat:SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
 
 
 fun convertMutableListToSinglePreferencesArray(entries:MutableMap<String,*>):Array<NetworkSinglePreference>{

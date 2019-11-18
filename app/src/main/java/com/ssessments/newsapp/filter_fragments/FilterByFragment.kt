@@ -83,10 +83,7 @@ class FilterByFragment : Fragment() {
             val dpd = DatePickerDialog(
                 requireActivity(),
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    // Display Selected date in Toast
                     selectedFromDate.set(year,monthOfYear,dayOfMonth)
-                    Toast.makeText(requireActivity(), """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG)
-                        .show()
                     binding.fromDatePicker.text= dateFormatNoHours.format(selectedFromDate.time)
 
                 },
@@ -110,11 +107,9 @@ class FilterByFragment : Fragment() {
             val dpd = DatePickerDialog(
                 requireActivity(),
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    // Display Selected date in Toast
+
                     selectedToDate.set(year,monthOfYear,dayOfMonth)
                     binding.toDatePicker.text= dateFormatNoHours.format(selectedToDate.time)
-                    Toast.makeText(requireActivity(), """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG)
-                        .show()
 
                 },
                 year,
