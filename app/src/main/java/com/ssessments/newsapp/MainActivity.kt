@@ -10,7 +10,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -22,31 +21,23 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.iid.FirebaseInstanceId
-import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.ActivityMainBinding
 import com.ssessments.newsapp.login_and_registration.LogIn_and_Registration_Activity
 import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
-import com.ssessments.newsapp.network.NetworkCustomSearchFilterObject
-import com.ssessments.newsapp.network.NetworkNewsItem
 import com.ssessments.newsapp.search_provider.MySuggestionProvider
 import com.ssessments.newsapp.utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-import java.sql.Date
-import kotlin.math.floor
+
 
 private const val PACKAGE_NAME="com.ssessments.newsapp"
 private const val CLASS_NAME="com.ssessments.newsapp.MainActivity"
 private const val TAG_MAIN="MY_MAIN_ACTIVITY"
-
-
 
 
 class MainActivity : AppCompatActivity(){
@@ -64,8 +55,6 @@ class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG_MAIN,componentName.toString())
-        Log.d(TAG_MAIN,"on create")
 
         binding=DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -85,15 +74,9 @@ class MainActivity : AppCompatActivity(){
         binding.toolbar.title=" "
         myappBar=binding.appbar
 
-        //val appBarConfiguration = AppBarConfiguration(navController.graph, binding.myDrawerLayout)
-
         NavigationUI.setupWithNavController(binding.toolbar,navController)
-        //NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
 
-        //povezivanje Toolbara da bi pravilno prikazao Up odnosno drawer ikonicbu
         NavigationUI.setupWithNavController(binding.toolbar, navController, binding.myDrawerLayout)
-
-        //povezivanje drawer-a sa NavControllerom
 
         NavigationUI.setupWithNavController(binding.myNavigationView, navController)
 
@@ -129,6 +112,18 @@ class MainActivity : AppCompatActivity(){
                     true
                 }
 
+                R.id.goto_ssessments_facebook -> {
+
+                    val webpage: Uri = Uri.parse(URL_SSESSMENTS_FACEBOOK)
+                    val intent = Intent(Intent.ACTION_VIEW, webpage)
+                    binding.myDrawerLayout.closeDrawers()
+                    menuItem.setChecked(false)
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intent)
+                    }
+                    true
+                }
+
                 R.id.logout_menuitem ->{
                     menuItem.setChecked(true)
                     viewModel.clearUsernameAndPassword()
@@ -146,24 +141,20 @@ class MainActivity : AppCompatActivity(){
             when (destination.id) {
 
                 R.id.mainFragment ->{
-                    Log.i(TAG_MAIN,"on destination changed listener main fragm ")
                     setMainFragmentUI()
                 }
 
                 R.id.detailNews -> {
-                    Log.i(TAG_MAIN,"on destination changed listener detail fragm ")
                     setDetailNewsUI()
 
                 }
 
                 R.id.filter_menu_item ->{
-                    Log.i(TAG_MAIN,"on destination changed listener filter fragm ")
                     setFiltersUI()
                 }
 
 
                 R.id.preference_fragment ->{
-                    Log.i(TAG_MAIN,"on destination changed listener prefer fragm ")
                     setPreferenceFragmentUI()
                 }
 
@@ -177,7 +168,6 @@ class MainActivity : AppCompatActivity(){
 
 
         viewModel.loggedInUser.observe(this, Observer {user->
-            Log.i(TAG_MAIN,"loggedInUser koga posmatram ${user}")
             when{
                 user==null->setloggedInUserUI(false)
                 user.username.equals(EMPTY_USERNAME)-> {setloggedInUserUI(false)
@@ -204,7 +194,6 @@ class MainActivity : AppCompatActivity(){
 
         viewModel.closeSearchWidget.observe(this,Observer{shouldClose->
                 if(shouldClose){
-                Log.i(TAG_MAIN,"in close search widget")
                 mySearchViewMenuItem.collapseActionView()
                 viewModel.searchWidgetClosed()
                 }
@@ -225,23 +214,14 @@ class MainActivity : AppCompatActivity(){
 
         //activity je orvorena iz Firebase service
         val newsIdFromIntent=intent?.getStringExtra(EXTRA_NEWSID)
-        Log.i(TAG_MAIN,"extra news iz notifikacije $newsIdFromIntent")
         newsIdFromIntent?.run {
             val bundle = Bundle()
             val i: Int = newsIdFromIntent.toInt()
-            Log.i(TAG_MAIN, "int iz extra intenta je $i")
             bundle.putInt("newsID", i)
             navController.popBackStack(R.id.mainFragment, false)
             navController.navigate(R.id.detailNews, bundle)
         }
 
-        val s="2019-11-01T18:58:29.000Z"
-        //val s2 = ssessmentsDateFormat.parseObject(s)
-        //val s3= dateFormatWithHours.format(s2)
-       // Log.i(TAG_MAIN,"fromatiran date je $s2")
-
-        val s4= dateStringFormatISO8601oReadableWithHours(s)
-        Log.i(TAG_MAIN,"format je $s4 ")
 
     }
 
@@ -265,7 +245,7 @@ class MainActivity : AppCompatActivity(){
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        Log.v(TAG_MAIN,"on create options")
+
 
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.overflow_menu, menu)
@@ -286,14 +266,14 @@ class MainActivity : AppCompatActivity(){
 
          menu.findItem(R.id.action_search).setOnActionExpandListener(object:MenuItem.OnActionExpandListener{
              override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                 Log.i(TAG_MAIN,"u on action expand")
+
                  myFilterMenuItem.setVisible(false)
                  viewModel.setSwipeRefreshEnabled(false)
                  return true
              }
 
              override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                 Log.i(TAG_MAIN,"u on action expand")
+
                  myFilterMenuItem.setVisible(true)
                  viewModel.setSwipeRefreshEnabled(true)
                  return true
@@ -312,7 +292,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        Log.i(TAG_MAIN,"on neew intent")
+
         if (Intent.ACTION_SEARCH == intent!!.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 mySearchViewWidget.setQuery(query,false)
@@ -323,10 +303,10 @@ class MainActivity : AppCompatActivity(){
         }else{
         if(intent.hasExtra(EXTRA_NEWSID)){
             val newsIdFromIntent=intent.getStringExtra(EXTRA_NEWSID)
-            Log.i(TAG_MAIN,"extra news iz notifikacije $newsIdFromIntent")
+
             val bundle=Bundle()
             val i:Int=newsIdFromIntent.toInt()
-            Log.i(TAG_MAIN,"int iz extra intenta je $i")
+
             bundle.putInt("newsID",i)
             navController.popBackStack(R.id.mainFragment,false)
             navController.navigate(R.id.detailNews,bundle)
@@ -338,7 +318,6 @@ class MainActivity : AppCompatActivity(){
 
     private fun doMySearch(query: String) {
         //ovde saljem preko zahtev serveru
-        Log.i("Searcheble activity","pokrenut doMySearch")
 
         if(!query.isNullOrBlank()){
                     viewModel.doCustomNewsSearch(query)
@@ -348,8 +327,12 @@ class MainActivity : AppCompatActivity(){
 
     override fun onStart() {
         super.onStart()
-        Log.i(TAG_MAIN,"main activity on start")
-        binding.myNavigationView.menu.findItem (R.id.goto_ssessments_linkedIn).setChecked(false)
+
+        binding.myNavigationView.menu.apply {
+            findItem (R.id.goto_ssessments_linkedIn).setChecked(false)
+            findItem (R.id.goto_ssessments_facebook).setChecked(false)
+         }
+
 
     }
 
@@ -378,12 +361,11 @@ class MainActivity : AppCompatActivity(){
 
             var pm=toolbar.layoutParams as AppBarLayout.LayoutParams
             pm.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL+AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)
-            Log.i(TAG_MAIN,"viewmodel.loggedinuser.value je ${viewModel.loggedInUser.value?.username}")
+
             when{
                 viewModel.loggedInUser.value==null->setloggedInUserUI(false)
                 viewModel.loggedInUser.value?.username.equals(EMPTY_USERNAME)->setloggedInUserUI(false)
-                else-> {setloggedInUserUI(loggedIn = true)
-                    Log.i(TAG_MAIN,"when kroz else je prosao")}
+                else-> {setloggedInUserUI(loggedIn = true) }
             }
             
         }
@@ -391,7 +373,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun setPreferenceFragmentUI() {
-        Log.i(TAG_MAIN,"setPreferenceFragmentUI ")
+
         binding.apply {
 
             toolbar.apply{
@@ -416,7 +398,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun setFiltersUI() {
-        Log.i(TAG_MAIN,"setFiltersUI method ")
+
         binding.apply {
             toolbar.logo_in_toolbar.visibility = View.GONE
             toolbar.title=" "
@@ -462,7 +444,7 @@ class MainActivity : AppCompatActivity(){
 
 
     private fun setDetailNewsUI() {
-        Log.i(TAG_MAIN,"detail news ui method ")
+
         binding.apply {
             toolbar.logo_in_toolbar.visibility = View.GONE
             toolbar.title =" "
@@ -483,7 +465,7 @@ class MainActivity : AppCompatActivity(){
         //ako je user ulogovan pokazi logout u burgeru i skloni bottom bar
         when(loggedIn){
             true->{
-                Log.i(TAG_MAIN,"main activity bottom nav nestaje")
+
                 binding.apply{
                     if(navController.currentDestination?.id==R.id.mainFragment){
                             bottomNavigation.visibility=View.GONE}
@@ -492,9 +474,8 @@ class MainActivity : AppCompatActivity(){
             }
             false->{
                 binding.apply{
-                    Log.i(TAG_MAIN,"main activity bottom nav se pojavi")
+
                     if(navController.currentDestination?.id==R.id.mainFragment){
-                        Log.i(TAG_MAIN,"u setLoggedInUser bottomnavigation visibility")
                         bottomNavigation.visibility=View.VISIBLE
                         }
                     myNavigationView.menu.findItem(R.id.logout_menuitem).setVisible(false)
@@ -505,11 +486,6 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-
-    override fun onStop() {
-        super.onStop()
-        Log.i(TAG_MAIN,"main activity on stop")
-    }
 
     fun showMainActivivtyProgressBar(shouldShow: Boolean){
         if(shouldShow){

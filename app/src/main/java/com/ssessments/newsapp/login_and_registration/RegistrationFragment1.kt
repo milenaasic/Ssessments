@@ -4,7 +4,6 @@ package com.ssessments.newsapp.login_and_registration
 import android.app.Activity
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +40,7 @@ class RegistrationFragment1 : Fragment() {
         //ukoliko se podize vec postojeci fragment koji je bio unisten, i view model je takodje bio unisten
          if(savedInstanceState!=null){
                 if(checkIfRequiredFieldsAreEmpty())sharedViewModel.setMyUserRegistration1Fields(getEnteredfieldValues())
-                Log.i("RegFragment1","entered values ${getEnteredfieldValues()}")
+
          }
 
         binding.nextbutton.setOnClickListener {
@@ -94,20 +93,20 @@ class RegistrationFragment1 : Fragment() {
 
             firstNameeditText.apply {
                 if (text!!.isBlank()) {
-                setError("reqired field")
+                setError("required field")
                 navigateToSecondPage=false}
             }
 
             lastNameeditText.apply{
                 if (text!!.isBlank()) {
-                    setError("reqired field")
+                    setError("required field")
                     navigateToSecondPage=false
                     }
             }
 
             emaileditText.apply {
                 if (text!!.isBlank()) {
-                    setError("reqired field")
+                    setError("required field")
                     navigateToSecondPage=false}
                 if(!(text!!.contains("@")&& text!!.contains("."))) {
                     setError("not a valid e-mail address")
@@ -117,7 +116,7 @@ class RegistrationFragment1 : Fragment() {
 
             confirmemaileditText.apply {
                 if(text!!.isBlank()){
-                    setError("reqired field")
+                    setError("required field")
                     navigateToSecondPage=false
                     }
 
@@ -131,7 +130,7 @@ class RegistrationFragment1 : Fragment() {
             mobilePhoneeditText.apply {
 
                 if(text!!.isBlank()) {
-                    setError("reqired field")
+                    setError("required field")
                     navigateToSecondPage=false}
 
                 if(!PhoneNumberUtils.isGlobalPhoneNumber(text.toString())){
@@ -143,7 +142,7 @@ class RegistrationFragment1 : Fragment() {
 
             compoanyNameeditText.apply{
                 if (text!!.isBlank()) {
-                setError("reqired field")
+                setError("required field")
                 navigateToSecondPage=false
                 }
             }

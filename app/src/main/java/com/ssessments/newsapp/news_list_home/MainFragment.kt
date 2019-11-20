@@ -47,16 +47,13 @@ class mainFragment : Fragment() {
     private val DEFAULT_FONT_SIZE="1"
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.i(mytag,"main fragment on createview")
+
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
 
         mainActivityViewModel=requireActivity().run {
@@ -69,7 +66,6 @@ class mainFragment : Fragment() {
             .get(MainFragmentViewModel::class.java)
 
         adapter=NewsAdapter(NewsItemClickListener {  newsId ->
-            Toast.makeText(context, "${newsId}", Toast.LENGTH_LONG).show()
             viewModel.fetchNewsWithID(newsId)
         })
 
@@ -89,10 +85,6 @@ class mainFragment : Fragment() {
 
         viewModel.currentFilter.observe(this,Observer{ newFilter->
 
-            Log.i(mytag,"main fragment observe mycurrent filter , $myCurrentFilter")
-            Log.i(mytag,"main fragment observe new filter , $newFilter")
-            Log.i(mytag,"main fragment observe lastFilterUsed , ${viewModel.getLastFilterUsedByMainFragment()}")
-
         if(newFilter==null) return@Observer
 
             if(viewModel.getLastFilterUsedByMainFragment()!=null) {
@@ -104,11 +96,10 @@ class mainFragment : Fragment() {
             }
 
             myCurrentFilter = newFilter
-            Log.i(mytag,"userdata pre pokretanja getFilteredNewsList , ${myUserData?.token?:"my USerje NULL"}")
-            //Log.i(mytag,"main fragment current filter = lastfilterUSedByMain , ${viewModel.getLastFilterUsedByMainFragment().equals(newFilter)}")
+
             if(myUserData!=null){
             val f=convertCurrentFilterToNetworkNewsFilterObject(myUserData?.token ?: EMPTY_TOKEN, myCurrentFilter!!)
-            Log.i(mytag,"filter news netowork je $f")
+
             viewModel.getFilteredNewsListFromServer(f,initializedFromSwipeRefresh = false)
 
             }
@@ -117,13 +108,10 @@ class mainFragment : Fragment() {
 
 
         viewModel.newsList.observe(this, Observer { newList->
-            Log.i(mytag,"main fragment observe news list")
-            Log.i(mytag,"main fragment new list je $newList")
+
 
             when{
-                newList==null-> { //adapter.dataList = EMPTY_LIST
-                                //showNoResultTextView(true)
-                                }
+                newList==null-> {  }
                 newList.isEmpty()->{}
                 newList[0].title== NO_RESULT->{ adapter.dataList = EMPTY_LIST
                                                 showNoResultTextView(true)
@@ -138,12 +126,12 @@ class mainFragment : Fragment() {
         })
 
         viewModel.myUser.observe(this, Observer {user->
-            Log.i(mytag,"main fragment observe user , $user")
+
             myUserData=user
         })
 
         binding.mySwipeRefreshLayout.setOnRefreshListener {
-            Log.i(mytag, "onRefresh called from SwipeRefreshLayout")
+
 
             val filterToApply=myCurrentFilter
             if(filterToApply==null){
@@ -170,7 +158,7 @@ class mainFragment : Fragment() {
         viewModel.showToastnoInternet.observe(this, Observer { showSnackbar->
             if(showSnackbar){
                 Toast.makeText(activity,R.string.nointernet,Toast.LENGTH_LONG).show()
-                //Snackbar.make(binding.fragmentLinLay,R.string.nointernet,Snackbar.LENGTH_LONG).show()
+
                 viewModel.noInternetSnackBarShown()
             }
         })
@@ -188,7 +176,7 @@ class mainFragment : Fragment() {
         viewModel.showToastNetworkError.observe(this,Observer{
             if(it){
                 Toast.makeText(activity,R.string.network_error,Toast.LENGTH_LONG).show()
-                //Snackbar.make(binding.fragmentLinLay,R.string.network_error,Snackbar.LENGTH_LONG).show()
+
                 viewModel.networkErrorSnackBarShown()
 
             }
@@ -244,20 +232,15 @@ class mainFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        //pokupi sistemski seting u vezi velicine slova
+
         systemFontScale= resources.configuration.fontScale
-        Log.i(mytag,"sistem font scale je $systemFontScale")
+
         val s: String? = PreferenceManager.getDefaultSharedPreferences(requireActivity())
             ?.getString(FONT_SIZE_KEY, DEFAULT_FONT_SIZE)
         if (s != null) adapter.setTextSizeParameter(s.toFloat())
     }
 
 
-
-    fun showSnakbar(snackbarText:String){
-
-
-    }
 
     private fun progressBarVisible(show: Boolean) {
         if(show) {
@@ -281,15 +264,7 @@ class mainFragment : Fragment() {
         if (filter!=null) {viewModel.setLastFilterUsedByMainFragment(filter)}
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.i(mytag,"on destroy view")
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(mytag,"on destroy")
-    }
 
 
 

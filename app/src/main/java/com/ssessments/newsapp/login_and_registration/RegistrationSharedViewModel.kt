@@ -1,7 +1,6 @@
 package com.ssessments.newsapp.login_and_registration
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,7 @@ import com.ssessments.newsapp.network.NetworkUserRegistrationData
 import com.ssessments.newsapp.network.NewsApi
 import kotlinx.coroutines.launch
 
-private const val MYTAG="MY_RegistraSharedViewMo"
+
 
 class RegistrationSharedViewModel(
         val database:NewsDatabaseDao,
@@ -69,21 +68,19 @@ class RegistrationSharedViewModel(
                         username,
                         password)
 
-                        Log.i(MYTAG," userreg data koje saljem $userRegData")
+
                 //posalji user reegistration na server
                 viewModelScope.launch {
                         var getResultDeferred = NewsApi.retrofitService.postUserRegistration(userRegData)
                         try {
 
                                 var result = getResultDeferred.await()
-                                Log.i(MYTAG,"result je: ${result}")
                                 _showProgressBarRegistration.value=false
                                 _showToastRegistrationSent.value=true
                                 _sendUserBackToMainActicvity.value=true
 
                         } catch (e: Exception) {
-                                Log.i(MYTAG,"Failure is: ${e.message}")
-                                Log.i(MYTAG,"Failure is: ${e}")
+
                                 _showProgressBarRegistration.value=false
                                 _showToastSomethingWentWrongWithRegistration.value=true
 
@@ -114,7 +111,7 @@ class RegistrationSharedViewModel(
 
         fun setMyUserRegistration1Fields(list:ArrayList<String>){
                 userRegistration1Fields=list
-                Log.i(MYTAG,"lista je {$userRegistration1Fields")
+
         }
 
         fun userSentToMainActivity(){

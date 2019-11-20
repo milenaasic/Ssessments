@@ -1,8 +1,6 @@
 package com.ssessments.newsapp.login_and_registration
 
 import android.app.Application
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private const val MY_TAG="MY_LogIn_ViewModel"
+
 
 class LogIn_ViewModel(val database: NewsDatabaseDao,
                       application: Application): AndroidViewModel(application) {
@@ -56,7 +54,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
 
     init {
-        //_showProgressBar.value=false
+
     }
 
     //SIGN IN
@@ -65,7 +63,6 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
             _showProgressBar.value = true
             signInThisUser(username, password)
         } else {
-            // _showProgressBar.value=false
             _showToastNOInternet.value = true
 
         }
@@ -82,7 +79,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 try {
 
                     var result = loginuserdeferred.await()
-                    Log.i(MY_TAG, "result je ${result}")
+
                     val receivedToken=result.token
 
                     //vratio se token upisi korisnika u bazu i vrati ga na mainactivity
@@ -95,7 +92,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                     _sendUserToHomeFragment.value = true
 
                 } catch (e: Exception) {
-                    Log.i(MY_TAG, "poruka network greska ${e.message}")
+
                     _showProgressBar.value = false
 
                     val responseMessage:String?=e.message
@@ -124,15 +121,13 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                 var getResultDeferred = NewsApi.retrofitService.postForgotPassword(NetworkForgotPasswordRequest(usermail))
                 try {
                     var result = getResultDeferred.await()
-                    Log.i(MY_TAG, "forgot password result: ${result}")
+
                     _showProgressBar.value = false
                     _showToastForgotPasswordHandeled.value = true
 
                 } catch (e: Exception) {
-                    Log.i(MY_TAG, "forgot password Failure is: ${e.message}")
 
                     _showProgressBar.value = false
-
                     _showToastSomethingWentWrong.value = true
 
                 }

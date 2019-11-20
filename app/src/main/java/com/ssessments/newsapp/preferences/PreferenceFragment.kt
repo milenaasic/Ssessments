@@ -39,9 +39,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_notifications, rootKey)
 
-        Log.i(MYTAG,"broj kategorija je ${preferenceScreen.preferenceCount}")
 
-    //SETUJEM title programski da ne bih gresila u stringovima
         val prefMarkets=preferenceScreen.findPreference<PreferenceCategory>("markets")
         val prefproducts=preferenceScreen.findPreference<PreferenceCategory>("products")
         val prefSsessments=preferenceScreen.findPreference<PreferenceCategory>("ssessments")
@@ -49,7 +47,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
        if(prefMarkets!=null){
             for(index in 0..prefMarkets.preferenceCount-1){
                 prefMarkets.getPreference(index).title=Markets.values()[index+1].value
-                Log.i(MYTAG,"key za pref market je ${prefMarkets.getPreference(index).key}")
+
             }
         }
 
@@ -87,9 +85,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId==R.id.filterNews){
-            //pokupi setovane notifikacije i postavi current filter
             val currentFilter=getCurrentPreferences()
-            Log.i(MYTAG,"current filter iz preferences je $currentFilter")
             mainActivityViewModel.setCurrentFilterAccordingToNotifications(currentFilter)
             findNavController().navigateUp()
             return true
@@ -99,10 +95,9 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         val value=newValue as Boolean
-        Log.i(MYTAG,"new value je $newValue")
-        Log.i(MYTAG,"preference key je ${preference?.key}")
 
-        if (!value){ Log.i(MYTAG,"usao u open dialog")
+
+        if (!value){
                     openConfirmDialog(preference)
         }
         return true
@@ -142,16 +137,16 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         var list=ArrayList<String>()
 
         for (entry in allEntries.entries) {
-            Log.i(MYTAG,"entries su ${allEntries.entries} ")
+
             if(entry.value==true) {
 
                 val checkBoxTitle = preferenceScreen.findPreference<CheckBoxPreference>(entry.key)?.title
-                Log.i(MYTAG, "check box title je $checkBoxTitle")
+
                 for (values in Markets.values()) {
-                    Log.i(MYTAG, "value je $values.value")
+
                     if (values.value.equals(checkBoxTitle.toString(), true)) {
                         list.add(checkBoxTitle.toString())
-                        Log.i(MYTAG, "checktitle $checkBoxTitle, a value je ${values.value.toString()}")
+
                     }
                 }
             }
@@ -166,16 +161,13 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         var list=ArrayList<String>()
 
         for (entry in allEntries.entries) {
-            Log.i(MYTAG,"entries su ${allEntries.entries} ")
-            if(entry.value==true) {
 
+            if(entry.value==true) {
                 val checkBoxTitle = preferenceScreen.findPreference<CheckBoxPreference>(entry.key)?.title
-                Log.i(MYTAG, "check box title je $checkBoxTitle")
                 for (values in Products.values()) {
-                    Log.i(MYTAG, "value je $values.value")
                     if (values.value.equals(checkBoxTitle.toString(), true)) {
                         list.add(checkBoxTitle.toString())
-                        Log.i(MYTAG, "checktitle $checkBoxTitle, a value je ${values.value.toString()}")
+
                     }
                 }
             }
@@ -190,23 +182,21 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         var list=ArrayList<String>()
 
         for (entry in allEntries.entries) {
-            Log.i(MYTAG,"entries su ${allEntries.entries} ")
+
             if(entry.value==true) {
 
                 val checkBoxTitle = preferenceScreen.findPreference<CheckBoxPreference>(entry.key)?.title
-                Log.i(MYTAG, "check box title je $checkBoxTitle")
                 for (values in Ssessments.values()) {
-                    Log.i(MYTAG, "value je $values.value")
+
                     if (values.value.equals(checkBoxTitle.toString(), true)) {
                         list.add(checkBoxTitle.toString())
-                        Log.i(MYTAG, "checktitle $checkBoxTitle, a value je ${values.value.toString()}")
+
                     }
                 }
             }
         }
         return list
     }
-
 
     override fun onStop() {
         super.onStop()
@@ -217,20 +207,11 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
     private fun sendNotificationsToServer() {
 
         val newValues=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
-        Log.i(MYTAG,"newValues jednako old ${newValues.equals(lastSavedValues)}")
         if(!newValues.equals(lastSavedValues)){
             mainActivityViewModel.sendNotificationPreferencesToServer(newValues)
          }
 
     }
 
-    override fun onDestroyView() {
-        Log.i(MYTAG,"on DESTROY VIEW")
-        super.onDestroyView()
-    }
 
-    override fun onDestroy() {
-        Log.i(MYTAG,"on DESTROY")
-        super.onDestroy()
-    }
 }

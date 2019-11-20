@@ -1,7 +1,6 @@
 package com.ssessments.newsapp.filter_fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,12 +14,11 @@ import com.ssessments.newsapp.database.NewsDatabase
 
 class FilterPagerSupportFragment: Fragment() {
 
-    val TAG="FilterPagerSupportFragm"
     private lateinit var mactivity:AppCompatActivity
     private lateinit var sharedViewModel: FilterPagerSupportSharedViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.i(TAG, "on create")
+
         val root=inflater.inflate(R.layout.filter_fragment_pager_support, container, false)
 
         val application= requireNotNull(this.activity).application
@@ -34,20 +32,7 @@ class FilterPagerSupportFragment: Fragment() {
         myTabLayout?.setupWithViewPager(myViewPager)
         myViewPager.adapter=MyFilterAdapter(childFragmentManager)
 
-        /*myTabLayout?.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-                //p0?.text="unselect"
-               // p0?.icon.
-            }
 
-            override fun onTabSelected(p0: TabLayout.Tab?) {
-                //p0?.text="select"
-            }
-
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-
-            }
-        })*/
         setHasOptionsMenu(true)
 
         return root
@@ -81,12 +66,10 @@ const val NUMBER_OF_ITEM_FRAGMENTS=3
 class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
 
     override fun getItem(position: Int): Fragment {
-        Log.i(TAG, "getItem")
+
         when(position){
-            0->{ Log.i(TAG, "Item 1")
-                return FilterByFragment()}
-            1->{Log.i(TAG, "Item 2")
-                return SavedFiltersFragment()}
+            0->{ return FilterByFragment()}
+            1->{ return SavedFiltersFragment()}
             2-> return PredefinedFiltersFragment()
             else->return FilterByFragment()
         }
@@ -94,7 +77,6 @@ class MyFilterAdapter(fm:FragmentManager):FragmentPagerAdapter(fm, BEHAVIOR_RESU
 
 
     override fun getCount(): Int {
-        Log.i(TAG, "get count $NUMBER_OF_ITEM_FRAGMENTS")
         return NUMBER_OF_ITEM_FRAGMENTS
     }
 

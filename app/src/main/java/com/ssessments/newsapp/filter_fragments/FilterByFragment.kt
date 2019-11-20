@@ -29,8 +29,7 @@ import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.FilterByFragmentBinding
 
-private const val DEFAULT_FILTER_NAME="My Filter"
-private const val MYTAG="MYFILTERBYFRAGMENT"
+
 
 class FilterByFragment : Fragment() {
 
@@ -47,7 +46,6 @@ class FilterByFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("FilterbyFragm","filterby create")
 
         binding= DataBindingUtil.inflate(inflater, R.layout.filter_by_fragment,container,false)
 
@@ -174,11 +172,11 @@ class FilterByFragment : Fragment() {
             alertDialog.setPositiveButton("SAVE", DialogInterface.OnClickListener{ dialog, id ->
 
                         val nameView: EditText?=dialogView.findViewById(R.id.filter_name_edit_text)
-                        Log.i("FilterByFragment","pre provere save Filter name nije null")
 
-                        if(nameView==null){ Log.i("FilterByFragment","name view je null")}
+
+                        if(nameView==null){ }
                         if(nameView!=null){
-                                Log.i("FilterByFragment","save Filter name nije null")
+
                                 if(nameView.text.isNullOrEmpty()){
                                 Toast.makeText(requireActivity(), "Enter filter name", Toast.LENGTH_LONG)
                                 .show()}
@@ -236,7 +234,6 @@ class FilterByFragment : Fragment() {
         //SHARED VIEW MODEL OBSERVERS
         sharedviewModel.currentFilter.observe(this,Observer {currentFilter->
            if(currentFilter!=null){
-                Log.i(MYTAG,"current filter koga gledam je $currentFilter")
                 setChipsInChipGroupToList(binding.marketsChips,convertStringWithCommasToArray(currentFilter.market))
                 setChipsInChipGroupToList(binding.productChips, convertStringWithCommasToArray(currentFilter.product))
                 setChipsInChipGroupToList(binding.ssessmentChips, convertStringWithCommasToArray(currentFilter.ssessment))
@@ -293,10 +290,7 @@ class FilterByFragment : Fragment() {
 
     // ZA SAVED FILTERS TABELU
     private fun getFilterFieldsValue(filterName: String): FilterItem {
-        Log.i(MYTAG,"formatiran from datum za saved filetrs tabelu je ${dateFormatMySQL.format(selectedFromDate.time)}")
-        Log.i(MYTAG,"formatiran to datum za saved filetrs tabelu je ${dateFormatMySQL.format(selectedToDate.time)}")
-        Log.i(MYTAG,"selected text ${binding.fromDatePicker.text}")
-        Log.i(MYTAG, "jednako je ${binding.fromDatePicker.text==DATE_SELECT_TEXT}")
+
         return FilterItem(
             0L,
             filterName,
@@ -312,12 +306,10 @@ class FilterByFragment : Fragment() {
 
 
     private fun setChipsInChipGroupToList(chipgroup: ChipGroup, list: ArrayList<String>) {
-        //prvo iskljucim sve cipove
+
         chipgroup.clearCheck()
-        //cekiram chipove koji su u datoj listi
 
         for (item in list){
-            Log.i(MYTAG,"pretvorena arraz lista je $list, a item je $item")
             chipgroup.apply {
                 for (index in 0..this.childCount) {
                     if (getChildAt(index) != null) {
@@ -356,8 +348,7 @@ class FilterByFragment : Fragment() {
 
     //ide u tabelu current_filter
     private fun getCurrentFilterValues():CurrentFilter{
-        Log.i(MYTAG,"formatiran from datum je ${dateFormatMySQL.format(selectedFromDate.time)}")
-        Log.i(MYTAG,"formatiran to datum je ${dateFormatMySQL.format(selectedToDate.time)}")
+
         return CurrentFilter(
             market=convertArrayListToStringWithCommas(getCheckedChips(binding.marketsChips)),
             product=convertArrayListToStringWithCommas(getCheckedChips(binding.productChips)),

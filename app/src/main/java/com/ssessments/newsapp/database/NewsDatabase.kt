@@ -24,10 +24,10 @@ abstract class NewsDatabase:RoomDatabase(){
 
         fun getInstance(context: Context): NewsDatabase {
             synchronized(this) {
-                Log.d("my DBOPENED","Database creating.")
+
                 var instance = INSTANCE
                 if (instance == null) {
-                    Log.d("my DBOPENED","Database creating instance jenull.")
+
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         NewsDatabase::class.java,
@@ -36,7 +36,7 @@ abstract class NewsDatabase:RoomDatabase(){
                         .addCallback (object:Callback(){
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
-                                Log.d("my DBOPENED","Database has been opened.")
+
                                 val myvalues=ContentValues().apply {
                                     put("market",Markets.ALL_MARKETS.value)
                                     put("product",Products.ALL_PRODUCTS.value)
@@ -65,7 +65,7 @@ abstract class NewsDatabase:RoomDatabase(){
                                     db.insert("current_filter_table",CONFLICT_IGNORE,myvalues)
                                     db.insert("user_data_table", CONFLICT_IGNORE,myvalues2)
                                     db.insert("last_news_list_table", CONFLICT_IGNORE,myvalues3)
-                                    Log.d("my DBOPENED","try block.")
+
                                 }catch (e:Exception){
                                     Log.w("my database error",e)}
 

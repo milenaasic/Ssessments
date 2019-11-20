@@ -40,7 +40,6 @@ class LogIn_Fragment : Fragment() {
     ): View? {
 
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_log_in,container,false)
-        Log.i(TAG_LOGIN,"on Create VIew")
 
         val application= requireNotNull(this.activity).application
         val datasource= NewsDatabase.getInstance(application).newsDatabaseDao
@@ -74,8 +73,7 @@ class LogIn_Fragment : Fragment() {
             }else if(!isPasswordValid(binding.passwordEditText.text.toString())){
                 binding.passwordEditText.setError(resources.getString(R.string.invalid_password))
             }else {
-                Log.i(TAG_LOGIN,"username ${binding.usernameEditText.text.toString()}")
-                Log.i(TAG_LOGIN,"password ${binding.passwordEditText.text.toString()}")
+
                 viewModel.signInButtonPressed(binding.usernameEditText.text.toString(), binding.passwordEditText.text.toString())
             }
         }
@@ -166,7 +164,6 @@ class LogIn_Fragment : Fragment() {
 
 
     private fun isUsernameValid(username:String):Boolean{
-        Log.i(TAG_LOGIN,"prazan user: ${username.isNotBlank()}")
        return username.isNotBlank()
     }
 
@@ -190,17 +187,6 @@ class LogIn_Fragment : Fragment() {
 
 
 
-    override fun onStart() {
-        super.onStart()
-        Log.i(TAG_LOGIN,"onstart")
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-    }
-
     override fun onDestroy() {
         super.onDestroy()
             if(myalertDialog!=null) {
@@ -211,7 +197,6 @@ class LogIn_Fragment : Fragment() {
 }
 
     fun isPasswordValid(password:String):Boolean{
-
         return password.length > 3 && password.isNotBlank() && password.isNotEmpty()
     }
 

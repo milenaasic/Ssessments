@@ -9,7 +9,6 @@ import com.ssessments.newsapp.database.FilterItem
 import com.ssessments.newsapp.database.PredefinedFilter
 import com.ssessments.newsapp.network.NetworkNewsFilterObject
 import com.ssessments.newsapp.network.NetworkSinglePreference
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -47,63 +46,20 @@ fun convertMutableListToSinglePreferencesArray(entries:MutableMap<String,*>):Arr
         }
     }
 
-    Log.i("CONVERSIONS"," lista je $list")
-
     return list.toTypedArray()
 
-                    /*                sea = entries.get("sea") as Boolean,
-                                    china=entries.get("china") as Boolean,
-                                    indonesia = entries.get("indonesia") as Boolean,
-                                    malaysia = entries.get("malaysia") as Boolean,
-                                    vietnam = entries.get("vietnam") as Boolean,
-                                    india = entries.get("india") as Boolean,
-                                    pe = entries.get("pe") as Boolean,
-                                    pp=entries.get("pp") as Boolean,
-                                    pvc = entries.get("pvc") as Boolean,
-                                    pet = entries.get("pet") as Boolean,
-                                    styrenics = entries.get("styrenics") as Boolean,
-                                    daily = entries.get("daily") as Boolean,
-                                    weekly = entries.get("weekly") as Boolean,
-                                    monthly = entries.get("monthly") as Boolean,
-                                    quarterly = entries.get("quarterly") as Boolean,
-                                    news = entries.get("news") as Boolean,
-                                    price = entries.get("price") as Boolean,
-                                    stats = entries.get("stats") as Boolean,
-                                    plant=entries.get("plant") as Boolean
-                                    )*/
-
-
-}
-
-
-fun dateStringFormatSQlToReadableWithHours(stringDate:String):String{
-
-    val calendar: Calendar = Calendar.getInstance()
-    Log.i("ConversionDateExc ulaz ",stringDate )
-    try {
-        val date: Date = dateFormatMySQL.parse(stringDate)
-            calendar.time = date
-        Log.i("ConversionDate cal.tim","${calendar.time}" )
-    } catch (e: Exception) {
-        Log.w("ConversionDateException", e.message)
-    }
-    Log.i("ConversionDate frm tim","${dateFormatWithHours.format(calendar.time)}")
-    return dateFormatWithHours.format(calendar.time)
 }
 
 
 fun dateStringFormatISO8601oReadableWithHours(stringDate:String):String{
 
     val calendar: Calendar = Calendar.getInstance()
-    Log.i("ConversionDateExc ulaz ",stringDate )
     try {
         val date: Date? = ssessmentsDateFormat.parse(stringDate)
         calendar.time = date
-        Log.i("ConversionDate cal.tim","${calendar.time}" )
     } catch (e: Exception) {
         Log.w("ConversionDateException", e.message)
     }
-    Log.i("ConversionDate frm tim","${dateFormatWithHours.format(calendar.time)}")
     return dateFormatWithHours.format(calendar.time)
 }
 
@@ -135,15 +91,7 @@ fun getCurentDateTime(): String {
     return dateFormatMySQL.format(cal)
 }
 
-fun convertFilterItemFromDatabaseToNetworkNewsFilterObject(token:String,item:FilterItem):NetworkNewsFilterObject{
-    return NetworkNewsFilterObject( token=token,
-                                    markets = convertStringWithCommasToRealArray(item.market),
-                                    products = convertStringWithCommasToRealArray(item.product),
-                                    ssessments = convertStringWithCommasToRealArray(item.ssessment),
-                                    language = item.language,
-                                    dateFrom = item.dateFrom,
-                                    dateTo = item.dateTo)
-}
+
 
 fun convertFilterItemFromDatabaseToCurrentFilter(item:FilterItem):CurrentFilter{
     return CurrentFilter(

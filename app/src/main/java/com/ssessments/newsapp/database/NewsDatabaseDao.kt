@@ -84,7 +84,6 @@ interface NewsDatabaseDao{
     @Query("SELECT * FROM current_filter_table WHERE language='English'")
     suspend fun getCurrentFilterWithLanguage():CurrentFilter
 
-    //@Query("UPDATE * FROM current_filter_table WHERE ID=1")
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateCurrentFilter(filter:CurrentFilter)
 

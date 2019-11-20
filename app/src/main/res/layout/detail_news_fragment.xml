@@ -76,7 +76,8 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tags_textView"
-                    tools:text="neki textgha;oih ipih[erofh[qoiefh iq[ewifh [qoewih[oih[oih f[qoih f[qoihhio[hg [woihrighwq[hre " />
+                    tools:text="neki textgha;oih ipih[erofh[qoiefh iq[ewifh [qoewih[oih[oih f[qoih f[qoihhio[hg [woihrighwq[hre "
+                    android:justificationMode="inter_word" />
             <TextView
                     android:id="@+id/author_textView"
                     android:text="Mia Wallis"

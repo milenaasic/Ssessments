@@ -37,12 +37,12 @@ class RegistrationFragment2 : Fragment() {
             ViewModelProviders.of(this)[RegistrationSharedViewModel::class.java]
         }
 
-        //NAVIG CONTROLER
+
         val navController=findNavController()
         //da se ne otvori prvi edittext sam od sebe
         binding.constraintLayoutusername.requestFocus()
 
-    //zatvori softkeyboard ako je user rekao DONE
+
         binding.confirmPasswordeditText.setOnEditorActionListener { v, actionId, event ->
             when (actionId){
                 EditorInfo.IME_ACTION_DONE-> {
@@ -115,14 +115,14 @@ class RegistrationFragment2 : Fragment() {
 
             chooseUsernameeditText.apply {
                 if (text!!.isBlank()) {
-                    setError("reqired field")
+                    setError("required field")
                     registerUser = false
                 }
             }
 
             passwordeditText.apply {
                 if (text!!.isBlank() || text!!.isEmpty()) {
-                    setError("reqired field")
+                    setError("required field")
                     registerUser = false
                 }
                 if(!isPasswordValid(text!!.toString())){
@@ -135,7 +135,7 @@ class RegistrationFragment2 : Fragment() {
 
             confirmPasswordeditText.apply {
                 if (text!!.isBlank()) {
-                    setError("reqired field")
+                    setError("required field")
                     registerUser= false
                 }
 

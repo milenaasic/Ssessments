@@ -34,7 +34,6 @@ class SavedFiltersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.i("SavedFiltersFR","on create")
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_saved_filters,container,false)
 
@@ -60,7 +59,7 @@ class SavedFiltersFragment : Fragment() {
                             .setTitle("Delete this item?")
                             .setPositiveButton("YES",DialogInterface.OnClickListener{dialog: DialogInterface?, which: Int ->
                                         sharedViewModel.deleteFilter(item)
-                                        Toast.makeText(context, "delete $item}", Toast.LENGTH_LONG).show()
+
                         })
                         .setNegativeButton("CANCEL",DialogInterface.OnClickListener { dialog, which ->
                             dialog.dismiss()})
@@ -94,12 +93,6 @@ class SavedFiltersFragment : Fragment() {
             }
         })
 
-       /* sharedViewModel.networkErrorSavedFragment.observe(this, Observer { shouldShow ->
-            if (shouldShow) {
-                showSnackBar(resources.getString(R.string.network_error))
-                sharedViewModel.networkErrorMessageShown()
-            }
-        })*/
 
 
         return binding.root

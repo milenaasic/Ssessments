@@ -147,4 +147,5 @@
     <string name="ssessments_linkedin">Ssessments LinkedIn</string>
     <string name="authfailed">Authentification failed!</string>
     <string name="WrongPasswordorUsername">Wrong Password or Username</string>
+    <string name="ssessments_facebook">Ssessments Facebook</string>
 </resources>

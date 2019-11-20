@@ -4,7 +4,6 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -24,21 +23,19 @@ private val retrofit=Retrofit.Builder()
 interface NewsAPIService {
 
 
-    //VESTI- ucitaj listu vesti prema datom filteru, podrazumeva i kompletnu listu vesti
+
     @POST("api/v1/posts/get-filtered-list")
     fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>
 
-    //VESTI - ucitaj pojedinacnu vest
+
     @POST("api/v1/posts/get-by-id")
     fun postSingleNews(@Body news_request:NetworkSingleNewsRequest):Deferred<NetworkSingleNewsItem>
 
-    //Vesti - ucitaj listu prema custom search-u
+
     @POST(" api/v1/posts/get-custom-list")
     fun postCustomSearchNewsList(@Body customSearch:NetworkCustomSearchFilterObject):Deferred<List<NetworkNewsItem>>
 
-    //FILTERI-ucitaj sve predefinisane filtere, za sve korisnike je isto, token ostaje za kasnije
-    //@GET("url4")
-    //fun getPredefinedFilters(@Body user_token:String):Deferred <List<NetworkNewsFilterObject>>
+
 
     //User LogIn
     @POST("api/v1/users/login")
@@ -60,9 +57,7 @@ interface NewsAPIService {
 
 }
 
-/**
- * A public Api object that exposes the lazy-initialized Retrofit service
- */
+
 object NewsApi {
     val retrofitService : NewsAPIService by lazy {
         retrofit.create(NewsAPIService::class.java)

@@ -1,10 +1,7 @@
 package com.ssessments.newsapp.news_list_home
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
-import com.ssessments.newsapp.data.fakeNetworkNewFilterOBject
-import com.ssessments.newsapp.data.getNewsItemArray
 import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.database.UserData
@@ -15,7 +12,7 @@ import com.ssessments.newsapp.utilities.*
 import kotlinx.coroutines.*
 
 
-private const val mytag="MY_MAINFRAGM_ViewModel"
+
 class MainFragmentViewModel(
                             val database:NewsDatabaseDao,
                             application:Application): AndroidViewModel(application) {
@@ -76,7 +73,7 @@ class MainFragmentViewModel(
    fun getFilteredNewsListFromServer(filter: NetworkNewsFilterObject,initializedFromSwipeRefresh:Boolean) {
 
        if (!initializedFromSwipeRefresh) _showProgressBar.value = true
-       Log.i(mytag, ("getFiltered news from server $filter"))
+
 
        viewModelScope.launch {
            var getDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
@@ -85,7 +82,6 @@ class MainFragmentViewModel(
 
                var resultList = getDeferred.await()
 
-               Log.i(mytag, "result get fileters list body je $resultList")
 
                if (resultList.isEmpty()) insertNewsIntoDatabase(NO_RESULT_NETWORK_NEWS_LIST)
                 else insertNewsIntoDatabase(resultList)
@@ -96,8 +92,6 @@ class MainFragmentViewModel(
            } catch (e: Exception) {
 
                val responseMessage:String?=e.message
-
-               Log.i(mytag, ("odgovor od servera je $responseMessage"))
 
                if (!initializedFromSwipeRefresh) _showProgressBar.value = false
                else _swiperefreshfinished.value = true
@@ -137,9 +131,8 @@ class MainFragmentViewModel(
             withContext(Dispatchers.IO) {
                 val user=database.getUserNoLiveData()
                 database.updateUser(UserData(firebaseID =user.firebaseID ))
-                Log.i(mytag, "claer username and password user table}")
                 val a=database.getUser()
-                Log.i(mytag,"posle username and password getUser daje ${a.value?.username}")
+
             }
         }
 
@@ -188,9 +181,6 @@ class MainFragmentViewModel(
         _showProgressBar.value=false
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.i(mytag,"main grafment view model on cleared")
-    }
+
 
 }

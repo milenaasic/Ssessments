@@ -1,8 +1,7 @@
 package com.ssessments.newsapp.detail_news_fragment
 
-import android.content.DialogInterface
+
 import android.content.Intent
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -10,24 +9,15 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import com.google.android.material.appbar.AppBarLayout
-
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.databinding.DetailNewsFragmentBinding
 import com.ssessments.newsapp.network.NetworkSingleNewsItem
 import com.ssessments.newsapp.utilities.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.detail_news_fragment.*
 
-import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.TextUtils
@@ -58,8 +48,7 @@ class DetailNews() : Fragment() {
         super.onCreate(savedInstanceState)
          args = DetailNewsArgs.fromBundle(arguments!!)
         setHasOptionsMenu(true)
-        Toast.makeText(context, "news: ${args.newsID}", Toast.LENGTH_LONG).show()
-        Log.i(MYTAG,"news: ${args.newsID}")
+
     }
 
     override fun onCreateView(
@@ -78,9 +67,7 @@ class DetailNews() : Fragment() {
 
         viewModel.singleNewsData.observe(this,Observer{
             mydetailNews=it
-            Log.i(MYTAG,"nadgledani detail je $it")
             binding.apply {
-
 
                 timeDate.setText(dateStringFormatISO8601oReadableWithHours(it.dateTime))
                 author_textView.setText(it.author)
@@ -121,9 +108,7 @@ class DetailNews() : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.i(MYTAG,"u on activity created detailnews fragment")
         if(savedInstanceState!=null){
-        Log.i(MYTAG,"u on activity created detailnews fragment bundle nije null")
 
         }
     }
@@ -155,7 +140,6 @@ class DetailNews() : Fragment() {
         when (item.itemId){
                 R.id.share_item->{
                                     viewModel.shareItemMenuClicked()
-                                    Log.v("Detail","share pressed")
                                     return true}
 
             else-> return false
@@ -165,14 +149,11 @@ class DetailNews() : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        //pokupi sistemski seting u vezi velicine slova
         systemFontScale= resources.configuration.fontScale
-        Log.i(MYTAG,"sistem font scale je $systemFontScale")
         val s: String? = PreferenceManager.getDefaultSharedPreferences(requireActivity())
             ?.getString(FONT_SIZE_KEY, DEFAULT_FONT_SIZE)
         if (s != null) changeFontSizeAllViews( s.toFloat())
 
-        //Log.i(MYTAG," u preferences je sacuvano (on start call) ${PreferenceManager.getDefaultSharedPreferences(requireActivity()).getFloat(FONT_SIZE_KEY, FONT_SIZE_MEDIUM)}")
     }
 
 

@@ -56,7 +56,6 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
             fun from(parent: ViewGroup): MyViewHolder {
                 val inflater=LayoutInflater.from(parent.context)
                 val binding = NewsItemLayoutRecviewBinding.inflate(inflater, parent, false)
-                //textView.textSize=defaultFontSize.times(systemFontScale).times(chosenFontSize)
                 return MyViewHolder(binding)
             }
         }

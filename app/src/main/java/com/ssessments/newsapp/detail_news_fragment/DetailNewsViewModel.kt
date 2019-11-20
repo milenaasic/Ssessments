@@ -1,18 +1,16 @@
 package com.ssessments.newsapp.detail_news_fragment
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.network.NetworkSingleNewsItem
 import com.ssessments.newsapp.network.NetworkSingleNewsRequest
 import com.ssessments.newsapp.network.NewsApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
-private const val MYTAG="MY DETAIL NEWS MODEL"
+
+
 class DetailNewsViewModel(val newsID:Int,
                           val database: NewsDatabaseDao,
                           application: Application) : AndroidViewModel(application) {
@@ -54,17 +52,14 @@ class DetailNewsViewModel(val newsID:Int,
         viewModelScope.launch {
             val user=database.getUserNoLiveData()
             val token=user.token
-            Log.i(MYTAG," token detail news je ${token}")
 
             var defferedSingleNewsItem=NewsApi.retrofitService.postSingleNews(NetworkSingleNewsRequest(token,newsID))
             try {
                 var result=defferedSingleNewsItem.await()
                 _singleNewsData.value=result
                 _showProgressBar.value=false
-                Log.i(MYTAG,"rRESULT $result")
             }catch (e:Exception){
                 val responseMessage:String?=e.message
-                Log.i(MYTAG,"response greska $responseMessage")
                 _showProgressBar.value=false
                 _showNetworkErrorMessage.value = true
 

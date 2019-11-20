@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
-import com.ssessments.newsapp.data.fakeNetworkNewFilterOBject
-import com.ssessments.newsapp.data.getNewsItemArray
 import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.database.UserData

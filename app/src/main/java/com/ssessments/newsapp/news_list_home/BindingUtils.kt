@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ssessments.newsapp.database.NewsItem
 import com.ssessments.newsapp.utilities.dateStringFormatISO8601oReadableWithHours
-import com.ssessments.newsapp.utilities.dateStringFormatSQlToReadableWithHours
 
 
 @BindingAdapter("titleString")
