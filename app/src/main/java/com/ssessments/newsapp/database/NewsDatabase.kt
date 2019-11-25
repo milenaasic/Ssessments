@@ -13,7 +13,7 @@ import com.ssessments.newsapp.utilities.*
 
 private const val NAME="News Database"
 
-@Database(entities = [NewsItem::class,FilterItem::class,UserData::class,CurrentFilter::class,PredefinedFilter::class],version = 2)
+@Database(entities = [NewsItem::class,FilterItem::class,UserData::class,CurrentFilter::class,PredefinedFilter::class],version = 3)
 abstract class NewsDatabase:RoomDatabase(){
 
     abstract val newsDatabaseDao:NewsDatabaseDao

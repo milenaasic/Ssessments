@@ -1,5 +1,6 @@
 package com.ssessments.newsapp.network
 
+import androidx.annotation.Keep
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -20,9 +21,8 @@ private val retrofit=Retrofit.Builder()
                         .baseUrl(BASE_URL)
                         .build()
 
+
 interface NewsAPIService {
-
-
 
     @POST("api/v1/posts/get-filtered-list")
     fun postFilteredNewsList(@Body filter:NetworkNewsFilterObject): Deferred<List<NetworkNewsItem>>

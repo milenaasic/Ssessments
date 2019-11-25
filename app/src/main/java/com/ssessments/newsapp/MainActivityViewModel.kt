@@ -144,6 +144,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
             withContext(Dispatchers.IO) {
                 Log.i(MY_TAG, "initialize user")
                 when (database.getNumberOfUsers()){
+
                     0->{database.insertUser(UserData())
                         Log.i(MY_TAG,"user u tabeli u init Viewmodel je ${database.getUserNoLiveData()}")}
                     1->return@withContext}

@@ -1,5 +1,6 @@
 package com.ssessments.newsapp.network
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.ssessments.newsapp.utilities.Language
 import com.ssessments.newsapp.utilities.NO_DATE_SELECTED_VALUE

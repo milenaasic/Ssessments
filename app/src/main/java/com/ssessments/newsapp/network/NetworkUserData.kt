@@ -1,5 +1,6 @@
 package com.ssessments.newsapp.network
 
+
 import com.squareup.moshi.Json
 
 data class NetworkUserData (

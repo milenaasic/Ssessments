@@ -51,7 +51,7 @@ class SavedFiltersFragment : Fragment() {
 
 
         val adapter=SavedFiltersAdapter(FilterItemClickListener { filterId ->
-            Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
+            //Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
             sharedViewModel.fetchSavedFilterWithId(filterId)
         }, FilterItemDeleteClickListener { item->
            // sharedViewModel.deleteFilter(item)

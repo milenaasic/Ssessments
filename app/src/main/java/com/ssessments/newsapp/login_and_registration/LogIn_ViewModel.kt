@@ -1,6 +1,7 @@
 package com.ssessments.newsapp.login_and_registration
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -117,7 +118,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
             _showProgressBar.value = true
 
             viewModelScope.launch {
-
+                Log.i("Forgot password","email ${usermail}")
                 var getResultDeferred = NewsApi.retrofitService.postForgotPassword(NetworkForgotPasswordRequest(usermail))
                 try {
                     var result = getResultDeferred.await()
@@ -126,7 +127,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
                     _showToastForgotPasswordHandeled.value = true
 
                 } catch (e: Exception) {
-
+                    Log.i("Forgot password","net gresak ${e.message}")
                     _showProgressBar.value = false
                     _showToastSomethingWentWrong.value = true
 
