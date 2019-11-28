@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <MultiSelectListPreference
+            android:key="marketsAsiaPacific"
+            android:id="@+id/marketAsiaPacific"
+            app:title="Asia Pacific"
+            android:entries="@array/multi_list_Asia_pacific_deafult"
+            android:entryValues="@array/multi_list_Asia_pacific_deafult"
+            android:defaultValue="@array/multi_list_Asia_pacific_deafult"
+            />
+
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:divider="?attr/dividerHorizontal"
+            android:key="switch_preference_1"
+            android:title="Africa" />
+
+    <Preference
+        android:id="@+id/marketAmericas"
+        android:divider="?attr/dividerHorizontal"
+        android:summary="All"
+        app:title="Americas" />
+
+
+    <Preference
+            android:id="@+id/marketEurope"
+            android:divider="?attr/dividerHorizontal"
+            android:summary="All"
+            app:title="Europe" />
+
+    <Preference
+            android:id="@+id/marketICS"
+            android:divider="?attr/dividerHorizontal"
+            android:summary="All"
+            app:title="ICS" />
+
+    <Preference
+            android:id="@+id/marketMiddleEast"
+            android:divider="?attr/dividerHorizontal"
+            android:summary="All"
+            app:title="MiddleEast" />
+
+    <CheckBoxPreference
+            android:id="@+id/marketRussia"
+            android:divider="?attr/dividerHorizontal"
+            android:defaultValue="true"
+            app:title="Russia and CIS" />
+
+    <CheckBoxPreference
+            android:id="@+id/marketWorld"
+            android:divider="?attr/dividerHorizontal"
+            android:defaultValue="true"
+            app:title="World" />
+
+
+</PreferenceScreen>

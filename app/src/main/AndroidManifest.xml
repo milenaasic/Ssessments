@@ -57,6 +57,15 @@
             </intent-filter>
         </service>
 
+        <activity
+                android:name=".filter_activity.FilterActivity"
+                android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".activity_notification_preferences.NotificationPrefActivity"
+                android:parentActivityName=".MainActivity">
+        </activity>
+
+
     </application>
 
 </manifest>

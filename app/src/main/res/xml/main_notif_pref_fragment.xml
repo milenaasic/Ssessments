@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+
+    <PreferenceCategory
+            android:id="@+id/mainprefscreenMarkets"
+            app:title="Receive notifications for">
+
+        <Preference
+                android:id="@+id/marketprefActivity"
+                android:summary="All"
+                android:key="@string/markets_preferences"
+                app:title="Markets" />
+
+        <Preference
+                android:id="@+id/productsprefActivity"
+                android:summary="All"
+                android:key="@string/products_preferences"
+                android:title="Products" />
+
+        <Preference
+                android:id="@+id/serviceprefActivity"
+                android:summary="All"
+                android:key="@string/services_preferences"
+                android:title="Services" />
+
+
+        <PreferenceCategory android:title="Choose language for notifications">
+
+            <ListPreference
+                    android:defaultValue="English"
+                    android:entries="@array/spinner_language"
+                    android:entryValues="@array/spinner_language"
+                    android:key="list_preference_language_for_notif"
+                    android:title="Language" />
+
+        </PreferenceCategory>
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package com.ssessments.newsapp.filter_fragments
+package com.ssessments.newsapp.filter_fragments_saved_and_predefined
 
 
 import android.os.Bundle
@@ -18,7 +18,6 @@ import com.ssessments.newsapp.MainActivityViewModel
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.FragmentPredefinedFiltersBinding
-import com.ssessments.newsapp.utilities.EMPTY_TOKEN
 
 
 class PredefinedFiltersFragment : Fragment() {

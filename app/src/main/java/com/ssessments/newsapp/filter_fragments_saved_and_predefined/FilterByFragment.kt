@@ -1,9 +1,8 @@
-package com.ssessments.newsapp.filter_fragments
+package com.ssessments.newsapp.filter_fragments_saved_and_predefined
 
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.FilterItem
 import com.ssessments.newsapp.utilities.*
 import java.util.*
-import java.text.DateFormat
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController

@@ -1,4 +1,4 @@
-package com.ssessments.newsapp.filter_fragments
+package com.ssessments.newsapp.filter_fragments_saved_and_predefined
 
 import android.os.Bundle
 import android.view.*

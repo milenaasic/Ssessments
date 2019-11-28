@@ -1,4 +1,4 @@
-package com.ssessments.newsapp.filter_fragments
+package com.ssessments.newsapp.filter_fragments_saved_and_predefined
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

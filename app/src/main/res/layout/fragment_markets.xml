@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".filter_activity.MarketsFragment"
+            android:id="@+id/justMarketsRootlayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/allmarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                    android:id="@+id/allmarketstextview"
+                    android:text="All Markets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="All Markets"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"/>
+
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/allmarketsChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/allmarketstextview"
+                    app:singleSelection="false"
+                    android:layout_marginTop="4dp" android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chip0"
+                        android:text="@string/chip_allmarkets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        android:checked="true"/>
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <View
+                    android:id="@+id/allmarketsdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="-16dp" app:layout_constraintTop_toBottomOf="@+id/allmarketsChipGroup"
+                    android:layout_marginTop="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/asispacificmarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/allmarketslayout"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0">
+
+            <TextView
+                    android:id="@+id/asiapacificTextView"
+                    android:text="Asia Pacific"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Asia Pacific"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="8dp"/>
+
+
+            <HorizontalScrollView
+                    android:id="@+id/ashorizontalscroolview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/asiapacificTextView" android:scrollbarSize="2dp">
+
+
+                <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/asiapacificChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/asiapacificTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:singleLine="true"
+                        android:scrollbars="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/asiapacificTextView"
+                        app:singleSelection="false"
+                        android:layout_marginTop="4dp">
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/aschip0"
+                            android:text="All"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            app:checkedIconVisible="false"/>
+
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/aschip1"
+                            android:text="@string/chip_31"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip2"
+                            android:text="@string/chip_32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip3"
+                            android:text="@string/chip_33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip4"
+                            android:text="@string/chip_34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip5"
+                            android:text="@string/chip_35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip6"
+                            android:text="@string/chip_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip7"
+                            android:text="@string/chip_33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip8"
+                            android:text="@string/chip_34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip9"
+                            android:text="@string/chip_35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip10"
+                            android:text="@string/chip_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip11"
+                            android:text="@string/chip_34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip12"
+                            android:text="@string/chip_35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/aschip13"
+                            android:text="@string/chip_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                    />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/ashorizontalscroolview" android:layout_marginTop="16dp"/>
+            <TextView
+                    android:text="CLEAR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearAllAP" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/asiapacificTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/asiapacificTextView" android:padding="8dp"
+                    android:textSize="12sp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/africamarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/asispacificmarketslayout">
+
+            <TextView
+                    android:id="@+id/africamarketstextview"
+                    android:text="Africa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Africa"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"/>
+
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/africaChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/africamarketstextview"
+                    app:singleSelection="false"
+                    android:layout_marginTop="4dp" android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/africachip0"
+                        android:text="Africa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        tools:text="Africa"/>
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <View
+                    android:id="@+id/affricamarketsdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="-16dp" app:layout_constraintTop_toBottomOf="@+id/africaChipGroup"
+                    android:layout_marginTop="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/americasmarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/africamarketslayout"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp">
+
+            <TextView
+                    android:id="@+id/americasTextView"
+                    android:text="Americas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Americas"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="8dp"/>
+
+
+            <HorizontalScrollView
+                    android:id="@+id/americashorizontalscroolview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/americasTextView" android:scrollbarSize="2dp"
+                    app:layout_constraintHorizontal_bias="0.0">
+
+
+                <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/americasChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/americasTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:singleLine="true"
+                        android:scrollbars="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/americasTextView"
+                        app:singleSelection="false"
+                        android:layout_marginTop="4dp">
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/amchip0"
+                            android:text="All"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            app:checkedIconVisible="false"/>
+
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/amchip1"
+                            android:text="Brazil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Brazil"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/amchip2"
+                            android:text="Canada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Canada"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/amchip3"
+                            android:text="Latin America"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Latin America"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/amchip4"
+                            android:text="Mexico"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Mexico"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/amchip5"
+                            android:text="US"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="US"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <View
+                    android:id="@+id/amdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/americashorizontalscroolview"
+                    android:layout_marginTop="16dp"/>
+            <TextView
+                    android:text="CLEAR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearAllAM" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/americasTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/americasTextView" android:padding="8dp"
+                    android:textSize="12sp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/europemarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/americasmarketslayout"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp">
+
+            <TextView
+                    android:id="@+id/europeTextView"
+                    android:text="Europe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Europe"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="8dp"/>
+
+
+            <HorizontalScrollView
+                    android:id="@+id/europehorizontalscroolview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/europeTextView" android:scrollbarSize="2dp"
+                    app:layout_constraintHorizontal_bias="0.0">
+
+
+                <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/europeChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/europeTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:singleLine="true"
+                        android:scrollbars="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/europeTextView"
+                        app:singleSelection="false"
+                        android:layout_marginTop="4dp">
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/euchip0"
+                            android:text="All"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            app:checkedIconVisible="false"/>
+
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/euchip1"
+                            android:text="Central and East"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Central and East"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/euchip2"
+                            android:text="France"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="France"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/euchip3"
+                            android:text="Germany"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Germany"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/euchip4"
+                            android:text="Italy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Italy"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/euchip5"
+                            android:text="West Europe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="West Europe"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <View
+                    android:id="@+id/eudivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/europehorizontalscroolview"
+                    android:layout_marginTop="16dp"/>
+            <TextView
+                    android:text="CLEAR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearAllEU" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/europeTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/europeTextView" android:padding="8dp"
+                    android:textSize="12sp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/icsmarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@+id/europemarketslayout">
+
+            <TextView
+                    android:id="@+id/icsmarketstextview"
+                    android:text="ICS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="ICS"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"/>
+
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/icsmarketsChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/icsmarketstextview"
+                    app:singleSelection="false"
+                    android:layout_marginTop="4dp" android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/icschip0"
+                        android:text="All"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/icschip1"
+                        android:text="India"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/icschip2"
+                        android:text="Bangladesh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/icschip3"
+                        android:text="Pakistan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <View
+                    android:id="@+id/icsmarketsdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="-16dp" app:layout_constraintTop_toBottomOf="@+id/icsmarketsChipGroup"
+                    android:layout_marginTop="16dp"/>
+
+
+            <TextView
+                    android:text="CLEAR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearAllICS" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/icsmarketstextview"
+                    app:layout_constraintBottom_toBottomOf="@+id/icsmarketstextview" android:padding="8dp"
+                    android:textSize="12sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/middleeastmarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/icsmarketslayout"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp">
+
+            <TextView
+                    android:id="@+id/middleeastTextView"
+                    android:text="Middle East"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Middle East"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="8dp"/>
+
+
+            <HorizontalScrollView
+                    android:id="@+id/middleeasthorizontalscroolview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/middleeastTextView" android:scrollbarSize="2dp"
+                    app:layout_constraintHorizontal_bias="0.0">
+
+
+                <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/middleeastChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/middleeastTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:singleLine="true"
+                        android:scrollbars="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/middleeastTextView"
+                        app:singleSelection="false"
+                        android:layout_marginTop="4dp">
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/middleeastchip0"
+                            android:text="All"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            app:checkedIconVisible="false"/>
+
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/middleeastchip1"
+                            android:text="Egypt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Egypt"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/middleeastchip2"
+                            android:text="Iraq"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Iraq"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/middleeastchip3"
+                            android:text="Saudi Arabia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Saudi Arabia"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/middleeastchip4"
+                            android:text="UAE"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="UAE"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/middleeastchip5"
+                            android:text="Iran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Iran"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/middleeastchip6"
+                            android:text="Qatar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Qatar"/>
+
+                    <com.google.android.material.chip.Chip
+
+                            android:id="@+id/middleeastchip7"
+                            android:text="Turkey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                            tools:text="Turkey"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <View
+                    android:id="@+id/middleeastdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/middleeasthorizontalscroolview"
+                    android:layout_marginTop="16dp"/>
+            <TextView
+                    android:text="CLEAR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearAllMiddleEast" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/middleeastTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/middleeastTextView" android:padding="8dp"
+                    android:textSize="12sp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/russiamarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/middleeastmarketslayout">
+
+            <TextView
+                    android:id="@+id/russiamarketstextview"
+                    android:text="Russia and CIS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Russia and CIS"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"/>
+
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/russiaChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/russiamarketstextview"
+                    app:singleSelection="false"
+                    android:layout_marginTop="4dp" android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/russiachip0"
+                        android:text="Russia and CIS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        tools:text="Russia and CIS"/>
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <View
+                    android:id="@+id/russiamarketsdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="-16dp" app:layout_constraintTop_toBottomOf="@+id/russiaChipGroup"
+                    android:layout_marginTop="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/worldmarketslayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/russiamarketslayout">
+
+            <TextView
+                    android:id="@+id/worldmarketstextview"
+                    android:text="World"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="World"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"/>
+
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/worldChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/worldmarketstextview"
+                    app:singleSelection="false"
+                    android:layout_marginTop="4dp" android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/worldchip0"
+                        android:text="World"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        tools:text="World"/>
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <View
+                    android:id="@+id/worldmarketsdivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    tools:layout_editor_absoluteX="-16dp" app:layout_constraintTop_toBottomOf="@+id/worldChipGroup"
+                    android:layout_marginTop="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/resetfilterButtonMarkets"
+                android:text="@string/reset_filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/worldmarketslayout" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/applyfilterButtonmarkets" android:layout_marginEnd="4dp"
+                app:layout_constraintVertical_bias="0.502"/>
+
+
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/applyfilterButtonmarkets"
+                android:text="@string/apply_filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/resetfilterButtonMarkets" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginStart="4dp"
+                app:layout_constraintTop_toTopOf="@+id/resetfilterButtonMarkets"
+                app:layout_constraintBottom_toBottomOf="@+id/resetfilterButtonMarkets"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

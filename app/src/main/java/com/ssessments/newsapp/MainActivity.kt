@@ -27,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.ActivityMainBinding
+import com.ssessments.newsapp.filter_activity.FilterActivity
 import com.ssessments.newsapp.login_and_registration.LogIn_and_Registration_Activity
 import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
 import com.ssessments.newsapp.search_provider.MySuggestionProvider
@@ -163,6 +164,8 @@ class MainActivity : AppCompatActivity(){
 
                 }
 
+                R.id.accountFragment-> setAccountFragmentUI()
+
             }
         }
 
@@ -286,7 +289,12 @@ class MainActivity : AppCompatActivity(){
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return item!!.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+        if(item?.itemId==R.id.filter_menu_item){
+            val intent=Intent(this, FilterActivity::class.java)
+            startActivity(intent)
+            return true
+        }
+        else {return item!!.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)}
     }
 
 
@@ -461,6 +469,28 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
+    private fun setAccountFragmentUI() {
+        binding.apply {
+            toolbar.apply{
+                logo_in_toolbar.visibility = View.GONE
+                setTitleTextColor(Color.WHITE)
+                navigationIcon=resources.getDrawable(R.drawable.ic_arrow_back_white,null)
+            }
+
+            appbar.elevation=(4 * resources.displayMetrics.density)
+            val lp:AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
+            lp.scrollFlags=0
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark,null))
+            }else{
+                appbar.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))}
+
+            bottom_navigation.visibility = View.GONE
+            myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        }
+    }
+
     private fun setloggedInUserUI(loggedIn:Boolean){
         //ako je user ulogovan pokazi logout u burgeru i skloni bottom bar
         when(loggedIn){
@@ -484,6 +514,8 @@ class MainActivity : AppCompatActivity(){
         }
 
     }
+
+
 
 
 

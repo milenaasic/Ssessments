@@ -148,4 +148,38 @@
     <string name="authfailed">Authentification failed!</string>
     <string name="WrongPasswordorUsername">Wrong Password or Username</string>
     <string name="ssessments_facebook">Ssessments Facebook</string>
+
+
+    <string name="markets_preferences">markets_preferences</string>
+    <string name="products_preferences">products_preferences</string>
+    <string name="services_preferences">services_preferences</string>
+    <string name="custom">Custom</string>
+    <string name="saved">Saved</string>
+    <string name="predefined">Predefined</string>
+    <string name="filters_title">Filters</string>
+
+    <string-array name="multi_list_Asia_pacific">
+        <item>Australia</item>
+        <item>Indonesia</item>
+        <item>Corea</item>
+        <item>Australia2</item>
+        <item>Indonesia2</item>
+        <item>Corea2</item>
+        <item>Australia3</item>
+        <item>Indonesia3</item>
+        <item>Corea3</item>
+        <item>Australia22</item>
+        <item>Indonesia22</item>
+        <item>Corea22</item>
+    </string-array>
+
+
+    <string-array name="multi_list_Asia_pacific_deafult">
+        <item>Australia</item>
+        <item>Indonesia</item>
+        <item>Corea</item>
+
+    </string-array>
+
+
 </resources>

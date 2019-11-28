@@ -6,8 +6,8 @@
 
     <data>
         <variable name="singleFilterItem" type="com.ssessments.newsapp.database.FilterItem"/>
-        <variable name="myfilterclickListener" type="com.ssessments.newsapp.filter_fragments.FilterItemClickListener"/>
-        <variable name="myDeleteClickListener" type="com.ssessments.newsapp.filter_fragments.FilterItemDeleteClickListener"/>
+        <variable name="myfilterclickListener" type="com.ssessments.newsapp.filter_fragments_saved_and_predefined.FilterItemClickListener"/>
+        <variable name="myDeleteClickListener" type="com.ssessments.newsapp.filter_fragments_saved_and_predefined.FilterItemDeleteClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

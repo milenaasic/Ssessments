@@ -4,6 +4,11 @@
     <group android:id="@+id/nav_drawer_group"
             android:checkableBehavior="single">
 
+        <item
+                android:id="@+id/accountFragment"
+                android:title="My Account"
+                android:icon="@drawable/baseline_notifications_black_24dp"
+                />
 
         <item
                 android:id="@+id/preference_fragment"

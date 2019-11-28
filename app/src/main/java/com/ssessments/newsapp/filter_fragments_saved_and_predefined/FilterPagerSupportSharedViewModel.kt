@@ -1,11 +1,8 @@
-package com.ssessments.newsapp.filter_fragments
+package com.ssessments.newsapp.filter_fragments_saved_and_predefined
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.ssessments.newsapp.database.*
-import com.ssessments.newsapp.network.NetworkNewsItem
-import com.ssessments.newsapp.network.NewsApi
 import com.ssessments.newsapp.utilities.*
 import kotlinx.coroutines.*
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navigation_notification_preferences"
+        app:startDestination="@id/mainNotifPrefFragment">
+
+    <fragment
+            android:id="@+id/mainNotifPrefFragment"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.MainNotifPrefFragment"
+            android:label="Notifications" >
+        <action
+                android:id="@+id/action_mainNotifPrefFragment_to_marketsNotifPrefFragment"
+                app:destination="@id/marketsNotifPrefFragment" />
+        <action
+                android:id="@+id/action_mainNotifPrefFragment_to_productsNotifPrefFragment"
+                app:destination="@id/productsNotifPrefFragment" />
+        <action
+                android:id="@+id/action_mainNotifPrefFragment_to_servicesNotifPrefFragment"
+                app:destination="@id/servicesNotifPrefFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/marketsNotifPrefFragment"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.MarketsNotifPrefFragment"
+            android:label="Markets" />
+    <fragment
+            android:id="@+id/productsNotifPrefFragment"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.ProductsNotifPrefFragment"
+            android:label="Products" />
+    <fragment
+            android:id="@+id/servicesNotifPrefFragment"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.ServicesNotifPrefFragment"
+            android:label="Services" />
+</navigation>

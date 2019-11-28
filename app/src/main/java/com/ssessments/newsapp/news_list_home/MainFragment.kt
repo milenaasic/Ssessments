@@ -96,6 +96,7 @@ class mainFragment : Fragment() {
             }
 
             myCurrentFilter = newFilter
+            Log.i(mytag,"current filter")
 
             if(myUserData!=null){
             val f=convertCurrentFilterToNetworkNewsFilterObject(myUserData?.token ?: EMPTY_TOKEN, myCurrentFilter!!)

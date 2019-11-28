@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" >
+
+<data>
+    <variable name="userRegistrationData" type="com.ssessments.newsapp.account.RegistrationData"></variable>
+
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/accountConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".account.AccountFragment"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:id="@+id/nameTitleTextView"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+    <TextView
+            android:id="@+id/nametextView"
+            app:setnameandsurname="@{userRegistrationData}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/nameTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/nameTitleTextView"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" tools:text="Ime i prezime"/>
+    <TextView
+            android:text="Account Type "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/accountTypeTitle" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/nametextView"
+            app:layout_constraintStart_toStartOf="@+id/nametextView" tools:text="Account Type "
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+    <TextView
+            android:id="@+id/accountTypeValue"
+            android:text="@{userRegistrationData.account}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/accountTypeTitle"
+            app:layout_constraintStart_toStartOf="@+id/accountTypeTitle" tools:text="Freemium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    <View
+            android:id="@+id/divider4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/accountTypeValue" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:background="?attr/dividerHorizontal"/>
+    <TextView
+            android:text="Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailTitletextView"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/divider4"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" android:layout_marginStart="32dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+            android:text="@{userRegistrationData.email}"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/accountemailtextView" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/emailTitletextView"
+            app:layout_constraintStart_toStartOf="@+id/emailTitletextView" tools:text="example@example.com"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:background="@color/transparent" android:singleLine="true" android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"/>
+
+
+    <TextView
+            android:text="Phone Number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/phonetextView" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/accountemailtextView"
+            app:layout_constraintStart_toStartOf="@+id/accountemailtextView"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+    <EditText
+            android:text="123"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/accountphoneValuetextView" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/phonetextView"
+            app:layout_constraintStart_toStartOf="@+id/phonetextView"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:background="@color/transparent" android:singleLine="true" android:inputType="phone"
+            android:imeOptions="actionDone"/>
+    <TextView
+            android:text="Company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/companytextView" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/accountphoneValuetextView"
+            app:layout_constraintStart_toStartOf="@+id/accountphoneValuetextView"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+    <TextView
+            android:id="@+id/companyvaluetextView"
+            app:companyandcountry="@{userRegistrationData}"
+            android:text="Company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/companytextView"
+            app:layout_constraintStart_toStartOf="@+id/companytextView" tools:text="company"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/icon_edit_text"
+            android:id="@+id/editEmailImage"
+            app:layout_constraintTop_toTopOf="@+id/accountemailtextView"
+            app:layout_constraintBottom_toBottomOf="@+id/accountemailtextView"
+            app:layout_constraintStart_toEndOf="@+id/accountemailtextView" android:layout_marginStart="8dp"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/icon_edit_text"
+            android:id="@+id/editPhoneImage"
+            app:layout_constraintStart_toEndOf="@+id/accountphoneValuetextView" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/accountphoneValuetextView"
+            app:layout_constraintBottom_toBottomOf="@+id/accountphoneValuetextView"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

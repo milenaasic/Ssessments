@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/filter_navigation"
+            app:startDestination="@id/customFilterFragment">
+
+    <fragment
+            android:id="@+id/customFilterFragment"
+            android:name="com.ssessments.newsapp.filter_activity.CustomFilterFragment"
+            android:label="Custom">
+        <action
+                android:id="@+id/action_customFilterFragment_to_marketsFragment"
+                app:destination="@id/marketsFragment" />
+        <action
+                android:id="@+id/action_customFilterFragment_to_productsFragment"
+                app:destination="@id/productsFragment" />
+        <action
+                android:id="@+id/action_customFilterFragment_to_servicetypeFragment"
+                app:destination="@id/servicetypeFragment" />
+        <action
+                android:id="@+id/action_customFilterFragment_to_predefinedFiltersFragment"
+                app:destination="@id/predefinedFiltersFragment"
+                app:popUpTo="@+id/customFilterFragment"
+                app:popUpToInclusive="true" />
+        <action
+                android:id="@+id/action_customFilterFragment_to_savedFiltersFragment"
+                app:destination="@id/savedFiltersFragment"
+                app:popUpTo="@+id/customFilterFragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment android:id="@+id/marketsFragment"
+              android:name="com.ssessments.newsapp.filter_activity.MarketsFragment"
+              android:label="Markets" tools:layout="@layout/fragment_markets">
+        <action android:id="@+id/action_marketsFragment_to_customFilterFragment"
+                app:destination="@id/customFilterFragment"
+                app:popUpTo="@+id/customFilterFragment" app:popUpToInclusive="false" app:launchSingleTop="true"/>
+    </fragment>
+    <fragment android:id="@+id/productsFragment" android:name="com.ssessments.newsapp.filter_activity.ProductsFragment"
+              android:label="Products">
+        <action android:id="@+id/action_productsFragment_to_customFilterFragment"
+                app:destination="@id/customFilterFragment" app:popUpTo="@+id/customFilterFragment"
+                app:launchSingleTop="true"/>
+    </fragment>
+    <fragment android:id="@+id/servicetypeFragment"
+              android:name="com.ssessments.newsapp.filter_activity.ServicetypeFragment"
+              android:label="Services">
+        <action android:id="@+id/action_servicetypeFragment_to_customFilterFragment"
+                app:destination="@id/customFilterFragment" app:launchSingleTop="true"
+                app:popUpTo="@+id/customFilterFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/predefinedFiltersFragment"
+            android:name="com.ssessments.newsapp.filter_fragments_saved_and_predefined.PredefinedFiltersFragment"
+            android:label="Predefined">
+        <action
+                android:id="@+id/action_predefinedFiltersFragment_to_customFilterFragment"
+                app:destination="@id/customFilterFragment"
+                app:popUpTo="@+id/predefinedFiltersFragment"
+                app:popUpToInclusive="true" />
+        <action
+                android:id="@+id/action_predefinedFiltersFragment_to_savedFiltersFragment"
+                app:destination="@id/savedFiltersFragment"
+                app:popUpTo="@+id/predefinedFiltersFragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+            android:id="@+id/savedFiltersFragment"
+            android:name="com.ssessments.newsapp.filter_fragments_saved_and_predefined.SavedFiltersFragment"
+            android:label="Saved">
+        <action
+                android:id="@+id/action_savedFiltersFragment_to_predefinedFiltersFragment"
+                app:destination="@id/predefinedFiltersFragment"
+                app:popUpTo="@+id/savedFiltersFragment"
+                app:popUpToInclusive="true" />
+        <action
+                android:id="@+id/action_savedFiltersFragment_to_customFilterFragment"
+                app:destination="@id/customFilterFragment"
+                app:popUpTo="@id/savedFiltersFragment" />
+    </fragment>
+</navigation>

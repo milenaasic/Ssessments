@@ -6,7 +6,7 @@
 
     <data>
         <variable name="singleFilterItem" type="com.ssessments.newsapp.database.PredefinedFilter"/>
-        <variable name="myfilterclickListener" type="com.ssessments.newsapp.filter_fragments.PredefinedFilterItemClickListener"/>
+        <variable name="myfilterclickListener" type="com.ssessments.newsapp.filter_fragments_saved_and_predefined.PredefinedFilterItemClickListener"/>
 
     </data>
 
