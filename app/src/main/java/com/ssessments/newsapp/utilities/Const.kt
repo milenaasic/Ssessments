@@ -13,6 +13,14 @@ const val EMPTY_TOKEN="empty_token"
 const val EMPTY_USERNAME="empty_username"
 const val EMPTY_PASSWORD="empty_password"
 const val EMPTY_FIREBASEID="empty_firebase_id"
+const val EMPTY_FIRST_NAME="empty_first_name"
+const val EMPTY_LAST_NAME="empty_last_name"
+const val EMPTY_ACCESS_TYPE="empty_access_type"
+const val EMPTY_EMAIL="empty_email"
+const val EMPTY_PHONE="empty_phone"
+const val EMPTY_COMPANY="empty_company"
+const val EMPTY_COUNTRY="empty_country"
+
 
 //za main fragment i mainfragment viewmodel
 const val INITIALIZED_FROM_SWIPE_REFRESH=true
@@ -32,3 +40,5 @@ val NO_RESULT_NETWORK_NEWS_LIST= listOf<NetworkNewsItem>(NetworkNewsItem(-1, NO_
 val EMPTY_LIST= listOf<NewsItem>()
 
 const val HTTP_AUTH_FAILED="401"
+
+

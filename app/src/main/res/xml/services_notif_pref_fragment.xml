@@ -3,54 +3,54 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sevicesPrefScreen">
 
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_1"
+                android:key="daily"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_2"
+                android:key="weekly"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_3"
+                android:key="monthly"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_4"
+                android:key="quarterly"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_5"
+                android:key="news"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_6"
+                android:key="analysis"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_7"
+                android:key="price"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_8"
+                android:key="stats"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_9"
+                android:key="plant"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_10"
+                android:key="talk"
                 android:title="Switch preference" />
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_11"
+                android:key="inventory"
                 android:title="Switch preference" />
 
-        <SwitchPreference
+        <CheckBoxPreference
                 android:defaultValue="true"
-                android:key="switch_preference_12"
+                android:key="oneliner"
                 android:title="Switch preference" />
 
 </PreferenceScreen>

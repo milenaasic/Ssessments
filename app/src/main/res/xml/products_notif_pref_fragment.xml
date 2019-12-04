@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+            android:id="@+id/productsPlastics"
+            android:key="productsPlastics"
+            android:divider="?attr/dividerHorizontal"
+            android:summary="All"
+            app:title="Plastics" />
 
+
+    <Preference
+            android:id="@+id/productsChemicals"
+            android:key="productsChemicals"
+            android:divider="?attr/dividerHorizontal"
+            android:summary="All"
+            app:title="Chemicals" />
+
+    <Preference
+            android:id="@+id/productsEnergy"
+            android:key="productsEnergy"
+            android:divider="?attr/dividerHorizontal"
+            android:summary="All"
+            app:title="Energy/Feedstocks" />
 </PreferenceScreen>

@@ -24,6 +24,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.ssessments.newsapp.activity_notification_preferences.NotificationPrefActivity
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.ActivityMainBinding
@@ -125,6 +126,14 @@ class MainActivity : AppCompatActivity(){
                     true
                 }
 
+                R.id.preferences->{
+                    val intent=Intent(this, NotificationPrefActivity::class.java)
+                    binding.myDrawerLayout.closeDrawers()
+                    menuItem.setChecked(false)
+                    startActivity(intent)
+                    true
+                }
+
                 R.id.logout_menuitem ->{
                     menuItem.setChecked(true)
                     viewModel.clearUsernameAndPassword()
@@ -152,11 +161,6 @@ class MainActivity : AppCompatActivity(){
 
                 R.id.filter_menu_item ->{
                     setFiltersUI()
-                }
-
-
-                R.id.preference_fragment ->{
-                    setPreferenceFragmentUI()
                 }
 
                 R.id.settings_fragment ->{
@@ -352,7 +356,7 @@ class MainActivity : AppCompatActivity(){
             when (navController.currentDestination?.id){
                 R.id.detailNews->{setDetailNewsUI()}
                 R.id.filter_menu_item->{setFiltersUI()}
-                R.id.preference_fragment->{setPreferenceFragmentUI()}
+
             }
         }
 
@@ -380,7 +384,7 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-    private fun setPreferenceFragmentUI() {
+    /*private fun setPreferenceFragmentUI() {
 
         binding.apply {
 
@@ -403,7 +407,7 @@ class MainActivity : AppCompatActivity(){
             bottom_navigation.visibility = View.GONE
             myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
-    }
+    }*/
 
     private fun setFiltersUI() {
 
@@ -500,6 +504,7 @@ class MainActivity : AppCompatActivity(){
                     if(navController.currentDestination?.id==R.id.mainFragment){
                             bottomNavigation.visibility=View.GONE}
                     myNavigationView.menu.findItem(R.id.logout_menuitem).setVisible(true)
+                    myNavigationView.menu.findItem(R.id.accountFragment).setVisible(true)
                 }
             }
             false->{
@@ -509,6 +514,7 @@ class MainActivity : AppCompatActivity(){
                         bottomNavigation.visibility=View.VISIBLE
                         }
                     myNavigationView.menu.findItem(R.id.logout_menuitem).setVisible(false)
+                    myNavigationView.menu.findItem(R.id.accountFragment).setVisible(false)
                 }
             }
         }

@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 
 import com.ssessments.newsapp.R
@@ -42,7 +43,6 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?): View? {
 
         binding=DataBindingUtil.inflate(inflater,R.layout.account_fragment,container, false)
-        binding.userRegistrationData= RegistrationData(country = "serbia")
 
 
         val application= requireActivity().application
@@ -96,7 +96,14 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding.accountemailtextView.clearFocus()
+
+        viewModel.myUser.observe(this, Observer{ userData->
+            Log.i(MYTAG,"user data je $userData")
+            if(userData!=null){
+            binding.userRegistrationData=userData
+            binding.executePendingBindings()
+            }
+        })
 
     }
 

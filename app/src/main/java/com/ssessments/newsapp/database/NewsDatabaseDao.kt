@@ -64,6 +64,14 @@ interface NewsDatabaseDao{
     @Query("SELECT COUNT (username) FROM user_data_table")
     suspend fun getNumberOfUsers():Int
 
+    @Query("UPDATE user_data_table SET firebase_id=:firebaseId WHERE ID=1")
+    suspend fun updateFirebaseIdInUserTable(firebaseId:String)
+
+    @Query("UPDATE user_data_table SET username=:username,password=:password,token=:token WHERE ID=1")
+    suspend fun updateUsernamePasswordTokenInUserTable(username:String,password:String,token:String)
+
+    @Query("UPDATE user_data_table SET username=:username,password=:password,token=:token,first_name=:firstName,last_name=:lastName,access_type=:accessType, email=:email,mobile_phone=:phone,company=:company,country=:country WHERE ID=1")
+    suspend fun updateUserAllButFirebaseId(username:String,password:String,token:String,firstName:String,lastName:String,accessType:String,email:String,phone:String,company:String,country:String)
 
     //CURRENT FILTER TABLE
     @Insert

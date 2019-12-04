@@ -1,6 +1,7 @@
 package com.ssessments.newsapp.news_list_home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.ssessments.newsapp.database.CurrentFilter
 import com.ssessments.newsapp.database.NewsDatabaseDao
@@ -12,7 +13,7 @@ import com.ssessments.newsapp.utilities.*
 import kotlinx.coroutines.*
 
 
-
+private const val MYTAG="MY_MainFragmentViewMode"
 class MainFragmentViewModel(
                             val database:NewsDatabaseDao,
                             application:Application): AndroidViewModel(application) {
@@ -74,7 +75,7 @@ class MainFragmentViewModel(
 
        if (!initializedFromSwipeRefresh) _showProgressBar.value = true
 
-
+        Log.i(MYTAG,"get filtered list sa servera filter je $filter")
        viewModelScope.launch {
            var getDeferred = NewsApi.retrofitService.postFilteredNewsList(filter)
 
@@ -129,9 +130,13 @@ class MainFragmentViewModel(
     fun clearUsernameAndPassword(){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val user=database.getUserNoLiveData()
+                /*val user=database.getUserNoLiveData()
                 database.updateUser(UserData(firebaseID =user.firebaseID ))
-                val a=database.getUser()
+                val a=database.getUser()*/
+
+                database.updateUserAllButFirebaseId(EMPTY_USERNAME, EMPTY_PASSWORD, EMPTY_TOKEN,
+                    EMPTY_FIRST_NAME, EMPTY_LAST_NAME, EMPTY_ACCESS_TYPE, EMPTY_EMAIL, EMPTY_PHONE,
+                    EMPTY_COMPANY, EMPTY_COUNTRY)
 
             }
         }

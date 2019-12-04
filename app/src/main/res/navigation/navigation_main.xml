@@ -8,8 +8,6 @@
     >
         <action android:id="@+id/action_mainFragment_to_detailNews" app:destination="@id/detailNews"/>
     </fragment>
-    <fragment android:id="@+id/preference_fragment" android:name="com.ssessments.newsapp.preferences.PreferenceFragment"
-              android:label="Notifications"/>
 
     <fragment android:id="@+id/detailNews"
               android:name="com.ssessments.newsapp.detail_news_fragment.DetailNews"

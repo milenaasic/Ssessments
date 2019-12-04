@@ -197,6 +197,7 @@ class LogIn_Fragment : Fragment() {
 }
 
     fun isPasswordValid(password:String):Boolean{
-        return password.length > 3 && password.isNotBlank() && password.isNotEmpty()
+        //return password.length > 3 && password.isNotBlank() && password.isNotEmpty()
+        return true
     }
 

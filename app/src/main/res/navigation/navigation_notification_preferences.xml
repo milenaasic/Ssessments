@@ -21,13 +21,71 @@
     <fragment
             android:id="@+id/marketsNotifPrefFragment"
             android:name="com.ssessments.newsapp.activity_notification_preferences.MarketsNotifPrefFragment"
-            android:label="Markets" />
+            android:label="Markets" >
+        <action
+                android:id="@+id/action_marketsNotifPrefFragment_to_asiaPacificMarkets"
+                app:destination="@id/asiaPacificMarkets" />
+        <action
+                android:id="@+id/action_marketsNotifPrefFragment_to_americasMarkets"
+                app:destination="@id/americasMarkets" />
+        <action
+                android:id="@+id/action_marketsNotifPrefFragment_to_europeMarkets"
+                app:destination="@id/europeMarkets" />
+        <action
+                android:id="@+id/action_marketsNotifPrefFragment_to_ICSMarkets"
+                app:destination="@id/ICSMarkets" />
+        <action
+                android:id="@+id/action_marketsNotifPrefFragment_to_middleEastMarkets"
+                app:destination="@id/middleEastMarkets" />
+    </fragment>
     <fragment
             android:id="@+id/productsNotifPrefFragment"
             android:name="com.ssessments.newsapp.activity_notification_preferences.ProductsNotifPrefFragment"
-            android:label="Products" />
+            android:label="Products" >
+        <action
+                android:id="@+id/action_productsNotifPrefFragment_to_productsPlastics2"
+                app:destination="@id/productsPlastics2" />
+        <action
+                android:id="@+id/action_productsNotifPrefFragment_to_productsChemicals2"
+                app:destination="@id/productsChemicals2" />
+        <action
+                android:id="@+id/action_productsNotifPrefFragment_to_productsEnergy2"
+                app:destination="@id/productsEnergy2" />
+    </fragment>
     <fragment
             android:id="@+id/servicesNotifPrefFragment"
             android:name="com.ssessments.newsapp.activity_notification_preferences.ServicesNotifPrefFragment"
             android:label="Services" />
+    <fragment
+            android:id="@+id/asiaPacificMarkets"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.AsiaPacificMarkets"
+            android:label="AsiaPacificMarkets" />
+    <fragment
+            android:id="@+id/americasMarkets"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.AmericasMarkets"
+            android:label="AmericasMarkets" />
+    <fragment
+            android:id="@+id/europeMarkets"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.EuropeMarkets"
+            android:label="EuropeMarkets" />
+    <fragment
+            android:id="@+id/ICSMarkets"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.ICSMarkets"
+            android:label="ICSMarkets" />
+    <fragment
+            android:id="@+id/middleEastMarkets"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.MiddleEastMarkets"
+            android:label="MiddleEastMarkets" />
+    <fragment
+            android:id="@+id/productsPlastics2"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.ProductsPlastics"
+            android:label="ProductsPlastics" />
+    <fragment
+            android:id="@+id/productsChemicals2"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.ProductsChemicals"
+            android:label="ProductsChemicals" />
+    <fragment
+            android:id="@+id/productsEnergy2"
+            android:name="com.ssessments.newsapp.activity_notification_preferences.ProductsEnergy"
+            android:label="ProductsEnergy" />
 </navigation>

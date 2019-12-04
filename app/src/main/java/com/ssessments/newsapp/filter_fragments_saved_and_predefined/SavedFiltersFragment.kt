@@ -69,19 +69,19 @@ class SavedFiltersFragment : Fragment() {
         binding.savedFiltersRecView.adapter= adapter
         binding.savedFiltersRecView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
-        viewModel.filters.observe(requireParentFragment(), Observer {list->
+        viewModel.filters.observe(this, Observer {list->
             adapter.dataList=list
             if (list.isNullOrEmpty()){
                 viewModel.showEmptyListText(true)
             }else{viewModel.showEmptyListText(false)}
         })
 
-        viewModel.showEmptyList.observe(requireParentFragment(), Observer {showList->
+        viewModel.showEmptyList.observe(this, Observer {showList->
             if(showList) binding.savedEmptyListText.visibility=View.VISIBLE
             else binding.savedEmptyListText.visibility=View.GONE
          })
 
-        viewModel.chosenFilter.observe(requireParentFragment(),Observer{chosenFilter->
+        viewModel.chosenFilter.observe(this,Observer{chosenFilter->
             viewModel.applySavedFilter(chosenFilter)
         })
 

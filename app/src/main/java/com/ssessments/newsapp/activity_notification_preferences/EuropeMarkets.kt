@@ -2,20 +2,18 @@ package com.ssessments.newsapp.activity_notification_preferences
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
-import androidx.preference.*
+import androidx.preference.CheckBoxPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.children
 import com.ssessments.newsapp.R
-import com.ssessments.newsapp.utilities.AllMarkets
 import com.ssessments.newsapp.utilities.AmericasMarkets
-import com.ssessments.newsapp.utilities.Services
+import com.ssessments.newsapp.utilities.EuropeMarkets
 import com.ssessments.newsapp.utilities.convertStringWithCommasToRealArray
 
-private const val MY_TAG="ServicesNotifPrefFragme"
-class ServicesNotifPrefFragment:PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
-
-
+class EuropeMarkets: PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
     private lateinit var activityViewModel: NotifPrefActivityViewModel
 
 
@@ -27,13 +25,12 @@ class ServicesNotifPrefFragment:PreferenceFragmentCompat(), Preference.OnPrefere
         }
 
     }
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.markets_europe, rootKey)
 
-        setPreferencesFromResource(R.xml.services_notif_pref_fragment,rootKey)
-
-        setTitleToPreferences(preferenceScreen,
-            convertStringWithCommasToRealArray(enumValues<Services>().joinToString { it.value })
+        setTitleToPreferences(
+            preferenceScreen,
+            convertStringWithCommasToRealArray(enumValues<EuropeMarkets>().joinToString { it.value })
         )
 
         //set change listenere
@@ -69,7 +66,8 @@ class ServicesNotifPrefFragment:PreferenceFragmentCompat(), Preference.OnPrefere
 
     override fun onStop() {
         super.onStop()
-        activityViewModel.setServicesSummaryFromFragment(convertStringWithCommasToRealArray(enumValues<Services>().joinToString {it.value}))
+        activityViewModel.setEuropeSummaryFromFragment(convertStringWithCommasToRealArray(enumValues<EuropeMarkets>().joinToString {it.value}))
+
     }
 
 }

@@ -149,8 +149,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                         Log.i(MY_TAG,"user u tabeli u init Viewmodel je ${database.getUserNoLiveData()}")}
                     1->return@withContext}
 
-                Log.i(MY_TAG,"user u tabeli u init Viewmodel je ${database.getUserNoLiveData()}")
-
             }
         }
 
@@ -162,7 +160,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
             withContext(Dispatchers.IO) {
                 Log.i(MY_TAG, "initialize currentFilterTable")
                 when (database.getNumberOfCurrentFilters()){
-                0-> database.insertCurrentFilterToDatabase(CurrentFilter(market = Markets.ALL_MARKETS.value,product = Products.ALL_PRODUCTS.value,ssessment = Ssessments.ALL_SERVICES.value))
+                0-> database.insertCurrentFilterToDatabase(CurrentFilter(market = AllMarkets.ALL_MARKETS.value,product = AllProducts.ALL_PRODUCTS.value,ssessment = Services.ALL_SERVICES.value))
                 1->return@withContext}
             }
         }
@@ -172,11 +170,15 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
     fun clearUsernameAndPassword(){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val myFirebaseid=database.getUserNoLiveData().firebaseID
+                /*val myFirebaseid=database.getUserNoLiveData().firebaseID
                 database.updateUser(UserData(username= EMPTY_USERNAME,password = EMPTY_PASSWORD,token= EMPTY_TOKEN,firebaseID = myFirebaseid))
                 Log.i(MY_TAG, "claer user table}")
                 val a=database.getUserNoLiveData()
-                Log.i(MY_TAG,"posle clear getUser daje $a.value")
+                Log.i(MY_TAG,"posle clear getUser daje $a.value")*/
+
+                database.updateUserAllButFirebaseId(EMPTY_USERNAME, EMPTY_PASSWORD, EMPTY_TOKEN,
+                    EMPTY_FIRST_NAME, EMPTY_LAST_NAME, EMPTY_ACCESS_TYPE, EMPTY_EMAIL, EMPTY_PHONE,
+                    EMPTY_COMPANY, EMPTY_COUNTRY)
             }
         }
     }
@@ -252,11 +254,6 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
 
 
     fun sendNotificationPreferencesToServer(entries:MutableMap<String,*>){
-
-        /*val singlePreferencesArray2 = convertMutableListToSinglePreferencesArray(entries)
-        Log.i(MY_TAG, "send Notif notif object array ${singlePreferencesArray2.size}")
-        Log.i(MY_TAG, "send Notif notif object array niz ${singlePreferencesArray2.get(0).toString()}")
-        Log.i(MY_TAG, "send Notif notif object array niz ${singlePreferencesArray2.get(8).toString()}")*/
 
         val mytoken=loggedInUser.value?.token ?: EMPTY_TOKEN
         Log.i(MY_TAG, "sendNotif $mytoken")

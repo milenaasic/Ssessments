@@ -157,6 +157,7 @@
     <string name="saved">Saved</string>
     <string name="predefined">Predefined</string>
     <string name="filters_title">Filters</string>
+    <string name="my_account_menu_title">My Account</string>
 
     <string-array name="multi_list_Asia_pacific">
         <item>Australia</item>

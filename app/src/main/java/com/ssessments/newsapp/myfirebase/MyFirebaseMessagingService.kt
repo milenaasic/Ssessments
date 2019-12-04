@@ -77,13 +77,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         serviceScope.launch {
             withContext(Dispatchers.IO) {
                 val datasource = NewsDatabase.getInstance(application).newsDatabaseDao
-                val user = datasource.getUserNoLiveData()
-
-                if (user != null) {
-                    datasource.updateUser(UserData(username=user.username,password = user.password,token=user.token,firebaseID =firebasetoken))
-
-                }
-
+                datasource.updateFirebaseIdInUserTable(firebaseId = firebasetoken)
             }
         }
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="australia"
+            android:title="Check box preference" />
+
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="indonesia"
+            android:title="Check box preference" />
+
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="corea"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="philippines"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sea"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="thailand"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="china"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="japan"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="malaysia"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="nea"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="singapore"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="taiwan"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="vietnam"
+            android:title="Check box preference" />
+
+</PreferenceScreen>

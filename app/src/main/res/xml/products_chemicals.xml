@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="edc"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="ethylene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="ethylenebenzene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="benzene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="butadiene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="caustic_soda"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="chlorine"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="chlor_alkali"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="monoethylene_glycol"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="paraxylene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="propylene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pta_dmt"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="styrene"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="vinyls"
+            android:title="Check box preference" />
+</PreferenceScreen>

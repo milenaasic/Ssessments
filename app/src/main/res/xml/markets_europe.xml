@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="central_and_east"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="france"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="germany"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="italy"
+            android:title="Check box preference" />
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="west_europe"
+            android:title="Check box preference" />
+</PreferenceScreen>

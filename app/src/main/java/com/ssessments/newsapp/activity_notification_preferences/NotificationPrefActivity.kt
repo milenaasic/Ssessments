@@ -3,6 +3,7 @@ package com.ssessments.newsapp.activity_notification_preferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -12,6 +13,7 @@ import com.ssessments.newsapp.databinding.ActivityNotificationPrefBinding
 class NotificationPrefActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityNotificationPrefBinding
+    private lateinit var viewModel:NotifPrefActivityViewModel
     private lateinit var navController: NavController
 
 
@@ -19,6 +21,8 @@ class NotificationPrefActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding=DataBindingUtil.setContentView(this,R.layout.activity_notification_pref)
+        viewModel=ViewModelProviders.of(this)[NotifPrefActivityViewModel::class.java]
+
 
         setSupportActionBar(binding.prefNotifActivitytoolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

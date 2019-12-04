@@ -14,7 +14,7 @@ enum class AsiaPacificMarkets(val value:String){
 }
 
 enum class AfricaMarkets(val value:String){
-    ALL("Africa")
+    AFRICA("Africa")
 }
 
 enum class ICSMarkets(val value:String){
@@ -74,11 +74,6 @@ enum class Services(val value: String){
     PRICE("Price"),STATS("Stats"),PLANT("Plant"),TALK("Talk"),INVENTORY("Inventory"),ONELINER("OneLiner")
 }
 
-
 enum class Language(val value:String){
     ENGLISH("English")
 }
-
-enum class RegistrationFields(val value: String){
-    FIRSTNAME("firstname"),LASTNAME("lastname"),EMAIL("email"), MOBILEPHONE("mobilephone"),COMPANYNAME("companyname"),COUNTRY("country"),
-    USERNAME("username"),PASSWORD("password")}

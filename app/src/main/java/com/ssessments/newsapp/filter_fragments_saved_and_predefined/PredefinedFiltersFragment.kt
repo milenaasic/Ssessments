@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ssessments.newsapp.MainActivityViewModel
 
 import com.ssessments.newsapp.R
+import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.databinding.FragmentPredefinedFiltersBinding
 
@@ -23,8 +24,8 @@ import com.ssessments.newsapp.databinding.FragmentPredefinedFiltersBinding
 class PredefinedFiltersFragment : Fragment() {
 
     private lateinit var binding: FragmentPredefinedFiltersBinding
-    private lateinit var sharedViewModel: FilterPagerSupportSharedViewModel
-    private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var viewModel: PredefinedFiltersViewModel
+    private lateinit var aviewModel: PredefinedFiltersViewModel
     private  var myuserData: UserData?=null
 
 
@@ -35,17 +36,17 @@ class PredefinedFiltersFragment : Fragment() {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_predefined_filters,container,false)
 
-        sharedViewModel = parentFragment?.run {
-            ViewModelProviders.of(this)[FilterPagerSupportSharedViewModel::class.java]
-        } ?: throw Exception("Invalid Parent Fragment")
+        val application= requireActivity().application
+        val datasource= NewsDatabase.getInstance(application).newsDatabaseDao
 
-        mainActivityViewModel=requireActivity().run {
-            ViewModelProviders.of(this)[MainActivityViewModel::class.java]
-        }
+        viewModel = ViewModelProviders.of(this, PredefinedFiltersViewModelFactory(datasource,application))
+            .get(PredefinedFiltersViewModel::class.java)
 
-        mainActivityViewModel.loggedInUser.observe(this, Observer{ user->
+
+
+       /* viewModel.loggedInUser.observe(this, Observer{ user->
             myuserData=user
-        })
+        })*/
 
 
         val adapter=PredefinedFiltersAdapter(PredefinedFilterItemClickListener {  filterId ->
@@ -58,29 +59,29 @@ class PredefinedFiltersFragment : Fragment() {
         binding.predefinedFiltersRecView.adapter=adapter
         binding.predefinedFiltersRecView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
-    //kopirano iz saved fragmenta
-        sharedViewModel.predefinedfilters.observe(requireParentFragment(), Observer {list->
+
+        viewModel.predefinedfilters.observe(this, Observer {list->
             adapter.dataList=list
             if (!list.isNullOrEmpty()){
-                sharedViewModel.showPredefinedEmptyListText(false)
+                viewModel.showPredefinedEmptyListText(false)
             }
-            else {sharedViewModel.showPredefinedEmptyListText(true)}
+            else {viewModel.showPredefinedEmptyListText(true)}
         })
 
-        sharedViewModel.showPredefinedEmptyList.observe(requireParentFragment(), Observer {showList->
+        viewModel.showPredefinedEmptyList.observe(this, Observer {showList->
             if(showList) binding.predefinedEmptyListText.visibility=View.VISIBLE
             else binding.predefinedEmptyListText.visibility=View.GONE
         })
 
-        sharedViewModel.chosenFilter.observe(requireParentFragment(),Observer{chosenFilter->
+        viewModel.chosenPredefinedFilter.observe(this,Observer{chosenFilter->
             /*if(myuserData==null)sharedViewModel.applySavedFilter(EMPTY_TOKEN,chosenFilter)
             else sharedViewModel.applySavedFilter((myuserData!!.token),chosenFilter)*/
         })
 
-        sharedViewModel.navigateToMainFragmentFromSaved.observe(this, Observer{ shouldnavigate->
+        viewModel.navigateToMainFragmentFromPredefined.observe(this, Observer{ shouldnavigate->
             if(shouldnavigate){
                 findNavController().navigateUp()
-                sharedViewModel.navigationToMainFragmentFromSavedFinished()
+                viewModel.navigationToMainFragmentFromPredefinedFinished()
             }
         })
 

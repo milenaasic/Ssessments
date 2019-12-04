@@ -7,17 +7,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.preference.*
 import com.ssessments.newsapp.R
-import com.ssessments.newsapp.utilities.AllMarkets
 import com.ssessments.newsapp.utilities.AmericasMarkets
+import com.ssessments.newsapp.utilities.AsiaPacificMarkets
 import com.ssessments.newsapp.utilities.Services
 import com.ssessments.newsapp.utilities.convertStringWithCommasToRealArray
 
-private const val MY_TAG="ServicesNotifPrefFragme"
-class ServicesNotifPrefFragment:PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
-
+private const val MY_TAG="MY_AsiaPacificMarkePref"
+class AsiaPacificMarkets: PreferenceFragmentCompat(),Preference.OnPreferenceChangeListener {
 
     private lateinit var activityViewModel: NotifPrefActivityViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,49 +25,53 @@ class ServicesNotifPrefFragment:PreferenceFragmentCompat(), Preference.OnPrefere
         }
 
     }
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.markets_asia_pacific, rootKey)
 
-        setPreferencesFromResource(R.xml.services_notif_pref_fragment,rootKey)
+        setTitleToPreferences(
+            preferenceScreen,
+            convertStringWithCommasToRealArray(enumValues<AsiaPacificMarkets>().joinToString { it.value })
 
-        setTitleToPreferences(preferenceScreen,
-            convertStringWithCommasToRealArray(enumValues<Services>().joinToString { it.value })
         )
+
 
         //set change listenere
         for (value in preferenceScreen.children){
             value.setOnPreferenceChangeListener(this)
+
         }
 
     }
 
+
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
-        val value=newValue as Boolean
-        if (!value){
-            openConfirmDialog(preference)
-        }
-        return true
+            val value=newValue as Boolean
+            if (!value) openConfirmDialog(preference)
+            return true
     }
 
     private fun openConfirmDialog(preference: Preference?) {
 
-        val alertDialog= AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme )
-            .setTitle(R.string.turnOffNotification)
-            .setPositiveButton("YES", DialogInterface.OnClickListener{ dialog, id ->
-            })
-            .setNegativeButton("CANCEL", DialogInterface.OnClickListener{ dialog, id ->
-                val checkBox=preference as CheckBoxPreference
-                checkBox.isChecked=true
-            })
-            .setCancelable(false)
+            val alertDialog= AlertDialog.Builder(requireActivity(),R.style.MyAlertDialogTheme )
+                .setTitle(R.string.turnOffNotification)
+                .setPositiveButton("YES", DialogInterface.OnClickListener{ dialog, id ->
+                })
+                .setNegativeButton("CANCEL", DialogInterface.OnClickListener{ dialog, id ->
+                    val checkBox=preference as CheckBoxPreference
+                    checkBox.isChecked=true
+                })
+                .setCancelable(false)
 
-        alertDialog.show()
+            alertDialog.show()
 
     }
 
     override fun onStop() {
         super.onStop()
-        activityViewModel.setServicesSummaryFromFragment(convertStringWithCommasToRealArray(enumValues<Services>().joinToString {it.value}))
+        activityViewModel.setAsiaPacificSummaryFromFragment(convertStringWithCommasToRealArray(enumValues<AsiaPacificMarkets>().joinToString {it.value}))
+
     }
+
+
 
 }

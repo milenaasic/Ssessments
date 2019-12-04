@@ -96,7 +96,7 @@ class mainFragment : Fragment() {
             }
 
             myCurrentFilter = newFilter
-            Log.i(mytag,"current filter")
+            Log.i(mytag,"current filter je $myCurrentFilter")
 
             if(myUserData!=null){
             val f=convertCurrentFilterToNetworkNewsFilterObject(myUserData?.token ?: EMPTY_TOKEN, myCurrentFilter!!)
@@ -129,6 +129,7 @@ class mainFragment : Fragment() {
         viewModel.myUser.observe(this, Observer {user->
 
             myUserData=user
+            Log.i(mytag,"posmatranje usera u bazi iz main fragmenta $user")
         })
 
         binding.mySwipeRefreshLayout.setOnRefreshListener {

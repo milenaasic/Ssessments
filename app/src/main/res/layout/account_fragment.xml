@@ -4,7 +4,10 @@
         xmlns:tools="http://schemas.android.com/tools" >
 
 <data>
-    <variable name="userRegistrationData" type="com.ssessments.newsapp.account.RegistrationData"></variable>
+
+    <variable
+            name="userRegistrationData"
+            type="com.ssessments.newsapp.database.UserData" />
 
 </data>
 
@@ -46,7 +49,7 @@
 
     <TextView
             android:id="@+id/accountTypeValue"
-            android:text="@{userRegistrationData.account}"
+            android:text="@{userRegistrationData.accessType}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -84,7 +87,7 @@
 
 
     <TextView
-            android:text="Phone Number"
+            android:text="Phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/phonetextView" android:layout_marginTop="16dp"
@@ -92,7 +95,7 @@
             app:layout_constraintStart_toStartOf="@+id/accountemailtextView"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
     <EditText
-            android:text="123"
+            android:text="@{userRegistrationData.mobilephone}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/accountphoneValuetextView" android:layout_marginTop="8dp"
@@ -100,7 +103,8 @@
             app:layout_constraintStart_toStartOf="@+id/phonetextView"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:background="@color/transparent" android:singleLine="true" android:inputType="phone"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            tools:text="123"/>
     <TextView
             android:text="Company"
             android:layout_width="wrap_content"
@@ -112,7 +116,6 @@
     <TextView
             android:id="@+id/companyvaluetextView"
             app:companyandcountry="@{userRegistrationData}"
-            android:text="Company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

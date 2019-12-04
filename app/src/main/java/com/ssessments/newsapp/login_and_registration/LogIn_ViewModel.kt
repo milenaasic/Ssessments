@@ -85,7 +85,8 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
                     //vratio se token upisi korisnika u bazu i vrati ga na mainactivity
                     withContext(Dispatchers.IO) {
-                        database.updateUser(UserData(username = username, password = password, token = receivedToken,firebaseID = userFirebaseID))
+                        database.updateUserAllButFirebaseId(username=username,password = password,token = receivedToken,firstName = result.firstName,lastName = result.lastName,
+                        accessType = result.accountType,email = result.email,phone = result.mobilePhone,company = result.company,country = result.country)
 
                     }
                     _showProgressBar.value = false

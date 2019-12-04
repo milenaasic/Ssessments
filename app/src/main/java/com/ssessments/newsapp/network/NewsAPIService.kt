@@ -18,13 +18,11 @@ private val moshi= Moshi.Builder()
                     .add(KotlinJsonAdapterFactory())
                     .build()
 
-//private val httpClient=OkHttpClient.Builder().co
- //}
 
 val okHttpClient = OkHttpClient.Builder()
     .connectTimeout(63, TimeUnit.SECONDS)
-    .readTimeout(30, TimeUnit.SECONDS)
-    .writeTimeout(10, TimeUnit.SECONDS)
+    .readTimeout(13, TimeUnit.SECONDS)
+    .writeTimeout(13, TimeUnit.SECONDS)
     .build()
 
 private val retrofit=Retrofit.Builder()

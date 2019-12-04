@@ -13,7 +13,7 @@ import com.ssessments.newsapp.utilities.*
 
 private const val NAME="News Database"
 
-@Database(entities = [NewsItem::class,FilterItem::class,UserData::class,CurrentFilter::class,PredefinedFilter::class],version = 3)
+@Database(entities = [NewsItem::class,FilterItem::class,UserData::class,CurrentFilter::class,PredefinedFilter::class],version = 4 )
 abstract class NewsDatabase:RoomDatabase(){
 
     abstract val newsDatabaseDao:NewsDatabaseDao
@@ -38,9 +38,9 @@ abstract class NewsDatabase:RoomDatabase(){
                                 super.onCreate(db)
 
                                 val myvalues=ContentValues().apply {
-                                    put("market",Markets.ALL_MARKETS.value)
-                                    put("product",Products.ALL_PRODUCTS.value)
-                                    put("ssessment",Ssessments.ALL_SERVICES.value)
+                                    put("market",AllMarkets.ALL_MARKETS.value)
+                                    put("product",AllProducts.ALL_PRODUCTS.value)
+                                    put("ssessment",Services.ALL_SERVICES.value)
                                     put("language",Language.ENGLISH.value)
                                     put("filter_date_from", NO_DATE_SELECTED_VALUE)
                                     put("filter_date_to", NO_DATE_SELECTED_VALUE)
@@ -51,6 +51,13 @@ abstract class NewsDatabase:RoomDatabase(){
                                     put("password", EMPTY_PASSWORD)
                                     put("token", EMPTY_TOKEN)
                                     put("firebase_id", EMPTY_FIREBASEID)
+                                    put("first_name", EMPTY_FIRST_NAME)
+                                    put("last_name", EMPTY_LAST_NAME)
+                                    put("access_type", EMPTY_ACCESS_TYPE)
+                                    put("email", EMPTY_EMAIL)
+                                    put("mobile_phone", EMPTY_PHONE)
+                                    put("company", EMPTY_COMPANY)
+                                    put("country", EMPTY_COUNTRY)
 
                                  }
                                 val myvalues3=ContentValues().apply {
