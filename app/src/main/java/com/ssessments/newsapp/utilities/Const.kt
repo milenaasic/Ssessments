@@ -41,4 +41,7 @@ val EMPTY_LIST= listOf<NewsItem>()
 
 const val HTTP_AUTH_FAILED="401"
 
+//Notifications
+const val NOTHING_SELECTED_IN_NOTIFICATIONS="None"
+
 

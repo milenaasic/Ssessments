@@ -7,11 +7,11 @@
             android:title="Check box preference" />
     <CheckBoxPreference
             android:defaultValue="true"
-            android:key="iran"
+            android:key="iraq"
             android:title="Check box preference" />
     <CheckBoxPreference
             android:defaultValue="true"
-            android:key="saudi_arabia "
+            android:key="saudi_arabia"
             android:title="Check box preference" />
     <CheckBoxPreference
             android:defaultValue="true"

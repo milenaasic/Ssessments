@@ -1,12 +1,12 @@
 package com.ssessments.newsapp.activity_notification_preferences
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavDirections
@@ -14,15 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 
 import com.ssessments.newsapp.R
-import com.ssessments.newsapp.utilities.AfricaMarkets
-import com.ssessments.newsapp.utilities.RussiaMarkets
-import com.ssessments.newsapp.utilities.WorldMarkets
+import com.ssessments.newsapp.database.CurrentFilter
+import com.ssessments.newsapp.utilities.*
+import com.ssessments.newsapp.utilities.ICSMarkets
 
-private const val MY_TAG="MY_MainNotifPrefFragme"
+private const val MY_TAG="MY_MainNotifPrefFrag"
 class MainNotifPrefFragment : PreferenceFragmentCompat() {
 
     private lateinit var activityViewModel: NotifPrefActivityViewModel
-
+    private lateinit var sharedPref:SharedPreferences
+    private lateinit var lastSavedValues:Map<String,Boolean>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
         activityViewModel=requireActivity().run {
             ViewModelProviders.of(this)[NotifPrefActivityViewModel::class.java]
         }
+        setHasOptionsMenu(true)
 
     }
 
@@ -60,57 +62,151 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
         }
 
 
+
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lastSavedValues =activityViewModel.lastSavedValues
+
+        activityViewModel.servicesSummary.observe(this, Observer {arrayListServices->
+
+            findPreference<Preference>(resources.getString(R.string.services_preferences))?.summary=
+                if(arrayListServices.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                else arrayListServices.joinToString { it }.trim()
+
+         })
+
+         activityViewModel.loggedInUser.observe(this, Observer {
+            Log.i(MY_TAG,"OBSERVER USER JE $it")
+          })
+
+        activityViewModel.finishAndGoToMain.observe(this, Observer{
+            if(it){ activityViewModel.finishAndGoToMainOver()
+                    requireActivity().finish()}
+
+        })
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        sharedPref=PreferenceManager.getDefaultSharedPreferences(requireActivity())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.notif_activity_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.filter_news_to_notif->{
+                val filter=getCurrentNotifications()
+                activityViewModel.setCurrentFilterAccordingToNotifications(filter)
+                return true}
+
+            else-> return false
+        }
+
+    }
+
+    private fun getCurrentNotifications(): CurrentFilter {
+
+        val markets=getMarkets()
+        Log.i(MY_TAG," marketi su $markets")
+        return CurrentFilter(market = getMarkets().joinToString { it },
+                            product = getProducts().joinToString { it },
+                            ssessment = getServices().joinToString{it})
+    }
+
+
+    private fun getMarkets(): ArrayList<String> {
+
+        val list=ArrayList<String>()
+        list.addAll(activityViewModel.asiaPacificSummary.value!!)
+        if(sharedPref.getBoolean("africa",true)) list.add(AfricaMarkets.AFRICA.value)
+        list.apply {
+            addAll(activityViewModel.americasSummary.value!!)
+            addAll(activityViewModel.europeSummary.value!!)
+            addAll(activityViewModel.icsSummary.value!!)
+            addAll(activityViewModel.middleeastSummary.value!!)
+
+        }
+
+        if(sharedPref.getBoolean("russia_and_cis",true)) list.add(RussiaMarkets.RUSSIA_AND_CIS.value)
+        if(sharedPref.getBoolean("world",true)) list.add(WorldMarkets.WORLD.value)
+
+        return list
+    }
+
+
+    private fun getProducts():ArrayList<String> {
+
+        val list=ArrayList<String>()
+        list.apply {
+            addAll(activityViewModel.plasticsSummary.value!!)
+            addAll(activityViewModel.chemicalsSummary.value!!)
+            addAll(activityViewModel.energySummary.value!!)
+
+        }
+        return list
+    }
+
+    private fun getServices():ArrayList<String> {
+
+        val list=ArrayList<String>()
+        list.addAll(activityViewModel.servicesSummary.value!!)
+
+        return list
+    }
+
+
 
     override fun onStart() {
         super.onStart()
-
         setSummaryForMarkets()
         setSummaryForProducts()
-        setSummaryForServices()
 
     }
 
-    private fun setSummaryForServices() {
-        var mysummary=activityViewModel.servicesSummary.value?.joinToString (separator = ",")?.trim()
-        findPreference<Preference>(resources.getString(R.string.services_preferences))?.summary=mysummary
-    }
+
 
     fun setSummaryForMarkets(){
-
-    val sharedPref=PreferenceManager.getDefaultSharedPreferences(requireActivity())
-        var africaSummary=""
-        if(sharedPref.getBoolean("africa",true)) africaSummary=AfricaMarkets.AFRICA.value
-
-        var russiaSummary=""
-        if(sharedPref.getBoolean("russia_and_cis",true)) russiaSummary=RussiaMarkets.RUSSIA_AND_CIS.value
-
-        var worldSummary=""
-        if(sharedPref.getBoolean("world",true)) worldSummary=WorldMarkets.WORLD.value
-
-        var mysummary=activityViewModel.asiaPacificSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                            africaSummary+", "+
-                            activityViewModel.americasSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                            activityViewModel.europeSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                            activityViewModel.icsSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                            activityViewModel.middleeastSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                            russiaSummary+", "+worldSummary
-
-        findPreference<Preference>(resources.getString(R.string.markets_preferences))?.summary=mysummary
-
+        val list =getMarkets()
+        Log.i(MY_TAG,"markets summary iz setSummfor markets je ${getMarkets().joinToString { it }}")
+        findPreference<Preference>(resources.getString(R.string.markets_preferences))?.summary=if(list.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                    else list.joinToString { it }.trim()
 
     }
 
 
     fun setSummaryForProducts(){
+        val list=getProducts()
+        findPreference<Preference>(resources.getString(R.string.products_preferences))?.summary= if(list.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                        else list.joinToString { it }.trim()
 
 
-        var mysummary=activityViewModel.plasticsSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                activityViewModel.chemicalsSummary.value?.joinToString (separator = ",")?.trim()+", "+
-                activityViewModel.energySummary.value?.joinToString (separator = ",")?.trim()
+    }
 
-        findPreference<Preference>(resources.getString(R.string.products_preferences))?.summary=mysummary
+    override fun onStop() {
+        super.onStop()
+        sendNotificationsToServer()
+        Log.i(MY_TAG,"on stop")
 
+    }
+
+    private fun sendNotificationsToServer() {
+
+        val newValues=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all as Map<String, Boolean>
+
+        Log.i(MY_TAG,"new values pref jednake starim ${newValues.equals(lastSavedValues)}")
+
+
+        if(!newValues.equals(lastSavedValues)){
+            Log.i(MY_TAG,"new values pref nisu jednake starim")
+            activityViewModel.sendNotificationPreferencesToServer(newValues)
+        }
 
     }
 

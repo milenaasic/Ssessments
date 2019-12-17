@@ -20,7 +20,7 @@
 
         <TextView
                 android:id="@+id/allproductstextview"
-                android:text="All Products"
+                android:text="@string/all_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" tools:text="All Products"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -109,11 +109,11 @@
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/plchip0"
-                        android:text="All"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                        app:checkedIconVisible="false"/>
+                        android:text="All"
+                        app:checkedIconVisible="true" />
 
 
                 <com.google.android.material.chip.Chip
@@ -240,11 +240,11 @@
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/chchip0"
-                        android:text="All"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                        app:checkedIconVisible="false"/>
+                        android:text="All"
+                        app:checkedIconVisible="true" />
 
 
                 <com.google.android.material.chip.Chip
@@ -443,11 +443,11 @@
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/enchip0"
-                        android:text="All"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                        app:checkedIconVisible="false"/>
+                        android:text="All"
+                        app:checkedIconVisible="true" />
 
 
                 <com.google.android.material.chip.Chip

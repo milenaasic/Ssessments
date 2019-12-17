@@ -22,6 +22,7 @@ class MarketsNotifPrefFragment: PreferenceFragmentCompat(),Preference.OnPreferen
 
     private lateinit var activityViewModel: NotifPrefActivityViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -94,26 +95,31 @@ class MarketsNotifPrefFragment: PreferenceFragmentCompat(),Preference.OnPreferen
 
         activityViewModel.asiaPacificSummary.observe(this, Observer {
                 Log.i(MY_TAG,"observe asia pacific summary iz view modela ${it}")
-                findPreference<Preference>("marketAsiaPacific")?.summary=it.joinToString(separator = ",").trim()
+                findPreference<Preference>("marketAsiaPacific")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                            else it.joinToString(separator = ",").trim()
         })
 
         activityViewModel.americasSummary.observe(this, Observer {
-            findPreference<Preference>("marketAmericas")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("marketAmericas")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                        else it.joinToString(separator = ",").trim()
 
         })
 
         activityViewModel.europeSummary.observe(this, Observer {
-            findPreference<Preference>("marketEurope")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("marketEurope")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                    else it.joinToString(separator = ",").trim()
 
         })
 
         activityViewModel.icsSummary.observe(this, Observer {
-            findPreference<Preference>("marketICS")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("marketICS")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                 else it.joinToString(separator = ",").trim()
 
         })
 
         activityViewModel.middleeastSummary.observe(this, Observer {
-            findPreference<Preference>("marketMiddleEast")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("marketMiddleEast")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                        else it.joinToString(separator = ",").trim()
 
         })
 

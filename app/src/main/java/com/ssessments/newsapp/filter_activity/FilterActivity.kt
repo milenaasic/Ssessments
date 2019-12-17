@@ -48,7 +48,7 @@ class FilterActivity : AppCompatActivity() {
         //NavigationUI.setupWithNavController(binding.filteractivitytoolbar,navController)
 
         binding.filteractivitytoolbar.apply {
-            setNavigationIcon(R.drawable.ic_close)
+            setNavigationIcon(R.drawable.ic_close_white)
          }
 
 
@@ -132,13 +132,14 @@ class FilterActivity : AppCompatActivity() {
 
         binding.apply {
             filteractivitytablayout.visibility= View.VISIBLE
-            filteractivitytoolbar.setNavigationIcon(R.drawable.ic_close)
+            filteractivitytoolbar.setNavigationIcon(R.drawable.ic_close_white)
             filteractivitytoolbar.setTitle(resources.getString(R.string.filters_title))
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 appbarFilterActivity.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark,null))
             }else{
                 appbarFilterActivity.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))}
+
         }
     }
 

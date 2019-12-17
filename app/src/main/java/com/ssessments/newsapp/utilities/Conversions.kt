@@ -20,36 +20,158 @@ val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
 val ssessmentsDateFormat:SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
 
 
-fun convertMutableListToSinglePreferencesArray(entries:MutableMap<String,*>):Array<NetworkSinglePreference>{
+
+fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<NetworkSinglePreference>{
 
     var list= mutableListOf<NetworkSinglePreference>()
 
 
-    for (index in 0..Markets.values().size - 2) {
-        val s: String = Markets.values()[index + 1].toString().toLowerCase()
+    for(value in enumValues<AsiaPacificMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
         }
     }
 
-    for (index in 0..Products.values().size - 2) {
-        val s: String = Products.values()[index + 1].toString().toLowerCase()
+    for(value in enumValues<AfricaMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
         }
     }
 
-    for (index in 0..Ssessments.values().size - 2) {
-        val s: String = Ssessments.values()[index + 1].toString().toLowerCase()
+    for(value in enumValues<AmericasMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
         }
     }
 
+    for(value in enumValues<EuropeMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<ICSMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<MiddleEastMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<RussiaMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<WorldMarkets>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<Plastics>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<Chemicals>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<EnergyFeedstocks>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+    for(value in enumValues<Services>()){
+        val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        if (entries.containsKey(s)) {
+            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+        }
+    }
+
+
+    Log.i("konverzije", "lista je $list")
     return list.toTypedArray()
 
 }
 
+fun makeKeyListOfEnums():ArrayList<String>{
+
+    var list= mutableListOf<String>()
+
+
+    for(value in enumValues<AsiaPacificMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+
+    }
+
+    for(value in enumValues<AfricaMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<AmericasMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<EuropeMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<ICSMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<MiddleEastMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<RussiaMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<WorldMarkets>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<Plastics>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<Chemicals>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<EnergyFeedstocks>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    for(value in enumValues<Services>()){
+        list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
+    }
+
+    return list as ArrayList<String>
+}
 
 fun dateStringFormatISO8601oReadableWithHours(stringDate:String):String{
 
@@ -134,7 +256,8 @@ fun convertStringWithCommasToArray(s: String):ArrayList<String>{
     TextUtils.SimpleStringSplitter(',').apply {
            setString(s)
            while (hasNext()){
-           list.add(next())
+           val string:String=next()
+           list.add(string.trim())
            }
     }
     return list

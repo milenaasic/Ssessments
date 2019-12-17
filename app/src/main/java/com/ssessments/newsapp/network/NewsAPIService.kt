@@ -21,8 +21,8 @@ private val moshi= Moshi.Builder()
 
 val okHttpClient = OkHttpClient.Builder()
     .connectTimeout(63, TimeUnit.SECONDS)
-    .readTimeout(13, TimeUnit.SECONDS)
-    .writeTimeout(13, TimeUnit.SECONDS)
+    .readTimeout(23,TimeUnit.SECONDS)
+    .writeTimeout(23,TimeUnit.SECONDS)
     .build()
 
 private val retrofit=Retrofit.Builder()
@@ -64,6 +64,10 @@ interface NewsAPIService {
 
     @POST("url7")
     fun getNotificationPreferencesFromServer(@Body token:NetworkRequestGetNotifPref):Deferred<List<NetworkSinglePreference>>
+
+    //USER ACCOUNT
+    @POST("api/v1/users/change-email-phone")
+    fun sendChangedEmailOrPhoneToServer(@Body changeUserData:NetworkRequestChangeEmailPhone):Deferred<NetworkResponseChangeEmailPhone>
 
 
 }

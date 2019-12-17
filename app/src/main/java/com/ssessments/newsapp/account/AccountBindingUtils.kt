@@ -3,7 +3,6 @@ package com.ssessments.newsapp.account
 import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.ssessments.newsapp.account.RegistrationData
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.utilities.EMPTY_COUNTRY
 

@@ -106,11 +106,11 @@
 
                     <com.google.android.material.chip.Chip
                             android:id="@+id/aschip0"
-                            android:text="All"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                            app:checkedIconVisible="false"/>
+                            android:text="All"
+                            app:checkedIconVisible="true" />
 
 
                     <com.google.android.material.chip.Chip
@@ -283,11 +283,12 @@
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/africachip0"
-                        android:text="Africa"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                        tools:text="Africa"/>
+                        android:text="Africa"
+                        app:checkedIconVisible="true"
+                        tools:text="Africa" />
 
 
             </com.google.android.material.chip.ChipGroup>
@@ -348,11 +349,11 @@
 
                     <com.google.android.material.chip.Chip
                             android:id="@+id/amchip0"
-                            android:text="All"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                            app:checkedIconVisible="false"/>
+                            android:text="All"
+                            app:checkedIconVisible="true" />
 
 
                     <com.google.android.material.chip.Chip
@@ -468,11 +469,11 @@
 
                     <com.google.android.material.chip.Chip
                             android:id="@+id/euchip0"
-                            android:text="All"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                            app:checkedIconVisible="false"/>
+                            android:text="All"
+                            app:checkedIconVisible="true" />
 
 
                     <com.google.android.material.chip.Chip
@@ -679,11 +680,11 @@
 
                     <com.google.android.material.chip.Chip
                             android:id="@+id/middleeastchip0"
-                            android:text="All"
+                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                            app:checkedIconVisible="false"/>
+                            android:text="All"
+                            app:checkedIconVisible="true" />
 
 
                     <com.google.android.material.chip.Chip
@@ -806,11 +807,12 @@
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/russiachip0"
-                        android:text="Russia and CIS"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                        tools:text="Russia and CIS"/>
+                        android:text="Russia and CIS"
+                        app:checkedIconVisible="true"
+                        tools:text="Russia and CIS" />
 
 
             </com.google.android.material.chip.ChipGroup>

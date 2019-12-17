@@ -23,6 +23,6 @@
             android:title="Check box preference" />
     <CheckBoxPreference
             android:defaultValue="true"
-            android:key="naphta"
+            android:key="naphtha"
             android:title="Check box preference" />
 </PreferenceScreen>

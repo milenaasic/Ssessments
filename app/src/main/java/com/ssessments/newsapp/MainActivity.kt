@@ -1,15 +1,18 @@
 package com.ssessments.newsapp
 
+import android.annotation.TargetApi
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -229,8 +232,12 @@ class MainActivity : AppCompatActivity(){
             navController.navigate(R.id.detailNews, bundle)
         }
 
+        val ver=getVersionCode(packageManager, packageName)
 
+        Log.i(TAG_MAIN,"version code je $ver")
     }
+
+
 
     private fun signUp() {
         val intent=Intent(this,LogIn_and_Registration_Activity::class.java).apply {
@@ -441,6 +448,7 @@ class MainActivity : AppCompatActivity(){
             }
 
             appbar.elevation=(4 * resources.displayMetrics.density)
+
             val lp:AppBarLayout.LayoutParams=toolbar.layoutParams as AppBarLayout.LayoutParams
             lp.scrollFlags=0
 
@@ -534,4 +542,7 @@ class MainActivity : AppCompatActivity(){
             binding.mainActivityprogressBar.visibility=View.GONE
         }
     }
+
+
+
 }

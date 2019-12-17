@@ -12,6 +12,7 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.ssessments.newsapp.R
+import com.ssessments.newsapp.utilities.NOTHING_SELECTED_IN_NOTIFICATIONS
 
 private const val MY_TAG="ProductsNotifPrefFragm"
 class ProductsNotifPrefFragment :PreferenceFragmentCompat(){
@@ -57,18 +58,21 @@ class ProductsNotifPrefFragment :PreferenceFragmentCompat(){
 
         activityViewModel.plasticsSummary.observe(this, Observer {
             Log.i(MY_TAG, "plastics lista za sumeri je $it")
-            findPreference<Preference>("productsPlastics")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("productsPlastics")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                        else it.joinToString(separator = ",").trim()
         })
 
         activityViewModel.chemicalsSummary.observe(this, Observer {
             Log.i(MY_TAG, "chemicals lista za sumeri je $it")
-            findPreference<Preference>("productsChemicals")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("productsChemicals")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                           else it.joinToString(separator = ",").trim()
 
         })
 
         activityViewModel.energySummary.observe(this, Observer {
             Log.i(MY_TAG, "energy lista za sumeri je $it")
-            findPreference<Preference>("productsEnergy")?.summary=it.joinToString(separator = ",").trim()
+            findPreference<Preference>("productsEnergy")?.summary=if(it.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
+                                                                        else it.joinToString(separator = ",").trim()
 
         })
 

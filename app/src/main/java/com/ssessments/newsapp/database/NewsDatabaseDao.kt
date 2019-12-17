@@ -73,6 +73,12 @@ interface NewsDatabaseDao{
     @Query("UPDATE user_data_table SET username=:username,password=:password,token=:token,first_name=:firstName,last_name=:lastName,access_type=:accessType, email=:email,mobile_phone=:phone,company=:company,country=:country WHERE ID=1")
     suspend fun updateUserAllButFirebaseId(username:String,password:String,token:String,firstName:String,lastName:String,accessType:String,email:String,phone:String,company:String,country:String)
 
+    @Query("UPDATE user_data_table SET email=:email WHERE ID=1")
+    suspend fun updateEmailInUserTable(email:String)
+
+    @Query("UPDATE user_data_table SET mobile_phone=:phone WHERE ID=1")
+    suspend fun updatePhoneInUserTable(phone:String)
+
     //CURRENT FILTER TABLE
     @Insert
     suspend fun insertCurrentFilterToDatabase(item: CurrentFilter)

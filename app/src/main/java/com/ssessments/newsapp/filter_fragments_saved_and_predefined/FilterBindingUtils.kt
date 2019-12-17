@@ -23,7 +23,7 @@ fun setRegion(view:TextView,item:FilterItem?){
     item?.let {
         val myDateFrom: Date= dateFormatMySQL.parse(item.dateFrom)?: Date()
         val myDateTo:Date= dateFormatMySQL.parse(item.dateTo)?:Date()
-        view.text="#${item.market}, ${item.product}, ${ item.ssessment}, ${item.language}, " +
+        view.text="${item.market}, ${item.product}, ${ item.ssessment}, ${item.language}, " +
                 "From:${if(item.dateFrom!= NO_DATE_SELECTED_VALUE) dateFormatNoHours.format(myDateFrom) else "No date,"} " +
                 "To:${if(item.dateTo!= NO_DATE_SELECTED_VALUE) dateFormatNoHours.format(myDateTo) else "No date"}"
     }
@@ -41,7 +41,7 @@ fun setTitle(view:TextView,item:PredefinedFilter?){
 @BindingAdapter("filter_string")
 fun setFilterText(view:TextView,item:PredefinedFilter?){
     item?.let {
-        view.text="#${item.market}, ${item.product}, ${ item.ssessment}, ${item.language}, " +
+        view.text="${item.market}, ${item.product}, ${ item.ssessment}, ${item.language}, " +
                 "From:${if(item.dateFrom!= DATE_SELECT_TEXT)"${item.dateFrom}," else "No date,"} To:${if(item.dateTo!= DATE_SELECT_TEXT) item.dateTo else "No date"}"
     }
 }

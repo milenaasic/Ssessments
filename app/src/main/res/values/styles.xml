@@ -24,6 +24,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="my_toolbar_style_filter_activity" parent="ThemeOverlay.MaterialComponents.ActionBar">
+
+    </style>
+
+    <style name="my_toolbar_notific__activity" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+
+    </style>
+
+    <style name="my_toolbar_notific__activity_pop_up" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:textColorPrimary">@android:color/black</item>
+
+    </style>
+
+
      <style name="TextAppearance.AppTheme.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
          <item name="android:textStyle">normal</item>
          <item name="android:textAllCaps">false</item>

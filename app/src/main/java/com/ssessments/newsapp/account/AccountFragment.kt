@@ -118,23 +118,15 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.save_account_changes->{
-                if(userChangedData())viewModel.userChangedHisRegData(binding.accountemailtextView.text.toString(),binding.accountphoneValuetextView.text.toString())
-                findNavController().navigateUp()
+                viewModel.userChangedHisRegData(binding.accountemailtextView.text.toString(),binding.accountphoneValuetextView.text.toString())
+                //findNavController().navigateUp()
                 return true
             }
             else-> return false
         }
     }
 
-    private fun userChangedData(): Boolean {
-        //TODO implement user je promenio podatke
-        return true
-    }
 
-    override fun onStart() {
-        super.onStart()
-        //binding.accountConstraintLayout.requestFocus()
-    }
 
     override fun onStop() {
         super.onStop()
@@ -142,17 +134,7 @@ class AccountFragment : Fragment() {
         binding.accountConstraintLayout.requestFocus()
     }
 
-
 }
 
-class RegistrationData (
-    var name:String="milena",
-    var surname:String="asic",
-    var account:String="freemium",
-    var email:String="this@example.com",
-    var phone:String="123",
-    var company:String="doo",
-    var country:String=""
 
-)
 

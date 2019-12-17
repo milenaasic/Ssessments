@@ -18,8 +18,10 @@
                 android:layout_width="match_parent"
                 app:layout_scrollFlags="scroll|enterAlways"
                 android:id="@+id/filteractivitytoolbar"
+                app:titleTextColor="@color/white"
                 app:title="@string/filters_title"
-                app:titleTextColor="@color/colorAccent">
+                android:theme="@style/my_toolbar_style_filter_activity"
+                >
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout android:layout_width="match_parent"
@@ -27,7 +29,7 @@
                                                     android:id="@+id/filteractivitytablayout"
                                                     android:background="@color/colorPrimaryDark"
                                                     app:tabTextColor="@android:color/darker_gray"
-                                                    app:tabSelectedTextColor="@color/colorAccent">
+                                                    app:tabSelectedTextColor="@color/white">
 
             <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"

@@ -1,5 +1,8 @@
 package com.ssessments.newsapp.utilities
 
+import java.util.*
+import kotlin.collections.ArrayList
+
 enum class Markets(val value:String){
     ALL_MARKETS("All Markets"),SEA("SEA"),CHINA("China"),INDONESIA("Indonesia"),MALAYSIA("Malaysia"),VIETNAM("Vietnam"),INDIA("India")
 }
@@ -12,6 +15,7 @@ enum class AsiaPacificMarkets(val value:String){
     ALL("Asia Pacific"),AUSTRALIA("Australia"),INDONESIA("Indonesia"),COREA("Corea"),PHILIPPINES("Philippines"),SEA("SEA"),THAILAND("Thailand"),
     CHINA("China"),JAPAN("Japan"),MALAYSIA("Malaysia"),NEA("NEA"),SINGAPORE("Singapore"),TAIWAN("Taiwan"),VIETNAM("Vietnam")
 }
+
 
 enum class AfricaMarkets(val value:String){
     AFRICA("Africa")
@@ -26,7 +30,7 @@ enum class AmericasMarkets(val value:String){
 }
 
 enum class EuropeMarkets(val value:String){
-    ALL("Europe"),CENTRAL_AND_EAST("Central and East"),FRANCE("France"),GERMANY("Germany"),ITALY("Italy"),WEST_EUROPE("West Europe")
+    ALL("Europe"),CENTRAL_AND_EAST("Central and East Europe"),FRANCE("France"),GERMANY("Germany"),ITALY("Italy"),WEST_EUROPE("West Europe")
 }
 
 enum class MiddleEastMarkets(val value:String){
@@ -77,3 +81,4 @@ enum class Services(val value: String){
 enum class Language(val value:String){
     ENGLISH("English")
 }
+

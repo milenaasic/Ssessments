@@ -3,6 +3,7 @@ package com.ssessments.newsapp.filter_fragments_saved_and_predefined
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +21,14 @@ import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.news_list_home.MainFragmentViewModel
 import com.ssessments.newsapp.news_list_home.MainFragmentViewModelFactory
+import com.ssessments.newsapp.utilities.EMPTY_USERNAME
 
-
+private const val MY_TAG="MY_SavedFiltersFragment"
 class SavedFiltersFragment : Fragment() {
     private lateinit var binding: FragmentSavedFiltersBinding
     private lateinit var viewModel: SavedFiltersViewModel
     private  var myuserData: UserData?=null
+    private lateinit var adapter:SavedFiltersAdapter
 
 
     override fun onCreateView(
@@ -46,10 +49,14 @@ class SavedFiltersFragment : Fragment() {
 
         viewModel.loggedInUser.observe(this,Observer{user->
             myuserData=user
+            if(user.username.equals(EMPTY_USERNAME)) {
+                adapter.dataList= emptyList()
+                viewModel.showEmptyListText(true)
+            }
         })
 
 
-        val adapter=SavedFiltersAdapter(FilterItemClickListener { filterId ->
+        adapter=SavedFiltersAdapter(FilterItemClickListener { filterId ->
             //Toast.makeText(context, "${filterId}", Toast.LENGTH_LONG).show()
             viewModel.fetchSavedFilterWithId(filterId)
         }, FilterItemDeleteClickListener { item->
@@ -69,17 +76,33 @@ class SavedFiltersFragment : Fragment() {
         binding.savedFiltersRecView.adapter= adapter
         binding.savedFiltersRecView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
+
+
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel.filters.observe(this, Observer {list->
-            adapter.dataList=list
-            if (list.isNullOrEmpty()){
+            if(viewModel.loggedInUser.value?.username.equals(EMPTY_USERNAME)) {
                 viewModel.showEmptyListText(true)
-            }else{viewModel.showEmptyListText(false)}
+            }else {
+                adapter.dataList = list
+                if (list.isNullOrEmpty()) {
+                    viewModel.showEmptyListText(true)
+                } else {
+                    viewModel.showEmptyListText(false)
+                }
+            }
         })
 
         viewModel.showEmptyList.observe(this, Observer {showList->
             if(showList) binding.savedEmptyListText.visibility=View.VISIBLE
             else binding.savedEmptyListText.visibility=View.GONE
-         })
+        })
 
         viewModel.chosenFilter.observe(this,Observer{chosenFilter->
             viewModel.applySavedFilter(chosenFilter)
@@ -91,10 +114,6 @@ class SavedFiltersFragment : Fragment() {
                 viewModel.navigationToMainFragmentFromSavedFinished()
             }
         })
-
-
-
-        return binding.root
     }
 
 

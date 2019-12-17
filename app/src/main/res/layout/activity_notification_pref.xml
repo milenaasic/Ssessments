@@ -14,12 +14,14 @@
             android:background="?attr/colorPrimary"
             android:elevation="12dp"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:theme="@style/my_toolbar_notific__activity"
+            app:popupTheme="@style/my_toolbar_notific__activity_pop_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@string/notifications"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white"
+             />
 
     <ScrollView
             android:layout_width="match_parent"

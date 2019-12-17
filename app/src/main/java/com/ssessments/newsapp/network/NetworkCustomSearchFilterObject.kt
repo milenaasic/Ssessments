@@ -3,7 +3,7 @@ package com.ssessments.newsapp.network
 
 import com.squareup.moshi.Json
 
-class NetworkCustomSearchFilterObject(
+data class NetworkCustomSearchFilterObject(
 
     @Json(name="token")
     var token:String,

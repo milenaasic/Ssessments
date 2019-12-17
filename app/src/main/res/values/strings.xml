@@ -158,6 +158,8 @@
     <string name="predefined">Predefined</string>
     <string name="filters_title">Filters</string>
     <string name="my_account_menu_title">My Account</string>
+    <string name="filter_news_according_to_notifications">Filter News According To Notifications</string>
+    <string name="all_products">All Products</string>
 
     <string-array name="multi_list_Asia_pacific">
         <item>Australia</item>
