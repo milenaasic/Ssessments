@@ -12,6 +12,7 @@ import retrofit2.http.POST
 import java.util.concurrent.TimeUnit
 
 
+//private const val BASE_URL ="https://production-ssapi.upconfig.com/"
 private const val BASE_URL ="https://dev-ssapi.upconfig.com/"
 
 private val moshi= Moshi.Builder()

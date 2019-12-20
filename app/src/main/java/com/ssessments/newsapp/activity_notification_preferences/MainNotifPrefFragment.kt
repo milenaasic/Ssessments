@@ -72,7 +72,9 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
 
         activityViewModel.servicesSummary.observe(this, Observer {arrayListServices->
 
-            findPreference<Preference>(resources.getString(R.string.services_preferences))?.summary=
+            val pref=findPreference<Preference>(resources.getString(R.string.services_preferences))
+
+            pref?.summary=
                 if(arrayListServices.isEmpty()) NOTHING_SELECTED_IN_NOTIFICATIONS
                 else arrayListServices.joinToString { it }.trim()
 
@@ -115,9 +117,15 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
 
         val markets=getMarkets()
         Log.i(MY_TAG," marketi su $markets")
-        return CurrentFilter(market = getMarkets().joinToString { it },
-                            product = getProducts().joinToString { it },
-                            ssessment = getServices().joinToString{it})
+        return CurrentFilter(market = getMarkets().joinToString {it},
+                            product = getProducts().joinToString {it},
+                            ssessment = getServices().joinToString{it},
+                            language=getChosenLanguage())
+    }
+
+    private fun getChosenLanguage(): String {
+
+        return sharedPref.getString("list_preference_language_for_notif",Language.ENGLISH.value)?:Language.ENGLISH.value
     }
 
 

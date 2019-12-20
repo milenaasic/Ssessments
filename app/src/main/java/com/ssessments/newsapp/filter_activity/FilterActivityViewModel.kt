@@ -31,6 +31,11 @@ class FilterActivityViewModel (val database: NewsDatabaseDao,
     val mychosenToDate:MutableLiveData<String> by lazy{
         MutableLiveData<String>()
     }
+
+    val mychosenLanguage:MutableLiveData<String> by lazy{
+        MutableLiveData<String>()
+    }
+
     private val _navigateToMainActivity = MutableLiveData<Boolean>()
     val navigateToMainActivity: LiveData<Boolean>
         get() = _navigateToMainActivity
@@ -84,6 +89,7 @@ class FilterActivityViewModel (val database: NewsDatabaseDao,
            mychosenMarketsTags.value= convertStringWithCommasToArray(currentmarkets)
            mychosenProductsTags.value= convertStringWithCommasToArray(currentproducts)
            mychosenServicesTags.value= convertStringWithCommasToArray(currentservices)
+           mychosenLanguage.value=currentFilterInDB.language
            mychosenFromDate.value=currentFilterInDB.dateFrom
            mychosenToDate.value=currentFilterInDB.dateTo
        }

@@ -1,4 +1,4 @@
-package com.ssessments.newsapp.filter_activity
+ package com.ssessments.newsapp.filter_activity
 
 
 import android.app.DatePickerDialog
@@ -12,11 +12,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.CurrentFilter
@@ -64,6 +66,9 @@ class CustomFilterFragment : Fragment() {
         binding.ssessmentsConstLayout.setOnClickListener{view ->
             navController.navigate(CustomFilterFragmentDirections.actionCustomFilterFragmentToServicetypeFragment())
         }
+
+        // setovanje cipova za jezik
+        setTagsToChips(binding.languageChipGroup,convertStringWithCommasToRealArray(enumValues<Language>().joinToString { it.value }))
 
         //default vrednosti datuma i teksta za date pickere
         selectedFromDate.timeInMillis=System.currentTimeMillis()
@@ -141,6 +146,7 @@ class CustomFilterFragment : Fragment() {
                 filterActivityViewModel.applyFilter(CurrentFilter(  market=binding.marketsesubtitl.text.toString(),
                                                                     product = binding.productssubtitl.text.toString(),
                                                                     ssessment = binding.ssessmenntsubtitl.text.toString(),
+                                                                    language = getCheckedLanguage(),
                                                                 dateFrom =if(binding.activityfromDatePicker.text==DATE_SELECT_TEXT) NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedFromDate.time) ,
                                                                 dateTo =if(binding.activitytoDatePicker.text==DATE_SELECT_TEXT)  NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedToDate.time) )
                                                                     )
@@ -186,7 +192,7 @@ class CustomFilterFragment : Fragment() {
             setChosenServicesTags(arrayListOf(Services.ALL_SERVICES.value))
             setChosenFromDate(NO_DATE_SELECTED_VALUE)
             setChosenToDate(NO_DATE_SELECTED_VALUE)
-
+            binding.chipEnglish.isChecked=true
          }
 
 
@@ -243,6 +249,12 @@ class CustomFilterFragment : Fragment() {
 
         })
 
+
+        filterActivityViewModel.mychosenLanguage.observe(this, Observer {
+
+        if(it!=null) setLanguageChipWithTitle(it)
+        })
+
         filterActivityViewModel.navigateToMainActivity.observe(this,Observer{
             if(it){
                 Log.i(MYTAG, " u on ViewCreated navigate to main activity $it")
@@ -262,6 +274,20 @@ class CustomFilterFragment : Fragment() {
 
     }
 
+    private fun setLanguageChipWithTitle(s: String?) {
+        val chipGroup = binding.languageChipGroup
+
+        myloop@
+        for (i in 0..chipGroup.childCount - 1) {
+            val chip = chipGroup.getChildAt(i) as Chip
+            if (chip.tag.equals(s)) {
+                chip.isChecked = true
+                break@myloop
+            }
+
+        }
+    }
+
 
     // ZA SAVED FILTERS TABELU
     private fun getFilterFieldsValue(filterName: String): FilterItem {
@@ -272,9 +298,26 @@ class CustomFilterFragment : Fragment() {
             market=binding.marketsesubtitl.text.toString(),
             product = binding.productssubtitl.text.toString(),
             ssessment = binding.ssessmenntsubtitl.text.toString(),
+            language=getCheckedLanguage(),
             dateFrom =if(binding.activityfromDatePicker.text==DATE_SELECT_TEXT) NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedFromDate.time) ,
             dateTo =if(binding.activitytoDatePicker.text==DATE_SELECT_TEXT)  NO_DATE_SELECTED_VALUE else dateFormatMySQL.format(selectedToDate.time)
             )
+
+    }
+
+    private fun getCheckedLanguage():String{
+
+        var lan=Language.ENGLISH.value
+
+        when(binding.languageChipGroup.checkedChipId){
+
+            R.id.chipEnglish->lan= Language.ENGLISH.value
+            R.id.chipVietnamese->lan= Language.VIETNAMESE.value
+            R.id.chipBahamaIndonesia->lan= Language.BAHASA_INDONESIA.value
+
+        }
+
+        return lan
 
     }
 }
