@@ -63,7 +63,7 @@ interface NewsAPIService {
     @POST("api/v1/users/set-notifications" )
     fun sendNotificationPreferencesToServer(@Body notifications:NetworkPreferencesObject):Deferred<String>
 
-    @POST("url7")
+    @POST("api/v1/users/get-notifications")
     fun getNotificationPreferencesFromServer(@Body token:NetworkRequestGetNotifPref):Deferred<List<NetworkSinglePreference>>
 
     //USER ACCOUNT

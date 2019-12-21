@@ -140,7 +140,8 @@ class mainFragment : Fragment() {
                 viewModel.getFilteredNewsListFromServer(NetworkNewsFilterObject(token=myUserData?.token?:EMPTY_TOKEN,
                     markets =arrayOf(Markets.ALL_MARKETS.value),
                     products=arrayOf(Products.ALL_PRODUCTS.value),
-                    ssessments = arrayOf(Ssessments.ALL_SERVICES.value)),
+                    ssessments = arrayOf(Ssessments.ALL_SERVICES.value),
+                    language=Language.ENGLISH.value),
                     initializedFromSwipeRefresh = true)
             }
 

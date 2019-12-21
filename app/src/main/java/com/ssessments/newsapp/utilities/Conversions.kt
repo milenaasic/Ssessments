@@ -204,6 +204,7 @@ return NetworkNewsFilterObject( token=token,
                                 markets = convertStringWithCommasToRealArray(item.market),
                                 products = convertStringWithCommasToRealArray(item.product),
                                 ssessments = convertStringWithCommasToRealArray(item.ssessment),
+                                language = item.language,
                                 dateFrom = item.dateFrom,
                                 dateTo = dateToValue)
 }

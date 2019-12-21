@@ -93,7 +93,14 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 val defSharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication())
                 val editor: SharedPreferences.Editor = defSharedPref.edit()
 
-                loop@
+                for(value in resultList){
+
+                    if(defSharedPref.contains(value.preferenceKey)) editor.putBoolean(value.preferenceKey,value.preferenceValue)
+                }
+
+                editor.apply()
+
+                /*loop@
                 for(value in resultList) {
 
                     for (index in 0..Markets.values().size - 2) {
@@ -119,9 +126,12 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                             continue@loop
                         }
                     }
-                }
 
-                editor.apply()
+
+
+                }*/
+
+
             }
         }
     }
