@@ -79,6 +79,6 @@ enum class Services(val value: String){
 }
 
 enum class Language(val value:String){
-    ENGLISH("English"),VIETNAMESE("Vietnamese"),BAHASA_INDONESIA("Bahasa Indonesia")
+    ENGLISH("English"),VIETNAMESE("Vietnamese"),BAHASA_INDONESIA("Bahasa Indonesia" )
 }
 

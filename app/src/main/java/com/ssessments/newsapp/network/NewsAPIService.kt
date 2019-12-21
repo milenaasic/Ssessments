@@ -60,7 +60,7 @@ interface NewsAPIService {
     fun postUserRegistration(@Body userRegistrationData: NetworkUserRegistrationData):Deferred<NetworkUserRegistrationResponse>
 
     //send notification preferences to server
-    @POST("url6")
+    @POST("api/v1/users/set-notifications" )
     fun sendNotificationPreferencesToServer(@Body notifications:NetworkPreferencesObject):Deferred<String>
 
     @POST("url7")

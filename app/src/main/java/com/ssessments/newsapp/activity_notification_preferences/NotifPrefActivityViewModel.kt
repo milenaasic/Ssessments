@@ -230,8 +230,7 @@ class NotifPrefActivityViewModel(val database: NewsDatabaseDao,
                 Log.i(MY_TAG, "network pref object je $singlePreferencesArray")
 
                 var getValuesDeferred = NewsApi.retrofitService.sendNotificationPreferencesToServer(
-                    NetworkPreferencesObject(mytoken, arrayOf(NetworkSinglePreference("key", true)))
-                )
+                    NetworkPreferencesObject(mytoken, singlePreferencesArray))
 
                 try {
                     var result = getValuesDeferred.await()
