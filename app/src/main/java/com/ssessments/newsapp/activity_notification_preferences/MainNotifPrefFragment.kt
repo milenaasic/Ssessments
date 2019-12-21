@@ -210,10 +210,12 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
 
         Log.i(MY_TAG,"new values pref jednake starim ${newValues.equals(lastSavedValues)}")
 
+        val langForNotif=sharedPref.getString("list_preference_language_for_notif", Language.ENGLISH.value)?: Language.ENGLISH.value
+        Log.i(MY_TAG,"odabrani jezik za notif ${langForNotif}")
 
         if(!newValues.equals(lastSavedValues)){
             Log.i(MY_TAG,"new values pref nisu jednake starim")
-            activityViewModel.sendNotificationPreferencesToServer(newValues)
+            activityViewModel.sendNotificationPreferencesToServer(newValues,langForNotif)
         }
 
     }

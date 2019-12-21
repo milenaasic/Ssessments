@@ -213,7 +213,7 @@ class NotifPrefActivityViewModel(val database: NewsDatabaseDao,
     }
 
 
-    fun sendNotificationPreferencesToServer(entries:Map<String,Boolean>){
+    fun sendNotificationPreferencesToServer(entries:Map<String,Boolean>,languageForNotif:String){
 
         val mytoken=loggedInUser.value?.token ?: EMPTY_TOKEN
         Log.i(MY_TAG,"logged in user je iz send notif ${loggedInUser.value}")
@@ -230,7 +230,7 @@ class NotifPrefActivityViewModel(val database: NewsDatabaseDao,
                 Log.i(MY_TAG, "network pref object je $singlePreferencesArray")
 
                 var getValuesDeferred = NewsApi.retrofitService.sendNotificationPreferencesToServer(
-                    NetworkPreferencesObject(mytoken, singlePreferencesArray))
+                    NetworkPreferencesObject(mytoken, singlePreferencesArray, language =languageForNotif ))
 
                 try {
                     var result = getValuesDeferred.await()
