@@ -13,6 +13,7 @@ import com.ssessments.newsapp.utilities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 private const val MY_TAG="MY_MainActivViewModel"
 
@@ -94,8 +95,9 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 val editor: SharedPreferences.Editor = defSharedPref.edit()
 
                 for(value in resultList){
-
-                    if(defSharedPref.contains(value.preferenceKey)) editor.putBoolean(value.preferenceKey,value.preferenceValue)
+                    val myKey=value.preferenceKey.trim().replace(" ", "_").replace("/", "_").toLowerCase(
+                        Locale.US)
+                    if(defSharedPref.contains(myKey)) editor.putBoolean(myKey,value.preferenceValue)
                 }
 
                 editor.apply()

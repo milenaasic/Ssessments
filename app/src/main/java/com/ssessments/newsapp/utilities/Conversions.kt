@@ -29,84 +29,84 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
     for(value in enumValues<AsiaPacificMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<AfricaMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<AmericasMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<EuropeMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<ICSMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<MiddleEastMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<RussiaMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<WorldMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<Plastics>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<Chemicals>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<EnergyFeedstocks>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
     for(value in enumValues<Services>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
-            list.add(NetworkSinglePreference(s,entries.get(s) as Boolean))
+            list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
         }
     }
 
