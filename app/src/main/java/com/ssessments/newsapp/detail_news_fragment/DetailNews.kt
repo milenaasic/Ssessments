@@ -47,6 +47,7 @@ class DetailNews() : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          args = DetailNewsArgs.fromBundle(arguments!!)
+         Log.d(MYTAG, "news is koji se otvara je ${args.newsID}")
         setHasOptionsMenu(true)
 
     }
@@ -155,6 +156,8 @@ class DetailNews() : Fragment() {
         if (s != null) changeFontSizeAllViews( s.toFloat())
 
     }
+
+
 
 
     private fun changeFontSizeAllViews(fontSize: Float) {

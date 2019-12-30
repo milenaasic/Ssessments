@@ -130,70 +130,88 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="wrap_content"
-                                                       android:id="@+id/languageConstLayout"
-                                                       app:layout_constraintTop_toBottomOf="@+id/ssessmentsConstLayout"
-                                                       app:layout_constraintStart_toStartOf="parent"
-                                                       app:layout_constraintEnd_toEndOf="parent"
-                                                       android:layout_marginTop="8dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/languageConstLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ssessmentsConstLayout">
 
         <TextView
                 android:id="@+id/languagtext"
-                android:text="Language"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" tools:text="Language"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
-
-
-        <com.google.android.material.chip.ChipGroup
-                android:id="@+id/languageChipGroup"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Language"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/languagtext"
-                app:singleLine="true"
-                app:singleSelection="true">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Language" />
 
-            <com.google.android.material.chip.Chip
-                    android:id="@+id/chipEnglish"
-                    style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+        <HorizontalScrollView
+                android:id="@+id/languagehorizontalscroolview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:scrollbarSize="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/languagtext">
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/languageChipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="English" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/languagtext"
+                    app:layout_constraintTop_toBottomOf="@+id/languagtext"
+                    app:singleLine="true"
+                    app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                    android:id="@+id/chipVietnamese"
-                    style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vietnamese" />
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEnglish"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="English" />
 
-            <com.google.android.material.chip.Chip
-                    android:id="@+id/chipBahamaIndonesia"
-                    style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bahama Indonesia" />
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chipVietnamese"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vietnamese" />
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chipBahamaIndonesia"
+                        style="@style/Widget.MaterialComponents.Chip.Filter.MyChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bahama Indonesia" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <View
                 android:id="@+id/langDiv"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintTop_toBottomOf="@+id/languageChipGroup"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"/>
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/languagehorizontalscroolview" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

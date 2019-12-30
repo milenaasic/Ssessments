@@ -20,16 +20,19 @@ val dateFormatWithHours:SimpleDateFormat= SimpleDateFormat("dd MMM yyyy, HH:mm")
 val ssessmentsDateFormat:SimpleDateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
 
 
-
+private const val MYTAG="MY_converstions"
 fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<NetworkSinglePreference>{
 
     var list= mutableListOf<NetworkSinglePreference>()
-
+    Log.i (MYTAG,"usao u list ti single pref array")
 
     for(value in enumValues<AsiaPacificMarkets>()){
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
+        Log.i (MYTAG,"key za asia pacific je ${s}")
         if (entries.containsKey(s)) {
+            Log.i (MYTAG,"u entries postoji key za asia pacific je ${s}")
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -37,6 +40,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -44,6 +48,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -51,6 +56,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -58,6 +64,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -65,6 +72,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -72,6 +80,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -79,6 +88,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -86,6 +96,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -93,6 +104,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -100,6 +112,7 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
@@ -107,11 +120,12 @@ fun convertMutableListToSinglePreferencesArray(entries:Map<String,*>):Array<Netw
         val s: String =value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US)
         if (entries.containsKey(s)) {
             list.add(NetworkSinglePreference(value.value,entries.get(s) as Boolean))
+            Log.i (MYTAG,"dodato u listu ${value.value}")
         }
     }
 
 
-    Log.i("konverzije", "lista je $list")
+    Log.i(MYTAG, "lista je $list")
     return list.toTypedArray()
 
 }
@@ -122,27 +136,33 @@ fun makeKeyListOfEnums():ArrayList<String>{
 
 
     for(value in enumValues<AsiaPacificMarkets>()){
+        if(value.equals(AsiaPacificMarkets.ALL_ASIA_PACIFIC))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
 
     }
 
     for(value in enumValues<AfricaMarkets>()){
+
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<AmericasMarkets>()){
+        if(value.equals(AmericasMarkets.ALL_AMERICAS))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<EuropeMarkets>()){
+        if(value.equals(EuropeMarkets.ALL_EUROPE))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<ICSMarkets>()){
+        if(value.equals(ICSMarkets.ALL_ICS))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<MiddleEastMarkets>()){
+        if(value.equals(MiddleEastMarkets.ALL_MIDDLE_EAST))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
@@ -155,18 +175,22 @@ fun makeKeyListOfEnums():ArrayList<String>{
     }
 
     for(value in enumValues<Plastics>()){
+        if(value.equals(Plastics.ALL_PLASTICS))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<Chemicals>()){
+        if(value.equals(Chemicals.ALL_CHEMICALS))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<EnergyFeedstocks>()){
+        if(value.equals(EnergyFeedstocks.ALL_ENERGY))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 
     for(value in enumValues<Services>()){
+        if(value.equals(Services.ALL_SERVICES))continue
         list.add(value.toString().trim().replace(" ", "_").replace("/", "_").toLowerCase(Locale.US))
     }
 

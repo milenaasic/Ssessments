@@ -44,7 +44,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         val prefproducts=preferenceScreen.findPreference<PreferenceCategory>("products")
         val prefSsessments=preferenceScreen.findPreference<PreferenceCategory>("ssessments")
 
-       if(prefMarkets!=null){
+       /*if(prefMarkets!=null){
             for(index in 0..prefMarkets.preferenceCount-1){
                 prefMarkets.getPreference(index).title=Markets.values()[index+1].value
 
@@ -63,7 +63,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
                 prefSsessments.getPreference(index).title= Ssessments.values()[index+1].value
 
             }
-        }
+        }*/
 
         for (categoryindex in 0..preferenceScreen.preferenceCount-1){
             val pref=preferenceScreen.getPreference(categoryindex) as PreferenceCategory
@@ -84,12 +84,13 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(item.itemId==R.id.filterNews){
+       /* if(item.itemId==R.id.filterNews){
             val currentFilter=getCurrentPreferences()
             mainActivityViewModel.setCurrentFilterAccordingToNotifications(currentFilter)
             findNavController().navigateUp()
             return true
-        }else return super.onOptionsItemSelected(item)
+        }else return super.onOptionsItemSelected(item)*/
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -120,7 +121,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
     }
 
 
-    private fun getCurrentPreferences():CurrentFilter{
+   /* private fun getCurrentPreferences():CurrentFilter{
         return CurrentFilter(
         market = convertArrayListToStringWithCommas(getCheckedMarkets()),
         product = convertArrayListToStringWithCommas(getCheckedProducts()),
@@ -128,9 +129,9 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         language = Language.ENGLISH.value
         )
 
-    }
+    }*/
 
-    private fun getCheckedMarkets():ArrayList<String>{
+    /*private fun getCheckedMarkets():ArrayList<String>{
 
         val allEntries=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
 
@@ -152,9 +153,9 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
             }
         }
         return list
-    }
+    }*/
 
-    private fun getCheckedProducts():ArrayList<String>{
+    /*private fun getCheckedProducts():ArrayList<String>{
 
         val allEntries=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
 
@@ -173,9 +174,9 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
             }
         }
         return list
-    }
+    }*/
 
-    private fun getCheckedSsessments():ArrayList<String>{
+    /*private fun getCheckedSsessments():ArrayList<String>{
 
         val allEntries=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all
 
@@ -196,7 +197,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
             }
         }
         return list
-    }
+    }*/
 
     override fun onStop() {
         super.onStop()

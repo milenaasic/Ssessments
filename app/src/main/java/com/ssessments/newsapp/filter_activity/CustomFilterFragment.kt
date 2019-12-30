@@ -188,7 +188,7 @@ class CustomFilterFragment : Fragment() {
     private fun resetAllFields() {
         filterActivityViewModel.apply {
             setChosenMarketsTags(arrayListOf(AllMarkets.ALL_MARKETS.value))
-            setChosenProductsTags(arrayListOf(Products.ALL_PRODUCTS.value))
+            setChosenProductsTags(arrayListOf(AllProducts.ALL_PRODUCTS.value))
             setChosenServicesTags(arrayListOf(Services.ALL_SERVICES.value))
             setChosenFromDate(NO_DATE_SELECTED_VALUE)
             setChosenToDate(NO_DATE_SELECTED_VALUE)

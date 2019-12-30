@@ -30,6 +30,7 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(clickListener,dataList[position],textSizeMultiplier)
+
     }
 
     override fun getItemCount(): Int {

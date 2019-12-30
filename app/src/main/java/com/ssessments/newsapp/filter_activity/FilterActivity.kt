@@ -19,7 +19,6 @@ import com.ssessments.newsapp.databinding.ActivityFilterBinding
 import com.ssessments.newsapp.filter_fragments_saved_and_predefined.PredefinedFiltersFragmentDirections
 import com.ssessments.newsapp.filter_fragments_saved_and_predefined.SavedFiltersFragmentDirections
 import com.ssessments.newsapp.utilities.ICSMarkets
-import com.ssessments.newsapp.utilities.Markets
 import com.ssessments.newsapp.utilities.convertStringWithCommasToArray
 import kotlinx.android.synthetic.main.activity_filter.*
 

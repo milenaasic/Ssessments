@@ -1,6 +1,7 @@
 package com.ssessments.newsapp.account
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +12,14 @@ import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.ssessments.newsapp.MainActivity
 
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.databinding.AccountFragmentBinding
+import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
 import com.ssessments.newsapp.news_list_home.MainFragmentViewModel
 import com.ssessments.newsapp.news_list_home.MainFragmentViewModelFactory
 
@@ -52,10 +56,12 @@ class AccountFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(AccountViewModel::class.java)
         Log.i(MYTAG,"on create view")
+        //val navController=this.findNavController()
+        //val popped=navController.popBackStack(R.id.mainFragment, false)
+        //Log.i(MYTAG,"on create view popped back stack je $popped")
 
 
-
-        binding.editEmailImage.setOnClickListener {
+        /*binding.editEmailImage.setOnClickListener {
             binding.accountemailtextView.requestFocus()
             inputMethodManager.showSoftInput(binding.accountemailtextView,SHOW_IMPLICIT)
         }
@@ -90,7 +96,7 @@ class AccountFragment : Fragment() {
 
                 else->false
             }
-        }
+        }*/
         return binding.root
     }
 
@@ -108,25 +114,37 @@ class AccountFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.account_fragment_menu,menu)
+        //inflater.inflate(R.menu.account_fragment_menu,menu)
         menu.removeItem(R.id.filter_menu_item)
         menu.removeItem(R.id.action_search)
 
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.save_account_changes->{
-                viewModel.userChangedHisRegData(binding.accountemailtextView.text.toString(),binding.accountphoneValuetextView.text.toString())
+                //viewModel.userChangedHisRegData(binding.accountemailtextView.text.toString(),binding.accountphoneValuetextView.text.toString())
+
+                //val mactivity=requireActivity() as MainActivity
+                //mactivity.gotoDetailNewsFromNotifications("184855")
                 //findNavController().navigateUp()
+
+                val intent= Intent(activity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.putExtra(EXTRA_NEWSID,"184855")
+                startActivity(intent)
+
                 return true
             }
             else-> return false
         }
+    }*/
+
+    override fun onStart() {
+        super.onStart()
+
     }
-
-
 
     override fun onStop() {
         super.onStop()

@@ -6,6 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.ssessments.newsapp.database.NewsDatabaseDao
 import com.ssessments.newsapp.database.UserData
 import com.ssessments.newsapp.network.NetworkForgotPasswordRequest
@@ -20,9 +22,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-
+private const val MY_TAG="MY_LogInViewModel"
 class LogIn_ViewModel(val database: NewsDatabaseDao,
                       application: Application): AndroidViewModel(application) {
+
+
 
 
     private val _showProgressBar = MutableLiveData<Boolean>()
@@ -55,8 +59,38 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
 
     init {
-
+        getFirebaseIdFromServer()
     }
+
+
+    private fun getFirebaseIdFromServer() {
+        viewModelScope.launch {
+
+            if(database.getUserNoLiveData().firebaseID.equals(EMPTY_FIREBASEID)){
+
+                FirebaseInstanceId.getInstance().instanceId
+                    .addOnCompleteListener(OnCompleteListener { task ->
+                        Log.i(MY_TAG,"u on complete listener")
+                        if (!task.isSuccessful) {
+                            Log.w(MY_TAG, "getInstanceId failed", task.exception)
+                            return@OnCompleteListener
+                        }
+
+                        // Get new Instance ID token
+                        val token = task.result?.token
+                        Log.i(MY_TAG,"getFirebaseId je $token")
+                        if(token!=null) {
+                           viewModelScope.launch {
+                               database.updateFirebaseIdInUserTable(firebaseId = token)
+                           }
+                        }
+
+                    })
+            }
+         }
+    }
+
+
 
     //SIGN IN
     fun signInButtonPressed(username: String, password: String) {
@@ -73,8 +107,7 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
     fun signInThisUser(username: String, password: String) {
 
             viewModelScope.launch {
-
-                val userFirebaseID = database.getUserNoLiveData()?.firebaseID?: EMPTY_FIREBASEID
+                val userFirebaseID = database.getUserNoLiveData().firebaseID
                 var loginuserdeferred = NewsApi.retrofitService.postUserLogIn(NetworkUserData(username, password,userFirebaseID))
 
                 try {
@@ -113,7 +146,8 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
         }
 
 
-        //Forgot password
+
+    //Forgot password
         fun sendForgotPasswordEmail(usermail: String) {
 
             _showProgressBar.value = true
@@ -163,3 +197,4 @@ class LogIn_ViewModel(val database: NewsDatabaseDao,
 
 
 }
+

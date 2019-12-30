@@ -14,6 +14,7 @@ import com.ssessments.newsapp.MainActivity
 import com.ssessments.newsapp.R
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.database.UserData
+import com.ssessments.newsapp.utilities.EMPTY_FIREBASEID
 
 import kotlinx.coroutines.*
 
@@ -27,7 +28,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     val serviceScope = CoroutineScope(serviceJob + Dispatchers.Main )
 
     companion object {
-        private const val TAG = "MyFirebaseMsgService"
+        private const val TAG = "MY_FirebaseMsgService"
         //tip poruke
         private const val MESSAGE_TYPE_KEY="type"
         private const val MESSAGE_TYPE_VALUE_NEWS="news"
@@ -78,13 +79,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             withContext(Dispatchers.IO) {
                 val datasource = NewsDatabase.getInstance(application).newsDatabaseDao
                 datasource.updateFirebaseIdInUserTable(firebaseId = firebasetoken)
+                //datasource.updateFirebaseIdInUserTable(firebaseId = EMPTY_FIREBASEID)
             }
         }
 
     }
 
     private fun sendNotification(messageTitle:String,messageBody: String,messageNewsId:String) {
-
+        Log.d(TAG, "usao u send notification")
         val intent=Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.putExtra(EXTRA_NEWSID,messageNewsId)
@@ -120,6 +122,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onDestroy() {
         super.onDestroy()
         serviceJob.cancel()
+        Log.d(TAG, "on destroy")
 
     }
 

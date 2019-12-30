@@ -23,7 +23,7 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
 
     private lateinit var activityViewModel: NotifPrefActivityViewModel
     private lateinit var sharedPref:SharedPreferences
-    private lateinit var lastSavedValues:Map<String,Boolean>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,6 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lastSavedValues =activityViewModel.lastSavedValues
 
         activityViewModel.servicesSummary.observe(this, Observer {arrayListServices->
 
@@ -199,12 +198,12 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
 
     override fun onStop() {
         super.onStop()
-        sendNotificationsToServer()
+        //sendNotificationsToServer()
         Log.i(MY_TAG,"on stop")
 
     }
 
-    private fun sendNotificationsToServer() {
+    /*private fun sendNotificationsToServer() {
 
         val newValues=PreferenceManager.getDefaultSharedPreferences(requireActivity()).all as Map<String, Boolean>
 
@@ -218,6 +217,6 @@ class MainNotifPrefFragment : PreferenceFragmentCompat() {
             activityViewModel.sendNotificationPreferencesToServer(newValues,langForNotif)
         }
 
-    }
+    }*/
 
 }

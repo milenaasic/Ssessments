@@ -19,11 +19,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.iid.FirebaseInstanceId
 import com.ssessments.newsapp.R
 
 import com.ssessments.newsapp.database.NewsDatabase
 import com.ssessments.newsapp.databinding.FragmentLogInBinding
+import com.ssessments.newsapp.utilities.EMPTY_FIREBASEID
 
 private const val TAG_LOGIN="MY_LOGIN_FRAGMENT"
 const val LOGGED_IN_USER_GOTO_MAIN_ACTIVITY="LOGGED_IN_USER_GOTO_MAIN_ACTIVITY"
@@ -73,7 +76,6 @@ class LogIn_Fragment : Fragment() {
             }else if(!isPasswordValid(binding.passwordEditText.text.toString())){
                 binding.passwordEditText.setError(resources.getString(R.string.invalid_password))
             }else {
-
                 viewModel.signInButtonPressed(binding.usernameEditText.text.toString(), binding.passwordEditText.text.toString())
             }
         }
@@ -106,6 +108,8 @@ class LogIn_Fragment : Fragment() {
             alertDialog.show()
 
          }
+
+
 
         viewModel.showProgressBar.observe(this, Observer {
                 when(it){
@@ -160,6 +164,44 @@ class LogIn_Fragment : Fragment() {
         return binding.root
 
     }
+
+    /*private fun getFirebaseID(): String {
+        Log.i(TAG_LOGIN,"myUser je trenutno ${viewModel.loggedInUser.value}")
+        val myfirebaseId=viewModel.loggedInUser.value?.firebaseID
+        Log.i(TAG_LOGIN,"myToken je trenutno $myfirebaseId")
+        if(myfirebaseId!=null){
+            if(myfirebaseId.equals(EMPTY_FIREBASEID))return getFirebaseIDFromFirebaseServer()
+            else return myfirebaseId
+        }else return EMPTY_FIREBASEID
+
+
+
+    }*/
+
+    /*private fun getFirebaseIDFromFirebaseServer():String {
+
+        var myToken="pokupi token sa servera"
+        Log.i(TAG_LOGIN,"myToken je trenutno $myToken")
+
+        //ov oided u background i ne znam kada ce se zavrsiti
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                Log.i(TAG_LOGIN,"u on complete listener")
+                if (!task.isSuccessful) {
+                    Log.w(TAG_LOGIN, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new Instance ID token
+                val token = task.result?.token
+                Log.i(TAG_LOGIN,"token sa servera je  $token")
+                myToken=token?:"token sa firebase servera je null"
+
+            })
+
+        Log.i(TAG_LOGIN,"myToken koji ide  u return je $myToken")
+        return myToken
+    }*/
 
 
 

@@ -20,6 +20,7 @@ import com.ssessments.newsapp.utilities.EuropeMarkets
 import com.ssessments.newsapp.utilities.ICSMarkets
 import com.ssessments.newsapp.utilities.MiddleEastMarkets
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -33,7 +34,7 @@ class NotifPrefActivityViewModel(val database: NewsDatabaseDao,
 
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication())
-    var lastSavedValues=sharedPreferences.all as Map<String,Boolean>
+    var lastSavedValues=sharedPreferences.all as Map<String,*>
 
     private val _asiaPacificSummary = MutableLiveData<ArrayList<String>>()
     val asiaPacificSummary: LiveData<ArrayList<String>>
@@ -213,7 +214,7 @@ class NotifPrefActivityViewModel(val database: NewsDatabaseDao,
     }
 
 
-    fun sendNotificationPreferencesToServer(entries:Map<String,Boolean>,languageForNotif:String){
+    fun sendNotificationPreferencesToServer(entries:Map<String,*>,languageForNotif:String){
 
         val mytoken=loggedInUser.value?.token ?: EMPTY_TOKEN
         Log.i(MY_TAG,"logged in user je iz send notif ${loggedInUser.value}")
@@ -225,33 +226,43 @@ class NotifPrefActivityViewModel(val database: NewsDatabaseDao,
             Log.i(MY_TAG, "sendNotif $mytoken")
 
             viewModelScope.launch {
+                withContext(NonCancellable) {
+                    val singlePreferencesArray = convertMutableListToSinglePreferencesArray(entries)
+                    Log.i(MY_TAG, "network pref object je $singlePreferencesArray")
+                    Log.i(MY_TAG, "entries su  ${entries.keys}")
 
-                val singlePreferencesArray = convertMutableListToSinglePreferencesArray(entries)
-                Log.i(MY_TAG, "network pref object je $singlePreferencesArray")
+                    var getValuesDeferred =
+                        NewsApi.retrofitService.sendNotificationPreferencesToServer(
+                            NetworkPreferencesObject(
+                                mytoken,
+                                singlePreferencesArray,
+                                language = languageForNotif
+                            )
+                        )
 
-                var getValuesDeferred = NewsApi.retrofitService.sendNotificationPreferencesToServer(
-                    NetworkPreferencesObject(mytoken, singlePreferencesArray, language =languageForNotif ))
+                    try {
+                        var result = getValuesDeferred.await()
 
-                try {
-                    var result = getValuesDeferred.await()
-
-                } catch (e: Exception) {
-                    val responseError = "Failure " + e.message
-                    if (responseError.contains(HTTP_AUTH_FAILED)) {
-                        Log.i(MY_TAG,"network pref object je $responseError")
-                    } else {
-                        Log.i(MY_TAG, "network pref object je $responseError")
+                    } catch (e: Exception) {
+                        val responseError = "Failure " + e.message
+                        if (responseError.contains(HTTP_AUTH_FAILED)) {
+                            Log.i(MY_TAG, "network pref object je $responseError")
+                        } else {
+                            Log.i(MY_TAG, "network pref object je $responseError")
+                        }
                     }
                 }
 
             }
         }
+
+        Log.i(MY_TAG, "kraj funkcije sendNotifications u VIew Modelu")
     }
 
 
     override fun onCleared() {
         super.onCleared()
-
+        Log.i(MY_TAG, "view model on cleared")
     }
 
 }

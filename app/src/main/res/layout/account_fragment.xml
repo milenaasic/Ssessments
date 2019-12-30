@@ -74,7 +74,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" android:layout_marginStart="32dp"
             app:layout_constraintStart_toStartOf="parent"/>
 
-    <EditText
+    <TextView
             android:text="@{userRegistrationData.email}"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/accountemailtextView"
             app:layout_constraintStart_toStartOf="@+id/accountemailtextView"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
-    <EditText
+    <TextView
             android:text="@{userRegistrationData.mobilephone}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,20 +122,28 @@
             app:layout_constraintTop_toBottomOf="@+id/companytextView"
             app:layout_constraintStart_toStartOf="@+id/companytextView" tools:text="company"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/icon_edit_text"
             android:id="@+id/editEmailImage"
-            app:layout_constraintTop_toTopOf="@+id/accountemailtextView"
-            app:layout_constraintBottom_toBottomOf="@+id/accountemailtextView"
-            app:layout_constraintStart_toEndOf="@+id/accountemailtextView" android:layout_marginStart="8dp"/>
-    <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/icon_edit_text"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/accountemailtextView"
+            app:layout_constraintStart_toEndOf="@+id/accountemailtextView"
+            app:layout_constraintTop_toTopOf="@+id/accountemailtextView"
+            app:srcCompat="@drawable/icon_edit_text" />
+
+    <ImageView
             android:id="@+id/editPhoneImage"
-            app:layout_constraintStart_toEndOf="@+id/accountphoneValuetextView" android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/accountphoneValuetextView"
+            app:layout_constraintStart_toEndOf="@+id/accountphoneValuetextView"
             app:layout_constraintTop_toTopOf="@+id/accountphoneValuetextView"
-            app:layout_constraintBottom_toBottomOf="@+id/accountphoneValuetextView"/>
+            app:srcCompat="@drawable/icon_edit_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

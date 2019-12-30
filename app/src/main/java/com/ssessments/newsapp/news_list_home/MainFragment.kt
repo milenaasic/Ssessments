@@ -138,9 +138,9 @@ class mainFragment : Fragment() {
             val filterToApply=myCurrentFilter
             if(filterToApply==null){
                 viewModel.getFilteredNewsListFromServer(NetworkNewsFilterObject(token=myUserData?.token?:EMPTY_TOKEN,
-                    markets =arrayOf(Markets.ALL_MARKETS.value),
-                    products=arrayOf(Products.ALL_PRODUCTS.value),
-                    ssessments = arrayOf(Ssessments.ALL_SERVICES.value),
+                    markets =arrayOf(AllMarkets.ALL_MARKETS.value),
+                    products=arrayOf(AllProducts.ALL_PRODUCTS.value),
+                    ssessments = arrayOf(Services.ALL_SERVICES.value),
                     language=Language.ENGLISH.value),
                     initializedFromSwipeRefresh = true)
             }
@@ -167,6 +167,7 @@ class mainFragment : Fragment() {
         })
 
         viewModel.newsToBeOpenedID.observe(this, Observer { id->
+            Log.i(mytag,"news id iz observe news id u mainfragment view modelu je $id")
             openDetailNewsFragment(id) })
 
         viewModel.showProgressBar.observe(this,Observer{
@@ -227,6 +228,7 @@ class mainFragment : Fragment() {
 
     fun openDetailNewsFragment(id:Int){
          if(id!=-1){
+         Log.i(mytag,"news id je $id")
             val action= mainFragmentDirections.actionMainFragmentToDetailNews(id)
             findNavController().navigate(action)
             viewModel.resetNewsID()

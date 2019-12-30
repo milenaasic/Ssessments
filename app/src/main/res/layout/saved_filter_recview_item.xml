@@ -38,7 +38,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="?attr/selectableItemBackground"
                 android:ellipsize="end"
-                android:onClick="@{() -> myfilterclickListener.onClick(singleFilterItem)}"
+
                 android:singleLine="true"
                 android:text="My Filter 1"
                 android:textAllCaps="true"
@@ -71,6 +71,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/filter_name"
                 app:region_string="@{singleFilterItem}"
                 tools:text="China" />
+
+        <FrameLayout
+                android:id="@+id/touchFrameLayout"
+                android:onClick="@{() -> myfilterclickListener.onClick(singleFilterItem)}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/region_textview"
+                app:layout_constraintEnd_toEndOf="@+id/filter_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/filter_name">
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

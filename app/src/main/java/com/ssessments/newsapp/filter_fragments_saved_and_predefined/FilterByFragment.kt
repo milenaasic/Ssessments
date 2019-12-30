@@ -121,7 +121,7 @@ class FilterByFragment : Fragment() {
         //TAGOVI za čipove za pretragu, Tagovi su jednaki tekstu čipa. Tekst Čipa je u string res, ali tagovi su enum
         // i prema njima ide posle provera da li tag treba da bude ukljucen
 
-        binding.apply{
+        /*binding.apply{
             //market chips
             chip30.tag=Markets.ALL_MARKETS.value
             chip31.tag=Markets.SEA.value
@@ -150,7 +150,7 @@ class FilterByFragment : Fragment() {
             chip17.tag=Ssessments.STATS.value
             chip18.tag=Ssessments.PLANT.value
 
-        }
+        }*/
 
         //RESET button ne radi update news liste niti menja current filter u bazi, to se dogadja samo na APPLY button
         //RESET samo resetuje polja

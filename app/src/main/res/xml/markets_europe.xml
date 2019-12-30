@@ -3,7 +3,7 @@
 
     <CheckBoxPreference
             android:defaultValue="true"
-            android:key="central_and_east"
+            android:key="central_and_east_europe"
             android:title="Check box preference" />
     <CheckBoxPreference
             android:defaultValue="true"

@@ -55,11 +55,29 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
         initializeUser()
         initializeCurrentFilterTable()
         initializeNewsListWithNoResultRow()
-        getNotificationPreferencesFromServer()
+        initializeSharedPreferences()
+        //getNotificationPreferencesFromServer()
         _swipeRefreshEnabled.value=true
     }
 
-    private fun getNotificationPreferencesFromServer() {
+    private fun initializeSharedPreferences() {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication())
+        Log.i(MY_TAG, "shared pref keys su ${sharedPref.all.keys}" )
+        if (sharedPref.all.isEmpty()) {
+            Log.i(MY_TAG, "shared pref je prazan")
+            val keyList = makeKeyListOfEnums()
+
+            with(sharedPref.edit()) {
+                for (key in keyList) {
+                    Log.i(MY_TAG, "key je $key")
+                    putBoolean(key, true)
+                }
+                apply()
+            }
+        }
+    }
+
+    fun getNotificationPreferencesFromServer() {
 
         viewModelScope.launch {
 
@@ -284,7 +302,7 @@ class MainActivityViewModel(val database:NewsDatabaseDao,
                 )
 
                 try {
-                    var result = getValuesDeferred.await()
+                   // var result = getValuesDeferred.await()
 
                 } catch (e: Exception) {
                     val responseError = "Failure " + e.message

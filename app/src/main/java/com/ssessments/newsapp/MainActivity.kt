@@ -18,10 +18,12 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.appbar.AppBarLayout
@@ -34,6 +36,8 @@ import com.ssessments.newsapp.databinding.ActivityMainBinding
 import com.ssessments.newsapp.filter_activity.FilterActivity
 import com.ssessments.newsapp.login_and_registration.LogIn_and_Registration_Activity
 import com.ssessments.newsapp.myfirebase.EXTRA_NEWSID
+import com.ssessments.newsapp.news_list_home.mainFragment
+import com.ssessments.newsapp.news_list_home.mainFragmentDirections
 import com.ssessments.newsapp.search_provider.MySuggestionProvider
 import com.ssessments.newsapp.utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -224,17 +228,14 @@ class MainActivity : AppCompatActivity(){
 
         //activity je orvorena iz Firebase service
         val newsIdFromIntent=intent?.getStringExtra(EXTRA_NEWSID)
-        newsIdFromIntent?.run {
-            val bundle = Bundle()
-            val i: Int = newsIdFromIntent.toInt()
-            bundle.putInt("newsID", i)
-            navController.popBackStack(R.id.mainFragment, false)
-            navController.navigate(R.id.detailNews, bundle)
-        }
+        if(newsIdFromIntent!=null) {
+            Log.i(TAG_MAIN,"iz on create pozivam zbog notifikacije gotoDetail funkjciju")
+            gotoDetailNewsFromNotifications(newsIdFromIntent)}
 
         val ver=getVersionCode(packageManager, packageName)
 
         Log.i(TAG_MAIN,"version code je $ver")
+
     }
 
 
@@ -311,7 +312,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-
+        Log.i(TAG_MAIN,"on new intent")
         if (Intent.ACTION_SEARCH == intent!!.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 mySearchViewWidget.setQuery(query,false)
@@ -320,18 +321,41 @@ class MainActivity : AppCompatActivity(){
                     .saveRecentQuery(query, null)
             }
         }else{
+
+            //val newsIdFromIntent=intent.getStringExtra(EXTRA_NEWSID)
+
         if(intent.hasExtra(EXTRA_NEWSID)){
+
+            Log.i(TAG_MAIN,"on new intent ima extra NewsId")
+
             val newsIdFromIntent=intent.getStringExtra(EXTRA_NEWSID)
+            Log.i(TAG_MAIN,"on new intent extra NewsId je $newsIdFromIntent")
+            gotoDetailNewsFromNotifications(newsIdFromIntent)
 
-            val bundle=Bundle()
-            val i:Int=newsIdFromIntent.toInt()
-
-            bundle.putInt("newsID",i)
-            navController.popBackStack(R.id.mainFragment,false)
-            navController.navigate(R.id.detailNews,bundle)
             }
+        }
+
+    }
+
+    fun gotoDetailNewsFromNotifications(newsIdFromInt:String?){
+
+        Log.i(TAG_MAIN,"usao u funkciju gotoDetailNews")
+
+        val i:Int= newsIdFromInt?.toInt() ?:-1
+        Log.i(TAG_MAIN,"on extra NewsId je $i" )
+        //bundle.putInt("newsID",i)
+
+        val b=navController.popBackStack(R.id.mainFragment,false)
+        Log.i(TAG_MAIN,"da li je uradio pop stack je $b")
+
+        when (navController.currentDestination?.id){
+            R.id.mainFragment->Log.i(TAG_MAIN,"posle  popa destination je main fragment ")
+            R.id.accountFragment->Log.i(TAG_MAIN,"posle  popa destination je account fragment")
 
         }
+
+        val action= mainFragmentDirections.actionMainFragmentToDetailNews(i)
+        navController.navigate(action)
 
     }
 
@@ -351,6 +375,8 @@ class MainActivity : AppCompatActivity(){
             findItem (R.id.goto_ssessments_linkedIn).setChecked(false)
             findItem (R.id.goto_ssessments_facebook).setChecked(false)
          }
+
+         viewModel.getNotificationPreferencesFromServer()
 
 
     }
@@ -511,8 +537,14 @@ class MainActivity : AppCompatActivity(){
                 binding.apply{
                     if(navController.currentDestination?.id==R.id.mainFragment){
                             bottomNavigation.visibility=View.GONE}
-                    myNavigationView.menu.findItem(R.id.logout_menuitem).setVisible(true)
-                    myNavigationView.menu.findItem(R.id.accountFragment).setVisible(true)
+                    myNavigationView.menu.apply {
+                        findItem(R.id.logout_menuitem).setVisible(true)
+                        findItem(R.id.accountFragment).setVisible(true)
+                        findItem(R.id.preferences).setVisible(true)
+                     }
+
+
+
                 }
             }
             false->{
@@ -521,8 +553,12 @@ class MainActivity : AppCompatActivity(){
                     if(navController.currentDestination?.id==R.id.mainFragment){
                         bottomNavigation.visibility=View.VISIBLE
                         }
-                    myNavigationView.menu.findItem(R.id.logout_menuitem).setVisible(false)
-                    myNavigationView.menu.findItem(R.id.accountFragment).setVisible(false)
+                    myNavigationView.menu.apply {
+                        findItem(R.id.logout_menuitem).setVisible(false)
+                        findItem(R.id.accountFragment).setVisible(false)
+                        findItem(R.id.preferences).setVisible(false)
+                    }
+
                 }
             }
         }

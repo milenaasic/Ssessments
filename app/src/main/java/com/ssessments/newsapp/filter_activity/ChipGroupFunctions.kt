@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.core.view.get
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.ssessments.newsapp.utilities.Markets
 import com.ssessments.newsapp.utilities.convertStringWithCommasToArray
 
 fun clearChipGroups(arrayChipGroup: Array<ChipGroup>){

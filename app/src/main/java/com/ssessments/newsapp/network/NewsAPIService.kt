@@ -12,8 +12,9 @@ import retrofit2.http.POST
 import java.util.concurrent.TimeUnit
 
 
-//private const val BASE_URL ="https://production-ssapi.upconfig.com/"
-private const val BASE_URL ="https://dev-ssapi.upconfig.com/"
+private const val BASE_URL ="https://production-ssapi.upconfig.com/"
+//private const val BASE_URL ="https://dev-ssapi.upconfig.com/"
+
 
 private val moshi= Moshi.Builder()
                     .add(KotlinJsonAdapterFactory())
@@ -61,7 +62,7 @@ interface NewsAPIService {
 
     //send notification preferences to server
     @POST("api/v1/users/set-notifications" )
-    fun sendNotificationPreferencesToServer(@Body notifications:NetworkPreferencesObject):Deferred<String>
+    fun sendNotificationPreferencesToServer(@Body notifications:NetworkPreferencesObject):Deferred<NetworkResponseSuccessObject>
 
     @POST("api/v1/users/get-notifications")
     fun getNotificationPreferencesFromServer(@Body token:NetworkRequestGetNotifPref):Deferred<List<NetworkSinglePreference>>
