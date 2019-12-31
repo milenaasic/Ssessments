@@ -65,7 +65,7 @@ class mainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, MainFragmentViewModelFactory(datasource,application))
             .get(MainFragmentViewModel::class.java)
 
-        adapter=NewsAdapter(NewsItemClickListener {  newsId ->
+        adapter=NewsAdapter(NewsItemClickListener { newsId ->
             viewModel.fetchNewsWithID(newsId)
         })
 

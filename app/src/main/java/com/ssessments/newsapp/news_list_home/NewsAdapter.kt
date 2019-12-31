@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssessments.newsapp.database.NewsItem
 import com.ssessments.newsapp.databinding.NewsItemLayoutRecviewBinding
 
-class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+class NewsAdapter(val clickListener: NewsItemClickListener ):RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+
 
     var dataList= listOf<NewsItem>()
     set(value) {
@@ -30,6 +31,7 @@ class NewsAdapter(val clickListener: NewsItemClickListener):RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(clickListener,dataList[position],textSizeMultiplier)
+
 
     }
 

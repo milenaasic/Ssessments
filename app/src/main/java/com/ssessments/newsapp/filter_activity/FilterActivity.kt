@@ -22,7 +22,7 @@ import com.ssessments.newsapp.utilities.ICSMarkets
 import com.ssessments.newsapp.utilities.convertStringWithCommasToArray
 import kotlinx.android.synthetic.main.activity_filter.*
 
-private const val FilterActivityTag="FilterActivity"
+private const val FilterActivityTag="MY_FilterActivity"
 
 private const val CUSTOM_FRAGMENT_LABEL="Custom"
 private const val SAVED_FRAGMENT_LABEL="Saved"
@@ -160,4 +160,17 @@ class FilterActivity : AppCompatActivity() {
          }
 
     }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(FilterActivityTag,"on stop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(FilterActivityTag,"on destroy")
+    }
+
+
+
 }

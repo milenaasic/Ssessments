@@ -155,6 +155,8 @@ class DetailNews() : Fragment() {
             ?.getString(FONT_SIZE_KEY, DEFAULT_FONT_SIZE)
         if (s != null) changeFontSizeAllViews( s.toFloat())
 
+
+
     }
 
 
